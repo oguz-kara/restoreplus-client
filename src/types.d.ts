@@ -291,3 +291,41 @@ interface ParamsWithSlug {
     slug: string
   }
 }
+
+interface Sector {
+  id: number
+  featuredImageId?: number | null
+  featuredImage?: Image | null
+  products: Product[]
+  translations: SectorTranslation[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface SectorTranslation {
+  id: number
+  slug: string
+  name: string
+  title: string
+  metaTitle: string
+  metaDescription: string
+  description?: string | null
+  content: string
+  sectorId: number
+  localeId: number
+  sector: Sector
+  locale: SupportedLocale
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface SectorWithTranslation {
+  id: number
+  featuredImageId?: number | null
+  featuredImage?: Image | null
+  products: Product[]
+  translations: SectorTranslation[]
+  translation: SectorTranslation
+  createdAt: Date
+  updatedAt: Date
+}

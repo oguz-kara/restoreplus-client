@@ -171,7 +171,7 @@ function RightNavigation() {
                 <Button>
                   <User className="mr-2" />
                   <Link href={item.href} lang={lang}>
-                    <span className="text-sm text-black pr-3">
+                    <span className="text-sm pr-3">
                       {item.title}
                     </span>
                   </Link>
