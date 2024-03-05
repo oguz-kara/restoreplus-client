@@ -1,0 +1,436 @@
+{
+  "common": {
+    "learnMore": "Learn more",
+    "learnMoreUs": "Learn More About Us",
+    "or": "or"
+  },
+  "layout": {
+    "navigation": {
+      "navItems": [
+        {
+          "title": "about us",
+          "navLinks": [
+            {
+              "title": "about us",
+              "href": "/about"
+            },
+            {
+              "title": "Services",
+              "href": "/services"
+            },
+            {
+              "title": "Sectors",
+              "href": "/sectors"
+            },
+            {
+              "title": "Help center",
+              "href": "/help-center"
+            }
+          ]
+        },
+        {
+          "title": "log in",
+          "href": "/login"
+        },
+        {
+          "title": "Register",
+          "href": "/register"
+        }
+      ],
+      "title": "Products"
+    },
+    "footer": {
+      "title": "about us",
+      "links": [
+        {
+          "title": "About Restoreplus"
+        },
+        {
+          "title": "Offer request"
+        },
+        {
+          "title": "Sign up"
+        },
+        {
+          "title": "Register"
+        },
+        {
+          "title": "contact"
+        },
+        {
+          "title": "Help center"
+        }
+      ],
+      "copyright": {
+        "reconciliations": {
+          "text": "© 2021 Restoreplus Lubricants Company. All rights reserved. See",
+          "termsAndConditions": "Terms and Conditions",
+          "privacy": "Privacy Statement"
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "text": "log in",
+      "link": "/login",
+      "page": {
+        "title": "page title login",
+        "text": "page text login",
+        "signUp": { "text": "signup text", "href": "/", "linkText": "link" },
+        "fields": {
+          "email": "Email",
+          "password": "Password"
+        },
+        "buttonText": "SUBMIT"
+      }
+    },
+    "register": {
+      "text": "Register",
+      "link": "/register",
+      "page": {
+        "title": "page title register",
+        "text": "page text register",
+        "signUp": { "text": "signup text", "href": "/", "linkText": "link" },
+        "fields": {
+          "email": "Email",
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "password": "Password",
+          "confirmPassword": "Confirm Password"
+        },
+        "checkboxes": {
+          "acceptPromotions": "accept promotions",
+          "reconciliations": {
+            "text": "text",
+            "termsAndConditions": "terms conditions",
+            "privacy": "privacy"
+          }
+        },
+        "buttonText": "SUBMIT"
+      }
+    }
+  },
+  "index": {
+    "hero": {
+      "title": "Quickly discover the specific oil you need specifically for your application.",
+      "input": {
+        "placeholder": "Search restoreplus"
+      },
+      "join": {
+        "text": "New to Restoreplus?",
+        "linkText": "Join Free for All Access ",
+        "href": "/register"
+      }
+    },
+    "section1": {
+      "title": "Discover Restoreplus Lubricants",
+      "columns": [
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "productivity"
+          },
+          "title": "Increase Productivity",
+          "desc": " Experience the effect of high performance lubricants.  ",
+          "buttonText": "Explore the Catalog"
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "productivity"
+          },
+          "title": "Expert Solutions for Every Application",
+          "desc": "Find the perfect lubricant for your specific needs.",
+          "buttonText": "Find Your Solution"
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "productivity"
+          },
+          "title": "Reduce costs",
+          "desc": "Unlock cost savings and operational excellence with Restoreplus.",
+          "buttonText": "Cutting costs"
+        }
+      ]
+    },
+    "section2": {
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": ""
+      },
+      "blueText": "Simplify Your Industrial Lubrication Process",
+      "heading": "Get a Free, Personalized Quote for Your Industrial Lubrication Needs with Restoreplus",
+      "list": [
+        {
+          "title": "Reduce Expenses:",
+          "content": "Find specialty lubricants that minimize wear"
+        },
+        {
+          "title": "Increase Productivity:",
+          "content": "Get expert advice to ensure smooth operations and increased productivity."
+        },
+        {
+          "title": "Simplify Sourcing:",
+          "content": "Get competitive quotes instantly from multiple trusted suppliers."
+        },
+        {
+          "title": "No obligation:",
+          "content": "Explore the options and get expert advice without any commitment."
+        },
+        {
+          "title": "Inner peace:",
+          "content": "Rely on our industry expertise and secure payment terms for hassle-free transactions."
+        }
+      ]
+    },
+    "section3": {
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": ""
+      },
+      "blueText": "Industry-leading solutions for every application",
+      "heading": "Your One Stop for Industrial Lubrication",
+      "list": [
+        {
+          "title": "High performance greases for various applications:",
+          "content": "Keep your machines running smoothly with our selection of greases formulated for harsh industrial environments."
+        },
+        {
+          "title": "Extend equipment life and minimize downtime:",
+          "content": "Explore a wide range of greases for bearings, gears and other critical components."
+        },
+        {
+          "title": "Industrial cleaning and protection solutions:",
+          "content": "Keep equipment performance at peak level with our high-quality pastes for cleaning, protecting and sealing."
+        },
+        {
+          "title": "Industry-specific chemical solutions for your operation:",
+          "content": "Optimize your industrial processes with our comprehensive range of chemical products."
+        },
+        {
+          "title": "Convenient spray lubricants for easy application:",
+          "content": "Maintain your equipment efficiently with our selection of lubricants in convenient spray formats."
+        },
+        {
+          "title": "High-performance industrial oils for optimum lubrication: ",
+          "content": "Keep your machines running smoothly with our wide range of high-quality oils."
+        }
+      ]
+    },
+    "section4": {
+      "heading": "Find the perfect fit: Explore our comprehensive range of lubricants.",
+      "buttonText": "Explore the product catalog",
+      "lubricantTypes": [
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placeholder"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placeholder"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placeholder"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placeholder"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placeholder"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placeholder"
+          }
+        }
+      ]
+    },
+    "section6": {
+      "heading": "For industry. ",
+      "aboutBold": "Restoreplus Lubricants: ",
+      "about": "We have been strengthening industrial efficiency and maximizing productivity for over 10 years. ",
+      "aboutButton": "Learn More About Us"
+    },
+    "section7": {
+      "title": "categories"
+    }
+  },
+  "contactPage": {
+    "title": "Contact Restoreplus for a solution to reach more buyers and grow your business.",
+    "text": "Tell us about your industrial business goals and we'll be in touch with recommendations on how to meet them.",
+    "aggreeForm": "By submitting this form, you agree to share your contact information with Thomas.",
+    "sideInfo": {
+      "text": "The industry expertise and products at Thomas are unmatched. Thomas helped us align our profile to our service offerings and immediately we received inquiries and quotes, helping us win an extremely large project. Working with Thomas is a game changer. ",
+      "author": "Hasan Kara"
+    },
+    "fields": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "jobTitle": "Job Title",
+      "companyName": "Company Name",
+      "city": "City",
+      "country": "Country",
+      "phoneNumber": "Phone Number",
+      "postalCode": "Postal Code",
+      "website": "Website",
+      "companyType": "Company Type",
+      "message": "Your message"
+    },
+    "buttonText": "SUBMIT"
+  },
+  "aboutPage": {
+    "hero": {
+      "topTitle": "About Restoreplus",
+      "title": "We Power the Growth of North American Manufacturing",
+      "description": "For over 125+ years, Thomas has served as North America’s number one industrial sourcing platform and marketing powerhouse. We serve professionals on both sides of the industrial buying process to create solutions that inform, support, and empower industry.",
+      "columns": [
+        {
+          "title": "1,400,000+",
+          "text": "Registered Professionals",
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placehi"
+          }
+        },
+        {
+          "title": "500,000+",
+          "text": "Businesses Listed",
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placehi"
+          }
+        },
+        {
+          "title": "125+",
+          "text": "Years in Business",
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "image placehi"
+          }
+        }
+      ]
+    },
+    "section1": {
+      "title": "Save Time Sourcing on Thomas",
+      "description": "Thomasnet.com® is trusted by millions of industrial buyers who have leveraged our content and expertise since 1898. We connect buyers, engineers, and MRO professionals to over 500,000 North American manufacturers daily. We have a dedicated team of specialists who ensure you always have vetted and up-to-date company information to get your job done faster.",
+      "listTitle": "With Thomasnet.com, you can:",
+      "list": [
+        {
+          "text": "Access information from over 500,000 suppliers"
+        },
+        {
+          "text": "Filter your search by location, company type, diversity status, certifications, & more"
+        },
+        {
+          "text": "Compare and shortlist suppliers"
+        },
+        {
+          "text": "Send RFQs to multiple suppliers with one click"
+        }
+      ],
+      "buttonText": "Create FREE Account",
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": "image placeholder"
+      }
+    },
+    "section2": {
+      "title": "Grow Your Business with Thomas",
+      "description": "Thomas is the number one advertising platform and digital marketing service provider for manufacturing businesses looking to reach highly-qualified procurement professionals and engineers and grow their business. Our product and service suite is designed to help our partners attract, convert, and retain customers in the industrial space.",
+      "listTitle": "Start earning new business today with:",
+      "list": [
+        {
+          "text": "Targeted Thomasnet.com Advertising Opportunities",
+          "href": "/"
+        },
+        {
+          "text": "Website Design & Development & Search Engine Optimization",
+          "href": "/"
+        },
+        {
+          "text": "eCommerce & Product Catalog Development",
+          "href": "/"
+        },
+        {
+          "text": "Strategic Content Marketing",
+          "href": "/"
+        },
+        {
+          "text": "Website Analytics",
+          "href": "/"
+        }
+      ],
+      "buttonText": "List Your Business",
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": "image placeholder"
+      }
+    },
+    "section3": {
+      "title": "Work at Thomas",
+      "description": "At Thomas, our guiding principles are illustrated through every action we take and every relationship we foster. Whatever the job title, Thomas is a team of people helping others do their jobs, advance their careers, and grow their businesses in the digital industrial economy. Working at Thomas means joining an enduring, focused, guiding, and approachable team that has been a trusted resource for our marketplace for over 120 years.",
+      "listTitle": "Join Team Thomas to:",
+      "list": [
+        {
+          "text": "Commit to driving the future of the manufacturing and industrial space"
+        },
+        {
+          "text": "Guide the industry with information, ideas, and solutions they need to thrive"
+        },
+        {
+          "text": "Drive decisions using data and insights to support our customers, users, and each other"
+        }
+      ],
+      "buttonText": "See Open Positions",
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": "image placeholder"
+      }
+    }
+  },
+  "blog": {
+    "blogCards": {
+      "title": "Keep Up To Date on Industry News"
+    },
+    "buttonText": "Read more",
+    "page": {
+      "rightCard": {
+        "title": "Get Found By Buyers & Engineers",
+        "text": "Connect with the most active and qualified network of B2B buyers on the world's leading platform for product discovery and supplier selection.",
+        "buttonText": "Get Listed"
+      }
+    },
+    "singlePage": {
+      "useful": "Did you find this useful?",
+      "yes": "yes",
+      "no": "no"
+    }
+  },
+  "socialPostData": {
+    "platforms": {
+      "twitter": {
+        "text": "post"
+      },
+      "facebook": {
+        "text": "like"
+      }
+    }
+  }
+}

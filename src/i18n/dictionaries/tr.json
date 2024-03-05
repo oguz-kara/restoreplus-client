@@ -1,0 +1,247 @@
+{
+  "common": {
+    "learnMore": "Daha fazla bilgi edin",
+    "learnMoreUs": "Hakkımızda Daha Fazla Bilgi Edinin"
+  },
+  "layout": {
+    "navigation": {
+      "navItems": [
+        {
+          "title": "Hakkımızda",
+          "navLinks": [
+            {
+              "title": "Hakkımızda",
+              "href": "/about"
+            },
+            {
+              "title": "Hizmetler",
+              "href": "/services"
+            },
+            {
+              "title": "Sektörler",
+              "href": "/sectors"
+            },
+            {
+              "title": "Yardım Merkezi",
+              "href": "/help-center"
+            }
+          ]
+        },
+        {
+          "title": "Giriş yapmak",
+          "href": "/login"
+        },
+        {
+          "title": "Kayıt olmak",
+          "href": "/register"
+        }
+      ],
+      "title": "Ürünler"
+    },
+    "footer": {
+      "title": "Hakkımızda",
+      "links": [
+        {
+          "title": "Restoreplus Hakkında"
+        },
+        {
+          "title": "Teklif isteği"
+        },
+        {
+          "title": "Üye ol"
+        },
+        {
+          "title": "Kayıt ol"
+        },
+        {
+          "title": "Temas kur"
+        },
+        {
+          "title": "Yardım Merkezi"
+        }
+      ],
+      "copyright": {
+        "text": "Telif Hakkı© 2024 Restoreplus. ",
+        "termsAndConditions": {
+          "text": "Şartlar ve koşullar",
+          "href": "/terms-and-conditions"
+        },
+        "privacy": {
+          "text": "Gizlilik Bildirimi",
+          "href": "/privacy-policy"
+        },
+        "lastModified": "Web Sitesi Son Değiştirilme Tarihi: 10/12/2023."
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "text": "Giriş yapmak",
+      "link": "/login"
+    },
+    "register": {
+      "text": "Kayıt olmak",
+      "link": "/register"
+    }
+  },
+  "index": {
+    "hero": {
+      "title": "Uygulamanız için özel olarak ihtiyaç duyduğunuz özel yağı hızlı bir şekilde keşfedin.",
+      "input": {
+        "placeholder": "Restoreplus'ta arama yapın"
+      },
+      "join": {
+        "text": "Restoreplus'ta yeni misiniz?",
+        "linkText": "Tam Erişim için Ücretsiz Katılın ",
+        "href": "/register"
+      }
+    },
+    "section1": {
+      "title": "Restoreplus Yağlayıcılarını Keşfedin",
+      "columns": [
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "üretkenlik"
+          },
+          "title": "Verimliliği Artırın",
+          "desc": " Yüksek performanslı yağlayıcıların etkisini deneyimleyin.  ",
+          "buttonText": "Kataloğu Keşfedin"
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "üretkenlik"
+          },
+          "title": "Her Uygulamaya Yönelik Uzman Çözümler",
+          "desc": "Özel ihtiyaçlarınız için mükemmel yağlayıcıyı bulun.",
+          "buttonText": "Çözümünüzü Bulun"
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "üretkenlik"
+          },
+          "title": "Maliyetleri azaltın",
+          "desc": "Restoreplus ile maliyet tasarrufunun ve operasyonel mükemmelliğin kilidini açın.",
+          "buttonText": "Kesim maliyetleri"
+        }
+      ]
+    },
+    "section2": {
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": ""
+      },
+      "blueText": "Endüstriyel Yağlama Sürecinizi Kolaylaştırın",
+      "heading": "Restoreplus ile Endüstriyel Yağlama İhtiyaçlarınız için Ücretsiz, Kişiselleştirilmiş Fiyat Teklifi Alın",
+      "list": [
+        {
+          "title": "Giderleri Azaltın:",
+          "content": "Aşınmayı en aza indiren özel yağlayıcıları bulun"
+        },
+        {
+          "title": "Verimliliği Artırın:",
+          "content": "Sorunsuz operasyonlar ve artan üretkenlik sağlamak için uzman önerileri alın."
+        },
+        {
+          "title": "Kaynak Kullanımı Basitleştirin:",
+          "content": "Birden fazla güvenilir tedarikçiden anında rekabetçi teklifler alın."
+        },
+        {
+          "title": "Mecburiyet yok:",
+          "content": "Seçenekleri keşfedin ve herhangi bir taahhütte bulunmadan uzman tavsiyesi alın."
+        },
+        {
+          "title": "İç huzur:",
+          "content": "Sorunsuz işlemler için sektör uzmanlığımıza ve güvenli ödeme koşullarımıza güvenin."
+        }
+      ]
+    },
+    "section3": {
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": ""
+      },
+      "blueText": "Her uygulama için sektör lideri çözümler",
+      "heading": "Endüstriyel Yağlama için Tek Noktanız",
+      "list": [
+        {
+          "title": "Çeşitli uygulamalar için yüksek performanslı gresler:",
+          "content": "Zorlu endüstriyel ortamlar için formüle edilmiş gres seçeneklerimizle makinelerinizin sorunsuz çalışmasını sağlayın."
+        },
+        {
+          "title": "Ekipman ömrünü uzatın ve arıza süresini en aza indirin:",
+          "content": "Rulmanlar, dişliler ve diğer kritik bileşenler için geniş bir gres yelpazesini keşfedin."
+        },
+        {
+          "title": "Endüstriyel temizlik ve koruma çözümleri:",
+          "content": "Temizleme, koruma ve sızdırmazlık için yüksek kaliteli macunlarımızla ekipman performansını en üst düzeyde tutun."
+        },
+        {
+          "title": "Operasyonunuz için sektöre özel kimyasal çözümler:",
+          "content": "Kapsamlı kimyasal ürün yelpazemizle endüstriyel proseslerinizi optimize edin."
+        },
+        {
+          "title": "Kolay uygulama için kullanışlı sprey yağlayıcılar:",
+          "content": "Kullanışlı sprey formatlarındaki yağlayıcı seçeneklerimizle ekipmanınızın bakımını verimli bir şekilde yapın."
+        },
+        {
+          "title": "Optimum yağlama için yüksek performanslı endüstriyel yağlar: ",
+          "content": "Geniş yelpazedeki yüksek kaliteli yağlarımızla makinelerinizin sorunsuz çalışmasını sağlayın."
+        }
+      ]
+    },
+    "section4": {
+      "heading": "Mükemmel uyumu bulun: Kapsamlı yağlayıcı türlerimizi keşfedin.",
+      "buttonText": "Ürün kataloğunu keşfedin",
+      "lubricantTypes": [
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "resim yer tutucusu"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "resim yer tutucusu"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "resim yer tutucusu"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "resim yer tutucusu"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "resim yer tutucusu"
+          }
+        },
+        {
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "resim yer tutucusu"
+          }
+        }
+      ]
+    },
+    "section6": {
+      "heading": "Endüstri için. ",
+      "aboutBold": "Restoreplus Yağlayıcılar: ",
+      "about": "10 yılı aşkın bir süredir endüstriyel verimliliği güçlendiriyor ve üretkenliği en üst düzeye çıkarıyoruz. ",
+      "aboutButton": "Hakkımızda Daha Fazla Bilgi Edinin"
+    },
+    "section7": {
+      "title": "Kategoriler"
+    }
+  }
+}

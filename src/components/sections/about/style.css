@@ -1,0 +1,11 @@
+.about-page-hero-container {
+  background-image: url('../../../../public/images/world-image.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media only screen and (max-width: 745px) {
+  .about-page-hero-container {
+    background-image: none;
+  }
+}
