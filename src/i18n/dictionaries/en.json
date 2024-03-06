@@ -435,5 +435,10 @@
   },
   "sectorPage": {
     "title": "Browse Manufacturer and Distributor Catalog Collection"
+  },
+  "product": {
+    "listProductPage": {
+      "title": "Restoreplus product list"
+    }
   }
 }

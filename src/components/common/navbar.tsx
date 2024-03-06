@@ -121,7 +121,7 @@ function BlogCategoryNavigationData({
                 {category.subCategories.map((subCategory, i) => (
                   <ListItem
                     key={i}
-                    href="/docs"
+                    href={`/categories/${subCategory.id}/${subCategory.blogPostCategoryTranslation.slug}`}
                     title={subCategory.blogPostCategoryTranslation.name}
                   >
                     {subCategory.blogPostCategoryTranslation.description}
@@ -171,9 +171,7 @@ function RightNavigation() {
                 <Button>
                   <User className="mr-2" />
                   <Link href={item.href} lang={lang}>
-                    <span className="text-sm pr-3">
-                      {item.title}
-                    </span>
+                    <span className="text-sm pr-3">{item.title}</span>
                   </Link>
                 </Button>
               ) : (

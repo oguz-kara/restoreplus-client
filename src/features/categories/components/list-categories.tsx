@@ -27,7 +27,7 @@ export default async function ListCategories({ lang }: PropsWithLang) {
                 {topCategory.subCategories.map((subCategory, i) => (
                   <div key={i} className="flex items-start flex-col">
                     <Link
-                      href={`/categories/${subCategory.id}/${subCategory.blogPostCategoryTranslation.name}`}
+                      href={`/categories/${subCategory.id}/${subCategory.blogPostCategoryTranslation.slug}`}
                       lang={lang}
                     >
                       <Typography

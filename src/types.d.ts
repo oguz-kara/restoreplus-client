@@ -173,25 +173,22 @@ interface ExchangeRate {
 interface Product {
   id: number
   name: string
-  imageId: number
+  imageId?: number | null
   translations: ProductTranslation[]
   ProductDocumentation: ProductDocumentation[]
-  featuredImage: Image
+  featuredImage?: Image | null
+  sectors: Sector[]
   createdAt: Date
   updatedAt: Date
 }
 
 interface ProductTranslation {
   id: number
+  slug: string
+  metaTitle: string
+  metaDescription: string
   productType: string
   description: string
-  baseOilType: string
-  performanceFeatures: string
-  certicifations: string
-  industryApprovals: string
-  applications: string
-  benefits: string
-  additionalInformation: string
   supportedLocaleId: number
   productId: number
   locale: SupportedLocale
@@ -326,6 +323,19 @@ interface SectorWithTranslation {
   products: Product[]
   translations: SectorTranslation[]
   translation: SectorTranslation
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ProductWithTranslation {
+  id: number
+  name: string
+  imageId?: number | null
+  translations: ProductTranslation[]
+  translation: ProductTranslation
+  ProductDocumentation: ProductDocumentation[]
+  featuredImage?: Image | null
+  sectors: Sector[]
   createdAt: Date
   updatedAt: Date
 }

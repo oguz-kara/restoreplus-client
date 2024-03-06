@@ -156,7 +156,7 @@ function CategoriesDesktop({
               {topCategory.subCategories.map((subCategory, i) => (
                 <div key={i}>
                   <Link
-                    href={`/${subCategory.blogPostCategoryTranslation.name}`}
+                    href={`/categories/${subCategory.id}/${subCategory.blogPostCategoryTranslation.slug}`}
                     lang={lang}
                   >
                     <Typography
@@ -170,7 +170,7 @@ function CategoriesDesktop({
                     {subCategory.subCategories.map((subSubCategory, i) => (
                       <li key={i}>
                         <Link
-                          href={`/categories/${subSubCategory.blogPostCategoryTranslation.slug}`}
+                          href={`/categories/${subSubCategory.id}/${subSubCategory.blogPostCategoryTranslation.slug}`}
                           lang={lang}
                           className="text-gray-600"
                         >

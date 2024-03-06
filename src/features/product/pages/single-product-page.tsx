@@ -1,32 +1,36 @@
 import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
-import { getSectorById } from '@/features/sectors/data/get-sector-by-id'
 import Logo from '@/components/common/logo'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import MdxRenderer from '@/components/common/mdx-renderer'
+import { getProductById } from '../data/get-product-by-id'
+import { PropsWithLang } from '@/i18n/types'
 
-export default async function Page({
-  params: { id },
-}: {
-  params: { slug: string; id: string }
-}) {
-  const result = await getSectorById(id)
-  if (!result) return 'no sector data found!'
+interface SingleProductPageProps extends PropsWithLang {
+  id: string
+}
+
+export default async function SingleProductPage({
+  id,
+  lang,
+}: SingleProductPageProps) {
+  const result = await getProductById(id)
+  if (!result) return 'no Product data found!'
 
   return (
     <div>
       <HeroSection data={result} />
       <Container>
         <Section>
-          <MdxRenderer mdxText={result.translation.content} />
+          <MdxRenderer mdxText={result.translation.description} />
         </Section>
       </Container>
     </div>
   )
 }
 
-function HeroSection({ data }: { data: SectorWithTranslation }) {
+function HeroSection({ data }: { data: ProductWithTranslation }) {
   return (
     <div
       className="flex items-center justify-center relative lg:h-[500px] bg-no-repeat bg-cover text-white text-center"
@@ -46,17 +50,14 @@ function HeroSection({ data }: { data: SectorWithTranslation }) {
                 as="h1"
                 className="lg:text-3xl font-bold text-primary uppercase"
               >
-                {data.translation.name}
+                {data.name}
               </Typography>
             </div>
             <Typography
               as="h3"
               className="lg:text-xlg font-bold relative text-primary pb-5"
             >
-              {data.translation.title}
-            </Typography>
-            <Typography className="relative font-semibold" as="p">
-              {data.translation.description}
+              {data.translation.productType}
             </Typography>
           </div>
         </Section>
