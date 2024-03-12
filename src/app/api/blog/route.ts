@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
@@ -23,18 +24,28 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
 
 export const GET = async (req: NextRequest) => {
   try {
-    const id = req.nextUrl.searchParams.get('id')
+    const authToken = req.headers.get('authorization')
+    const authorization = authToken ? authToken : ''
+    console.log({ authorization })
 
+    const id = req.nextUrl.searchParams.get('id')
     if (id) {
       if (Number.isNaN(id)) throw new Error('id bir numara olmalidir!')
-      const response = await serverFetcher(`/blog-posts/${id}`)
+      const response = await serverFetcher(`/blog-posts/${id}`, {
+        headers: {
+          credentials: 'include',
+          authorization,
+        },
+      })
       const { data: responseData } = response
       return NextResponse.json(responseData, { status: 201 })
     }
 
-    const response = await serverFetcher('/blog-posts/all')
+    const response = await serverFetcher('/blog-posts/all', {
+      headers: { credentials: 'include', authorization },
+    })
+
     const { data: responseData } = response
-    revalidateTag('locales')
     return NextResponse.json(responseData, { status: 201 })
   } catch (err: any) {
     console.log(err)

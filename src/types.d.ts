@@ -8,6 +8,8 @@ interface User {
   password: string
   refreshToken?: string | null
   name?: string | null
+  firstName?: string | null
+  lastName?: string | null
   role?: string | null
   posts: BlogPost[]
   createdAt: Date

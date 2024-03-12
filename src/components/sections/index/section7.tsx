@@ -17,7 +17,7 @@ export default function Section7({
   lang,
   categoryData,
 }: PropsWithLang & { categoryData: CategoryData | null }) {
-  const isMobile = window && window.innerWidth <= 645
+  const isMobile = window ? window.innerWidth <= 645 : false
 
   const {
     dictionary: {

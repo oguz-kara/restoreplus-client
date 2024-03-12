@@ -14,9 +14,8 @@ import {
 import { useForm } from 'react-hook-form'
 import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import Link from '@/components/ui/link'
-import Typography from '@/components/ui/typography'
+import { useAuthenticateUser } from '@/context/auth/AuthContext'
+import { useRouter } from 'next/navigation'
 
 interface LoginFormProps {}
 
@@ -29,6 +28,9 @@ const defaultValues = {
 }
 
 export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
+  const { login } = useAuthenticateUser()
+  const router = useRouter()
+
   const {
     dictionary: {
       auth: {
@@ -41,8 +43,14 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
     defaultValues,
   })
 
-  function onSubmit(values: LoginFormDataType) {
-    console.log(values)
+  async function onSubmit(values: LoginFormDataType) {
+    try {
+      const result = await login(values)
+      console.log(result)
+      if (result.success) router.push('/')
+    } catch (err: any) {
+      console.log(err)
+    }
   }
 
   return (

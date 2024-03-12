@@ -46,6 +46,7 @@ export async function getSingleCategoryById(id: string, locale: string = 'tr') {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      credentials: 'include',
     },
   })
 

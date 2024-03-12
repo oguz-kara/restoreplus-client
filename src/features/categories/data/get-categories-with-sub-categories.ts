@@ -39,6 +39,7 @@ export async function getCategoriesWithSubCategories(locale: string = 'tr') {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      credentials: 'include',
     },
   })
 
