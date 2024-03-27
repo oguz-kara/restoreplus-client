@@ -341,3 +341,43 @@ interface ProductWithTranslation {
   createdAt: Date
   updatedAt: Date
 }
+
+interface Address {
+  id: number
+  title: string
+  authorizedPerson: string
+  street1: string
+  street2?: string | null
+  city: string
+  state?: string | null
+  district: string
+  phone: string
+  postalCode?: string | null
+  country: string
+  createdAt: Date
+  updatedAt: Date
+  company?: Company | null
+  companyId?: number | null
+}
+
+interface Company {
+  id: number
+  name: string
+  description?: string
+  website?: string
+  phoneNumber?: string
+  addressList: Address[]
+  user: User[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ActiveUser {
+  id: number
+  firstName: string
+  lastName: string
+  email: string
+  role: string
+  company?: Company
+  addressList?: Address[]
+}

@@ -14,7 +14,7 @@ import {
 import { useForm } from 'react-hook-form'
 import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
-import { useAuthenticateUser } from '@/context/auth/AuthContext'
+import { useAuthenticateUser } from '@/context/auth/auth-context'
 import { useRouter } from 'next/navigation'
 
 interface LoginFormProps {}

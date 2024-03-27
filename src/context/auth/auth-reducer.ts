@@ -1,7 +1,7 @@
-import { AuthState } from './AuthContext'
+import { AuthState } from './auth-context'
 
 export type AuthAction =
-  | { type: 'SET_USER'; payload: User | null | undefined }
+  | { type: 'SET_USER'; payload: ActiveUser | null | undefined }
   | { type: 'LOGOUT' }
   | { type: 'LOADING' }
   | { type: 'LOADED' }

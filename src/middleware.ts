@@ -3,6 +3,8 @@ import Negotiator from 'negotiator'
 import { NextRequest, NextResponse } from 'next/server'
 import i18n from './i18n'
 
+const protectedRoutes = ['/profile']
+
 function getLocale(request: NextRequest) {
   const languageHeader = request.headers.get('accept-language')
   const headers = {
@@ -21,6 +23,15 @@ function getLocale(request: NextRequest) {
 }
 
 export function middleware(request: NextRequest) {
+  const isAuthenticated = request.cookies.get('jwt')
+  const isProtectedRoute = protectedRoutes.includes(request.nextUrl.pathname)
+
+  if (!isAuthenticated && isProtectedRoute) {
+    const absoluteUrl = new URL('/login', request.nextUrl.origin)
+    console.log({ absoluteUrl: absoluteUrl.toString() })
+    return NextResponse.redirect(absoluteUrl.toString())
+  }
+
   const { pathname } = request.nextUrl
   const locale = getLocale(request)
   const pathnameIsMissingLocale = i18n.locales.every(

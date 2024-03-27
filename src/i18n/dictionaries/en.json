@@ -440,5 +440,115 @@
     "listProductPage": {
       "title": "Restoreplus product list"
     }
+  },
+  "profile": {
+    "account": {
+      "title": "Account",
+      "description": "Update your profile settings. Set your name and email.",
+      "buttonText": "Update Account",
+      "accountForm": {
+        "firstName": {
+          "label": "First Name",
+          "description": "This is the name that will be displayed on your profile and in emails.",
+          "placeholder": "Your first name"
+        },
+        "lastName": {
+          "label": "Last Name",
+          "description": "This is the surname that will be displayed on your profile and in emails.",
+          "placeholder": "Your last name"
+        },
+        "email": {
+          "label": "Email",
+          "description": "This is the email address that will be displayed on your profile and in emails.",
+          "placeholder": "Your email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Your password"
+        }
+      }
+    },
+    "company": {
+      "title": "Company",
+      "description": "Update your company information. Set your company name, and contact information.",
+      "buttonText": "Update Company",
+      "companyForm": {
+        "name": {
+          "label": "Company Name",
+          "description": "This is the company name that will be displayed on your profile and in emails.",
+          "placeholder": "Your company name"
+        },
+        "description": {
+          "label": "Company Description",
+          "description": "This is the description about your company.",
+          "placeholder": "Your company description"
+        },
+        "website": {
+          "label": "Company Website",
+          "description": "This is the website that your company has.",
+          "placeholder": "Your company website"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "description": "This is the phone number that your company has.",
+          "placeholder": "Your company phone number"
+        }
+      }
+    },
+    "addressList": {
+      "title": "Your address list",
+      "description": "Manage your address list. Add, edit, and delete your address list.",
+      "editAddressButtonText": "Edit address",
+      "buttonText": "Save address",
+      "newAddressButton": "Add new address",
+      "addressForm": {
+        "address": {
+          "title": "Add new address",
+          "description": "Add your address information here. Click save when you're done."
+        },
+        "title": {
+          "label": "Title",
+          "placeholder": "Enter address title"
+        },
+        "authorizedPerson": {
+          "label": "Authorized Person",
+          "placeholder": "Enter authorized person"
+        },
+        "street1": {
+          "label": "Address line 1",
+          "placeholder": "Enter address line 1"
+        },
+        "street2": {
+          "label": "Address line 2",
+          "placeholder": "Enter address line 2"
+        },
+        "country": {
+          "label": "Country",
+          "placeholder": "Enter country"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "Enter city"
+        },
+        "district": {
+          "label": "District",
+          "placeholder": "Enter district"
+        },
+        "postalCode": {
+          "label": "Postal Code",
+          "placeholder": "Enter postal code"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "Enter phone"
+        }
+      }
+    }
+  },
+  "toastMessages": {
+    "userInfo": {
+      "title": "Updated successfully!",
+      "description": "User information updated successfully!"
+    }
   }
 }

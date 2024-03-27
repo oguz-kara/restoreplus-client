@@ -5,12 +5,11 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
   const body = await req.json()
   const { email, password } = body
 
-  if (!email && !password) {
+  if (!email && !password)
     return NextResponse.json(
       { message: 'Email and password are required!' },
       { status: 400 }
     )
-  }
 
   try {
     const { data, headers } = await serverFetcher('/login', {
@@ -21,6 +20,8 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         credentials: 'include',
       },
     })
+
+    console.log({ data, headers })
 
     return NextResponse.json(data, { headers })
   } catch (error) {

@@ -1,4 +1,4 @@
-import { AuthContextProvider } from '@/context/auth/AuthContext'
+import { AuthContextProvider } from '@/context/auth/auth-context'
 import DictionaryProvider from '@/context/use-dictionary'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { PropsWithLang } from '@/i18n/types'
