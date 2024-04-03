@@ -1,25 +1,28 @@
+import { cookies } from 'next/headers'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const POST = async (req: NextRequest) => {
+export const GET = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')
-    const authToken = req.headers.get('authorization')
-    
-    const { name, description, phoneNumber, website } = await req.json()
-    const company = { name, description, phoneNumber, website }
-    const url = id ? `/active-user/company/?id=${id}` : '/active-user/company'
+    const authTokenHeader = req.headers.get('authorization')
+    const authTokenCookie = cookies().get('token')?.value
+    const authToken = authTokenHeader ? authTokenHeader : authTokenCookie
+
+    console.log({ authToken })
+
+    const url = id
+      ? `/active-user/calculated-products/?productId=${id}&lang=tr`
+      : '/active-user/calculated-products/all/?lang=tr'
+    console.log({ authToken })
 
     if (authToken) {
       const { data } = await serverFetcher(url, {
-        method: 'post',
         headers: {
           authorization: authToken,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ company }),
       })
-
 
       return NextResponse.json(data)
     }

@@ -21,7 +21,6 @@ export async function getBlogPostData(lang: Locale = 'tr') {
       pagination,
     }
 
-  console.log({ result: JSON.stringify(result, null, 4) })
 
   return result
 }

@@ -3,7 +3,7 @@ import { serverFetcher } from '@/lib/server-fetcher'
 const query = {
   include: {
     featuredImage: true,
-    blogPostCategoryTranslations: {
+    translations: {
       include: {
         locale: true,
       },
@@ -15,7 +15,7 @@ const query = {
     },
     subCategories: {
       include: {
-        blogPostCategoryTranslations: {
+        translations: {
           include: {
             locale: true,
           },
@@ -27,7 +27,7 @@ const query = {
         },
         subCategories: {
           include: {
-            blogPostCategoryTranslations: {
+            translations: {
               include: {
                 locale: true,
               },
@@ -55,7 +55,7 @@ export async function getSingleCategoryById(id: string, locale: string = 'tr') {
   return {
     ...data,
     blogPostCategoryTranslation: {
-      ...data.blogPostCategoryTranslations.find(
+      ...data.translations.find(
         (item: BlogPostCategoryTranslation) => item.locale.locale === locale
       ),
     },
@@ -66,17 +66,17 @@ export async function getSingleCategoryById(id: string, locale: string = 'tr') {
       ),
     },
     subCategories: data.subCategories.map((item: BlogPostCategory) => {
-      const { blogPostCategoryTranslations, ...rest } = item
+      const { translations, ...rest } = item
       return {
         ...rest,
-        blogPostCategoryTranslation: blogPostCategoryTranslations.find(
+        blogPostCategoryTranslation: translations.find(
           (item) => item.locale.locale === locale
         ),
         subCategories: item.subCategories.map((item) => {
-          const { blogPostCategoryTranslations, ...rest } = item
+          const { translations, ...rest } = item
           return {
             ...rest,
-            blogPostCategoryTranslation: blogPostCategoryTranslations.find(
+            blogPostCategoryTranslation: translations.find(
               (item) => item.locale.locale === locale
             ),
           }

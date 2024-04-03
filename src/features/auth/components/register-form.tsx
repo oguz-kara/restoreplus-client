@@ -110,6 +110,7 @@ export default function RegisterForm({
                 <FormLabel>{page.fields.password}</FormLabel>
                 <FormControl>
                   <Input
+                    type="password"
                     className="bg-transparent text-white py-7 rounded-sm"
                     {...field}
                   />
@@ -126,6 +127,7 @@ export default function RegisterForm({
                 <FormLabel>{page.fields.confirmPassword}</FormLabel>
                 <FormControl>
                   <Input
+                    type="password"
                     className="bg-transparent text-white py-7 rounded-sm"
                     {...field}
                   />

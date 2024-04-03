@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers'
+import { clientFetcher } from '@/lib/client-fetcher'
 import { serverFetcher } from '@/lib/server-fetcher'
 
 export async function getProducts(locale: string = 'tr') {
@@ -21,8 +23,6 @@ export async function getProducts(locale: string = 'tr') {
     },
   })
 
-  console.log(data)
-
   if (!data?.data) return null
 
   return {
@@ -35,4 +35,53 @@ export async function getProducts(locale: string = 'tr') {
       }
     }),
   } as { data: ProductWithTranslation[]; pagination: Pagination }
+}
+
+export async function getCalculatedProductsForCompany(locale: string = 'tr') {
+  const token = cookies().get('token')?.value
+
+  if (token) {
+    const data = await clientFetcher(`/active-user/products`, {
+      cache: 'no-store',
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
+
+    console.log({ data })
+
+    return data
+  }
+
+  return []
+}
+
+export async function getCalculatedProductForCompany(
+  locale: string = 'tr',
+  productId: number
+) {
+  const token = cookies().get('token')?.value
+
+  if (token) {
+    const { data } = await serverFetcher(
+      `/active-user/calculated-products?lang=${locale}&productId=${productId}`,
+      {
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }
+    )
+
+    console.log({ data })
+
+    if (!data) return null
+
+    return data
+  }
+
+  console.error('no access token found at get-products of product feature!')
+
+  return null
 }

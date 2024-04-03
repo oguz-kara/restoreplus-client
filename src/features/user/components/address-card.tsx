@@ -7,7 +7,7 @@ import { Trash } from 'lucide-react'
 import { AddressFormModal } from './address-form-modal'
 import { clientFetcher } from '@/lib/client-fetcher'
 import { useToast } from '@/components/ui/use-toast'
-import { useAuthenticateUser } from '@/context/auth/auth-context'
+import { useAuthenticatedUser } from '@/context/auth/auth-context'
 
 export interface AddressType {
   title: string
@@ -27,7 +27,7 @@ interface AddressCardProps {
 }
 
 export default function AddressCard({ data }: AddressCardProps) {
-  const { refetchUser } = useAuthenticateUser()
+  const { refetchUser } = useAuthenticatedUser()
   const {
     dictionary: {
       profile: { addressList },

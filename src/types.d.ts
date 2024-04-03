@@ -78,7 +78,7 @@ interface BlogPostCategory {
   parentCategory?: BlogPostCategory | null
   posts: BlogPost[]
   subCategories: BlogPostCategory[]
-  blogPostCategoryTranslations: BlogPostCategoryTranslation[]
+  translations: BlogPostCategoryTranslation[]
   blogPostCategoryInformationTranslations: BlogPostCategoryInformationTranslation[]
   featuredImage: Image | null
   createdAt: Date
@@ -380,4 +380,65 @@ interface ActiveUser {
   role: string
   company?: Company
   addressList?: Address[]
+}
+
+interface CalculatedProduct {
+  id: number
+  slug: string
+  name: string
+  metaTitle: string
+  metaDescription: string
+  productType: string
+  description: string
+  supportedLocaleId: number
+  productGroupId: number | null
+  featuredImage: Image
+  price: number
+  totalDiscount: number
+  calculatedPrice: string
+  sectorsDiscounts: SectorDiscount[]
+  reductionDiscounts: ReductionDiscounts
+  sectors: TranslatedSector[]
+}
+
+interface SectorDiscount {
+  sectorName: string
+  type: string
+  value: number
+}
+
+interface ReductionDiscounts {
+  type: string
+}
+
+interface TranslatedSector {
+  id: number
+  slug: string
+  name: string
+  title: string
+  metaTitle: string
+  metaDescription: string
+  description: string
+  content: string
+  resourceId: number
+  createdAt: string
+  updatedAt: string
+  isTopLevelSector: boolean
+  featuredImageId: number
+  parentSectorId: number | null
+}
+
+interface PropsWithPagination {
+  page?: string
+  take?: string
+}
+
+interface ParamsWithPagination {
+  params: PropsWithPagination
+}
+
+interface ParamsWithQuery {
+  params: {
+    q?: string
+  }
 }

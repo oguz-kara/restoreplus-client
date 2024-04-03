@@ -2,15 +2,16 @@
 import {
   Dispatch,
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useReducer,
-  useState,
 } from 'react'
 import { AuthReducer, AuthAction } from './auth-reducer'
-import { clientFetcher } from '@/lib/client-fetcher'
+import Cookies from 'js-cookie'
 import _ from 'lodash'
+import { refreshToken } from '@/features/auth/api/refresh-user'
+import { getActiveUser } from '@/features/auth/api/active-user'
+import { loginUser } from '@/features/auth/api/login-user'
 
 export type LoginValues = {
   email: string
@@ -19,24 +20,30 @@ export type LoginValues = {
 
 export interface AuthState {
   user: ActiveUser | null | undefined
+  login: ({
+    identifier,
+    pwd,
+  }: {
+    identifier: string
+    pwd: string
+  }) => Promise<boolean>
   loading: boolean
   error?: Error
   dispatch: Dispatch<AuthAction>
-  logout: () => Promise<{ success: boolean }>
   refetchUser: () => Promise<any>
-  login: ({
-    email,
-    password,
-  }: LoginValues) => Promise<{ success: boolean; user: User | null }>
 }
 
 const INITIAL_STATE: AuthState = {
   user: undefined,
   loading: false,
-  logout: () => Promise.reject({ success: false }),
-  login: () => Promise.reject({ success: false, user: null }),
+  login: () => Promise.reject(),
   refetchUser: () => Promise.reject(),
   dispatch: () => console.error('auth dispatch is empty'),
+}
+
+interface LoginParams {
+  identifier: string
+  pwd: string
 }
 
 export const AuthContext = createContext(INITIAL_STATE)
@@ -47,127 +54,51 @@ export const AuthContextProvider = ({
   children: React.ReactNode
 }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
-  const twoMinutesInMillis = 2 * 60 * 1000
 
-  const setTokenToLocalStorage = (token: string) => {
-    localStorage.setItem('token', token)
+  const setActiveUser = async () => {
+    const activeUser = await getActiveUser()
+
+    if (activeUser) dispatch({ type: 'SET_USER', payload: activeUser })
   }
 
-  const getUser = async (token?: string) => {
-    const authToken = token ? token : localStorage.getItem('token')
-    const activeUser = await clientFetcher('/active-user', {
-      headers: { authorization: `Bearer ${authToken}` },
-    })
+  const login = async ({ identifier, pwd }: LoginParams) => {
+    const isLoggedIn = await loginUser({ identifier, pwd })
 
-    return activeUser
-  }
-
-  const setUser = (user: ActiveUser | null) => {
-    dispatch({ type: 'SET_USER', payload: user })
-  }
-
-  const getAndSetUser = useCallback(async (token?: string) => {
-    if (token) {
-      const user = await getUser(token)
-      if (!user) setUser(null)
-      else {
-        setTokenToLocalStorage(token)
-        setUser(user)
-      }
-    } else {
-      console.error('auth token not found in local storage!')
-      setUser(null)
+    if (isLoggedIn) {
+      await setActiveUser()
+      return true
     }
-  }, [])
 
-  async function login({ email, password }: LoginValues) {
-    try {
-      const data = await clientFetcher('/auth/login', {
-        body: JSON.stringify({ email, password }),
-        method: 'POST',
-      })
-
-      if (data.user) {
-        const refreshDate = Date.now() + twoMinutesInMillis - 10000
-        localStorage.setItem('refresh-date', refreshDate.toString())
-        await getAndSetUser(data.accessToken)
-        return { success: true, user: data.user }
-      }
-
-      return { success: false, user: null }
-    } catch (error: any) {
-      console.log({ error })
-      return { success: false, user: null }
-    }
-  }
-
-  async function logout() {
-    try {
-      dispatch({ type: 'LOADING' })
-      const { data } = await clientFetcher('/auth/local', {
-        method: 'DELETE',
-      })
-      if (data.success) {
-        dispatch({ type: 'LOGOUT' })
-        return { success: true }
-      }
-      return { success: false }
-    } catch (err: any) {
-      dispatch({ type: 'SET_ERROR', payload: err })
-      return { success: false }
-    } finally {
-      dispatch({ type: 'LOADED' })
-    }
+    return false
   }
 
   useEffect(() => {
-    const { user } = state
-    let interval: any = undefined
-
-    const getInitialUser = async () => {
-      const token = localStorage.getItem('token')
-      if (token) {
-        await getAndSetUser(token)
-      }
-    }
-    if (!user) getInitialUser()
-
-    const refreshToken = async () => {
-      const { data } = await clientFetcher('/refresh')
-      console.log(data)
-      if (data) {
-        const { accessToken } = data
-
-        if (accessToken) {
-          const refreshDate = Date.now() + twoMinutesInMillis - 10000
-          localStorage.setItem('token', accessToken)
-          localStorage.setItem('refresh-date', refreshDate.toString())
-        } else localStorage.removeItem('token')
-      }
+    const refreshTimeout = async () => {
+      const success = await refreshToken()
+      if (success) await setActiveUser()
+      else dispatch({ type: 'SET_USER', payload: null })
     }
 
-    const refreshDate = localStorage.getItem('refresh-date')
+    if (!state.user) setActiveUser()
+    const expiresDateString = Cookies.get('token_expires')
+    if (expiresDateString) {
+      const expiresDate = new Date(expiresDateString)
+      const refreshTime = expiresDate.getTime() - Date.now() - 10000
+      
+      const timeoutMilliseconds = refreshTime > 0 ? refreshTime : 0
 
-    if (refreshDate && user) {
-      const refreshTime = Number(refreshDate) - Date.now()
-      const refreshTimeInMillis = refreshTime < 0 ? 0 : refreshTime
-
-      interval = setInterval(async () => {
-        await refreshToken()
-      }, refreshTimeInMillis)
-
-      return () => clearInterval(interval)
+      const timeout = setTimeout(refreshTimeout, timeoutMilliseconds)
+      return () => clearTimeout(timeout)
     }
-    if (!user && interval) return () => clearInterval(interval)
-  }, [state.user, state, twoMinutesInMillis, getAndSetUser])
+  }, [state, state.user])
 
   return (
     <AuthContext.Provider
-      value={{ ...state, logout, refetchUser: getAndSetUser, login, dispatch }}
+      value={{ ...state, login, refetchUser: setActiveUser, dispatch }}
     >
       {children}
     </AuthContext.Provider>
   )
 }
 
-export const useAuthenticateUser = () => useContext(AuthContext)
+export const useAuthenticatedUser = () => useContext(AuthContext)

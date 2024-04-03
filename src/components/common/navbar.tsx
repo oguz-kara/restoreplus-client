@@ -16,7 +16,7 @@ import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '../ui/button'
 import { User } from 'lucide-react'
 import NavbarMobile from './navbar-mobile'
-import { useAuthenticateUser } from '@/context/auth/auth-context'
+import { useAuthenticatedUser } from '@/context/auth/auth-context'
 
 export function NavigationBar({
   categoryData,
@@ -138,12 +138,8 @@ function BlogCategoryNavigationData({
 }
 
 function RightNavigation() {
-  const { user } = useAuthenticateUser()
+  const { user } = useAuthenticatedUser()
   const { dictionary, lang } = useDictionary()
-
-  React.useEffect(() => {
-    console.log({ userNavbar: user })
-  }, [user])
 
   return (
     <NavigationMenu>
@@ -193,7 +189,13 @@ function RightNavigation() {
             <Button>
               <User className="mr-2" />
               <Link href="/profile" lang={lang}>
-                <span className="text-sm pr-3">{`${user.firstName} ${user.lastName}`}</span>
+                <span className="text-sm pr-3">
+                  {user.firstName && user.lastName
+                    ? `${user.firstName} ${user.lastName}`
+                    : user.firstName
+                    ? user.firstName
+                    : 'User'}
+                </span>
               </Link>
             </Button>
           </NavigationMenuItem>

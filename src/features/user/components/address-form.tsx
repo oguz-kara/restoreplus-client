@@ -20,7 +20,7 @@ import { AddressFormData, AddressSchema } from '../schema/address.schema'
 import { useDictionary } from '@/context/use-dictionary'
 import { Input } from '@/components/ui/input'
 import { clientFetcher } from '@/lib/client-fetcher'
-import { useAuthenticateUser } from '@/context/auth/auth-context'
+import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { AddressType } from './address-card'
 
@@ -42,7 +42,7 @@ interface AddressFormProps {
 }
 
 export function AddressForm({ address }: AddressFormProps) {
-  const { refetchUser } = useAuthenticateUser()
+  const { refetchUser } = useAuthenticatedUser()
   const {
     dictionary: {
       profile: {

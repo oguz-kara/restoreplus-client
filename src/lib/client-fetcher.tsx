@@ -1,8 +1,10 @@
+import Cookies from 'js-cookie'
+
 export const clientFetcher = async (
   init: string | URL | globalThis.Request,
   fargs?: RequestInit
 ) => {
-  const authToken = localStorage.getItem('token')
+  const authToken = Cookies.get('token')
   let url =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000/api'

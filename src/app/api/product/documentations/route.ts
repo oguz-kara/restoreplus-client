@@ -76,7 +76,6 @@ export const DELETE = async (req: NextRequest) => {
         method: 'DELETE',
       })
       const { data: responseData } = response
-      console.log(responseData)
       revalidateTag('products')
       return NextResponse.json(responseData, { status: 200 })
     } else {

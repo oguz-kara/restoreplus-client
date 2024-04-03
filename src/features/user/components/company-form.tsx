@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { CompanyFormData, CompanySchema } from '../schema/company.schema'
 import { useDictionary } from '@/context/use-dictionary'
-import { useAuthenticateUser } from '@/context/auth/auth-context'
+import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { Textarea } from '@/components/ui/textarea'
 import { clientFetcher } from '@/lib/client-fetcher'
@@ -29,7 +29,7 @@ const defaultValues: Partial<CompanyFormData> = {
 }
 
 export function CompanyForm() {
-  const { user } = useAuthenticateUser()
+  const { user } = useAuthenticatedUser()
   const {
     dictionary: {
       profile: {
@@ -44,24 +44,24 @@ export function CompanyForm() {
   })
 
   async function onSubmit(data: CompanyFormData) {
-    if (user?.company?.id) {
-      const { description, name, phoneNumber, website } = data
-      const res = await clientFetcher(
-        `/active-user/company?id=${user?.company?.id}`,
-        {
-          method: 'POST',
-          body: JSON.stringify({ name, description, phoneNumber, website }),
-        }
-      )
+    const { description, name, phoneNumber, website } = data
 
-      if (res.success)
-        toast({
-          title: userInfo.title,
-          description: userInfo.description,
-        })
-    } else {
-      console.error('no company id found!')
-    }
+    const url = user?.company?.id
+      ? `/active-user/company/?id=${user?.company?.id}`
+      : '/active-user/company'
+
+    const res = await clientFetcher(url, {
+      method: 'POST',
+      body: JSON.stringify({ name, description, phoneNumber, website }),
+    })
+
+    console.log(res)
+
+    if (res.success)
+      toast({
+        title: userInfo.title,
+        description: userInfo.description,
+      })
   }
 
   useEffect(() => {

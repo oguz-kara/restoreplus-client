@@ -33,7 +33,6 @@ export const POST = async (req: NextRequest) => {
       method: 'POST',
       body: JSON.stringify(data),
     })
-    console.log({ data })
     const { data: responseData } = response
     revalidateTag('locales')
     return NextResponse.json(responseData, { status: 201 })
@@ -49,7 +48,6 @@ export const POST = async (req: NextRequest) => {
 export const PUT = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')
-    console.log({ id })
     const data = await req.json()
     const response = await serverFetcher(`/supported-locales/${id}`, {
       method: 'PUT',
@@ -75,7 +73,6 @@ export const DELETE = async (req: NextRequest) => {
         method: 'DELETE',
       })
       const { data: responseData } = response
-      console.log(responseData)
       revalidateTag('locales')
       return NextResponse.json(responseData, { status: 200 })
     } else {

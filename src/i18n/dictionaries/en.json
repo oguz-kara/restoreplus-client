@@ -2,7 +2,8 @@
   "common": {
     "learnMore": "Learn more",
     "learnMoreUs": "Learn More About Us",
-    "or": "or"
+    "or": "or",
+    "price": "price"
   },
   "layout": {
     "navigation": {
@@ -442,6 +443,10 @@
     }
   },
   "profile": {
+    "header": {
+      "title": "Welcome",
+      "description": "Manage your account settings and create orders here."
+    },
     "account": {
       "title": "Account",
       "description": "Update your profile settings. Set your name and email.",
@@ -542,6 +547,33 @@
           "label": "Phone",
           "placeholder": "Enter phone"
         }
+      }
+    },
+    "sideNavigationItems": [
+      {
+        "title": "Profile",
+        "href": "/profile"
+      },
+      {
+        "title": "Company",
+        "href": "/profile/company"
+      },
+      {
+        "title": "Addresses",
+        "href": "/profile/addresses"
+      },
+      {
+        "title": "Create order",
+        "href": "/profile/create-order"
+      },
+      {
+        "title": "Orders",
+        "href": "/profile/orders"
+      }
+    ],
+    "products": {
+      "details": {
+        "price": "Price"
       }
     }
   },

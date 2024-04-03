@@ -1,10 +1,11 @@
+import { cookies } from 'next/headers'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const GET = async (req: NextRequest) => {
   try {
     const authToken = req.headers.get('authorization')
-
+    
     if (authToken) {
       const { data } = await serverFetcher('/active-user', {
         headers: {
@@ -15,7 +16,7 @@ export const GET = async (req: NextRequest) => {
       return NextResponse.json(data)
     }
 
-    return NextResponse.json({ return: 'value' })
+    return NextResponse.json({ message: 'UNAUTHORIZED' }, { status: 401 })
   } catch (err: any) {
     return NextResponse.json(
       { message: 'Forbidden', status: 403 },
@@ -33,9 +34,7 @@ export const PUT = async (req: NextRequest) => {
         { message: 'no id provided to update a user' },
         { status: 400 }
       )
-    console.log({ authToken })
     const { firstName, lastName, email } = await req.json()
-    console.log({ firstName, lastName, email })
 
     if (authToken) {
       const { data } = await serverFetcher(`/active-user/${id}`, {
@@ -46,8 +45,6 @@ export const PUT = async (req: NextRequest) => {
         },
         body: JSON.stringify({ firstName, lastName, email }),
       })
-
-      console.log(data)
 
       return NextResponse.json(data)
     }

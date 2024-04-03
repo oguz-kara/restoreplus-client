@@ -28,7 +28,6 @@ export function middleware(request: NextRequest) {
 
   if (!isAuthenticated && isProtectedRoute) {
     const absoluteUrl = new URL('/login', request.nextUrl.origin)
-    console.log({ absoluteUrl: absoluteUrl.toString() })
     return NextResponse.redirect(absoluteUrl.toString())
   }
 

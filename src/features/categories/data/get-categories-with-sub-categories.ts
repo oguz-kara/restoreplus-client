@@ -7,21 +7,21 @@ export async function getCategoriesWithSubCategories(locale: string = 'tr') {
     },
     include: {
       featuredImage: true,
-      blogPostCategoryTranslations: {
+      translations: {
         include: {
           locale: true,
         },
       },
       subCategories: {
         include: {
-          blogPostCategoryTranslations: {
+          translations: {
             include: {
               locale: true,
             },
           },
           subCategories: {
             include: {
-              blogPostCategoryTranslations: {
+              translations: {
                 include: {
                   locale: true,
                 },
@@ -33,7 +33,7 @@ export async function getCategoriesWithSubCategories(locale: string = 'tr') {
     },
   }
 
-  const { data } = await serverFetcher(`/blog-posts/categories/all`, {
+  const result = await serverFetcher(`/blog-posts/categories/all`, {
     cache: 'no-store',
     body: JSON.stringify(query),
     method: 'POST',
@@ -43,29 +43,27 @@ export async function getCategoriesWithSubCategories(locale: string = 'tr') {
     },
   })
 
-  if (!data?.data) return null
+  if (!result || !result.data.data) return null
 
   return {
-    data: data.data.map((item: BlogPostCategory) => {
+    data: result.data.data.map((item: BlogPostCategory) => {
       return {
         ...item,
         blogPostCategoryTranslation: {
-          ...item.blogPostCategoryTranslations.find(
-            (item) => item.locale.locale === locale
-          ),
+          ...item.translations.find((item) => item.locale.locale === locale),
         },
         subCategories: item.subCategories.map((item) => {
-          const { blogPostCategoryTranslations, ...rest } = item
+          const { translations, ...rest } = item
           return {
             ...rest,
-            blogPostCategoryTranslation: blogPostCategoryTranslations.find(
+            blogPostCategoryTranslation: translations.find(
               (item) => item.locale.locale === locale
             ),
             subCategories: item.subCategories.map((item) => {
-              const { blogPostCategoryTranslations, ...rest } = item
+              const { translations, ...rest } = item
               return {
                 ...rest,
-                blogPostCategoryTranslation: blogPostCategoryTranslations.find(
+                blogPostCategoryTranslation: translations.find(
                   (item) => item.locale.locale === locale
                 ),
               }

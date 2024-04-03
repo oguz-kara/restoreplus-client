@@ -21,7 +21,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       },
     })
 
-    console.log({ data, headers })
 
     return NextResponse.json(data, { headers })
   } catch (error) {

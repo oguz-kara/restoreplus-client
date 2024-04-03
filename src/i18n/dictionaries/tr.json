@@ -1,7 +1,9 @@
 {
   "common": {
     "learnMore": "Daha fazla bilgi edin",
-    "learnMoreUs": "Hakkımızda Daha Fazla Bilgi Edinin"
+    "learnMoreUs": "Hakkımızda Daha Fazla Bilgi Edinin",
+    "or": "veya",
+    "price": "fiyat"
   },
   "layout": {
     "navigation": {
@@ -11,29 +13,29 @@
           "navLinks": [
             {
               "title": "Hakkımızda",
-              "href": "/about"
+              "href": "/hakkında"
             },
             {
               "title": "Hizmetler",
-              "href": "/services"
+              "href": "/Hizmetler"
             },
             {
               "title": "Sektörler",
-              "href": "/sectors"
+              "href": "/sektörler"
             },
             {
               "title": "Yardım Merkezi",
-              "href": "/help-center"
+              "href": "/yardım Merkezi"
             }
           ]
         },
         {
-          "title": "Giriş yapmak",
-          "href": "/login"
+          "title": "giriş yapmak",
+          "href": "/giriş yapmak"
         },
         {
           "title": "Kayıt olmak",
-          "href": "/register"
+          "href": "/kayıt olmak"
         }
       ],
       "title": "Ürünler"
@@ -45,55 +47,89 @@
           "title": "Restoreplus Hakkında"
         },
         {
-          "title": "Teklif isteği"
+          "title": "Teklif talebi"
         },
         {
-          "title": "Üye ol"
+          "title": "Üye olmak"
         },
         {
-          "title": "Kayıt ol"
+          "title": "Kayıt olmak"
         },
         {
-          "title": "Temas kur"
+          "title": "temas etmek"
         },
         {
           "title": "Yardım Merkezi"
         }
       ],
       "copyright": {
-        "text": "Telif Hakkı© 2024 Restoreplus. ",
-        "termsAndConditions": {
-          "text": "Şartlar ve koşullar",
-          "href": "/terms-and-conditions"
-        },
-        "privacy": {
-          "text": "Gizlilik Bildirimi",
-          "href": "/privacy-policy"
-        },
-        "lastModified": "Web Sitesi Son Değiştirilme Tarihi: 10/12/2023."
+        "reconciliations": {
+          "text": "© 2021 Restoreplus Madeni Yağlar Şirketi. ",
+          "termsAndConditions": "Şartlar ve koşullar",
+          "privacy": "Gizlilik Bildirimi"
+        }
       }
     }
   },
   "auth": {
     "login": {
-      "text": "Giriş yapmak",
-      "link": "/login"
+      "text": "giriş yapmak",
+      "link": "/giriş yapmak",
+      "page": {
+        "title": "sayfa başlığı giriş",
+        "text": "sayfa metni giriş",
+        "signUp": {
+          "text": "kayıt metni",
+          "href": "/",
+          "linkText": "bağlantı"
+        },
+        "fields": {
+          "email": "E-posta",
+          "password": "Şifre"
+        },
+        "buttonText": "GÖNDERMEK"
+      }
     },
     "register": {
       "text": "Kayıt olmak",
-      "link": "/register"
+      "link": "/kayıt olmak",
+      "page": {
+        "title": "sayfa başlığı kaydı",
+        "text": "sayfa metin kaydı",
+        "signUp": {
+          "text": "kayıt metni",
+          "href": "/",
+          "linkText": "bağlantı"
+        },
+        "fields": {
+          "email": "E-posta",
+          "firstName": "İlk adı",
+          "lastName": "Soy isim",
+          "password": "Şifre",
+          "confirmPassword": "Şifreyi Onayla"
+        },
+        "checkboxes": {
+          "acceptPromotions": "promosyonları kabul et",
+          "reconciliations": {
+            "text": "metin",
+            "termsAndConditions": "şartlar ve koşullar",
+            "privacy": "mahremiyet"
+          }
+        },
+        "buttonText": "GÖNDERMEK"
+      }
     }
   },
   "index": {
     "hero": {
       "title": "Uygulamanız için özel olarak ihtiyaç duyduğunuz özel yağı hızlı bir şekilde keşfedin.",
       "input": {
-        "placeholder": "Restoreplus'ta arama yapın"
+        "placeholder": "restoreplus'ta ara"
       },
       "join": {
         "text": "Restoreplus'ta yeni misiniz?",
         "linkText": "Tam Erişim için Ücretsiz Katılın ",
-        "href": "/register"
+        "href": "/kayıt olmak"
       }
     },
     "section1": {
@@ -106,7 +142,7 @@
           },
           "title": "Verimliliği Artırın",
           "desc": " Yüksek performanslı yağlayıcıların etkisini deneyimleyin.  ",
-          "buttonText": "Kataloğu Keşfedin"
+          "buttonText": "Kataloğu keşfedin"
         },
         {
           "image": {
@@ -122,9 +158,9 @@
             "src": "/images/image-placeholder.png",
             "alt": "üretkenlik"
           },
-          "title": "Maliyetleri azaltın",
+          "title": "Maliyetleri azaltmak",
           "desc": "Restoreplus ile maliyet tasarrufunun ve operasyonel mükemmelliğin kilidini açın.",
-          "buttonText": "Kesim maliyetleri"
+          "buttonText": "Maliyetleri azaltmak"
         }
       ]
     },
@@ -133,7 +169,7 @@
         "src": "/images/image-placeholder.png",
         "alt": ""
       },
-      "blueText": "Endüstriyel Yağlama Sürecinizi Kolaylaştırın",
+      "blueText": "Endüstriyel Yağlama Sürecinizi Basitleştirin",
       "heading": "Restoreplus ile Endüstriyel Yağlama İhtiyaçlarınız için Ücretsiz, Kişiselleştirilmiş Fiyat Teklifi Alın",
       "list": [
         {
@@ -142,7 +178,7 @@
         },
         {
           "title": "Verimliliği Artırın:",
-          "content": "Sorunsuz operasyonlar ve artan üretkenlik sağlamak için uzman önerileri alın."
+          "content": "Sorunsuz operasyonlar ve artan üretkenlik sağlamak için uzman tavsiyesi alın."
         },
         {
           "title": "Kaynak Kullanımı Basitleştirin:",
@@ -164,10 +200,10 @@
         "alt": ""
       },
       "blueText": "Her uygulama için sektör lideri çözümler",
-      "heading": "Endüstriyel Yağlama için Tek Noktanız",
+      "heading": "Endüstriyel Yağlamada Tek Noktanız",
       "list": [
         {
-          "title": "Çeşitli uygulamalar için yüksek performanslı gresler:",
+          "title": "Çeşitli uygulamalara yönelik yüksek performanslı gresler:",
           "content": "Zorlu endüstriyel ortamlar için formüle edilmiş gres seçeneklerimizle makinelerinizin sorunsuz çalışmasını sağlayın."
         },
         {
@@ -176,7 +212,7 @@
         },
         {
           "title": "Endüstriyel temizlik ve koruma çözümleri:",
-          "content": "Temizleme, koruma ve sızdırmazlık için yüksek kaliteli macunlarımızla ekipman performansını en üst düzeyde tutun."
+          "content": "Temizleme, koruma ve sızdırmazlık amaçlı yüksek kaliteli macunlarımızla ekipman performansını en üst seviyede tutun."
         },
         {
           "title": "Operasyonunuz için sektöre özel kimyasal çözümler:",
@@ -193,7 +229,7 @@
       ]
     },
     "section4": {
-      "heading": "Mükemmel uyumu bulun: Kapsamlı yağlayıcı türlerimizi keşfedin.",
+      "heading": "Mükemmel uyumu bulun: Kapsamlı yağlayıcı serimizi keşfedin.",
       "buttonText": "Ürün kataloğunu keşfedin",
       "lubricantTypes": [
         {
@@ -237,11 +273,322 @@
     "section6": {
       "heading": "Endüstri için. ",
       "aboutBold": "Restoreplus Yağlayıcılar: ",
-      "about": "10 yılı aşkın bir süredir endüstriyel verimliliği güçlendiriyor ve üretkenliği en üst düzeye çıkarıyoruz. ",
+      "about": "10 yılı aşkın süredir endüstriyel verimliliği güçlendiriyor ve verimliliği en üst düzeye çıkarıyoruz. ",
       "aboutButton": "Hakkımızda Daha Fazla Bilgi Edinin"
     },
     "section7": {
-      "title": "Kategoriler"
+      "title": "kategoriler"
+    }
+  },
+  "contactPage": {
+    "title": "Daha fazla alıcıya ulaşıp işinizi büyütecek bir çözüm için Restoreplus ile iletişime geçin.",
+    "text": "Bize endüstriyel iş hedeflerinizden bahsedin, biz de onlara nasıl ulaşacağınıza dair önerilerle sizinle iletişime geçelim.",
+    "aggreeForm": "Bu formu göndererek iletişim bilgilerinizi Thomas ile paylaşmayı kabul etmiş olursunuz.",
+    "sideInfo": {
+      "text": "Thomas'ın sektör uzmanlığı ve ürünleri eşsizdir.  ",
+      "author": "Hasan Kara"
+    },
+    "fields": {
+      "firstName": "İlk adı",
+      "lastName": "Soy isim",
+      "email": "E-posta",
+      "jobTitle": "İş unvanı",
+      "companyName": "Firma Adı",
+      "city": "Şehir",
+      "country": "Ülke",
+      "phoneNumber": "Telefon numarası",
+      "postalCode": "Posta Kodu",
+      "website": "İnternet sitesi",
+      "companyType": "Şirket türü",
+      "message": "Mesajın"
+    },
+    "buttonText": "GÖNDERMEK"
+  },
+  "aboutPage": {
+    "hero": {
+      "topTitle": "Restoreplus Hakkında",
+      "title": "Kuzey Amerika Üretiminin Büyümesine Güç Veriyoruz",
+      "description": "Thomas, 125 yılı aşkın bir süredir Kuzey Amerika'nın bir numaralı endüstriyel kaynak bulma platformu ve pazarlama merkezi olarak hizmet vermektedir. ",
+      "columns": [
+        {
+          "title": "1.400.000",
+          "text": "Kayıtlı Uzmanlar",
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "görüntü"
+          }
+        },
+        {
+          "title": "500.000",
+          "text": "Listelenen İşletmeler",
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "görüntü"
+          }
+        },
+        {
+          "title": "125",
+          "text": "İşletmede Yıllar",
+          "image": {
+            "src": "/images/image-placeholder.png",
+            "alt": "görüntü"
+          }
+        }
+      ]
+    },
+    "section1": {
+      "title": "Thomas'ta Kaynak Kullanımında Zamandan Tasarruf Edin",
+      "description": "Thomasnet.com®, 1898'den bu yana içeriğimizden ve uzmanlığımızdan yararlanan milyonlarca endüstriyel alıcının güvenini taşıyor. Alıcıları, mühendisleri ve MRO profesyonellerini her gün 500.000'den fazla Kuzey Amerikalı üreticiyle buluşturuyoruz. ",
+      "listTitle": "Thomasnet.com'la şunları yapabilirsiniz:",
+      "list": [
+        {
+          "text": "500.000'den fazla tedarikçinin bilgilerine erişin"
+        },
+        {
+          "text": "Aramanızı konuma, şirket türüne, çeşitlilik durumuna, sertifikalara,"
+        },
+        {
+          "text": "Tedarikçileri karşılaştırın ve kısa listeye alın"
+        },
+        {
+          "text": "Tek tıklamayla birden fazla tedarikçiye RFQ gönderin"
+        }
+      ],
+      "buttonText": "Ücretsiz hesap oluştur",
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": "resim yer tutucusu"
+      }
+    },
+    "section2": {
+      "title": "İşinizi Thomas'la Büyütün",
+      "description": "Thomas, yüksek nitelikli satın alma uzmanlarına ve mühendislere ulaşmak ve işlerini büyütmek isteyen imalat işletmeleri için bir numaralı reklam platformu ve dijital pazarlama hizmet sağlayıcısıdır. ",
+      "listTitle": "Aşağıdakilerle bugün yeni iş kazanmaya başlayın:",
+      "list": [
+        {
+          "text": "Hedeflenen Thomasnet.com Reklamcılık Fırsatları",
+          "href": "/"
+        },
+        {
+          "text": "Web sitesi tasarımı",
+          "href": "/"
+        },
+        {
+          "text": "e-Ticaret",
+          "href": "/"
+        },
+        {
+          "text": "Stratejik İçerik Pazarlama",
+          "href": "/"
+        },
+        {
+          "text": "Web Sitesi Analitiği",
+          "href": "/"
+        }
+      ],
+      "buttonText": "İşletmenizi Listeleyin",
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": "resim yer tutucusu"
+      }
+    },
+    "section3": {
+      "title": "Thomas'ta çalışıyor",
+      "description": "Thomas'ta yol gösterici ilkelerimiz, gerçekleştirdiğimiz her eylemde ve geliştirdiğimiz her ilişkide gösterilmektedir. ",
+      "listTitle": "Thomas Takımına katılarak şunları yapabilirsiniz:",
+      "list": [
+        {
+          "text": "Üretim ve endüstriyel alanın geleceğini yönlendirmeye kararlı olun"
+        },
+        {
+          "text": "Gelişmek için ihtiyaç duydukları bilgi, fikir ve çözümlerle sektöre rehberlik edin"
+        },
+        {
+          "text": "Müşterilerimizi, kullanıcılarımızı ve birbirimizi desteklemek için verileri ve öngörüleri kullanarak kararları yönlendirin"
+        }
+      ],
+      "buttonText": "Açık Pozisyonları Görün",
+      "image": {
+        "src": "/images/image-placeholder.png",
+        "alt": "resim yer tutucusu"
+      }
+    }
+  },
+  "blog": {
+    "blogCards": {
+      "title": "Sektör Haberlerini Güncel Tutun"
+    },
+    "buttonText": "Devamını oku",
+    "page": {
+      "rightCard": {
+        "title": "Alıcılar Tarafından Bulunsun",
+        "text": "Ürün keşfi ve tedarikçi seçimi için dünyanın önde gelen platformunda en aktif ve nitelikli B2B alıcı ağıyla bağlantı kurun.",
+        "buttonText": "Listelen"
+      }
+    },
+    "singlePage": {
+      "useful": "Bunu yararlı buldunuz mu?",
+      "yes": "Evet",
+      "no": "HAYIR"
+    }
+  },
+  "socialPostData": {
+    "platforms": {
+      "twitter": {
+        "text": "postalamak"
+      },
+      "facebook": {
+        "text": "beğenmek"
+      }
+    }
+  },
+  "sectorPage": {
+    "title": "Üretici ve Distribütör Kataloğu Koleksiyonuna Göz Atın"
+  },
+  "product": {
+    "listProductPage": {
+      "title": "Restoreplus ürün listesi"
+    }
+  },
+  "profile": {
+    "header": {
+      "title": "Hoşgeldin",
+      "description": "Hesap ayarlarınızı yönetin ve siparişleri burada oluşturun."
+    },
+    "account": {
+      "title": "Hesap",
+      "description": "Profil ayarlarınızı güncelleyin. ",
+      "buttonText": "Hesabı güncelle",
+      "accountForm": {
+        "firstName": {
+          "label": "İlk adı",
+          "description": "Bu, profilinizde ve e-postalarınızda görüntülenecek addır.",
+          "placeholder": "Adınız"
+        },
+        "lastName": {
+          "label": "Soy isim",
+          "description": "Bu, profilinizde ve e-postalarınızda görüntülenecek soyadıdır.",
+          "placeholder": "Soy adınız"
+        },
+        "email": {
+          "label": "E-posta",
+          "description": "Bu, profilinizde ve e-postalarınızda görüntülenecek e-posta adresidir.",
+          "placeholder": "E-posta adresiniz"
+        },
+        "password": {
+          "label": "Şifre",
+          "placeholder": "Şifreniz"
+        }
+      }
+    },
+    "company": {
+      "title": "Şirket",
+      "description": "Şirket bilgilerinizi güncelleyin. ",
+      "buttonText": "Şirketi Güncelle",
+      "companyForm": {
+        "name": {
+          "label": "Firma Adı",
+          "description": "Bu, profilinizde ve e-postalarınızda görüntülenecek şirket adıdır.",
+          "placeholder": "Şirket adın"
+        },
+        "description": {
+          "label": "Şirket tanımı",
+          "description": "Bu şirketinizle ilgili açıklamadır.",
+          "placeholder": "Şirket tanımınız"
+        },
+        "website": {
+          "label": "Şirket Web Sitesi",
+          "description": "Bu, şirketinizin sahip olduğu web sitesidir.",
+          "placeholder": "Şirketinizin web sitesi"
+        },
+        "phoneNumber": {
+          "label": "Telefon numarası",
+          "description": "Bu, şirketinizin sahip olduğu telefon numarasıdır.",
+          "placeholder": "Şirketinizin telefon numarası"
+        }
+      }
+    },
+    "addressList": {
+      "title": "Adres listeniz",
+      "description": "Adres listenizi yönetin. ",
+      "editAddressButtonText": "Adresi düzelt",
+      "buttonText": "Adresi kaydet",
+      "newAddressButton": "yeni adres ekleyin",
+      "addressForm": {
+        "address": {
+          "title": "yeni adres ekleyin",
+          "description": "Adres bilgilerinizi buraya ekleyin. "
+        },
+        "title": {
+          "label": "Başlık",
+          "placeholder": "Adres başlığını girin"
+        },
+        "authorizedPerson": {
+          "label": "Yetkili kişi",
+          "placeholder": "Yetkili kişiyi girin"
+        },
+        "street1": {
+          "label": "Adres satırı 1",
+          "placeholder": "Adres satırı 1'i girin"
+        },
+        "street2": {
+          "label": "Adres Satırı 2",
+          "placeholder": "Adres satırı 2'yi girin"
+        },
+        "country": {
+          "label": "Ülke",
+          "placeholder": "Ülkeyi girin"
+        },
+        "city": {
+          "label": "Şehir",
+          "placeholder": "Şehri girin"
+        },
+        "district": {
+          "label": "Semt",
+          "placeholder": "İlçeyi girin"
+        },
+        "postalCode": {
+          "label": "Posta Kodu",
+          "placeholder": "Posta kodunu girin"
+        },
+        "phone": {
+          "label": "Telefon",
+          "placeholder": "Telefonu girin"
+        }
+      }
+    },
+    "sideNavigationItems": [
+      {
+        "title": "Profil",
+        "href": "/profil"
+      },
+      {
+        "title": "Şirket",
+        "href": "/profil/şirket"
+      },
+      {
+        "title": "Adresler",
+        "href": "/profil/adresler"
+      },
+      {
+        "title": "Sipariş oluştur",
+        "href": "/profil/sipariş oluştur"
+      },
+      {
+        "title": "Emirler",
+        "href": "/profil/siparişler"
+      }
+    ],
+    "products": {
+      "details": {
+        "price": "Fiyat"
+      }
+    }
+  },
+  "toastMessages": {
+    "userInfo": {
+      "title": "Başarıyla güncellendi!",
+      "description": "Kullanıcı bilgileri başarıyla güncellendi!"
     }
   }
 }

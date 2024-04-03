@@ -26,7 +26,6 @@ export const GET = async (req: NextRequest) => {
   try {
     const authToken = req.headers.get('authorization')
     const authorization = authToken ? authToken : ''
-    console.log({ authorization })
 
     const id = req.nextUrl.searchParams.get('id')
     if (id) {

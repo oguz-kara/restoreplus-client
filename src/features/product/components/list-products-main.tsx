@@ -1,13 +1,13 @@
 import React from 'react'
 import serverConfig from '@/config/server-config.json'
-import { getProducts } from '../data/get-products'
+import { getCalculatedProductsForCompany } from '../data/get-products'
 import Image from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
 
 export default async function ListProductsMain({ lang }: PropsWithLang) {
-  const res = await getProducts()
+  const res = await getCalculatedProductsForCompany()
 
   if (!res) return 'no data found!'
 
@@ -15,7 +15,7 @@ export default async function ListProductsMain({ lang }: PropsWithLang) {
 
   return (
     <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-5">
-      {data.map((item, i) => (
+      {data.map((item: any, i: number) => (
         <ProductCard key={i} product={item} lang={lang} />
       ))}
     </div>

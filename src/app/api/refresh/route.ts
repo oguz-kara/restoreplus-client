@@ -10,6 +10,7 @@ export const GET = async (req: NextRequest) => {
       body: JSON.stringify({ refreshToken: jwt }),
       headers: { credentials: 'include', 'Content-Type': 'application/json' },
     })
+
     return NextResponse.json(result, { status: 200 })
   } catch (err: any) {
     console.log({ err })

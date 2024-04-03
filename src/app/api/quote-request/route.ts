@@ -50,7 +50,6 @@ export const PUT = async (req: NextRequest) => {
     const id = req.nextUrl.searchParams.get('id')
     const data = await req.json()
 
-    console.log({ id, data })
     const response = await serverFetcher(`/quote-requests/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data),
@@ -58,7 +57,6 @@ export const PUT = async (req: NextRequest) => {
         'Content-Type': 'application/json',
       },
     })
-    console.log({ response })
     const { data: responseData } = response
     revalidateTag('products')
     return NextResponse.json(responseData, { status: 200 })
@@ -75,7 +73,6 @@ export const DELETE = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')
     if (id) {
-      console.log({ id })
       const response = await serverFetcher(`/quote-requests/${id}`, {
         method: 'DELETE',
         headers: {
@@ -83,7 +80,6 @@ export const DELETE = async (req: NextRequest) => {
         },
       })
       const { data: responseData } = response
-      console.log(responseData)
       revalidateTag('products')
       return NextResponse.json(responseData, { status: 200 })
     } else {

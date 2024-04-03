@@ -17,7 +17,6 @@ export const POST = async (req: NextRequest) => {
     } = await req.json()
 
     if (authToken) {
-      console.log({ authToken })
       const { data } = await serverFetcher(`/active-user/address`, {
         method: 'post',
         headers: {
@@ -37,7 +36,6 @@ export const POST = async (req: NextRequest) => {
         }),
       })
 
-      console.log({ data })
 
       return NextResponse.json(data)
     }
@@ -57,7 +55,6 @@ export const POST = async (req: NextRequest) => {
 export const PUT = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')
-    console.log({ id })
 
     if (!id) throw new Error('no id provided to update an adress!')
 
@@ -112,11 +109,11 @@ export const PUT = async (req: NextRequest) => {
 export const DELETE = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')
-    console.log(id)
 
     if (!id) throw new Error('no id provided to update an adress!')
 
     const authToken = req.headers.get('authorization')
+    
 
     if (authToken) {
       const { data } = await serverFetcher(`/active-user/address/${id}`, {
@@ -126,7 +123,6 @@ export const DELETE = async (req: NextRequest) => {
         },
       })
 
-      console.log(data)
 
       return NextResponse.json(data)
     }

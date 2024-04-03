@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 import { ProfileFormData, ProfileFormSchema } from '../schema/profile.schema'
 import { useDictionary } from '@/context/use-dictionary'
-import { useAuthenticateUser } from '@/context/auth/auth-context'
+import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { clientFetcher } from '@/lib/client-fetcher'
 
@@ -28,7 +28,7 @@ const defaultValues: Partial<ProfileFormData> = {
 
 export function ProfileForm() {
   const { toast } = useToast()
-  const { user } = useAuthenticateUser()
+  const { user } = useAuthenticatedUser()
   const {
     dictionary: {
       profile: {

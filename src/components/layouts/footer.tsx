@@ -1,20 +1,20 @@
-import { PropsWithLang } from "@/i18n/types";
-import Typography from "../ui/typography";
-import Link from "../ui/link";
-import Container from "../common/container";
-import { getDictionary } from "@/i18n/get-dictionary";
-import TermsConditionsPrivacyText from "../common/term-conditions-privacy";
+import { PropsWithLang } from '@/i18n/types'
+import Typography from '../ui/typography'
+import Link from '../ui/link'
+import Container from '../common/container'
+import { getDictionary } from '@/i18n/get-dictionary'
+import TermsConditionsPrivacyText from '../common/term-conditions-privacy'
 
 export default async function Footer({
   lang,
   categoryData,
 }: PropsWithLang & { categoryData: CategoryData | null }) {
-  if (!categoryData) return "No category data found!";
+  if (!categoryData) return 'No category data found!'
   const {
     layout: { footer },
-  } = await getDictionary(lang);
+  } = await getDictionary(lang)
 
-  const { data } = categoryData;
+  const { data } = categoryData
 
   return (
     <footer className="px-5 py-10 bg-foreground text-white">
@@ -68,5 +68,5 @@ export default async function Footer({
         <TermsConditionsPrivacyText lang={lang} />
       </Container>
     </footer>
-  );
+  )
 }
