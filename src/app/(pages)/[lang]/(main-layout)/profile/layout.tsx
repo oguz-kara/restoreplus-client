@@ -3,6 +3,7 @@ import { Separator } from '@/components/ui/separator'
 import UserProfileSideNavigation from '@/features/user/components/user-profile-side-navigation'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
+import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 import {
   BaggageClaim,
   Building2,
@@ -33,6 +34,7 @@ export default async function UserProfileLayout({
   children,
   params: { lang },
 }: SettingsLayoutProps & ParamsWithLang) {
+  const user = await getServerSideActiveUser()
   const {
     profile: { sideNavigationItems, header },
   } = await getDictionary(lang)
@@ -46,10 +48,10 @@ export default async function UserProfileLayout({
     <Container>
       <div className="space-y-6 p-10 pb-16">
         <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
-          <p className="text-muted-foreground">
-            Manage your account settings and set e-mail preferences.
-          </p>
+          <h2 className="text-2xl font-bold tracking-tight">
+            {header.title}, {user.company.name}
+          </h2>
+          <p className="text-muted-foreground">{header.description}</p>
         </div>
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0 ">

@@ -9,12 +9,10 @@ export const GET = async (req: NextRequest) => {
     const authTokenCookie = cookies().get('token')?.value
     const authToken = authTokenHeader ? authTokenHeader : authTokenCookie
 
-    console.log({ authToken })
 
     const url = id
       ? `/active-user/calculated-products/?productId=${id}&lang=tr`
       : '/active-user/calculated-products/all/?lang=tr'
-    console.log({ authToken })
 
     if (authToken) {
       const { data } = await serverFetcher(url, {

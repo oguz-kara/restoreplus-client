@@ -16,11 +16,8 @@ export const refreshToken = async () => {
   }
 
   if (res.data.accessToken) {
-    console.log({ resData: res.data, res })
     const { accessToken: token, tokenExpiresDate } = res.data
-    console.log({ token, tokenExpiresDate })
     let expirationDate = new Date(tokenExpiresDate)
-    console.log({ expirationDate })
     Cookies.set('token', token, { expires: expirationDate })
     Cookies.set('token_expires', expirationDate.toLocaleString('en-US'), {
       expires: expirationDate,

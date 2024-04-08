@@ -1,25 +1,55 @@
-import { PropsWithLang } from '@/i18n/types'
+import { Locale, PropsWithLang } from '@/i18n/types'
 import React, { PropsWithChildren } from 'react'
 import { NavigationBar } from '../common/navbar'
-import Footer from './footer'
-import { getCategoriesWithSubCategories } from '@/features/categories/data/get-categories-with-sub-categories'
-import Container from '../common/container'
+import { serverFetcher } from '@/lib/server-fetcher'
+import { getProperLanguage } from '@/i18n/utils'
+import { getProductCategoryData } from '@/features/product/data/get-product-category-data'
 
 export default async function MainLayout({
   lang,
   children,
 }: PropsWithLang & PropsWithChildren) {
-  const result = await getCategoriesWithSubCategories('tr')
+  const categoryData = await getProductCategoryData({ lang: 'tr' })
+  const sectorData = await getSectorData({ lang: 'tr' })
 
   return (
     <div className="grid">
-      <header className="bg-foreground">
-        <Container className="p-5">
-          <NavigationBar lang={lang} categoryData={result} />
-        </Container>
+      <header>
+        <NavigationBar
+          lang={lang}
+          categoryData={categoryData}
+          sectorData={sectorData}
+        />
       </header>
-      <main className="min-h-screen">{children}</main>
-      <Footer lang={lang} categoryData={result} />
+      <main className="min-h-screen mt-[88px]">{children}</main>
+      {/* <Footer lang={lang} categoryData={result} /> */}
     </div>
   )
+}
+
+async function getSectorData({ lang }: { lang: string }) {
+  const { data } = await serverFetcher(
+    '/sectors/all?include.translations.include.locale=true&include.featuredImage=true'
+  )
+
+  const { data: sectorsData, pagination } = data
+
+  return {
+    data: sectorsData.map((sector: Sector) => {
+      const { translations, ...restSectors } = sector
+      const translation = translations.find(
+        (translation) => translation.locale.locale === lang
+      )
+
+      if (!translation) throw new Error('translation not found!')
+
+      const { locale, ...restTranslation } = translation
+
+      return {
+        ...restTranslation,
+        ...restSectors,
+      }
+    }),
+    pagination,
+  }
 }

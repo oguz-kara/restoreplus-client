@@ -16,19 +16,24 @@ export default function CalculatedProductCard({
 }: CalculatedProductCardProps & PropsWithLang) {
   return (
     <Link href={`/profile/product-details/${product.id}`} lang={lang}>
-      <Card className="p-0 relative">
+      <Card className="lg:flex p-0 relative">
         <div className="absolute top-[-5px] left-[-5px]">
           <Badge>{product.totalDiscount}%</Badge>
         </div>
-        <CardHeader>
+        <CardHeader className="flex-1">
           <Image
             src={`${serverConfig.remoteUrl}/${product.featuredImage?.path}`}
             width={500}
             height={500}
             alt={product.featuredImage.alt}
+            style={{
+              maxWidth: '300px',
+              height: '300px',
+              objectFit: 'cover',
+            }}
           />
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-5 flex-1">
           <Typography as="h6">{product.name}</Typography>
           <Typography
             as="p"
@@ -38,6 +43,10 @@ export default function CalculatedProductCard({
           </Typography>
           <Typography as="p" className="font-semibold">
             ${product.calculatedPrice}
+          </Typography>
+
+          <Typography as="p" className="text-sm">
+            {product.metaDescription}
           </Typography>
         </CardContent>
       </Card>

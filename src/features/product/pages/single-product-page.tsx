@@ -15,7 +15,7 @@ export default async function SingleProductPage({
   id,
   lang,
 }: SingleProductPageProps) {
-  const result = await getProductById(id)
+  const result = await getProductById(id, lang)
   if (!result) return 'no Product data found!'
 
   return (

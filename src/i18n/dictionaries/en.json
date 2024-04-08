@@ -3,7 +3,8 @@
     "learnMore": "Learn more",
     "learnMoreUs": "Learn More About Us",
     "or": "or",
-    "price": "price"
+    "price": "price",
+    "search": "search"
   },
   "layout": {
     "navigation": {
@@ -129,29 +130,29 @@
       "columns": [
         {
           "image": {
-            "src": "/images/image-placeholder.png",
+            "src": "/images/col1.png",
             "alt": "productivity"
           },
-          "title": "Increase Productivity",
-          "desc": " Experience the effect of high performance lubricants.  ",
+          "title": "COPYRIGHT",
+          "desc": "Copyright © Dongguan Baoxing lubricating oil Co., Ltd. All Rights Reserved",
           "buttonText": "Explore the Catalog"
         },
         {
           "image": {
-            "src": "/images/image-placeholder.png",
+            "src": "/images/col2.png",
             "alt": "productivity"
           },
-          "title": "Expert Solutions for Every Application",
-          "desc": "Find the perfect lubricant for your specific needs.",
+          "title": "Innovative R & D",
+          "desc": "Has provided grease for many brand companies Dongguan Baoxing Lubricant Co., Ltd. integrates production, R & D and sales",
           "buttonText": "Find Your Solution"
         },
         {
           "image": {
-            "src": "/images/image-placeholder.png",
+            "src": "/images/col3.png",
             "alt": "productivity"
           },
-          "title": "Reduce costs",
-          "desc": "Unlock cost savings and operational excellence with Restoreplus.",
+          "title": "High-quality Technology",
+          "desc": "Has a number of senior lubricant technical engineers and a group of highly qualified sales representatives",
           "buttonText": "Cutting costs"
         }
       ]
@@ -581,6 +582,25 @@
     "userInfo": {
       "title": "Updated successfully!",
       "description": "User information updated successfully!"
+    }
+  },
+  "search": {
+    "searchByType": {
+      "name": "name",
+      "sector": "sector",
+      "category": "category",
+      "equivalent": "equivalent"
+    },
+    "placeholders": ["food grade greases", "engine oils", "aluminum alloy"]
+  },
+  "publicProductPageList": {
+    "products": "Products",
+    "available": "products available"
+  },
+  "productCollection": {
+    "meta": {
+      "title": "Restoreplus Industrial Lubricants | Find the Right Oil for Every Machine",
+      "description": "Discover Restoreplus' complete line of high-performance industrial lubricants. Easily filter by sector, category, or equivalent brand to find the perfect oil for your needs. Powerful search & filter options included."
     }
   }
 }

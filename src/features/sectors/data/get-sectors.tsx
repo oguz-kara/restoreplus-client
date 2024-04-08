@@ -21,8 +21,6 @@ export async function getSectors(locale: string = 'tr') {
     },
   })
 
-  console.log(data)
-
   if (!data?.data) return null
 
   return {

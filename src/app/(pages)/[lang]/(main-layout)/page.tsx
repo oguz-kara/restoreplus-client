@@ -16,8 +16,8 @@ export default async function Home({ params: { lang } }: ParamsWithLang) {
   return (
     <div>
       <HeroSection />
-      <div className="shadow-[0_0_0.3rem_0_rgba(0,0,0,0.1)]">
-        <Container>
+      <div className="h-full">
+        <Container className="h-full">
           <Section1 lang={lang} />
         </Container>
       </div>

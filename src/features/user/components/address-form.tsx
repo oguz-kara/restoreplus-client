@@ -100,7 +100,6 @@ export function AddressForm({ address }: AddressFormProps) {
   }
 
   useEffect(() => {
-    console.log(address)
     if (address) form.reset(address)
   }, [address, form])
 

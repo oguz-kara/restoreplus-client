@@ -22,6 +22,7 @@ export default function Logo({
           width={width}
           height={height}
           className={className}
+          priority
         />
       </div>
     )
@@ -34,6 +35,7 @@ export default function Logo({
         width={width}
         height={height}
         className={className}
+        priority
       />
     </div>
   )

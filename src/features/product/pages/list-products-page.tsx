@@ -5,20 +5,38 @@ import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import Typography from '@/components/ui/typography'
 import { getDictionary } from '@/i18n/get-dictionary'
+import SearchHeroSection from '@/components/common/search-hero'
 
-export default async function ListProductsPage({ lang }: PropsWithLang) {
+interface ListProductsPageProps extends Pagination {
+  q?: string
+  type: string
+}
+
+export default async function ListProductsPage({
+  lang,
+  q,
+  page,
+  take,
+  type,
+}: PropsWithLang & ListProductsPageProps) {
   const {
     product: { listProductPage },
   } = await getDictionary(lang)
   return (
     <div>
-      <HeroSection />
+      <div>
+        <SearchHeroSection />
+      </div>
       <Container>
         <Section>
-          <Typography as="h2" className="py-10 text-center font-normal text-4xl uppercase">
-            {listProductPage.title}
-          </Typography>
-          <ListProductsMain lang={lang} />
+          <div className="flex">
+            <div className="flex-1">
+              <Typography>Filters</Typography>
+            </div>
+            <div className="flex-[3]">
+              <ListProductsMain lang={lang} q={q} page={page} take={take} type={type} />
+            </div>
+          </div>
         </Section>
       </Container>
     </div>

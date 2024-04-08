@@ -178,6 +178,28 @@ interface Product {
   imageId?: number | null
   translations: ProductTranslation[]
   ProductDocumentation: ProductDocumentation[]
+  categories: ProductCategory[]
+  featuredImage?: Image | null
+  sectors: Sector[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface TranslatedProduct {
+  slug: string
+  metaTitle: string
+  metaDescription: string
+  productType: string
+  description: string
+  supportedLocaleId: number
+  productId: number
+  locale: SupportedLocale
+  product: Product
+  id: number
+  name: string
+  imageId?: number | null
+  ProductDocumentation: ProductDocumentation[]
+  categories: ProductCategory[]
   featuredImage?: Image | null
   sectors: Sector[]
   createdAt: Date
@@ -335,7 +357,8 @@ interface ProductWithTranslation {
   imageId?: number | null
   translations: ProductTranslation[]
   translation: ProductTranslation
-  ProductDocumentation: ProductDocumentation[]
+  productDocumentation: ProductDocumentation[]
+  categories: TranslatedProductCategory[]
   featuredImage?: Image | null
   sectors: Sector[]
   createdAt: Date
@@ -441,4 +464,67 @@ interface ParamsWithQuery {
   params: {
     q?: string
   }
+}
+
+interface ProductCategoryTranslation {
+  id: number
+  name: string
+  slug: string
+  description?: string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  keywords?: string | null
+  supportedLocaleId: number
+  resourceId?: number | null
+  imageId?: number | null
+  featuredImage?: Image | null
+  locale: SupportedLocale
+  resource?: ProductCategory | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ProductCategory {
+  id: number
+  isTopLevelCategory?: boolean | null
+  imageId?: number | null
+  featuredImage?: Image | null
+  subCategories: ProductCategory[]
+  parentCategories: ProductCategory[]
+  products: Product[]
+  translations: ProductCategoryTranslation[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface TranslatedSector {
+  id: number
+  featuredImageId?: number | null
+  featuredImage?: Image | null
+  products: Product[]
+  translation: SectorTranslation
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface TranslatedProductCategory {
+  name: string
+  slug: string
+  description?: string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  keywords?: string | null
+  supportedLocaleId: number
+  resourceId?: number | null
+  resource?: ProductCategory | null
+  id: number
+  isTopLevelCategory?: boolean | null
+  parentCategoryId?: number | null
+  imageId?: number | null
+  featuredImage?: Image | null
+  parentCategory?: ProductCategory | null
+  subCategories: TranslatedProductCategory[] | ProductCategory[]
+  products: Product[]
+  createdAt: Date
+  updatedAt: Date
 }

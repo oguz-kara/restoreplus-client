@@ -1,0 +1,42 @@
+.mega-menu {
+}
+
+.mega-menu:hover .mega-menu-content {
+  max-height: 500px;
+}
+
+.mega-menu .item {
+  -webkit-transition: max-height 1s;
+  -moz-transition: max-height 1s;
+  -ms-transition: max-height 1s;
+  -o-transition: max-height 1s;
+  transition: max-height 1s;
+  background: #e5feff;
+  overflow: hidden;
+  max-height: 0;
+}
+
+.mega-menu .content {
+}
+
+.mega-menu .toggle {
+  -webkit-transition: background .1s linear;   
+  -moz-transition: background .1s linear;   
+  -ms-transition: background .1s linear;   
+  -o-transition: background .1s linear;   
+  transition: background .1s linear;   
+  background: #00b8c9;
+  border-radius: 3px;
+  color: #fff;
+  display: block;
+  font-size: 30px;
+  margin: 0 0 10px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  
+}
+
+.mega-menu .toggle:hover {
+  background: #0096b4;
+}

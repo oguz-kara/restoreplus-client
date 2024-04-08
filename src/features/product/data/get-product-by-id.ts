@@ -9,6 +9,15 @@ export async function getProductById(id: string, locale: string = 'tr') {
           locale: true,
         },
       },
+      categories: {
+        include: {
+          translations: {
+            include: {
+              locale: true,
+            },
+          },
+        },
+      },
     },
   }
 
@@ -23,12 +32,25 @@ export async function getProductById(id: string, locale: string = 'tr') {
 
   if (!data) return null
 
+  const { translations, ...restData } = data
+
   return {
-    ...data,
+    ...restData,
     translation: {
-      ...data.translations.find(
+      ...translations.find(
         (item: ProductTranslation) => item.locale.locale === locale
       ),
     },
+    categories: data.categories.map((category: ProductCategory) => {
+      const { translations, ...rest } = category
+
+      const translation = translations.find(
+        (translation) => translation.locale.locale === locale
+      )
+
+      if (!translation) throw new Error('Translation not found')
+
+      return { ...rest, translation }
+    }),
   } as ProductWithTranslation
 }

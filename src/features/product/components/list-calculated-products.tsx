@@ -12,7 +12,7 @@ export default function ListCalculatedProducts({
   if (!products) 'No data found'
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid gap-5">
       {products?.map((item, i) => (
         <CalculatedProductCard key={i} product={item} lang={lang} />
       ))}

@@ -3,7 +3,8 @@
     "learnMore": "Daha fazla bilgi edin",
     "learnMoreUs": "Hakkımızda Daha Fazla Bilgi Edinin",
     "or": "veya",
-    "price": "fiyat"
+    "price": "fiyat",
+    "search": "Ara"
   },
   "layout": {
     "navigation": {
@@ -13,29 +14,29 @@
           "navLinks": [
             {
               "title": "Hakkımızda",
-              "href": "/hakkında"
+              "href": "/tr/about"
             },
             {
               "title": "Hizmetler",
-              "href": "/Hizmetler"
+              "href": "/tr/services"
             },
             {
               "title": "Sektörler",
-              "href": "/sektörler"
+              "href": "/tr/sectors"
             },
             {
               "title": "Yardım Merkezi",
-              "href": "/yardım Merkezi"
+              "href": "/tr/help-center"
             }
           ]
         },
         {
-          "title": "giriş yapmak",
-          "href": "/giriş yapmak"
+          "title": "Giriş yap",
+          "href": "/tr/login"
         },
         {
-          "title": "Kayıt olmak",
-          "href": "/kayıt olmak"
+          "title": "Kayıt ol",
+          "href": "/tr/register"
         }
       ],
       "title": "Ürünler"
@@ -74,13 +75,13 @@
   "auth": {
     "login": {
       "text": "giriş yapmak",
-      "link": "/giriş yapmak",
+      "link": "/tr/login",
       "page": {
         "title": "sayfa başlığı giriş",
         "text": "sayfa metni giriş",
         "signUp": {
           "text": "kayıt metni",
-          "href": "/",
+          "href": "/tr",
           "linkText": "bağlantı"
         },
         "fields": {
@@ -92,13 +93,13 @@
     },
     "register": {
       "text": "Kayıt olmak",
-      "link": "/kayıt olmak",
+      "link": "/register",
       "page": {
         "title": "sayfa başlığı kaydı",
         "text": "sayfa metin kaydı",
         "signUp": {
           "text": "kayıt metni",
-          "href": "/",
+          "href": "/tr",
           "linkText": "bağlantı"
         },
         "fields": {
@@ -129,7 +130,7 @@
       "join": {
         "text": "Restoreplus'ta yeni misiniz?",
         "linkText": "Tam Erişim için Ücretsiz Katılın ",
-        "href": "/kayıt olmak"
+        "href": "/tr/register"
       }
     },
     "section1": {
@@ -367,23 +368,23 @@
       "list": [
         {
           "text": "Hedeflenen Thomasnet.com Reklamcılık Fırsatları",
-          "href": "/"
+          "href": "/tr"
         },
         {
           "text": "Web sitesi tasarımı",
-          "href": "/"
+          "href": "/tr"
         },
         {
           "text": "e-Ticaret",
-          "href": "/"
+          "href": "/tr"
         },
         {
           "text": "Stratejik İçerik Pazarlama",
-          "href": "/"
+          "href": "/tr"
         },
         {
           "text": "Web Sitesi Analitiği",
-          "href": "/"
+          "href": "/tr"
         }
       ],
       "buttonText": "İşletmenizi Listeleyin",
@@ -560,23 +561,23 @@
     "sideNavigationItems": [
       {
         "title": "Profil",
-        "href": "/profil"
+        "href": "/tr/profile"
       },
       {
         "title": "Şirket",
-        "href": "/profil/şirket"
+        "href": "/tr/profile/company"
       },
       {
         "title": "Adresler",
-        "href": "/profil/adresler"
+        "href": "/tr/profile/addresses"
       },
       {
         "title": "Sipariş oluştur",
-        "href": "/profil/sipariş oluştur"
+        "href": "/tr/profile/create-order"
       },
       {
         "title": "Emirler",
-        "href": "/profil/siparişler"
+        "href": "/tr/profile/orders"
       }
     ],
     "products": {
@@ -589,6 +590,25 @@
     "userInfo": {
       "title": "Başarıyla güncellendi!",
       "description": "Kullanıcı bilgileri başarıyla güncellendi!"
+    }
+  },
+  "search": {
+    "searchByType": {
+      "name": "isim",
+      "sector": "sektör",
+      "category": "kategori",
+      "equivalent": "muadil"
+    },
+    "placeholders": ["gıda uyumlu gres", "motor yağları", "aliminyum alaşım"]
+  },
+  "publicProductPageList": {
+    "products": "Ürünler",
+    "available": "ürün bulundu"
+  },
+  "productCollection": {
+    "meta": {
+      "title": "Restoreplus Endüstriyel Yağlayıcılar | Her Makine için Doğru Yağı Bulun ",
+      "description": "Restoreplus'ın yüksek performanslı endüstriyel yağlayıcılarının tüm ürün serisini keşfedin. İhtiyaçlarınıza mükemmel yağı bulmak için sektöre, kategoriye veya eşdeğer markaya göre kolayca filtreleyin. Güçlü arama ve filtreleme seçenekleri dahildir."
     }
   }
 }

@@ -72,22 +72,26 @@ export const AuthContextProvider = ({
     return false
   }
 
-  useEffect(() => {
-    const refreshTimeout = async () => {
-      const success = await refreshToken()
-      if (success) await setActiveUser()
-      else dispatch({ type: 'SET_USER', payload: null })
-    }
+  const refreshTokenAndSetUser = async () => {
+    const success = await refreshToken()
+    if (success) await setActiveUser()
+    else dispatch({ type: 'SET_USER', payload: null })
+  }
 
+  useEffect(() => {
+    if (!state.user) refreshTokenAndSetUser()
+  }, [])
+
+  useEffect(() => {
     if (!state.user) setActiveUser()
     const expiresDateString = Cookies.get('token_expires')
     if (expiresDateString) {
       const expiresDate = new Date(expiresDateString)
       const refreshTime = expiresDate.getTime() - Date.now() - 10000
-      
+
       const timeoutMilliseconds = refreshTime > 0 ? refreshTime : 0
 
-      const timeout = setTimeout(refreshTimeout, timeoutMilliseconds)
+      const timeout = setTimeout(refreshTokenAndSetUser, timeoutMilliseconds)
       return () => clearTimeout(timeout)
     }
   }, [state, state.user])

@@ -12,23 +12,31 @@ export default async function Section1({ lang }: PropsWithLang) {
   } = await getDictionary(lang)
   return (
     <Section>
-      <div className="grid lg:grid-cols-3 gap-5 text-center">
+      <div className="grid lg:grid-cols-3 gap-5 text-center h-full">
         {section1.columns.map((item, index) => (
-          <div key={index} className="flex flex-col items-center">
-            <div className="bg-black p-2 mb-3">
-              <Image
-                src={item.image.src}
-                alt={item.image.alt}
-                width={500}
-                height={500}
-              />
+          <div
+            key={index}
+            className="flex flex-col items-center justify-between hover:scale-105 transition-transform duration-300 ease-in-out"
+          >
+            <div className="flex items-center justify-center flex-col">
+              <div className="p-2 mb-3">
+                <Image
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  width={150}
+                  height={150}
+                  style={{
+                    width: '80px',
+                  }}
+                />
+              </div>
+              <Typography as="h4" className="mb-3 text-md">
+                {item.title}
+              </Typography>
+              <Typography as="p" className="mb-3 text-gray-400 text-sm">
+                {item.desc}
+              </Typography>
             </div>
-            <Typography as="h4" className="mb-3">
-              {item.title}
-            </Typography>
-            <Typography as="p" className="mb-3">
-              {item.desc}
-            </Typography>
             <div>
               <Button>{item.buttonText}</Button>
             </div>
