@@ -4,7 +4,11 @@
     "learnMoreUs": "Hakkımızda Daha Fazla Bilgi Edinin",
     "or": "veya",
     "price": "fiyat",
-    "search": "Ara"
+    "search": "Ara",
+    "filter": "Filtreler",
+    "productFound": "ürün bulundu",
+    "categories": "Kategoriler",
+    "sectors": "Sektörler"
   },
   "layout": {
     "navigation": {
@@ -14,29 +18,29 @@
           "navLinks": [
             {
               "title": "Hakkımızda",
-              "href": "/tr/about"
+              "href": "/about"
             },
             {
               "title": "Hizmetler",
-              "href": "/tr/services"
+              "href": "/services"
             },
             {
               "title": "Sektörler",
-              "href": "/tr/sectors"
+              "href": "/sectors"
             },
             {
               "title": "Yardım Merkezi",
-              "href": "/tr/help-center"
+              "href": "/help-center"
             }
           ]
         },
         {
           "title": "Giriş yap",
-          "href": "/tr/login"
+          "href": "/login"
         },
         {
           "title": "Kayıt ol",
-          "href": "/tr/register"
+          "href": "/register"
         }
       ],
       "title": "Ürünler"
@@ -75,13 +79,13 @@
   "auth": {
     "login": {
       "text": "giriş yapmak",
-      "link": "/tr/login",
+      "link": "/login",
       "page": {
         "title": "sayfa başlığı giriş",
         "text": "sayfa metni giriş",
         "signUp": {
           "text": "kayıt metni",
-          "href": "/tr",
+          "href": "",
           "linkText": "bağlantı"
         },
         "fields": {
@@ -99,7 +103,7 @@
         "text": "sayfa metin kaydı",
         "signUp": {
           "text": "kayıt metni",
-          "href": "/tr",
+          "href": "",
           "linkText": "bağlantı"
         },
         "fields": {
@@ -130,7 +134,7 @@
       "join": {
         "text": "Restoreplus'ta yeni misiniz?",
         "linkText": "Tam Erişim için Ücretsiz Katılın ",
-        "href": "/tr/register"
+        "href": "/register"
       }
     },
     "section1": {
@@ -271,6 +275,9 @@
         }
       ]
     },
+    "section5": {
+      "title": "latest insights"
+    },
     "section6": {
       "heading": "Endüstri için. ",
       "aboutBold": "Restoreplus Yağlayıcılar: ",
@@ -278,7 +285,7 @@
       "aboutButton": "Hakkımızda Daha Fazla Bilgi Edinin"
     },
     "section7": {
-      "title": "kategoriler"
+      "title": "sektörler"
     }
   },
   "contactPage": {
@@ -368,23 +375,23 @@
       "list": [
         {
           "text": "Hedeflenen Thomasnet.com Reklamcılık Fırsatları",
-          "href": "/tr"
+          "href": ""
         },
         {
           "text": "Web sitesi tasarımı",
-          "href": "/tr"
+          "href": ""
         },
         {
           "text": "e-Ticaret",
-          "href": "/tr"
+          "href": ""
         },
         {
           "text": "Stratejik İçerik Pazarlama",
-          "href": "/tr"
+          "href": ""
         },
         {
           "text": "Web Sitesi Analitiği",
-          "href": "/tr"
+          "href": ""
         }
       ],
       "buttonText": "İşletmenizi Listeleyin",
@@ -436,10 +443,10 @@
   "socialPostData": {
     "platforms": {
       "twitter": {
-        "text": "postalamak"
+        "text": "paylaş"
       },
       "facebook": {
-        "text": "beğenmek"
+        "text": "beğen"
       }
     }
   },
@@ -449,6 +456,9 @@
   "product": {
     "listProductPage": {
       "title": "Restoreplus ürün listesi"
+    },
+    "listProductsSection": {
+      "title": "Ürünlerimiz"
     }
   },
   "profile": {
@@ -561,23 +571,23 @@
     "sideNavigationItems": [
       {
         "title": "Profil",
-        "href": "/tr/profile"
+        "href": "/profile"
       },
       {
         "title": "Şirket",
-        "href": "/tr/profile/company"
+        "href": "/profile/company"
       },
       {
         "title": "Adresler",
-        "href": "/tr/profile/addresses"
+        "href": "/profile/addresses"
       },
       {
         "title": "Sipariş oluştur",
-        "href": "/tr/profile/create-order"
+        "href": "/create-order"
       },
       {
         "title": "Emirler",
-        "href": "/tr/profile/orders"
+        "href": "/profile/orders"
       }
     ],
     "products": {
@@ -610,5 +620,33 @@
       "title": "Restoreplus Endüstriyel Yağlayıcılar | Her Makine için Doğru Yağı Bulun ",
       "description": "Restoreplus'ın yüksek performanslı endüstriyel yağlayıcılarının tüm ürün serisini keşfedin. İhtiyaçlarınıza mükemmel yağı bulmak için sektöre, kategoriye veya eşdeğer markaya göre kolayca filtreleyin. Güçlü arama ve filtreleme seçenekleri dahildir."
     }
+  },
+  "productFinder": {
+    "reset": "Sıfırla",
+    "category": "Kategori",
+    "categories": "Kategoriler",
+    "subCategories": "Alt kategoriler",
+    "allCategories": "Tüm Kategoriler",
+    "allSubCategories": "Tüm alt kategoriler",
+    "sectors": "Sektörler",
+    "subSectors": "Alt sektörler",
+    "allSectors": "Tüm sektörler",
+    "allSubSectors": "Tüm alt sektörler",
+    "equivalent": "Muadil"
+  },
+  "createOrderPage": {
+    "reduction": "iskonto",
+    "details": "Detaylar",
+    "addToCart": "Sepete ekle",
+    "sectorDiscount": "sektör indirimi"
+  },
+  "localeCurrencyMenu": {
+    "title": "Dili ve para birimini ayarlayın",
+    "description": "Tercih ettiğiniz dili ve para birimini seçin. Ayarları istediğiniz zaman güncelleyebilirsiniz.",
+    "language": "Dil",
+    "languages": "Diller",
+    "currency": "Para birimi",
+    "currencies": "Para birimleri",
+    "save": "Kaydet"
   }
 }

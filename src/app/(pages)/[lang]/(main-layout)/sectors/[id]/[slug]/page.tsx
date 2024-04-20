@@ -1,6 +1,6 @@
 import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
-import { getSectorById } from '@/features/sectors/data/get-sector-by-id'
+import { getSectorById } from '@/features/sectors/api/get-sector-by-id'
 import Logo from '@/components/common/logo'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'

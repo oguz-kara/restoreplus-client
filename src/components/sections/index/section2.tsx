@@ -12,7 +12,7 @@ export default async function Section2({ lang }: PropsWithLang) {
   } = await getDictionary(lang)
   return (
     <div className="bg-foreground text-white mt-10 lg:mt-20">
-      <Section className="pt-5">
+      <Section className="pt-20">
         <div className="flex flex-col lg:flex-row gap-10">
           <div className="lg:flex-1">
             <Typography as="h4" className="text-primary mb-5">
@@ -36,7 +36,7 @@ export default async function Section2({ lang }: PropsWithLang) {
           <div className="lg:flex-1">
             <Image
               className="w-full"
-              src={section2.image.src}
+              src="/images/5989.jpg"
               alt={section2.image.alt}
               width={500}
               height={500}

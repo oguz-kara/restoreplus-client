@@ -1,36 +1,27 @@
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
-import Image from '@/components/ui/image'
+import SectionHeader from '@/components/common/section-header'
+import Image, { ServerImage } from '@/components/ui/image'
+import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { getDictionary } from '@/i18n/get-dictionary'
-import { PropsWithLang } from '@/i18n/types'
-
-interface FeaturedBlogPostCardData {
-  title: string
-  subtitle: string
-  description: string
-  image: {
-    src: string
-    alt: string
-  }
-}
-
-
-const featuredBlogPostDummyData = {
-  title: 'Engineering & Design',
-  subtitle: 'Flying Sports Car Takes First Flight',
-  description:
-    'Restoreplus Lubricants: Empowering industrial efficiency and maximizing productivity for over 10 years. We offer a comprehensive range of high-performance lubricants formulated for your specific needs, built upon decades of industry expertise and relentless innovation.',
-  image: {
-    src: '/images/image-placeholder.png',
-    alt: 'image placeholder',
-  },
-}
+import { Locale, PropsWithLang } from '@/i18n/types'
+import { serverFetcher } from '@/lib/server-fetcher'
+import { consoleLog } from '@/utils/log-to-console'
+import { getTranslationOfList } from '@/utils/translations-utils'
 
 export default async function Section5({ lang }: PropsWithLang) {
   const {
-    common: { learnMoreUs },
+    index: {
+      section5: { title },
+    },
   } = await getDictionary(lang)
+
+  const blogPosts = await getStaticBlogPosts({
+    lang,
+  })
+
+  if (!blogPosts || blogPosts?.length < 1) return null
 
   return (
     <div
@@ -46,9 +37,18 @@ export default async function Section5({ lang }: PropsWithLang) {
     >
       <Container>
         <Section className="relative">
-          <div className="grid lg:grid-cols-2 gap-10">
-            <FeaturedBlogPostCard data={featuredBlogPostDummyData} />
-            <BlogPostCard data={featuredBlogPostDummyData} />
+          <div className="py-5">
+            <SectionHeader className="text-center text-white">
+              {title}
+            </SectionHeader>
+          </div>
+          <div className="grid md:grid-cols-2 gap-10">
+            <FeaturedBlogPostCard {...blogPosts[0]} lang={lang} />
+            <div className="grid md:grid-cols-2 gap-5 auto-rows-fr">
+              {blogPosts.slice(1).map((blogPost) => (
+                <BlogPostCard key={blogPost.id} {...blogPost} lang={lang} />
+              ))}
+            </div>
           </div>
         </Section>
       </Container>
@@ -57,63 +57,122 @@ export default async function Section5({ lang }: PropsWithLang) {
 }
 
 function FeaturedBlogPostCard({
-  data: {
-    title,
-    subtitle,
-    description,
-    image: { src, alt },
-  },
-}: {
-  data: FeaturedBlogPostCardData
-}) {
+  id,
+  featuredImage,
+  translation: { title, excerpt, slug },
+  categories,
+  lang,
+}: BlogPostWithOneTranslation & PropsWithLang) {
   return (
-    <div className="text-white mb-5">
-      <div>
-        <Image
-          className="max-h-[200px] object-cover"
-          src={src}
-          width={500}
-          height={500}
-          alt={alt}
-        />
+    <Link href={`/blog/${id}/${slug}`} lang={lang}>
+      <div className="text-white mb-5">
+        <div>
+          <ServerImage
+            className="w-full object-cover aspect-video"
+            src={featuredImage?.path || ''}
+            width={500}
+            height={500}
+            alt={featuredImage?.alt || ''}
+          />
+        </div>
+        {categories?.length && categories?.length > 0 ? (
+          <Typography
+            as="h5"
+            className="text-lg font-normal py-1 text-gray-100 "
+          >
+            {categories[0].translation.name}
+          </Typography>
+        ) : null}
+        <Typography as="h4" className="text-2xl pb-2 font-semibold">
+          {title}
+        </Typography>
+        <Typography as="p" className="text-lg">
+          {excerpt}
+        </Typography>
       </div>
-      <Typography as="h5" className="text-md font-normal py-5 text-gray-200 ">
-        {title}
-      </Typography>
-      <Typography as="h4" className="text-lg pb-5 font-semibold">
-        {subtitle}
-      </Typography>
-      <Typography as="p">{description}</Typography>
-    </div>
+    </Link>
   )
 }
 
 function BlogPostCard({
-  data: {
-    title,
-    subtitle,
-    image: { src, alt },
-  },
-}: {
-  data: FeaturedBlogPostCardData
-}) {
+  id,
+  featuredImage,
+  translation: { title, slug },
+  categories,
+  lang,
+}: BlogPostWithOneTranslation & PropsWithLang) {
   return (
-    <div className="text-white mb-5">
-      <div>
-        <Image
-          className="max-h-[200px] object-cover"
-          src={src}
-          width={500}
-          height={500}
-          alt={alt}
-        />
+    <Link href={`/blog/${id}/${slug}`} lang={lang}>
+      <div className="text-white mb-5">
+        <div>
+          <ServerImage
+            className="object-cover aspect-video"
+            src={featuredImage?.path || ''}
+            width={500}
+            height={500}
+            alt={featuredImage?.alt || ''}
+          />
+        </div>
+        {categories?.length && categories?.length > 0 ? (
+          <Typography
+            as="h5"
+            className="text-sm md:text-md font-normal py-1 text-gray-100 capitalize"
+          >
+            {categories[0].translation.name}
+          </Typography>
+        ) : null}
+        <Typography
+          as="h4"
+          className="text-md md:text-lg pb-5 font-semibold font-[500]"
+        >
+          {title}
+        </Typography>
       </div>
-      <Typography as="h5" className="text-md font-normal py-5 text-gray-200 ">
-        {title}
-      </Typography>
-      <Typography as="h4" className="text-lg pb-5 font-semibold">
-        {subtitle}
-      </Typography>
-    </div>
+    </Link>
   )
+}
+
+async function getStaticBlogPosts({ lang }: { lang: Locale }) {
+  const { data } = await serverFetcher('/blog-posts/all', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      where: {
+        id: {
+          in: [2, 3, 4, 5, 6],
+        },
+      },
+      include: {
+        featuredImage: true,
+        translations: {
+          include: {
+            locale: true,
+          },
+        },
+        categories: {
+          include: {
+            translations: {
+              include: {
+                locale: true,
+              },
+            },
+          },
+        },
+      },
+    }),
+  })
+
+  return [
+    ...getTranslationOfList<BlogPostWithOneTranslation>(lang, data.data).map(
+      (item) => ({
+        ...item,
+        categories: getTranslationOfList<BlogPostCategoryWithOneTranslation>(
+          lang,
+          item.categories as any
+        ),
+      })
+    ),
+  ] as BlogPostWithOneTranslation[]
 }

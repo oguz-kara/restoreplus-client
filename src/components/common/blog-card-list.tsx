@@ -25,7 +25,7 @@ export default async function BlogCardList({
       <div className="grid lg:grid-cols-4 gap-10">
         {blogPostList.slice(0, 4).map((blogPost, i) => (
           <div key={i}>
-            <Link lang={lang} href={`/${blogPost.blogPostTranslation.slug}`}>
+            <Link lang={lang} href={`/${blogPost.translation.slug}`}>
               <div className="mb-3">
                 <Image
                   src={`${serverConfig.remoteUrl}${blogPost.featuredImage?.path}`}
@@ -40,14 +40,14 @@ export default async function BlogCardList({
               </div>
               <div>
                 <Typography as="h5" className="mb-3">
-                  {blogPost.blogPostCategory?.blogPostCategoryTranslation.name}
+                  {blogPost.categories?.length &&
+                    blogPost.categories?.length > 1 &&
+                    blogPost.categories[0].translation.name}
                 </Typography>
                 <Typography as="h3" className="mb-3">
-                  {blogPost.blogPostTranslation.title}
+                  {blogPost.translation.title}
                 </Typography>
-                <Typography as="p">
-                  {blogPost.blogPostTranslation.excerpt}
-                </Typography>
+                <Typography as="p">{blogPost.translation.excerpt}</Typography>
               </div>
             </Link>
           </div>

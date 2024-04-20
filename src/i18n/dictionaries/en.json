@@ -4,10 +4,16 @@
     "learnMoreUs": "Learn More About Us",
     "or": "or",
     "price": "price",
-    "search": "search"
+    "search": "search",
+    "filter": "Filter",
+    "productFound": "product found",
+    "categories": "Categories",
+    "sectors": "Sectors"
   },
   "layout": {
     "navigation": {
+      "categories": "Categories",
+      "sectors": "Sectors",
       "navItems": [
         {
           "title": "about us",
@@ -263,6 +269,9 @@
         }
       ]
     },
+    "section5": {
+      "title": "latest insights"
+    },
     "section6": {
       "heading": "For industry. ",
       "aboutBold": "Restoreplus Lubricants: ",
@@ -270,7 +279,7 @@
       "aboutButton": "Learn More About Us"
     },
     "section7": {
-      "title": "categories"
+      "title": "industries"
     }
   },
   "contactPage": {
@@ -441,6 +450,9 @@
   "product": {
     "listProductPage": {
       "title": "Restoreplus product list"
+    },
+    "listProductsSection": {
+      "title": "Our products"
     }
   },
   "profile": {
@@ -565,7 +577,7 @@
       },
       {
         "title": "Create order",
-        "href": "/profile/create-order"
+        "href": "/create-order"
       },
       {
         "title": "Orders",
@@ -602,5 +614,33 @@
       "title": "Restoreplus Industrial Lubricants | Find the Right Oil for Every Machine",
       "description": "Discover Restoreplus' complete line of high-performance industrial lubricants. Easily filter by sector, category, or equivalent brand to find the perfect oil for your needs. Powerful search & filter options included."
     }
+  },
+  "productFinder": {
+    "reset": "reset",
+    "category": "Category",
+    "categories": "Categories",
+    "subCategories": "Sub categories",
+    "allCategories": "All categories",
+    "allSubCategories": "All sub categories",
+    "sectors": "Sectors",
+    "subSectors": "Sub sectors",
+    "allSectors": "All sectors",
+    "allSubSectors": "All sub sectors",
+    "equivalent": "Equivalent"
+  },
+  "createOrderPage": {
+    "reduction": "reduction",
+    "details": "Details",
+    "addToCart": "Add to cart",
+    "sectorDiscount": "sector discount"
+  },
+  "localeCurrencyMenu": {
+    "title": "Set language and currency",
+    "description": "Select your preferred language and currency. You can update the settings at any time.",
+    "language": "Language",
+    "languages": "Languages",
+    "currency": "Currency",
+    "currencies": "Currencies",
+    "save": "Save"
   }
 }

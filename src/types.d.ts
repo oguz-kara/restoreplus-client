@@ -31,7 +31,7 @@ interface BlogPost {
   blogPostCategoryId?: number | null
   featuredImage: Image | null
   user?: User | null
-  category?: BlogPostCategory | null
+  categories?: BlogPostCategory[] | null
   translations: BlogPostTranslation[]
   createdAt: Date
   updatedAt: Date
@@ -43,12 +43,10 @@ interface BlogPostWithOneTranslation {
   minsRead?: number | null
   userId?: number | null
   imageId?: number | null
-  blogPostCategoryId?: number | null
   featuredImage: Image | null
   user?: User | null
-  blogPostCategory?: BlogPostCategoryWithOneTranslation | null
-  translations: BlogPostTranslation[]
-  blogPostTranslation: BlogPostTranslation
+  categories?: BlogPostCategoryWithOneTranslation[] | null
+  translation: BlogPostTranslation
   createdAt: Date
   updatedAt: Date
 }
@@ -177,7 +175,7 @@ interface Product {
   name: string
   imageId?: number | null
   translations: ProductTranslation[]
-  ProductDocumentation: ProductDocumentation[]
+  documents: Document[]
   categories: ProductCategory[]
   featuredImage?: Image | null
   sectors: Sector[]
@@ -195,6 +193,7 @@ interface TranslatedProduct {
   productId: number
   locale: SupportedLocale
   product: Product
+  equivalents?: string
   id: number
   name: string
   imageId?: number | null
@@ -213,6 +212,7 @@ interface ProductTranslation {
   metaDescription: string
   productType: string
   description: string
+  equivalents?: string
   supportedLocaleId: number
   productId: number
   locale: SupportedLocale
@@ -272,8 +272,8 @@ interface BlogPostCategoryInformationTranslation {
 
 interface SupportedLocale {
   id: number
-  locale: string
-  name: string
+  locale: Locale
+  name: 'tr' | 'en'
   default: boolean
   createdAt: Date
   updatedAt: Date
@@ -289,7 +289,7 @@ interface BlogPostCategoryWithOneTranslation {
   parentCategory?: BlogPostCategory | null
   posts: BlogPost[]
   subCategories: BlogPostCategoryWithOneTranslation[]
-  blogPostCategoryTranslation: BlogPostCategoryTranslation
+  translation: BlogPostCategoryTranslation
   blogPostCategoryInformationTranslations: BlogPostCategoryInformationTranslation[]
   blogPostCategoryInformationTranslation: BlogPostCategoryInformationTranslation
   featuredImage: Image | null
@@ -319,6 +319,16 @@ interface Sector {
   featuredImage?: Image | null
   products: Product[]
   translations: SectorTranslation[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface SectorWithTranslation {
+  id: number
+  featuredImageId?: number | null
+  featuredImage?: Image | null
+  products: Product[]
+  translation: SectorTranslation
   createdAt: Date
   updatedAt: Date
 }
@@ -355,12 +365,14 @@ interface ProductWithTranslation {
   id: number
   name: string
   imageId?: number | null
+  equivalents?: string
   translations: ProductTranslation[]
   translation: ProductTranslation
   productDocumentation: ProductDocumentation[]
   categories: TranslatedProductCategory[]
   featuredImage?: Image | null
-  sectors: Sector[]
+  sectors: SectorWithTranslation[]
+  documents: DocumentWithTranslation[]
   createdAt: Date
   updatedAt: Date
 }
@@ -414,11 +426,13 @@ interface CalculatedProduct {
   productType: string
   description: string
   supportedLocaleId: number
+  equivalents?: string
   productGroupId: number | null
   featuredImage: Image
   price: number
   totalDiscount: number
-  calculatedPrice: string
+  calculatedPrice: number
+  currencyCode: string
   sectorsDiscounts: SectorDiscount[]
   reductionDiscounts: ReductionDiscounts
   sectors: TranslatedSector[]
@@ -432,6 +446,7 @@ interface SectorDiscount {
 
 interface ReductionDiscounts {
   type: string
+  value: string
 }
 
 interface TranslatedSector {
@@ -525,6 +540,69 @@ interface TranslatedProductCategory {
   parentCategory?: ProductCategory | null
   subCategories: TranslatedProductCategory[] | ProductCategory[]
   products: Product[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface Document {
+  id: number
+  documentCategoryId?: number | null
+  productId?: number | null
+  translations: DocumentTranslation[]
+  documentCategory?: DocumentCategory | null
+  product?: Product | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface DocumentWithTranslation {
+  id: number
+  documentCategoryId?: number | null
+  productId?: number | null
+  translation: DocumentTranslation
+  documentCategory?: DocumentCategory | null
+  product?: Product | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface DocumentTranslation {
+  id: number
+  name: string
+  description?: string | null
+  resourceId: number
+  localeId: number
+  fileId: number
+  createdAt: Date
+  updatedAt: Date
+  locale: SupportedLocale
+  file: File
+  resource: Document
+}
+
+interface DocumentCategory {
+  id: number
+  createdAt: Date
+  updatedAt: Date
+  documents: Document[]
+  translations: DocumentCategoryTranslation[]
+}
+
+interface DocumentCategoryWithTranslation {
+  id: number
+  documents: Document[]
+  translation: DocumentCategoryTranslation
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface DocumentCategoryTranslation {
+  id: number
+  name: string
+  resourceId: number
+  localeId: number
+  locale: SupportedLocale
+  resource: DocumentCategory
   createdAt: Date
   updatedAt: Date
 }

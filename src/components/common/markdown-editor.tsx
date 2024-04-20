@@ -1,10 +1,10 @@
 'use client'
 import { useFormContext } from 'react-hook-form'
 import '@/styles/github-markdown.css'
-import Typography from './typography'
 import { FormControl, FormField, FormItem } from '../ui/form'
 import { Textarea } from '../ui/textarea'
 import MarkdownPreview from './markdown-preview'
+import Typography from '../ui/typography'
 
 interface MarkdownEditorProps {
   name: string

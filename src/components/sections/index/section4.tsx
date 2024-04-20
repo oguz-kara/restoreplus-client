@@ -1,5 +1,6 @@
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
+import SectionHeader from '@/components/common/section-header'
 import { Button } from '@/components/ui/button'
 import Image from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
@@ -15,11 +16,11 @@ export default async function Section4({ lang }: PropsWithLang) {
     <Section>
       <Container>
         <div>
-          <Typography as="h3" className="font-normal pb-10 text-center">
+          <SectionHeader className="text-center pb-3">
             {section4.heading}
-          </Typography>
+          </SectionHeader>
           <div className="flex flex-col items-center">
-            <div className="flex flex-wrap gap-5 mb-10">
+            <div className="flex flex-wrap gap-5 mb-3">
               {section4.lubricantTypes.map((item, i) => (
                 <div key={i} className="bg-black">
                   <Image

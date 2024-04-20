@@ -9,7 +9,6 @@ export default async function ProductDetailLayout({
   children,
   params: { lang, id },
 }: PropsWithChildren & ParamsWithLang & ParamsWithId) {
-  
   const { data } = await getProductCategoryData({ lang })
   const product = await getProductById(id, lang)
   let categoryIds: number[] = []
@@ -34,9 +33,9 @@ export default async function ProductDetailLayout({
   }
 
   return (
-    <Container className="p-5">
-      <div className="flex gap-20">
-        <div className="flex-1">
+    <Container className="p-5 ">
+      <div className="flex gap-5">
+        <div className="hidden lg:block  flex-1 ">
           <ProductCategoriesSide categories={data} product={product} />
         </div>
         <div className="flex-[3]">{children}</div>

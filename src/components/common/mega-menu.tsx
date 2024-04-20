@@ -42,7 +42,7 @@ export default function MegaMenu({
         <div
           className={cn(
             'fixed z-50 bg-white text-black left-0 right-0',
-            calculatedTop ? `top-[134px]` : 0,
+            calculatedTop ? `top-[125px]` : 0,
             open || contentHovered ? openedClasses : closeClasses
           )}
           onMouseOver={() => setContentHovered(true)}

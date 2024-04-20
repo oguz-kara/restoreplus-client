@@ -1,42 +1,59 @@
-import { consoleLog } from './log-to-console'
+import { Locale } from '@/i18n/types'
+import { getProperLanguage } from '@/i18n/utils'
 
 export const convertToSearch = (
   searchBy: string[],
   term: string,
-  searchByTranslation?: string | string[]
+  translation?: {
+    searchByTranslation?: string[] | string
+    locale?: string
+  }
 ) => {
-  const result: any = {}
+  const properLang = getProperLanguage(translation?.locale as Locale)
+  let result: any = {}
   searchBy.forEach((item) => {
     result[item] = term
   })
   if (
-    searchByTranslation &&
-    Array.isArray(searchByTranslation) &&
-    searchByTranslation.length > 0
+    translation?.searchByTranslation &&
+    Array.isArray(translation.searchByTranslation) &&
+    translation.searchByTranslation.length > 0
   ) {
-    result['translations'] = {}
-    result['translations']['some'] = {}
-
-    searchByTranslation.forEach((item) => {
-      result['translations']['some'][item] = {
-        contains: term,
-        mode: 'insensitive',
+    const translationSearchObjects = translation.searchByTranslation.map(
+      (item) => {
+        return {
+          translations: {
+            some: {
+              locale: {
+                locale: properLang,
+              },
+              [item]: {
+                contains: term,
+                mode: 'insensitive',
+              },
+            },
+          },
+        }
       }
-    })
-    consoleLog({ result })
-  } else if (searchByTranslation) {
-    result['translations'] = {}
-    result['translations']['some'] = {}
-    result['translations']['some'][searchByTranslation as string] = {}
-    result['translations']['some'][searchByTranslation as string]['contains'] =
-      term
-    result['translations']['some'][searchByTranslation as string]['mode'] =
-      'insensitive'
-    result['translations']['some'][searchByTranslation as string] = term
-
-    consoleLog({ result })
+    )
+    result.translations = translationSearchObjects
+  } else if (translation?.searchByTranslation) {
+    result.translations = [
+      {
+        translations: {
+          some: {
+            locale: {
+              locale: properLang,
+            },
+            [translation.searchByTranslation as string]: {
+              contains: term,
+              mode: 'insensitive',
+            },
+          },
+        },
+      },
+    ]
   }
 
-  consoleLog({ result })
   return { search: result }
 }

@@ -1,5 +1,6 @@
 import { Locale } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
+import { getTranslation } from '@/utils/translations-utils'
 
 export async function getSingleBlogPostById(id: string, lang: Locale = 'tr') {
   const query = `?include.translations.include.locale=true&include.featuredImage=true`
@@ -11,10 +12,10 @@ export async function getSingleBlogPostById(id: string, lang: Locale = 'tr') {
 
   const result = {
     ...data,
-    blogPostTranslation: data.translations.find(
-      (blogPostTranslation: BlogPostTranslation) =>
-        blogPostTranslation.locale.locale === lang
-    ) as BlogPostTranslation,
+    translation: getTranslation(
+      lang,
+      data.translations
+    ) as BlogPostCategoryWithOneTranslation,
   }
 
   return result as BlogPostWithOneTranslation

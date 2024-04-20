@@ -20,7 +20,7 @@ export default function HeroSection() {
     <div className="p-4 relative flex items-center justify-center h-[500px]">
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-image.png"
+          src="/images/490724.jpg"
           alt="restoreplus hero image"
           width={1920}
           height={500}
@@ -30,6 +30,7 @@ export default function HeroSection() {
             height: '500px',
           }}
         />
+        <div className="absolute left-0 right-0 top-0 bottom-0 bg-[rgba(0,0,0,0.6)]"></div>
       </div>
       <Container className="relative text-center">
         <Typography as="h2" className="text-white mb-10">

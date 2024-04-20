@@ -21,11 +21,12 @@ import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import Container from './container'
 import MegaMenu from './mega-menu'
 import { useDisclosure } from '@/hooks/use-disclosure'
-import Typography from './typography'
 import useScrollPosition from '@/hooks/use-scroll-position'
 import Image from '../ui/image'
 import AdvancedSearchBox from './advanced-search-box'
 import { usePathname } from 'next/navigation'
+import PickLocaleAndCurrencyMenu from '@/features/locale/components/pick-locale-and-currency-menu'
+import Typography from '../ui/typography'
 
 export function NavigationBar({
   categoryData,
@@ -42,6 +43,9 @@ export function NavigationBar({
   } | null
   lang: Locale
 }) {
+  const {
+    dictionary: { common },
+  } = useDictionary()
   const {
     open: openCategories,
     onClose: onCloseCategories,
@@ -95,7 +99,7 @@ export function NavigationBar({
             {!pathname.includes('/product/finder') && (
               <div
                 className={cn(
-                  'hidden items-center flex-[2]',
+                  'hidden items-center flex-[1.5]',
                   scrollPosition > 0 || isOnProductPage ? 'flex' : 'hidden'
                 )}
               >
@@ -114,22 +118,25 @@ export function NavigationBar({
         </div>
         <div
           className={cn(
-            'flex gap-2',
+            'flex justify-end gap-2',
             scrollPosition > 0 || isOnProductPage ? 'hidden' : 'flex'
           )}
         >
-          <div>
+          <div className="flex items-center mr-3">
             <MegaMenu
               open={openCategories}
               onClose={onCloseCategories}
               onOpen={onOpenCategories}
               trigger={
-                <div className="flex items-center gap-2 cursor-pointer pb-5">
+                <div className="flex items-center gap-1 cursor-pointer pb-5">
                   <Menu size={15} color={whiteState ? 'black' : 'white'} />
                   <Typography
-                    className={whiteState ? 'text-black' : 'text-white'}
+                    className={cn(
+                      whiteState ? 'text-black' : 'text-white',
+                      'text-sm'
+                    )}
                   >
-                    Kategoriler
+                    {common.categories}
                   </Typography>
                 </div>
               }
@@ -148,12 +155,14 @@ export function NavigationBar({
               onClose={onCloseSectors}
               onOpen={onOpenSectors}
               trigger={
-                <div className="flex items-center gap-2 cursor-pointer pb-5">
-                  <Menu size={15} color={whiteState ? 'black' : 'white'} />
+                <div className="cursor-pointer pb-5">
                   <Typography
-                    className={whiteState ? 'text-black' : 'text-white'}
+                    className={cn(
+                      whiteState ? 'text-black' : 'text-white',
+                      'text-sm'
+                    )}
                   >
-                    Sektorler
+                    {common.sectors}
                   </Typography>
                 </div>
               }
@@ -268,6 +277,7 @@ function ProductCategoryData({
   }, [parentCategories])
 
   React.useEffect(() => {
+    console.log('qweqwqe')
     if (categoryData) {
       setParentCategories(categoryData.slice(0, 7))
     }
@@ -354,6 +364,7 @@ function SectorData({
   const [selectedSector, setSelectedSector] = React.useState<any>(undefined)
 
   React.useEffect(() => {
+    console.log('qweqwqe')
     if (!selectedSector && sectorData && sectorData.length > 0)
       setSelectedSector(sectorData[0])
   }, [])
@@ -361,26 +372,24 @@ function SectorData({
   return (
     <Container>
       <div className="flex gap-10 p-5 min-h-[50vh]">
-        <ul className="flex-[2]">
+        <ul className="grid grid-cols-2 flex-[2] h-[max-content] gap-5">
           {sectorData?.map((sector, i) => (
-            <Link
-              href={`/sectors/${sector.id}/${sector.slug}`}
-              key={i}
-              lang={lang}
-            >
-              <li
-                className={cn(
-                  'hover:bg-gray-100 capitalize flex gap-5 justify-between text-lg p-3 border-b border-gray-300',
-                  sector.id === selectedSector?.id ? 'bg-gray-100' : ''
-                )}
-                key={sector.id}
-                onMouseOver={() => setSelectedSector(sector)}
-                onMouseLeave={() => setSelectedSector(undefined)}
-              >
-                {sector.name}
-                <ArrowRight color="gray" />
-              </li>
-            </Link>
+            <div key={i}>
+              <Link href={`/sectors/${sector.id}/${sector.slug}`} lang={lang}>
+                <li
+                  className={cn(
+                    'hover:bg-gray-100 capitalize flex gap-5 justify-between text-lg p-3 border-b border-gray-300',
+                    sector.id === selectedSector?.id ? 'bg-gray-100' : ''
+                  )}
+                  key={sector.id}
+                  onMouseOver={() => setSelectedSector(sector)}
+                  onMouseLeave={() => setSelectedSector(undefined)}
+                >
+                  {sector.name}
+                  <ArrowRight color="gray" />
+                </li>
+              </Link>
+            </div>
           ))}
         </ul>
         <div className="flex-1">
@@ -406,6 +415,9 @@ function RightNavigation() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
+        <NavigationMenuItem>
+          <PickLocaleAndCurrencyMenu />
+        </NavigationMenuItem>
         {dictionary.layout.navigation.navItems?.map((item, i) =>
           !item.href ? (
             <NavigationMenuItem key={i}>

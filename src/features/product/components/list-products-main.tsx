@@ -5,7 +5,7 @@ import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
 import { getDictionary } from '@/i18n/get-dictionary'
-import { getDataListWithPagination } from '@/utils/fetch-data'
+import { advancedDataSearch } from '@/utils/fetch-data'
 
 interface ListProductsMainProps extends Pagination {
   q?: string
@@ -22,13 +22,12 @@ export default async function ListProductsMain({
   const {
     publicProductPageList: { available, products },
   } = await getDictionary(lang)
-  const { data, pagination } = await getDataListWithPagination({
+  const { data, pagination } = await advancedDataSearch({
     page,
     take,
     name: 'products',
     type: 'search',
     query: q,
-    relationType: type
   })
 
   if (!data) return 'no data found!'

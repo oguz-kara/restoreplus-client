@@ -2,8 +2,12 @@ import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 import { NextRequest, NextResponse } from 'next/server'
 import i18n from './i18n'
+import { generateProtectedRoutesForLocales } from './utils/generate-protected-routes'
 
-const protectedRoutes = ['/profile']
+const protectedRoutes = generateProtectedRoutesForLocales([
+  '/profile',
+  '/create-order',
+])
 
 function getLocale(request: NextRequest) {
   const languageHeader = request.headers.get('accept-language')
@@ -23,6 +27,7 @@ function getLocale(request: NextRequest) {
 }
 
 export function middleware(request: NextRequest) {
+  const lang = request.cookies.get('lang')
   const isAuthenticated = request.cookies.get('jwt')
   const isProtectedRoute = protectedRoutes.includes(request.nextUrl.pathname)
 
@@ -36,6 +41,36 @@ export function middleware(request: NextRequest) {
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
+
+  console.log({ lang, locale })
+
+  if (pathnameIsMissingLocale && pathname.includes('/product/finder')) {
+    return NextResponse.redirect(
+      new URL(
+        `/${locale}${pathname.startsWith('/') ? '' : '/en'}${pathname}`,
+        request.url
+      )
+    )
+  }
+
+  if (pathnameIsMissingLocale && pathname.includes('/create-order')) {
+    return NextResponse.redirect(
+      new URL(
+        `/${locale}${pathname.startsWith('/') ? '' : '/en'}${pathname}`,
+        request.url
+      )
+    )
+  }
+
+  console.log({ is: pathname.startsWith('/') })
+
+  if (lang && pathnameIsMissingLocale)
+    return NextResponse.redirect(
+      new URL(
+        `/${lang.value}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
+        request.url
+      )
+    )
 
   if (locale === i18n.defaultLocale && pathnameIsMissingLocale)
     return NextResponse.rewrite(

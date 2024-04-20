@@ -10,8 +10,8 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   const product = await getProductById(id, lang)
 
   return {
-    title: product?.translation.metaTitle,
-    description: product?.translation.metaDescription,
+    title: product?.translation?.metaTitle,
+    description: product?.translation?.metaDescription,
   }
 }
 

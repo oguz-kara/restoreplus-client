@@ -1,5 +1,6 @@
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
+import SectionHeader from '@/components/common/section-header'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
 import { getDictionary } from '@/i18n/get-dictionary'
@@ -25,9 +26,7 @@ export default async function Section6({
         <Section>
           <div className="lg:flex lg:items-center lg:gap-20">
             <div>
-              <Typography as="h3" className="mb-5">
-                {section6.heading}
-              </Typography>
+              <SectionHeader className="mb-5">{section6.heading}</SectionHeader>
               <Typography as="p" className="mb-5">
                 <span className="font-bold">{section6.aboutBold}</span>
                 <span>{section6.about}</span>

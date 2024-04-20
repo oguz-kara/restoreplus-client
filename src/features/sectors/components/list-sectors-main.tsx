@@ -1,13 +1,15 @@
 import React from 'react'
 import serverConfig from '@/config/server-config.json'
-import { getSectors } from '../data/get-sectors'
 import Image from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
-import { PropsWithLang } from '@/i18n/types'
+import { Locale, PropsWithLang } from '@/i18n/types'
+import { getSectors } from '../api/get-sectors'
+import { getProperLanguage } from '@/i18n/utils'
 
 export default async function ListSectorsMain({ lang }: PropsWithLang) {
-  const res = await getSectors()
+  const properLang = getProperLanguage(lang)
+  const res = await getSectors({ lang: properLang as Locale })
 
   if (!res) return 'no data found!'
 
@@ -24,7 +26,7 @@ export default async function ListSectorsMain({ lang }: PropsWithLang) {
 
 function SectorCard({
   sector,
-  lang
+  lang,
 }: { sector: SectorWithTranslation } & PropsWithLang) {
   return (
     <Link href={`/sectors/${sector.id}/${sector.translation.slug}`} lang={lang}>

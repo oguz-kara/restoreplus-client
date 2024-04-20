@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { clientFetcher } from '@/lib/client-fetcher'
 import { serverFetcher } from '@/lib/server-fetcher'
+import { Locale } from '@/i18n/types'
 
 export async function searchProducts(q: string = '', locale: string = 'tr') {
   const query = {
@@ -43,8 +44,14 @@ export async function searchProducts(q: string = '', locale: string = 'tr') {
   } as { data: ProductWithTranslation[]; pagination: Pagination }
 }
 
-export async function getProducts(locale: string = 'tr') {
-  const query = {
+export async function getProducts({
+  lang,
+  query,
+}: {
+  lang: Locale
+  query?: any
+}) {
+  const q = {
     include: {
       featuredImage: true,
       translations: {
@@ -53,11 +60,12 @@ export async function getProducts(locale: string = 'tr') {
         },
       },
     },
+    ...(query && query),
   }
 
-  const { data } = await serverFetcher(`/products/all?lang=${locale}`, {
+  const { data } = await serverFetcher(`/products/all?lang=${lang}`, {
     cache: 'no-store',
-    body: JSON.stringify(query),
+    body: JSON.stringify(q),
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -73,7 +81,7 @@ export async function getProducts(locale: string = 'tr') {
       return {
         ...item,
         translation: {
-          ...item.translations.find((item) => item.locale.locale === locale),
+          ...item.translations.find((item) => item.locale.locale === lang),
         },
       }
     }),
@@ -91,7 +99,6 @@ export async function getCalculatedProductsForCompany(locale: string = 'tr') {
         authorization: `Bearer ${token}`,
       },
     })
-
 
     return data
   }
@@ -116,7 +123,6 @@ export async function getCalculatedProductForCompany(
         },
       }
     )
-
 
     if (!data) return null
 

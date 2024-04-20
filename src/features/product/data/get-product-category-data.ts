@@ -4,64 +4,84 @@ import { serverFetcher } from '@/lib/server-fetcher'
 
 export async function getProductCategoryData({ lang }: { lang: string }) {
   const properLang = getProperLanguage(lang as Locale)
-  console.log({ properLang })
   const { data } = await serverFetcher('/products/categories/all')
 
   const { data: categoryData, pagination } = data
 
   return {
-    data: categoryData.map((category: ProductCategory) => {
-      let translatedSubCategories: TranslatedProductCategory[] = []
-      const { translations, subCategories, ...restCategory } = category
-      const productCategoryTranslation = translations.find(
-        (translation) => translation.locale.locale === properLang
+    data: categoryData
+      .filter(({ translations }: any) =>
+        translations.find(
+          (translation: any) => translation.locale.locale === properLang
+        )
       )
+      .map((category: ProductCategory) => {
+        let translatedSubCategories: TranslatedProductCategory[] = []
+        const { translations, subCategories, ...restCategory } = category
+        const productCategoryTranslation = translations.find(
+          (translation) => translation.locale.locale === properLang
+        )
 
-      if (subCategories && subCategories.length > 0) {
-        translatedSubCategories = subCategories.map((subCategory) => {
-          let translatedSubCategories: TranslatedProductCategory[] = []
-          const { translations, subCategories, ...restSubCategory } =
-            subCategory
-          const subCategoryTranslation = translations.find(
-            (translation) => translation.locale.locale === properLang
-          )
-
-          if (!subCategoryTranslation) throw new Error('translation not found!')
-
-          translatedSubCategories = subCategories.map((item) => {
-            const { translations, ...restItem } = item
-            const itemTranslation = translations.find(
-              (translation) => translation.locale.locale === properLang
+        if (subCategories && subCategories.length > 0) {
+          translatedSubCategories = subCategories
+            .filter(({ translations }) =>
+              translations.find(
+                (translation) => translation.locale.locale === properLang
+              )
             )
+            .map((subCategory) => {
+              let translatedSubCategories: TranslatedProductCategory[] = []
+              const { translations, subCategories, ...restSubCategory } =
+                subCategory
+              const subCategoryTranslation = translations.find(
+                (translation) => translation.locale.locale === properLang
+              )
 
-            if (!itemTranslation) throw new Error('translation not found!')
+              if (!subCategoryTranslation)
+                throw new Error('translation not found!')
 
-            return {
-              ...itemTranslation,
-              ...restItem,
-            }
-          })
+              translatedSubCategories = subCategories
+                .filter(({ translations }) =>
+                  translations.find(
+                    (translation) => translation.locale.locale === properLang
+                  )
+                )
+                .map((item) => {
+                  const { translations, ...restItem } = item
+                  const itemTranslation = translations.find(
+                    (translation) => translation.locale.locale === properLang
+                  )
 
-          const { locale, ...restTranslation } = subCategoryTranslation
+                  if (!itemTranslation)
+                    throw new Error('translation not found!')
 
-          return {
-            ...restTranslation,
-            ...restSubCategory,
-            subCategories: translatedSubCategories,
-          }
-        })
-      }
+                  return {
+                    ...itemTranslation,
+                    ...restItem,
+                  }
+                })
 
-      if (!productCategoryTranslation) throw new Error('translation not found!')
+              const { locale, ...restTranslation } = subCategoryTranslation
 
-      const { locale, ...restTranslation } = productCategoryTranslation
+              return {
+                ...restTranslation,
+                ...restSubCategory,
+                subCategories: translatedSubCategories,
+              }
+            })
+        }
 
-      return {
-        ...restTranslation,
-        ...restCategory,
-        subCategories: translatedSubCategories,
-      }
-    }),
+        if (!productCategoryTranslation)
+          throw new Error('translation not found!')
+
+        const { locale, ...restTranslation } = productCategoryTranslation
+
+        return {
+          ...restTranslation,
+          ...restCategory,
+          subCategories: translatedSubCategories,
+        }
+      }),
     pagination,
   }
 }

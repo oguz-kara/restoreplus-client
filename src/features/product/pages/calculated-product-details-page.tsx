@@ -31,9 +31,7 @@ export default async function ProductDetailsPage({
 
   return (
     <div className="flex flex-col gap-2">
-      {/* name */}
       <Typography as="h4">{product.name}</Typography>
-      {/* image */}
       <div className="flex gap-10">
         <div className="flex-1">
           <Image
@@ -63,5 +61,3 @@ export default async function ProductDetailsPage({
     </div>
   )
 }
-
-async function getSingleCalculatedProductById(id: number) {}

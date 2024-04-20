@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 import mdx from '@next/mdx'
+import remarkGfm from 'remark-gfm'
 
-const withMDX = mdx()
+const withMDX = mdx({
+  options: {
+    remarkPlugins: [remarkGfm],
+  },
+})
 
 const nextConfig = {
   images: {

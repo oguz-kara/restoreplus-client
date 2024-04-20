@@ -22,6 +22,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { getSearchParam } from '@/utils/get-search-param'
 import { useEffect, useState } from 'react'
+import { useDictionary } from '@/context/use-dictionary'
 
 interface ProductFinderFiltersProps {
   categoryData: TranslatedProductCategory[]
@@ -36,6 +37,10 @@ export default function ProductFinderFilters({
   subCategoryData,
   subSectorData,
 }: ProductFinderFiltersProps) {
+  const searchParams = useSearchParams()
+  const {
+    dictionary: { productFinder, common },
+  } = useDictionary()
   const [categorySlug, setCategorySlug] = useState<string | undefined>(
     undefined
   )
@@ -46,8 +51,7 @@ export default function ProductFinderFilters({
   const [subSectorSlug, setSubSectorSlug] = useState<string | undefined>(
     undefined
   )
-  const [q, setQ] = useState<string>('')
-  const searchParams = useSearchParams()
+  const [q, setQ] = useState<string>(searchParams.get('term') || '')
   const router = useRouter()
   const pathname = usePathname()
 
@@ -64,6 +68,14 @@ export default function ProductFinderFilters({
     })
 
     router.push(`${pathname}${query}`)
+  }
+
+  const handleResetSearchParams = () => {
+    router.replace(pathname, undefined)
+    if (categorySlug) setCategorySlug(undefined)
+    if (subCategorySlug) setSubCategorySlug(undefined)
+    if (sectorSlug) setSectorSlug(undefined)
+    if (subSectorSlug) setSubSectorSlug(undefined)
   }
 
   useEffect(() => {
@@ -86,11 +98,11 @@ export default function ProductFinderFilters({
           'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
       }}
     >
-      <div className="mb-5 inline-block border border-gray-200 rounded-md">
-        <div className="flex items-center">
+      <div className="mb-5 flex border border-gray-200 rounded-md">
+        <div className="w-full flex items-center justify-between">
           <div>
             <Input
-              className="border-none outline-none focus:ring-primary focus-visible:ring-primary"
+              className="w-full border-none outline-none focus:ring-primary focus-visible:ring-primary"
               type="text"
               placeholder="Keyword..."
               value={q}
@@ -105,16 +117,22 @@ export default function ProductFinderFilters({
         </div>
       </div>
       <div className="flex items-center justify-between mb-5">
-        <Typography as="h5">Filter</Typography>
-        <Button variant="ghost" className="text-black gap-1 p-0">
+        <Typography as="h5">{common.filter}</Typography>
+        <Button
+          variant="ghost"
+          className="text-black gap-1 p-0"
+          onClick={() => handleResetSearchParams()}
+        >
           <span>
             <ArrowUpCircle />
           </span>
-          <span>Reset</span>
+          <span>{productFinder.reset}</span>
         </Button>
       </div>
       <div className="mb-5">
-        <Typography className="font-semibold text-sm mb-1">Category</Typography>
+        <Typography className="font-semibold text-sm mb-1">
+          {productFinder.category}
+        </Typography>
         <div>
           <Select
             onValueChange={(val) =>
@@ -124,11 +142,11 @@ export default function ProductFinderFilters({
           >
             <SelectTrigger className="w-full justify-start gap-3 rounded-none">
               <List />
-              <SelectValue placeholder="All categories" />
+              <SelectValue placeholder={productFinder.allCategories} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Categories</SelectLabel>
+                <SelectLabel>{productFinder.categories}</SelectLabel>
                 {categoryData.map((item: any, i: number) => (
                   <SelectItem
                     key={i}
@@ -155,11 +173,11 @@ export default function ProductFinderFilters({
               className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
             >
               <ListTree />
-              <SelectValue placeholder="All sub categories" />
+              <SelectValue placeholder={productFinder.allSubCategories} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Sub categories</SelectLabel>
+                <SelectLabel>{productFinder.subCategories}</SelectLabel>
                 {subCategoryData?.map((item: any, i: number) =>
                   item.translation.slug ? (
                     <SelectItem
@@ -176,7 +194,9 @@ export default function ProductFinderFilters({
         </div>
       </div>
       <div>
-        <Typography className="font-semibold text-sm mb-1">Sectors</Typography>
+        <Typography className="font-semibold text-sm mb-1">
+          {productFinder.sectors}
+        </Typography>
         <div>
           <Select
             onValueChange={(val) =>
@@ -186,11 +206,11 @@ export default function ProductFinderFilters({
           >
             <SelectTrigger className="w-full justify-start gap-3 rounded-none">
               <Factory />
-              <SelectValue placeholder="All sectors" />
+              <SelectValue placeholder={productFinder.allSectors} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Sectors</SelectLabel>
+                <SelectLabel>{productFinder.sectors}</SelectLabel>
                 {sectorData?.map((item: any, i: number) => (
                   <SelectItem
                     key={i}
@@ -213,11 +233,11 @@ export default function ProductFinderFilters({
               className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
             >
               <Drill />
-              <SelectValue placeholder="All sub sectors" />
+              <SelectValue placeholder={productFinder.allSubSectors} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Sub sectors</SelectLabel>
+                <SelectLabel>{productFinder.subSectors}</SelectLabel>
                 {subSectorData?.map((item: any, i: number) => (
                   <SelectItem
                     key={i}

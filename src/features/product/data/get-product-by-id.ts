@@ -1,6 +1,11 @@
+import { Locale } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
+import {
+  getTranslation,
+  getTranslationOfList,
+} from '@/utils/translations-utils'
 
-export async function getProductById(id: string, locale: string = 'tr') {
+export async function getProductById(id: string, locale: Locale = 'tr') {
   const query = {
     include: {
       featuredImage: true,
@@ -14,6 +19,35 @@ export async function getProductById(id: string, locale: string = 'tr') {
           translations: {
             include: {
               locale: true,
+            },
+          },
+        },
+      },
+      sectors: {
+        include: {
+          featuredImage: true,
+          translations: {
+            include: {
+              locale: true,
+            },
+          },
+        },
+      },
+      documents: {
+        include: {
+          translations: {
+            include: {
+              locale: true,
+              file: true,
+            },
+          },
+          documentCategory: {
+            include: {
+              translations: {
+                include: {
+                  locale: true,
+                },
+              },
             },
           },
         },
@@ -36,21 +70,63 @@ export async function getProductById(id: string, locale: string = 'tr') {
 
   return {
     ...restData,
-    translation: {
-      ...translations.find(
-        (item: ProductTranslation) => item.locale.locale === locale
+    translation: getTranslation(locale, translations),
+    categories: getTranslationOfList(locale, data.categories),
+    sectors: getTranslationOfList(locale, data.sectors),
+    documents: [
+      ...getTranslationOfList<Document>(locale, data.documents).map(
+        ({ documentCategory, ...rest }) => ({
+          ...rest,
+          documentCategory: {
+            ...documentCategory,
+            translation: getTranslation(locale, documentCategory?.translations),
+          },
+        })
       ),
-    },
-    categories: data.categories.map((category: ProductCategory) => {
-      const { translations, ...rest } = category
-
-      const translation = translations.find(
-        (translation) => translation.locale.locale === locale
-      )
-
-      if (!translation) throw new Error('Translation not found')
-
-      return { ...rest, translation }
-    }),
+    ],
   } as ProductWithTranslation
+}
+
+export const getProductsByCategoryIdOrIds = async (
+  id: number | number[],
+  lang: Locale
+) => {
+  try {
+    if (Array.isArray(id)) {
+      const { data } = await serverFetcher(`/products/all`, {
+        method: 'POST',
+        body: JSON.stringify({
+          where: {
+            categories: {
+              some: {
+                id: {
+                  in: id,
+                },
+              },
+            },
+          },
+        }),
+      })
+
+      return getTranslationOfList(lang, data.data) as ProductWithTranslation[]
+    } else {
+      const { data } = await serverFetcher(`/products/all`, {
+        method: 'POST',
+        body: JSON.stringify({
+          where: {
+            categories: {
+              some: {
+                id,
+              },
+            },
+          },
+        }),
+      })
+
+      return getTranslationOfList(lang, data.data) as ProductWithTranslation[]
+    }
+  } catch (err: any) {
+    console.log({ err })
+    return null
+  }
 }

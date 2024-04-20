@@ -1,7 +1,7 @@
 import serverConfig from '@/config/server-config.json'
 import Container from '@/components/common/container'
-import { getDataListWithPagination } from '@/utils/fetch-data'
-import { PropsWithLang } from '@/i18n/types'
+import { advancedDataSearch } from '@/utils/fetch-data'
+import { Locale, PropsWithLang } from '@/i18n/types'
 import ProductFinderFilters from '../components/product-finder-filters'
 import { getProperLanguage } from '@/i18n/utils'
 import { serverFetcher } from '@/lib/server-fetcher'
@@ -9,8 +9,10 @@ import { getCategoryIds } from '@/features/product-categories/api/get-category-i
 import { getSectorIds } from '@/features/sectors/api/get-sector-ids'
 import Typography from '@/components/ui/typography'
 import Image from '@/components/ui/image'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import Link from '@/components/ui/link'
+import { Badge } from '@/components/ui/badge'
+import { getDictionary } from '@/i18n/get-dictionary'
 
 interface CalculatedAndGetProductFinderSectorAndCategoryIdArguments {
   categorySlug?: string
@@ -38,42 +40,43 @@ export default async function ProductFinderPage({
   term,
 }: ProductFinderPageProps) {
   const properLang = getProperLanguage(lang)
+  const { productFinder, common } = await getDictionary(properLang as Locale)
 
-  const { data: categoryData } = await getDataListWithPagination({
+  const { data: categoryData } = await advancedDataSearch({
     page,
     take,
     name: 'products/categories',
     query: 'where.isTopLevelCategory=true',
-    lang,
+    lang: properLang as Locale,
   })
 
-  const { data: sectorData } = await getDataListWithPagination({
+  const { data: sectorData } = await advancedDataSearch({
     page,
     take,
     name: 'sectors',
     query: 'where.isTopLevelSector=true',
-    lang,
+    lang: properLang as Locale,
   })
 
   const subCategories = categorySlug
-    ? await getDataListWithPagination({
+    ? await advancedDataSearch({
         page,
         take,
         name: 'products/categories',
         query: `where.parentCategories.some.translations.some.slug=${
           categorySlug.split(',')[0]
         }`,
-        lang,
+        lang: properLang as Locale,
       })
     : undefined
 
   const subSectors = sectorSlug
-    ? await getDataListWithPagination({
+    ? await advancedDataSearch({
         page,
         take,
         name: 'sectors',
         query: `where.parentSectors.some.translations.some.slug=${sectorSlug}`,
-        lang,
+        lang: properLang as Locale,
       })
     : undefined
 
@@ -83,8 +86,6 @@ export default async function ProductFinderPage({
     sectorSlug,
     subSectorSlug,
   })
-
-  console.log({ categoryId, sectorId })
 
   const categoryIds =
     categoryData && categoryId
@@ -102,20 +103,20 @@ export default async function ProductFinderPage({
         sectorIds,
         lang: properLang,
       })
-    : await getDataListWithPagination({
+    : await advancedDataSearch({
         page,
         take,
         name: 'products',
         searchBy: 'name',
-        searchByTranslation: ['productType'],
+        searchByTranslation: ['productType', 'equivalents'],
         type: 'search',
         query: term,
-        lang,
+        lang: properLang as Locale,
       })
 
   return (
     <Container>
-      <div className="flex min-h-screen">
+      <div className="lg:flex lg:min-h-screen">
         <ProductFinderFilters
           categoryData={categoryData}
           subCategoryData={subCategories?.data}
@@ -123,10 +124,10 @@ export default async function ProductFinderPage({
           subSectorData={subSectors?.data}
         />
         {/* main */}
-        <div className="flex-[3] p-5">
+        <div className="flex-[3] p-5  bg-gray-100">
           <div>
             <Typography as="h5" className="mb-5">
-              {productData.data.length} product found
+              {productData.data.length} {common.productFound}
             </Typography>
           </div>
           {productData.data.length < 1 ? (
@@ -142,16 +143,17 @@ export default async function ProductFinderPage({
               }}
             />
           ) : null}
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid xl:grid-cols-4 md:grid-cols-3 gap-5 auto-rows-fr">
             {productData && productData.data && productData.data.length > 0
               ? productData.data.map(
                   (product: ProductWithTranslation, i: number) => (
-                    <div key={i}>
+                    <div key={i} className="h-full">
                       <Link
+                        className="h-full"
                         href={`/product/${product.id}/${product.translation.slug}`}
                         lang={lang}
                       >
-                        <Card>
+                        <Card className="h-full">
                           <CardHeader>
                             <div>
                               <Image
@@ -179,6 +181,16 @@ export default async function ProductFinderPage({
                               {product.translation.productType}
                             </Typography>
                           </CardContent>
+                          <CardFooter>
+                            {term &&
+                            product.translation.equivalents?.includes(term) ? (
+                              <Badge>
+                                <Typography>
+                                  {productFinder.equivalent}
+                                </Typography>
+                              </Badge>
+                            ) : null}
+                          </CardFooter>
                         </Card>
                       </Link>
                     </div>

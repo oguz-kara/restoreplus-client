@@ -13,7 +13,7 @@ export default async function MainLayout({
   const sectorData = await getSectorData({ lang: 'tr' })
 
   return (
-    <div className="grid">
+    <div className="grid pt-[42px]">
       <header>
         <NavigationBar
           lang={lang}

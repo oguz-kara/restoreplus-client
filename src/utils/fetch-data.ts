@@ -1,7 +1,9 @@
+import { cookies } from 'next/headers'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { convertToSearch } from './convert'
 import { Locale } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
+import { getTranslation } from './translations-utils'
 
 interface GetDataListWithPaginationParams extends Pagination {
   query?: string
@@ -12,7 +14,7 @@ interface GetDataListWithPaginationParams extends Pagination {
   searchByTranslation?: string[] | string
 }
 
-export const getDataListWithPagination = async ({
+export const advancedDataSearch = async ({
   name,
   page,
   take,
@@ -86,11 +88,16 @@ export async function searchData({
   lang,
   searchByTranslation,
 }: GetDataListWithPaginationParams) {
+  const currencyCode = cookies().get('currency')?.value || 'USD'
+  const token = cookies().get('token')
   const properLang = getProperLanguage(lang)
   const search = convertToSearch(
     searchBy && Array.isArray(searchBy) ? searchBy : [searchBy],
     query,
-    searchByTranslation
+    {
+      searchByTranslation,
+      locale: lang,
+    }
   )
   const pagination = {
     page: Number.isNaN(Number(page)) ? 0 : Number(page),
@@ -98,10 +105,11 @@ export async function searchData({
   }
 
   const { data } = await serverFetcher(
-    `/${name}/search?page=${pagination.page}&take=${pagination.take}`,
+    `/${name}/search?page=${pagination.page}&take=${pagination.take}&lang=${lang}&currency=${currencyCode}`,
     {
       headers: {
         'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token?.value}` }),
       },
       method: 'POST',
       cache: 'no-store',
@@ -110,21 +118,25 @@ export async function searchData({
   )
 
   if (data?.data && data.data.length > 0 && data.data[0].translations) {
-    const resultData = data.data.map((item: any) => {
-      const { translations, ...restData } = item
-      const translation = translations.find(
-        (translation: any) => translation.locale.locale === properLang
+    const resultData = data.data
+      .filter((product: Product) =>
+        getTranslation(properLang as Locale, product.translations)
       )
-      if (!translation)
+      .map((item: any) => {
+        const { translations, ...restData } = item
+        const translation = translations.find(
+          (translation: any) => translation.locale.locale === properLang
+        )
+        if (!translation)
+          return {
+            ...restData,
+            translation: {},
+          }
         return {
           ...restData,
-          translation: {},
+          translation,
         }
-      return {
-        ...restData,
-        translation,
-      }
-    })
+      })
 
     return {
       data: resultData,
