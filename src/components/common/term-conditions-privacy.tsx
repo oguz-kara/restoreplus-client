@@ -3,7 +3,10 @@ import { PropsWithLang } from '@/i18n/types'
 import Typography from '../ui/typography'
 import Link from '../ui/link'
 
-export default async function TermConditionsPrivacy({ lang }: PropsWithLang) {
+export default async function TermConditionsPrivacy({
+  lang,
+  className,
+}: PropsWithLang & PropsWithClassName) {
   const {
     common,
     layout: {
@@ -13,7 +16,7 @@ export default async function TermConditionsPrivacy({ lang }: PropsWithLang) {
 
   return (
     <div>
-      <Typography as="p" className="text-center">
+      <Typography as="p" className={className}>
         <span>
           {copyright.reconciliations.text}
           {` `}

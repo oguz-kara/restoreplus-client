@@ -8,7 +8,9 @@
     "filter": "Filtreler",
     "productFound": "ürün bulundu",
     "categories": "Kategoriler",
-    "sectors": "Sektörler"
+    "sectors": "Sektörler",
+    "productFinder": "Ürün bul",
+    "getTheLatestInfo": "en son bilgileri al"
   },
   "layout": {
     "navigation": {
@@ -46,25 +48,19 @@
       "title": "Ürünler"
     },
     "footer": {
-      "title": "Hakkımızda",
+      "title": "Bize ulaşın",
       "links": [
         {
-          "title": "Restoreplus Hakkında"
+          "title": "Sabit tel.: +90 212 345 6789"
         },
         {
-          "title": "Teklif talebi"
+          "title": "Mob.: +90 551 578 54 89"
         },
         {
-          "title": "Üye olmak"
+          "title": "E-posta: info@restoreplus.com"
         },
         {
-          "title": "Kayıt olmak"
-        },
-        {
-          "title": "temas etmek"
-        },
-        {
-          "title": "Yardım Merkezi"
+          "title": "Adres: Mersinli, 2830. Sk. No:35 D:101, 35170 Konak/İzmir Türkiye"
         }
       ],
       "copyright": {
@@ -73,7 +69,8 @@
           "termsAndConditions": "Şartlar ve koşullar",
           "privacy": "Gizlilik Bildirimi"
         }
-      }
+      },
+      "followUsTitle": "bizi takip edin"
     }
   },
   "auth": {
@@ -142,29 +139,29 @@
       "columns": [
         {
           "image": {
-            "src": "/images/image-placeholder.png",
+            "src": "/images/col1.png",
             "alt": "üretkenlik"
           },
-          "title": "Verimliliği Artırın",
-          "desc": " Yüksek performanslı yağlayıcıların etkisini deneyimleyin.  ",
+          "title": "TELİF HAKKI",
+          "desc": "Telif Hakkı © Dongguan Baoxing yağlama yağı Co., Ltd. Tüm Hakları Saklıdır",
           "buttonText": "Kataloğu keşfedin"
         },
         {
           "image": {
-            "src": "/images/image-placeholder.png",
+            "src": "/images/col2.png",
             "alt": "üretkenlik"
           },
-          "title": "Her Uygulamaya Yönelik Uzman Çözümler",
-          "desc": "Özel ihtiyaçlarınız için mükemmel yağlayıcıyı bulun.",
+          "title": "Yenilikçi R",
+          "desc": "Birçok marka şirkete gres sağladı Dongguan Baoxing Lubricant Co., Ltd. üretimi entegre ediyor, R",
           "buttonText": "Çözümünüzü Bulun"
         },
         {
           "image": {
-            "src": "/images/image-placeholder.png",
+            "src": "/images/col3.png",
             "alt": "üretkenlik"
           },
-          "title": "Maliyetleri azaltmak",
-          "desc": "Restoreplus ile maliyet tasarrufunun ve operasyonel mükemmelliğin kilidini açın.",
+          "title": "Yüksek Kaliteli Teknoloji",
+          "desc": "Bir dizi kıdemli madeni yağ teknik mühendisi ve bir grup yüksek vasıflı satış temsilcisi var",
           "buttonText": "Maliyetleri azaltmak"
         }
       ]

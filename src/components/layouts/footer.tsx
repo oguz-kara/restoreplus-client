@@ -4,68 +4,90 @@ import Link from '../ui/link'
 import Container from '../common/container'
 import { getDictionary } from '@/i18n/get-dictionary'
 import TermsConditionsPrivacyText from '../common/term-conditions-privacy'
+import { Facebook, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react'
+import ContactForm from '@/features/contact/components/contact-form'
 
-export default async function Footer({
-  lang,
-  categoryData,
-}: PropsWithLang & { categoryData: CategoryData | null }) {
-  if (!categoryData) return 'No category data found!'
+const socials = [
+  {
+    href: '/',
+    icon: <Instagram />,
+  },
+  {
+    href: '/',
+    icon: <Twitter />,
+  },
+  {
+    href: '/',
+    icon: <Youtube />,
+  },
+  {
+    href: '/',
+    icon: <Facebook />,
+  },
+  {
+    href: '/',
+    icon: <Linkedin />,
+  },
+]
+
+export default async function Footer({ lang }: PropsWithLang) {
   const {
+    common,
     layout: { footer },
   } = await getDictionary(lang)
 
-  const { data } = categoryData
-
   return (
-    <footer className="px-5 py-10 bg-foreground text-white">
+    <footer className="px-5 bg-foreground text-white bg-gradient-to-r from-[#1e1e27] to-[#313140]">
       <Container>
-        <div className="grid lg:grid-cols-6">
-          {data.map((category, i) => (
-            <div key={i}>
-              <Link
-                lang={lang}
-                href={`/${category.blogPostCategoryTranslation.name}`}
-              >
-                <Typography as="h6" className="pb-5 text-lg">
-                  {category.blogPostCategoryTranslation.name}
+        <div className="grid lg:grid-cols-2">
+          <div className="py-10">
+            <div>
+              <Link lang={lang} href={`/contact`}>
+                <Typography as="h6" className="text-xl pb-5 uppercase">
+                  {footer.title}
                 </Typography>
               </Link>
               <ul className="mb-5">
-                {category.subCategories.slice(0, 10).map((item, i) => (
-                  <li key={i} className="pb-1">
-                    <Link
-                      lang={lang}
-                      href={`/${item.blogPostCategoryTranslation.name}`}
-                    >
-                      <Typography as="p" className="text-md">
-                        {item.blogPostCategoryTranslation.name}
-                      </Typography>
-                    </Link>
+                {footer.links.map((item, i) => (
+                  <li key={i} className="pb-3">
+                    <Typography as="p" className="text-sm text-gray-500">
+                      {item.title}
+                    </Typography>
                   </li>
                 ))}
               </ul>
             </div>
-          ))}
-          <div>
-            <Link lang={lang} href={`/`}>
-              <Typography as="h6" className="pb-5 text-lg">
-                {footer.title}
-              </Typography>
-            </Link>
-            <ul className="mb-5">
-              {footer.links.map((item, i) => (
-                <li key={i} className="pb-1">
-                  <Link lang={lang} href={`/${item.title}`}>
-                    <Typography as="p" className="text-md">
-                      {item.title}
-                    </Typography>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <Link lang={lang} href={`/`}>
+                <Typography as="h6" className="text-xl pb-5 uppercase">
+                  {footer.followUsTitle}
+                </Typography>
+              </Link>
+              <ul className="flex gap-5 mb-5">
+                {socials.map((item, i) => (
+                  <li key={i} className="pb-3">
+                    <Link lang={lang} href={`/${item.href}`}>
+                      {item.icon}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <TermsConditionsPrivacyText lang={lang} />
+            </div>
+          </div>
+          <div className="hidden lg:block py-10">
+            <Typography as="h6" className="text-xl pb-5 uppercase">
+              {common.getTheLatestInfo}
+            </Typography>
+            <div>
+              <ContactForm
+                lang={lang}
+                theme={{ bg: 'transparent', text: '#fff' }}
+                className="p-0"
+              />
+            </div>
           </div>
         </div>
-        <TermsConditionsPrivacyText lang={lang} />
       </Container>
     </footer>
   )

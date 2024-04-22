@@ -83,7 +83,7 @@ export default function ProductCategoriesSide({
                   className={cn(
                     'capitalize text-sm hover:text-inherit',
                     productInSubCategory(category)
-                      ? 'text-primary font-semibold pb-3'
+                      ? 'font-bold pb-3'
                       : ''
                   )}
                 >
@@ -100,7 +100,7 @@ export default function ProductCategoriesSide({
                       className={cn(
                         'capitalize py-1 text-sm text-gray-500 hover:text-primary',
                         hasCategoryId(subCategory.id)
-                          ? 'text-primary font-semibold'
+                          ? 'font-bold'
                           : ''
                       )}
                       key={j}

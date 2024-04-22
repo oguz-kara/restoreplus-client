@@ -6,6 +6,6 @@ export default function Container({
   className,
 }: PropsWithChildren & PropsWithClassName) {
   return (
-    <div className={cn('max-w-[1500px] mx-auto', className)}>{children}</div>
+    <div className={cn('max-w-[1344px] mx-auto', className)}>{children}</div>
   )
 }

@@ -57,11 +57,19 @@ export function NavigationBar({
     onOpen: onOpenSectors,
   } = useDisclosure()
   const navbarRef = React.useRef<HTMLDivElement>(null)
+  const [navbarHeight, setNavbarHeight] = React.useState(0)
   const scrollPosition = useScrollPosition()
   const pathname = usePathname()
   const isOnProductPage = pathname.includes('/product')
   const whiteState =
     openCategories || scrollPosition > 0 || isOnProductPage || openSectors
+
+  React.useEffect(() => {
+    if (navbarRef.current) {
+      const height = navbarRef.current.offsetHeight
+      setNavbarHeight(height)
+    }
+  }, [navbarRef, navbarRef.current?.offsetHeight])
 
   return (
     <div
@@ -76,17 +84,73 @@ export function NavigationBar({
           'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
       }}
     >
-      <Container
-        className={cn(
-          'pt-5 px-5',
-          scrollPosition > 0 || isOnProductPage ? 'pb-5' : 'pb-0'
-        )}
-      >
-        <div
-          className={cn(scrollPosition > 0 || isOnProductPage ? '' : 'mb-5')}
-        >
+      <Container className={cn('px-5 py-0')}>
+        <div>
           <div className={cn('hidden lg:flex justify-between')}>
-            <div className="flex-1">
+            <div className={cn('flex flex-1 gap-4')}>
+              <div className="h-full">
+                <MegaMenu
+                  open={openCategories}
+                  onClose={onCloseCategories}
+                  onOpen={onOpenCategories}
+                  trigger={
+                    <div className="cursor-pointer h-full flex items-center ">
+                      <Typography
+                        className={cn(
+                          whiteState ? 'text-black' : 'text-white',
+                          'text-sm'
+                        )}
+                      >
+                        {common.categories}
+                      </Typography>
+                    </div>
+                  }
+                  content={
+                    <ProductCategoryData
+                      categoryData={categoryData?.data}
+                      lang={lang}
+                    />
+                  }
+                  top={navbarHeight}
+                />
+              </div>
+              <div className="h-full">
+                <MegaMenu
+                  open={openSectors}
+                  onClose={onCloseSectors}
+                  onOpen={onOpenSectors}
+                  trigger={
+                    <div className="cursor-pointer h-full flex items-center ">
+                      <Typography
+                        className={cn(
+                          whiteState ? 'text-black' : 'text-white',
+                          'text-sm'
+                        )}
+                      >
+                        {common.sectors}
+                      </Typography>
+                    </div>
+                  }
+                  content={
+                    <SectorData sectorData={sectorData?.data} lang={lang} />
+                  }
+                  top={navbarHeight}
+                />
+              </div>
+              <div className="flex items-center">
+                <Link href="/product/finder" lang={lang}>
+                  <Typography
+                    className={cn(
+                      whiteState ? 'text-black' : 'text-white',
+                      'text-sm'
+                    )}
+                  >
+                    {common.productFinder}
+                  </Typography>
+                </Link>
+              </div>
+            </div>
+            <div className="flex-1 flex justify-center py-5">
               <Link lang={lang} href="/">
                 <Logo
                   color={whiteState ? 'black' : 'white'}
@@ -95,80 +159,27 @@ export function NavigationBar({
                 />
               </Link>
             </div>
-            {/* search box */}
-            {!pathname.includes('/product/finder') && (
-              <div
-                className={cn(
-                  'hidden items-center flex-[1.5]',
-                  scrollPosition > 0 || isOnProductPage ? 'flex' : 'hidden'
-                )}
-              >
-                <AdvancedSearchBox />
-              </div>
-            )}
-            <div className="flex justify-end flex-1">
+            <div className="flex justify-end flex-1 py-5">
               <RightNavigation />
             </div>
           </div>
-          <NavbarMobile
-            className="lg:hidden"
-            categoryData={categoryData}
-            lang={lang}
-          />
-        </div>
-        <div
-          className={cn(
-            'flex justify-end gap-2',
-            scrollPosition > 0 || isOnProductPage ? 'hidden' : 'flex'
-          )}
-        >
-          <div className="flex items-center mr-3">
-            <MegaMenu
-              open={openCategories}
-              onClose={onCloseCategories}
-              onOpen={onOpenCategories}
-              trigger={
-                <div className="flex items-center gap-1 cursor-pointer pb-5">
-                  <Menu size={15} color={whiteState ? 'black' : 'white'} />
-                  <Typography
-                    className={cn(
-                      whiteState ? 'text-black' : 'text-white',
-                      'text-sm'
-                    )}
-                  >
-                    {common.categories}
-                  </Typography>
-                </div>
-              }
-              content={
-                <ProductCategoryData
-                  categoryData={categoryData?.data}
-                  lang={lang}
+          <div className="flex items-center justify-between py-5 lg:hidden">
+            <div className="block">
+              <Link lang={lang} href="/">
+                <Logo
+                  color={whiteState ? 'black' : 'white'}
+                  width={120}
+                  height={120}
                 />
-              }
-              top={200}
-            />
-          </div>
-          <div>
-            <MegaMenu
-              open={openSectors}
-              onClose={onCloseSectors}
-              onOpen={onOpenSectors}
-              trigger={
-                <div className="cursor-pointer pb-5">
-                  <Typography
-                    className={cn(
-                      whiteState ? 'text-black' : 'text-white',
-                      'text-sm'
-                    )}
-                  >
-                    {common.sectors}
-                  </Typography>
-                </div>
-              }
-              content={<SectorData sectorData={sectorData?.data} lang={lang} />}
-              top={200}
-            />
+              </Link>
+            </div>
+            <div>
+              <NavbarMobile
+                className="lg:hidden"
+                categoryData={categoryData}
+                lang={lang}
+              />
+            </div>
           </div>
         </div>
       </Container>

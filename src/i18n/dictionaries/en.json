@@ -8,7 +8,9 @@
     "filter": "Filter",
     "productFound": "product found",
     "categories": "Categories",
-    "sectors": "Sectors"
+    "sectors": "Sectors",
+    "productFinder": "Find product",
+    "getTheLatestInfo": "get the latest information"
   },
   "layout": {
     "navigation": {
@@ -48,25 +50,19 @@
       "title": "Products"
     },
     "footer": {
-      "title": "about us",
+      "title": "Bize ulaşın",
       "links": [
         {
-          "title": "About Restoreplus"
+          "title": "Fixed line: +90 212 345 6789"
         },
         {
-          "title": "Offer request"
+          "title": "Mobile: +90 551 578 54 89"
         },
         {
-          "title": "Sign up"
+          "title": "E-mail: info@restoreplus.com"
         },
         {
-          "title": "Register"
-        },
-        {
-          "title": "contact"
-        },
-        {
-          "title": "Help center"
+          "title": "Address: Mersinli, 2830. St. No:35 Apt:101, 35170 Konak/İzmir Turkey"
         }
       ],
       "copyright": {
@@ -75,7 +71,8 @@
           "termsAndConditions": "Terms and Conditions",
           "privacy": "Privacy Statement"
         }
-      }
+      },
+      "followUsTitle": "follow us"
     }
   },
   "auth": {
@@ -132,34 +129,34 @@
       }
     },
     "section1": {
-      "title": "Discover Restoreplus Lubricants",
+      "title": "Restoreplus Yağlayıcıları Keşfedin",
       "columns": [
         {
           "image": {
             "src": "/images/col1.png",
-            "alt": "productivity"
+            "alt": "verimlilik"
           },
-          "title": "COPYRIGHT",
-          "desc": "Copyright © Dongguan Baoxing lubricating oil Co., Ltd. All Rights Reserved",
-          "buttonText": "Explore the Catalog"
+          "title": "Telif Hakkı",
+          "desc": "Tüm Hakları Saklıdır © Restoreplus Yağlama Yağı Co., Ltd.",
+          "buttonText": "Kataloğu Keşfedin"
         },
         {
           "image": {
             "src": "/images/col2.png",
-            "alt": "productivity"
+            "alt": "verimlilik"
           },
-          "title": "Innovative R & D",
-          "desc": "Has provided grease for many brand companies Dongguan Baoxing Lubricant Co., Ltd. integrates production, R & D and sales",
-          "buttonText": "Find Your Solution"
+          "title": "Yenilikçi Ar-Ge",
+          "desc": "Restoreplus Yağlama Yağı Co., Ltd., birçok marka şirketine yağ sağlamıştır. Üretim, Ar-Ge ve satışı entegre eder.",
+          "buttonText": "Çözümünüzü Bulun"
         },
         {
           "image": {
             "src": "/images/col3.png",
-            "alt": "productivity"
+            "alt": "verimlilik"
           },
-          "title": "High-quality Technology",
-          "desc": "Has a number of senior lubricant technical engineers and a group of highly qualified sales representatives",
-          "buttonText": "Cutting costs"
+          "title": "Yüksek Kaliteli Teknoloji",
+          "desc": "Bir dizi kıdemli yağlayıcı teknik mühendisi ve yüksek nitelikli satış temsilcisine sahiptir.",
+          "buttonText": "Maliyetleri Düşürün"
         }
       ]
     },

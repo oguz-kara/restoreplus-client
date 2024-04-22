@@ -73,7 +73,7 @@ export default async function SingleProductPage({
             <Typography className="py-5 pb-10" as="h3">
               Benzer ürünler
             </Typography>
-            <ListSimilarProducts products={data} />
+            <ListSimilarProducts lang={lang} products={data} />
           </Section>
         )}
       </Container>

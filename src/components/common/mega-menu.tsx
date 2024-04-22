@@ -31,9 +31,9 @@ export default function MegaMenu({
 
   return (
     <>
-      <div className="text-white" onMouseLeave={() => onClose()}>
+      <div className="text-white h-full" onMouseLeave={() => onClose()}>
         <div
-          className={cn('inline-block')}
+          className={cn('h-full')}
           ref={triggerRef}
           onMouseOver={() => onOpen()}
         >
@@ -42,7 +42,6 @@ export default function MegaMenu({
         <div
           className={cn(
             'fixed z-50 bg-white text-black left-0 right-0',
-            calculatedTop ? `top-[125px]` : 0,
             open || contentHovered ? openedClasses : closeClasses
           )}
           onMouseOver={() => setContentHovered(true)}
@@ -50,6 +49,7 @@ export default function MegaMenu({
           style={{
             boxShadow:
               'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
+            top: calculatedTop ? `${calculatedTop}px` : '0',
           }}
         >
           {content}

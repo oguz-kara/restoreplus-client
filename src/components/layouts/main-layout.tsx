@@ -1,9 +1,9 @@
-import { Locale, PropsWithLang } from '@/i18n/types'
+import {  PropsWithLang } from '@/i18n/types'
 import React, { PropsWithChildren } from 'react'
 import { NavigationBar } from '../common/navbar'
 import { serverFetcher } from '@/lib/server-fetcher'
-import { getProperLanguage } from '@/i18n/utils'
 import { getProductCategoryData } from '@/features/product/data/get-product-category-data'
+import Footer from './footer'
 
 export default async function MainLayout({
   lang,
@@ -21,8 +21,8 @@ export default async function MainLayout({
           sectorData={sectorData}
         />
       </header>
-      <main className="min-h-screen mt-[88px]">{children}</main>
-      {/* <Footer lang={lang} categoryData={result} /> */}
+      <main className="min-h-screen mt-9">{children}</main>
+      <Footer lang={lang} />
     </div>
   )
 }

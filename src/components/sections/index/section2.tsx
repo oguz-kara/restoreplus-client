@@ -13,7 +13,7 @@ export default async function Section2({ lang }: PropsWithLang) {
   return (
     <div className="bg-foreground text-white mt-10 lg:mt-20">
       <Section className="pt-20">
-        <div className="flex flex-col lg:flex-row gap-10">
+        <div className="flex flex-col-reverse lg:flex-row gap-10">
           <div className="lg:flex-1">
             <Typography as="h4" className="text-primary mb-5">
               {section2.blueText}
