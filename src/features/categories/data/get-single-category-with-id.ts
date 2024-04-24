@@ -1,4 +1,6 @@
+import { Locale } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
+import { getTranslation } from '@/utils/translations-utils'
 
 const query = {
   include: {
@@ -54,17 +56,11 @@ export async function getSingleCategoryById(id: string, locale: string = 'tr') {
 
   return {
     ...data,
-    blogPostCategoryTranslation: {
-      ...data.translations.find(
-        (item: BlogPostCategoryTranslation) => item.locale.locale === locale
-      ),
-    },
-    blogPostCategoryInformationTranslation: {
-      ...data.blogPostCategoryInformationTranslations.find(
-        (item: BlogPostCategoryInformationTranslation) =>
-          item.locale.locale === locale
-      ),
-    },
+    translation: getTranslation(locale as Locale, data.translations),
+    informationTranslation: getTranslation(
+      locale as Locale,
+      data.blogPostCategoryInformationTranslations
+    ),
     subCategories: data.subCategories.map((item: BlogPostCategory) => {
       const { translations, ...rest } = item
       return {

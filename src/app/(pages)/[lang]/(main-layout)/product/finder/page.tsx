@@ -21,8 +21,6 @@ export default function Page({
     term,
   },
 }: ParamsWithPagination & ParamsWithLang & ProductFinderSearchParams) {
-  console.log({ page, take, lang })
-  console.log({ term })
   return (
     <ProductFinderPage
       page={page as string}

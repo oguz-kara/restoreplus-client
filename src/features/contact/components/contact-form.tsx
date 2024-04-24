@@ -49,7 +49,6 @@ export default function ContactForm({
   })
 
   function onSubmit(values: ContactFormDataType) {
-    console.log(values)
   }
 
   return (

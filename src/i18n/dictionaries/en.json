@@ -7,8 +7,8 @@
     "search": "search",
     "filter": "Filter",
     "productFound": "product found",
-    "categories": "Categories",
-    "sectors": "Sectors",
+    "categories": "Products by category",
+    "sectors": "Products by sector",
     "productFinder": "Find product",
     "getTheLatestInfo": "get the latest information"
   },
@@ -77,42 +77,50 @@
   },
   "auth": {
     "login": {
-      "text": "log in",
+      "text": "Log In",
       "link": "/login",
       "page": {
-        "title": "page title login",
-        "text": "page text login",
-        "signUp": { "text": "signup text", "href": "/", "linkText": "link" },
+        "title": "Log In",
+        "text": "Sign in to your account",
+        "signUp": {
+          "text": "Sign Up",
+          "href": "/register",
+          "linkText": "Don't have an account yet? Sign up"
+        },
         "fields": {
-          "email": "Email",
+          "email": "Email Address",
           "password": "Password"
         },
-        "buttonText": "SUBMIT"
+        "buttonText": "Log In"
       }
     },
     "register": {
       "text": "Register",
       "link": "/register",
       "page": {
-        "title": "page title register",
-        "text": "page text register",
-        "signUp": { "text": "signup text", "href": "/", "linkText": "link" },
+        "title": "Register",
+        "text": "Create a new account",
+        "signUp": {
+          "text": "Sign Up",
+          "href": "/register",
+          "linkText": "Already have an account? Log in"
+        },
         "fields": {
-          "email": "Email",
+          "email": "Email Address",
           "firstName": "First Name",
           "lastName": "Last Name",
           "password": "Password",
           "confirmPassword": "Confirm Password"
         },
         "checkboxes": {
-          "acceptPromotions": "accept promotions",
+          "acceptPromotions": "Accept Promotions",
           "reconciliations": {
-            "text": "text",
-            "termsAndConditions": "terms conditions",
-            "privacy": "privacy"
+            "text": "By registering, you agree to the following:",
+            "termsAndConditions": "Terms and Conditions",
+            "privacy": "Privacy Policy"
           }
         },
-        "buttonText": "SUBMIT"
+        "buttonText": "Register"
       }
     }
   },
@@ -442,7 +450,8 @@
     }
   },
   "sectorPage": {
-    "title": "Browse Manufacturer and Distributor Catalog Collection"
+    "title": "Browse Manufacturer and Distributor Catalog Collection",
+    "productsTitle": "Products used in the sector"
   },
   "product": {
     "listProductPage": {
@@ -639,5 +648,16 @@
     "currency": "Currency",
     "currencies": "Currencies",
     "save": "Save"
+  },
+  "applicationScope": {
+    "title": "Applications",
+    "page": {
+      "productsTitle": "Discover Restoreplus products for"
+    }
+  },
+  "productCategories": {
+    "page": {
+      "categoriesTitle": "Other categories"
+    }
   }
 }

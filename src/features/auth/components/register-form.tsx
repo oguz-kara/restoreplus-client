@@ -44,7 +44,6 @@ export default function RegisterForm({
   })
 
   function onSubmit(values: RegisterFormDataType) {
-    console.log(values)
   }
 
   return (

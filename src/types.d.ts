@@ -290,8 +290,8 @@ interface BlogPostCategoryWithOneTranslation {
   posts: BlogPost[]
   subCategories: BlogPostCategoryWithOneTranslation[]
   translation: BlogPostCategoryTranslation
-  blogPostCategoryInformationTranslations: BlogPostCategoryInformationTranslation[]
-  blogPostCategoryInformationTranslation: BlogPostCategoryInformationTranslation
+  informationTranslations?: BlogPostCategoryInformationTranslation[]
+  informationTranslation?: BlogPostCategoryInformationTranslation
   featuredImage: Image | null
   createdAt: Date
   updatedAt: Date
@@ -329,6 +329,46 @@ interface SectorWithTranslation {
   featuredImage?: Image | null
   products: Product[]
   translation: SectorTranslation
+  applicationScopes?: ApplicationScopeWithTranslation[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ApplicationScope {
+  id: number
+  featuredImageId?: number | null
+  sectorId?: number | null
+  featuredImage?: Image | null
+  productGroups: ProductGroup[]
+  translations: ApplicationScopeTranslation[]
+  sector?: Sector | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ApplicationScopeTranslation {
+  id: number
+  name: string
+  slug: string
+  metaTitle?: string
+  metaDescription?: string
+  description?: string | null
+  resourceId?: number | null
+  supportedLocaleId: number
+  locale: SupportedLocale
+  createdAt: Date
+  updatedAt: Date
+  resource?: ApplicationScope | null
+}
+
+interface ApplicationScopeWithTranslation {
+  id: number
+  featuredImageId?: number | null
+  sectorId?: number | null
+  featuredImage?: Image | null
+  productGroups: ProductGroup[]
+  translation: ApplicationScopeTranslation
+  sector?: Sector | null
   createdAt: Date
   updatedAt: Date
 }
@@ -508,6 +548,19 @@ interface ProductCategory {
   parentCategories: ProductCategory[]
   products: Product[]
   translations: ProductCategoryTranslation[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ProductCategoryWithTranslation {
+  id: number
+  isTopLevelCategory?: boolean | null
+  imageId?: number | null
+  featuredImage?: Image | null
+  subCategories: ProductCategory[]
+  parentCategories: ProductCategory[]
+  products: Product[]
+  translation: ProductCategoryTranslation
   createdAt: Date
   updatedAt: Date
 }

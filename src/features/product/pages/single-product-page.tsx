@@ -11,8 +11,7 @@ import { PropsWithLang } from '@/i18n/types'
 import Image from '@/components/ui/image'
 import '@/styles/github-markdown.css'
 import ListDocuments from '../components/list-documents'
-import ListSimilarProducts from '../components/list-similar-products'
-import { consoleLog } from '@/utils/log-to-console'
+import ListProductCards from '../components/list-product-cards'
 import { redirect } from 'next/navigation'
 
 interface SingleProductPageProps extends PropsWithLang {
@@ -73,7 +72,7 @@ export default async function SingleProductPage({
             <Typography className="py-5 pb-10" as="h3">
               Benzer ürünler
             </Typography>
-            <ListSimilarProducts lang={lang} products={data} />
+            <ListProductCards lang={lang} products={data} />
           </Section>
         )}
       </Container>

@@ -3,7 +3,7 @@ import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { PropsWithLang } from '@/i18n/types'
 
-export default function ListSimilarProducts({
+export default function ListProductCards({
   products,
   lang,
 }: {

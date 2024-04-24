@@ -1,9 +1,12 @@
-import {  PropsWithLang } from '@/i18n/types'
+import { Locale, PropsWithLang } from '@/i18n/types'
 import React, { PropsWithChildren } from 'react'
 import { NavigationBar } from '../common/navbar'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { getProductCategoryData } from '@/features/product/data/get-product-category-data'
 import Footer from './footer'
+import {
+  getTranslationOfList,
+} from '@/utils/translations-utils'
 
 export default async function MainLayout({
   lang,
@@ -29,27 +32,29 @@ export default async function MainLayout({
 
 async function getSectorData({ lang }: { lang: string }) {
   const { data } = await serverFetcher(
-    '/sectors/all?include.translations.include.locale=true&include.featuredImage=true'
+    '/sectors/all?include.translations.include.locale=true&include.featuredImage=true&include.applicationScopes.include.translations.include.locale=true'
   )
 
   const { data: sectorsData, pagination } = data
 
   return {
-    data: sectorsData.map((sector: Sector) => {
-      const { translations, ...restSectors } = sector
-      const translation = translations.find(
-        (translation) => translation.locale.locale === lang
-      )
-
-      if (!translation) throw new Error('translation not found!')
-
-      const { locale, ...restTranslation } = translation
-
-      return {
-        ...restTranslation,
-        ...restSectors,
-      }
-    }),
+    data: getTranslationOfList<SectorWithTranslation>(
+      lang as Locale,
+      sectorsData
+    )
+      .filter(({ applicationScopes }) => Boolean(applicationScopes))
+      .map(({ applicationScopes, ...rest }) => {
+        return {
+          ...rest,
+          applicationScopes: getTranslationOfList(
+            lang as Locale,
+            applicationScopes as any
+          ),
+        }
+      }),
     pagination,
+  } as {
+    data: SectorWithTranslation[]
+    pagination: Pagination
   }
 }

@@ -5,28 +5,22 @@ import {
   getTranslationOfList,
 } from '@/utils/translations-utils'
 
-export async function getSectorById(id: string, locale: string = 'tr') {
+export async function getApplicationScopeById(
+  id: string,
+  locale: string = 'tr'
+) {
   const query = {
     include: {
-      featuredImage: true,
       translations: {
         include: {
           locale: true,
         },
       },
-      applicationScopes: {
-        include: {
-          translations: {
-            include: {
-              locale: true,
-            },
-          },
-        },
-      },
+      featuredImage: true,
     },
   }
 
-  const { data } = await serverFetcher(`/sectors/single/${id}`, {
+  const { data } = await serverFetcher(`/application-scopes/single/${id}`, {
     cache: 'no-store',
     body: JSON.stringify(query),
     method: 'POST',
@@ -42,10 +36,6 @@ export async function getSectorById(id: string, locale: string = 'tr') {
     translation: getTranslation(
       locale as Locale,
       data.translations
-    ) as SectorTranslation,
-    applicationScopes: getTranslationOfList(
-      locale as Locale,
-      data.applicationScopes
-    ),
-  } as SectorWithTranslation
+    ) as ApplicationScopeTranslation,
+  } as ApplicationScopeWithTranslation
 }

@@ -7,7 +7,6 @@ import Typography from '@/components/ui/typography'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale, PropsWithLang } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
-import { consoleLog } from '@/utils/log-to-console'
 import { getTranslationOfList } from '@/utils/translations-utils'
 
 export default async function Section5({ lang }: PropsWithLang) {

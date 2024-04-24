@@ -7,8 +7,8 @@
     "search": "Ara",
     "filter": "Filtreler",
     "productFound": "ürün bulundu",
-    "categories": "Kategoriler",
-    "sectors": "Sektörler",
+    "categories": "Kategoriye göre ürünler",
+    "sectors": "Sektöre göre ürünler",
     "productFinder": "Ürün bul",
     "getTheLatestInfo": "en son bilgileri al"
   },
@@ -75,50 +75,50 @@
   },
   "auth": {
     "login": {
-      "text": "giriş yapmak",
+      "text": "Giriş Yap",
       "link": "/login",
       "page": {
-        "title": "sayfa başlığı giriş",
-        "text": "sayfa metni giriş",
+        "title": "Giriş Yapın",
+        "text": "Hesabınıza giriş yapın",
         "signUp": {
-          "text": "kayıt metni",
-          "href": "",
-          "linkText": "bağlantı"
+          "text": "Hesap Oluştur",
+          "href": "/register",
+          "linkText": "Henüz hesabınız yok mu? Kaydolun"
         },
         "fields": {
-          "email": "E-posta",
+          "email": "E-posta Adresi",
           "password": "Şifre"
         },
-        "buttonText": "GÖNDERMEK"
+        "buttonText": "Giriş Yap"
       }
     },
     "register": {
-      "text": "Kayıt olmak",
+      "text": "Kayıt Ol",
       "link": "/register",
       "page": {
-        "title": "sayfa başlığı kaydı",
-        "text": "sayfa metin kaydı",
+        "title": "Hesap Oluşturun",
+        "text": "Yeni bir hesap oluşturun",
         "signUp": {
-          "text": "kayıt metni",
-          "href": "",
-          "linkText": "bağlantı"
+          "text": "Hesap Oluştur",
+          "href": "/login",
+          "linkText": "Zaten bir hesabınız var mı? Giriş yapın"
         },
         "fields": {
-          "email": "E-posta",
-          "firstName": "İlk adı",
-          "lastName": "Soy isim",
+          "email": "E-posta Adresi",
+          "firstName": "Ad",
+          "lastName": "Soyad",
           "password": "Şifre",
           "confirmPassword": "Şifreyi Onayla"
         },
         "checkboxes": {
-          "acceptPromotions": "promosyonları kabul et",
+          "acceptPromotions": "Promosyonları Kabul Et",
           "reconciliations": {
-            "text": "metin",
-            "termsAndConditions": "şartlar ve koşullar",
-            "privacy": "mahremiyet"
+            "text": "Kayıt olarak, şunları kabul edersiniz:",
+            "termsAndConditions": "Hizmet Şartları",
+            "privacy": "Gizlilik Politikası"
           }
         },
-        "buttonText": "GÖNDERMEK"
+        "buttonText": "Kayıt Ol"
       }
     }
   },
@@ -448,7 +448,8 @@
     }
   },
   "sectorPage": {
-    "title": "Üretici ve Distribütör Kataloğu Koleksiyonuna Göz Atın"
+    "title": "Üretici ve Distribütör Kataloğu Koleksiyonuna Göz Atın",
+    "productsTitle": "Sektörde kullanılan ürünler"
   },
   "product": {
     "listProductPage": {
@@ -645,5 +646,16 @@
     "currency": "Para birimi",
     "currencies": "Para birimleri",
     "save": "Kaydet"
+  },
+  "applicationScope": {
+    "title": "Uygulama alanları",
+    "page": {
+      "productsTitle": "için Restoreplus ürünlerini keşfedin"
+    }
+  },
+  "productCategories": {
+    "page": {
+      "categoriesTitle": "Diğer kategoriler"
+    }
   }
 }

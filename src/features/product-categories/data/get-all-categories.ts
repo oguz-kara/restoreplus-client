@@ -2,17 +2,11 @@ import { Locale } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { getTranslationOfList } from '@/utils/translations-utils'
 
-export const getSectors = async ({
-  query = {},
-  lang,
-}: {
-  query?: any
-  lang: Locale
-}) => {
-  const q = {
-    select: {
+export const getAllCategories = async (lang: Locale) => {
+  const query = {
+    include: {
       translations: {
-        select: {
+        include: {
           locale: true,
         },
       },
@@ -20,19 +14,19 @@ export const getSectors = async ({
     },
   }
 
-  const { data } = await serverFetcher(`/sectors/all`, {
+  const { data } = await serverFetcher('/products/categories/all', {
     method: 'POST',
+    body: JSON.stringify(query),
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ ...q, ...query }),
   })
 
   return {
     data: getTranslationOfList(lang, data.data),
     pagination: data.pagination,
   } as {
-    data: SectorWithTranslation[]
+    data: ProductCategoryWithTranslation[]
     pagination: Pagination
   }
 }

@@ -38,12 +38,10 @@ export default function AdvancedSearchBox() {
   useKeypress('Enter', () => handleSearch(q))
 
   useEffect(() => {
-    console.log('qweqwqe')
     let intervalId: any = undefined
     const localIntervalId = localStorage.getItem('intervalId')
     if (!q && !localIntervalId) {
       intervalId = setInterval(() => {
-        console.log('qweqwqe')
         setCurrentPlaceholder('')
         setCurrentPlaceholderIndex(
           (prevIndex) => (prevIndex + 1) % placeholders.length
@@ -63,7 +61,6 @@ export default function AdvancedSearchBox() {
   }, [q])
 
   useEffect(() => {
-    console.log('qweqwqe')
     writePlaceholder()
   }, [currentPlaceholderIndex])
 

@@ -9,34 +9,27 @@ export default async function SingleCategoryPage({
   lang,
   id,
 }: PropsWithLang & { id: string }) {
-  const data = await getSingleCategoryById(id)
+  const data = await getSingleCategoryById(id, lang)
 
   if (!data) return 'no data found!'
 
-  const { blogPostCategoryInformationTranslation } = data
-  const {
-    info,
-    whatAre,
-    useCases,
-    functions,
-    maintenanceandStorageConditions,
-    applicationMethods,
-    footerInfo,
-  } = blogPostCategoryInformationTranslation
+  const { informationTranslation } = data
 
   return (
     <div>
       <Container>
         <Section>
           <Typography as="h1" className="mb-5">
-            {data?.blogPostCategoryTranslation.name}
+            {data?.translation.name}
           </Typography>
-          <MdxRenderer mdxText={info} />
-          <MdxRenderer mdxText={whatAre} />
-          <MdxRenderer mdxText={useCases} />
-          <MdxRenderer mdxText={functions} />
-          <MdxRenderer mdxText={maintenanceandStorageConditions} />
-          <MdxRenderer mdxText={footerInfo} />
+          <MdxRenderer mdxText={informationTranslation?.info} />
+          <MdxRenderer mdxText={informationTranslation?.whatAre} />
+          <MdxRenderer mdxText={informationTranslation?.useCases} />
+          <MdxRenderer mdxText={informationTranslation?.functions} />
+          <MdxRenderer
+            mdxText={informationTranslation?.maintenanceandStorageConditions}
+          />
+          <MdxRenderer mdxText={informationTranslation?.footerInfo} />
         </Section>
       </Container>
     </div>

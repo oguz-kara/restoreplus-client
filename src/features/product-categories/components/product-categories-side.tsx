@@ -1,13 +1,11 @@
 'use client'
-
 import Typography from '@/components/ui/typography'
 import { useDictionary } from '@/context/use-dictionary'
-import { getProperLanguage } from '@/i18n/utils'
 import { cn } from '@/lib/utils'
 import { getSearchParam } from '@/utils/get-search-param'
 import { ChevronRight } from 'lucide-react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import React, { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React from 'react'
 
 export default function ProductCategoriesSide({
   categories,
@@ -82,9 +80,7 @@ export default function ProductCategoriesSide({
                 <Typography
                   className={cn(
                     'capitalize text-sm hover:text-inherit',
-                    productInSubCategory(category)
-                      ? 'font-bold pb-3'
-                      : ''
+                    productInSubCategory(category) ? 'font-bold pb-3' : ''
                   )}
                 >
                   {category.name}
@@ -99,9 +95,7 @@ export default function ProductCategoriesSide({
                     <li
                       className={cn(
                         'capitalize py-1 text-sm text-gray-500 hover:text-primary',
-                        hasCategoryId(subCategory.id)
-                          ? 'font-bold'
-                          : ''
+                        hasCategoryId(subCategory.id) ? 'font-bold' : ''
                       )}
                       key={j}
                       onClick={() => {

@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion'
 import serverConfig from '@/config/server-config.json'
 import * as React from 'react'
 import { cn } from '@/lib/utils'
@@ -15,7 +16,7 @@ import Link from '../ui/link'
 import { Locale } from '@/i18n/types'
 import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '../ui/button'
-import { ArrowRight, ChevronRight, Menu, User } from 'lucide-react'
+import { ArrowRight, ChevronRight, User } from 'lucide-react'
 import NavbarMobile from './navbar-mobile'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import Container from './container'
@@ -23,7 +24,6 @@ import MegaMenu from './mega-menu'
 import { useDisclosure } from '@/hooks/use-disclosure'
 import useScrollPosition from '@/hooks/use-scroll-position'
 import Image from '../ui/image'
-import AdvancedSearchBox from './advanced-search-box'
 import { usePathname } from 'next/navigation'
 import PickLocaleAndCurrencyMenu from '@/features/locale/components/pick-locale-and-currency-menu'
 import Typography from '../ui/typography'
@@ -88,6 +88,18 @@ export function NavigationBar({
         <div>
           <div className={cn('hidden lg:flex justify-between')}>
             <div className={cn('flex flex-1 gap-4')}>
+              <div className="flex items-center">
+                <Link href="/product/finder" lang={lang}>
+                  <Typography
+                    className={cn(
+                      whiteState ? 'text-black' : 'text-white',
+                      'text-sm'
+                    )}
+                  >
+                    {common.productFinder}
+                  </Typography>
+                </Link>
+              </div>
               <div className="h-full">
                 <MegaMenu
                   open={openCategories}
@@ -136,18 +148,6 @@ export function NavigationBar({
                   }
                   top={navbarHeight}
                 />
-              </div>
-              <div className="flex items-center">
-                <Link href="/product/finder" lang={lang}>
-                  <Typography
-                    className={cn(
-                      whiteState ? 'text-black' : 'text-white',
-                      'text-sm'
-                    )}
-                  >
-                    {common.productFinder}
-                  </Typography>
-                </Link>
               </div>
             </div>
             <div className="flex-1 flex justify-center py-5">
@@ -288,7 +288,6 @@ function ProductCategoryData({
   }, [parentCategories])
 
   React.useEffect(() => {
-    console.log('qweqwqe')
     if (categoryData) {
       setParentCategories(categoryData.slice(0, 7))
     }
@@ -300,16 +299,21 @@ function ProductCategoryData({
         <div className="flex-1">
           <ul>
             {parentCategories.map((category: TranslatedProductCategory, i) => (
-              <li
+              <Link
+                lang={lang}
                 key={i}
-                className={cn(
-                  'p-3 cursor-pointer hover:bg-gray-100 capitalize',
-                  getActiveClass(category, 'top')
-                )}
-                onMouseOver={() => handleSelectedParentCategory(category)}
+                href={`/product/categories/${category.id}/${category.slug}`}
               >
-                {category.name}
-              </li>
+                <li
+                  className={cn(
+                    'p-3 cursor-pointer hover:bg-gray-100 capitalize',
+                    getActiveClass(category, 'top')
+                  )}
+                  onMouseOver={() => handleSelectedParentCategory(category)}
+                >
+                  {category.name}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -337,26 +341,28 @@ function ProductCategoryData({
             </Typography>
             <ChevronRight size={15} />
           </div>
-
           <ul className="grid grid-cols-4 ">
             {bottomCategories?.map((category: any, i) => (
-              <li
+              <Link
+                lang={lang}
                 key={i}
-                className="flex flex-col items-center gap-2 justify-center p-3 cursor-pointer hover:bg-gray-200 capitalize"
+                href={`/product/categories/${category.id}/${category.slug}`}
               >
-                <div>
-                  <Image
-                    className="rounded-full w-[50px] h-[50px]"
-                    src={`${serverConfig.remoteUrl}/${category.featuredImage?.path}`}
-                    alt={category.name}
-                    width={50}
-                    height={50}
-                  />
-                </div>
-                <Typography className="text-sm text-center">
-                  {category.name}
-                </Typography>
-              </li>
+                <li className="flex flex-col items-center gap-2 justify-center p-3 cursor-pointer hover:bg-gray-200 capitalize">
+                  <div>
+                    <Image
+                      className="rounded-full w-[50px] h-[50px]"
+                      src={`${serverConfig.remoteUrl}/${category.featuredImage?.path}`}
+                      alt={category.name}
+                      width={50}
+                      height={50}
+                    />
+                  </div>
+                  <Typography className="text-sm text-center">
+                    {category.name}
+                  </Typography>
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -369,13 +375,23 @@ function SectorData({
   sectorData,
   lang,
 }: {
-  sectorData: TranslatedProductCategory[] | undefined
+  sectorData: SectorWithTranslation[] | undefined
   lang: Locale
 }) {
-  const [selectedSector, setSelectedSector] = React.useState<any>(undefined)
+  const {
+    dictionary: {
+      common,
+      applicationScope: { title },
+    },
+  } = useDictionary()
+  const [selectedSector, setSelectedSector] = React.useState<
+    SectorWithTranslation | undefined
+  >(undefined)
+  const [hoveredApplicationScope, setHoveredApplicationScope] = React.useState<
+    ApplicationScopeWithTranslation | undefined
+  >(undefined)
 
   React.useEffect(() => {
-    console.log('qweqwqe')
     if (!selectedSector && sectorData && sectorData.length > 0)
       setSelectedSector(sectorData[0])
   }, [])
@@ -383,37 +399,100 @@ function SectorData({
   return (
     <Container>
       <div className="flex gap-10 p-5 min-h-[50vh]">
-        <ul className="grid grid-cols-2 flex-[2] h-[max-content] gap-5">
-          {sectorData?.map((sector, i) => (
-            <div key={i}>
-              <Link href={`/sectors/${sector.id}/${sector.slug}`} lang={lang}>
-                <li
-                  className={cn(
-                    'hover:bg-gray-100 capitalize flex gap-5 justify-between text-lg p-3 border-b border-gray-300',
-                    sector.id === selectedSector?.id ? 'bg-gray-100' : ''
-                  )}
-                  key={sector.id}
-                  onMouseOver={() => setSelectedSector(sector)}
-                  onMouseLeave={() => setSelectedSector(undefined)}
+        <div className="flex-1 h-[max-content]">
+          <div className="p-3 bg-primary rounded-sm mb-3">
+            <Typography as="h6" className="uppercase">
+              {common.sectors}
+            </Typography>
+          </div>
+          <ul>
+            {sectorData?.map((sector, i) => (
+              <div key={i}>
+                <Link
+                  href={`/sectors/${sector.id}/${sector.translation.slug}`}
+                  lang={lang}
                 >
-                  {sector.name}
-                  <ArrowRight color="gray" />
-                </li>
-              </Link>
-            </div>
-          ))}
-        </ul>
-        <div className="flex-1">
-          {selectedSector ? (
-            <Image
-              className="w-full h-full object-cover"
-              src={`${serverConfig.remoteUrl}${selectedSector.featuredImage?.path}`}
-              width={500}
-              height={500}
-              alt="test"
-            />
-          ) : null}
+                  <li
+                    className={cn(
+                      'hover:bg-gray-100 uppercase flex gap-5 justify-between text-lg p-3 border-b border-gray-300',
+                      sector.id === selectedSector?.id ? 'bg-gray-100' : ''
+                    )}
+                    key={sector.id}
+                    onMouseOver={() => setSelectedSector(sector)}
+                  >
+                    <Typography as="p">{sector.translation.name}</Typography>
+                    <motion.div
+                      key={sector.id}
+                      variants={{
+                        open: { rotateX: '-10px', x: 0 },
+                        closed: { rotateX: 90, x: 0 },
+                      }}
+                      animate={
+                        selectedSector?.id === sector.id ? 'open' : 'closed'
+                      }
+                      initial={'closed'}
+                    >
+                      <ArrowRight />
+                    </motion.div>
+                  </li>
+                </Link>
+              </div>
+            ))}
+          </ul>
         </div>
+        {selectedSector?.applicationScopes &&
+        selectedSector?.applicationScopes?.length > 0 ? (
+          <div className="flex-1">
+            <div className="p-3 bg-primary rounded-sm mb-3">
+              <Typography as="h6" className="uppercase">
+                {title}
+              </Typography>
+            </div>
+            <motion.div
+              key={selectedSector?.id}
+              variants={{
+                open: { opacity: 1, x: 0 },
+                closed: { opacity: 0, x: '20px' },
+              }}
+              animate={'open'}
+              initial={'closed'}
+            >
+              <div>
+                {selectedSector?.applicationScopes?.map((scope, i) => (
+                  <Link key={scope.id} lang={lang} href={`/`}>
+                    <div
+                      className="hover:bg-gray-100 uppercase flex gap-5 justify-between text-lg p-3 border-b border-gray-300 px-3"
+                      key={i}
+                      onMouseOver={() => setHoveredApplicationScope(scope)}
+                      onMouseLeave={() => setHoveredApplicationScope(undefined)}
+                    >
+                      <Typography as="p">{scope.translation.name}</Typography>
+                      <motion.div
+                        key={scope.id}
+                        variants={{
+                          open: { rotateX: 0, x: 0 },
+                          closed: { rotateX: 90, x: 0 },
+                        }}
+                        animate={
+                          hoveredApplicationScope?.id === scope.id
+                            ? 'open'
+                            : 'closed'
+                        }
+                        initial={'closed'}
+                      >
+                        <ArrowRight />
+                      </motion.div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        ) : (
+          <div className="flex-1">
+            <Typography as="h6">No data</Typography>
+          </div>
+        )}
       </div>
     </Container>
   )

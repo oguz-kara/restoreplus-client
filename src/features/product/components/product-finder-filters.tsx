@@ -85,7 +85,6 @@ export default function ProductFinderFilters({
   useEffect(() => {
     const categorySearch = searchParams.get('categorySlug')
     const subCategorySearch = searchParams.get('subCategorySlug')
-    console.log({ categorySearch, subCategorySearch })
     if (categorySearch) setCategorySlug(categorySearch)
     if (subCategorySearch) setSubCategorySlug(subCategorySearch)
   }, [searchParams])

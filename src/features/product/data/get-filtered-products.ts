@@ -86,7 +86,6 @@ export async function getFilteredCalculatedProducts({
 }) {
   const currencyCode = cookies().get('currency')?.value || 'USD'
   const token = cookies().get('token')?.value
-  console.log({ token })
 
   const query = {
     where: {

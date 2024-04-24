@@ -21,7 +21,6 @@ export default function Page({
     term,
   },
 }: ProductFinderSearchParams & ParamsWithLang & ParamsWithPagination) {
-  console.log({ lang })
   return (
     <CreateOrderPage
       lang={lang}

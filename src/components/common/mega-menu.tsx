@@ -1,5 +1,7 @@
+'use client'
 import { cn } from '@/lib/utils'
-import React, { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
 interface MegaMenuProps {
   onOpen: () => void
@@ -18,6 +20,7 @@ export default function MegaMenu({
   content,
   top,
 }: MegaMenuProps) {
+  const pathname = usePathname()
   const [contentHovered, setContentHovered] = useState(false)
   const triggerRef = React.useRef<HTMLDivElement>(null)
   const calculatedTop = top
@@ -28,6 +31,11 @@ export default function MegaMenu({
     'overflow-initial opacity-1 transition duration-300 ease-in-out h-auto'
   const closeClasses =
     'overflow-hidden opacity-0 transition duration-300 ease-in-out h-0'
+
+  useEffect(() => {
+    onClose()
+    setContentHovered(false)
+  }, [pathname])
 
   return (
     <>

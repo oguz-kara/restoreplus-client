@@ -17,7 +17,9 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
     <div className="bg-foreground flex justify-center h-screen">
       <div className=" lg:max-w-[400px] p-5">
         <div className="flex justify-center mb-10">
-          <Logo width={150} height={150} />
+          <Link lang={lang} href="/">
+            <Logo width={150} height={150} />
+          </Link>
         </div>
         <div className="flex items-center justify-center flex-col text-white mb-5">
           <Typography className="mb-5 text-center" as="h4">
