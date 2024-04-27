@@ -7,7 +7,7 @@ import { ParamsWithLang } from '@/i18n/types'
 import React from 'react'
 
 export default async function Page({ params: { lang } }: ParamsWithLang) {
-  const {
+  const { 
     auth: {
       register: { page },
     },
