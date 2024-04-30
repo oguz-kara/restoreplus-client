@@ -1,11 +1,11 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import Link from '@/components/ui/link'
+import { Locale } from '@/i18n/types'
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -13,11 +13,13 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
     title: string
     icon: any
   }[]
+  lang: Locale
 }
 
 export default function UserProfileSideNavigation({
   className,
   items,
+  lang,
   ...props
 }: SidebarNavProps) {
   const pathname = usePathname()
@@ -41,6 +43,7 @@ export default function UserProfileSideNavigation({
                 : 'hover:bg-transparent hover:underline',
               'justify-start'
             )}
+            lang={lang}
           >
             <span className="mr-2">{item.icon}</span>
             {item.title}

@@ -3,6 +3,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { AuthContextProvider } from '@/context/auth/auth-context'
+import { ActiveOrderContextProvider } from '@/features/active-order/context/active-order-context'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthContextProvider>{children}</AuthContextProvider>
+        <AuthContextProvider>
+          <ActiveOrderContextProvider>{children}</ActiveOrderContextProvider>
+        </AuthContextProvider>
         <Toaster />
       </body>
     </html>

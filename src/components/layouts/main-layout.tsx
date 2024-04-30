@@ -4,9 +4,8 @@ import { NavigationBar } from '../common/navbar'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { getProductCategoryData } from '@/features/product/data/get-product-category-data'
 import Footer from './footer'
-import {
-  getTranslationOfList,
-} from '@/utils/translations-utils'
+import { getTranslationOfList } from '@/utils/translations-utils'
+import CartDrawer from '@/features/active-order/components/cart-drawer'
 
 export default async function MainLayout({
   lang,
@@ -17,6 +16,7 @@ export default async function MainLayout({
 
   return (
     <div className="grid pt-[42px]">
+      <CartDrawer lang={lang} />
       <header>
         <NavigationBar
           lang={lang}

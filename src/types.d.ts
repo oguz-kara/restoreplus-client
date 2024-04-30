@@ -476,6 +476,7 @@ interface CalculatedProduct {
   sectorsDiscounts: SectorDiscount[]
   reductionDiscounts: ReductionDiscounts
   sectors: TranslatedSector[]
+  variants: any
 }
 
 interface SectorDiscount {

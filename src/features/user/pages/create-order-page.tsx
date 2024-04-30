@@ -14,7 +14,7 @@ import { getDictionary } from '@/i18n/get-dictionary'
 import ProductFinderFilters from '@/features/product/components/product-finder-filters'
 import { getFilteredCalculatedProducts } from '@/features/product/data/get-filtered-products'
 import { Button } from '@/components/ui/button'
-import { formatPrice } from '@/utils/format-price'
+import CalculatedProductForActiveUserCard from '@/features/product/components/calculated-product-for-active-user-card'
 
 interface CalculatedAndGetProductFinderSectorAndCategoryIdArguments {
   categorySlug?: string
@@ -131,10 +131,10 @@ export default async function CreateOrderPage({
         <div className="flex-[3] p-5 bg-gray-100">
           <div>
             <Typography as="h5" className="mb-5">
-              {productData.data.length} {common.productFound}
+              {productData?.data?.length} {common.productFound}
             </Typography>
           </div>
-          {productData.data.length < 1 ? (
+          {productData?.data?.length < 1 ? (
             <Image
               src={`/images/no-result-found.jpg`}
               alt="not results found image"
@@ -151,101 +151,12 @@ export default async function CreateOrderPage({
             {productData && productData.data && productData.data.length > 0
               ? productData.data.map(
                   (product: CalculatedProduct, i: number) => (
-                    <div key={i} className="h-full mb-2">
-                      <Link
-                        href={`/product/${product.id}/${product.slug}`}
-                        lang={lang}
-                      >
-                        <Card className="h-full flex justify-between">
-                          <div className="flex flex-col lg:flex-row">
-                            <CardHeader className="relative">
-                              {product.reductionDiscounts ? (
-                                <div className="absolute top-[-5px] left-[-5px] w-[300px]">
-                                  <div className="flex ">
-                                    <Badge className="bg-primary text-xs rounded-none rounded-l-sm">
-                                      {product.reductionDiscounts.type ===
-                                      'PERCENTAGE'
-                                        ? `%${product.reductionDiscounts.value} ${createOrderPage.reduction}`
-                                        : null}
-                                    </Badge>
-                                    {product.sectorsDiscounts &&
-                                      product.sectorsDiscounts.length > 0 && (
-                                        <Badge className="bg-primary text-xs rounded-none rounded-r-sm">
-                                          {getTotalSectorDiscountPercentage(
-                                            product.sectorsDiscounts,
-                                            createOrderPage.sectorDiscount
-                                          )}
-                                        </Badge>
-                                      )}
-                                  </div>
-                                </div>
-                              ) : null}
-                              <div>
-                                <Image
-                                  src={`${serverConfig.remoteUrl}/${product.featuredImage?.path}`}
-                                  alt={
-                                    product.featuredImage?.alt
-                                      ? product.featuredImage?.alt
-                                      : product.name
-                                  }
-                                  width={100}
-                                  height={100}
-                                  style={{
-                                    width: '150px',
-                                    height: '75px',
-                                    objectFit: 'contain',
-                                  }}
-                                />
-                              </div>
-                            </CardHeader>
-                            <CardContent className="p-5">
-                              <Typography as="h6" className="mb-1">
-                                {product.name}
-                              </Typography>
-                              <Typography className="text-xs mb-2">
-                                {product.productType}
-                              </Typography>
-                              {product.totalDiscount &&
-                                product.totalDiscount > 0 && (
-                                  <Typography className="text-gray-400 font-[300] text-xs line-through">
-                                    {formatPrice(
-                                      product.price,
-                                      product.currencyCode
-                                    )}
-                                  </Typography>
-                                )}
-                              <Typography className="font-semibold">
-                                {formatPrice(
-                                  product.calculatedPrice,
-                                  product.currencyCode
-                                )}
-                              </Typography>
-                            </CardContent>
-                          </div>
-                          <CardFooter className="relative flex items-end">
-                            {term && product.equivalents?.includes(term) ? (
-                              <Badge className="absolute top-[-5px] right-[-5px]">
-                                <Typography>
-                                  {productFinder.equivalent}
-                                </Typography>
-                              </Badge>
-                            ) : null}
-                            <div>
-                              <div>
-                                <Button className="mb-1" variant="secondary">
-                                  {createOrderPage.details}
-                                </Button>
-                              </div>
-                              <div>
-                                <Button className="flex-1 bg-green-600 text-white">
-                                  {createOrderPage.addToCart}
-                                </Button>
-                              </div>
-                            </div>
-                          </CardFooter>
-                        </Card>
-                      </Link>
-                    </div>
+                    <CalculatedProductForActiveUserCard
+                      key={i}
+                      lang={lang}
+                      product={product}
+                      term={term}
+                    />
                   )
                 )
               : null}
@@ -283,19 +194,4 @@ function calculateAndGetSectorAndCategoryId({
       sectorId: sectorSlug || null,
     }
   }
-}
-
-function getTotalSectorDiscountPercentage(sectorsDiscounts: any, text: string) {
-  const percentage =
-    sectorsDiscounts && sectorsDiscounts.length > 0
-      ? sectorsDiscounts.reduce(
-          (accumulator: number, currentValue: any) =>
-            currentValue.type === 'PERCENTAGE'
-              ? currentValue.value + accumulator
-              : accumulator,
-          0
-        )
-      : null
-
-  return percentage ? `%${percentage} ${text}` : null
 }

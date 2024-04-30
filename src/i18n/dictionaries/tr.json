@@ -14,8 +14,8 @@
   },
   "layout": {
     "navigation": {
-      "navItems": [
-        {
+      "navItems": {
+        "about": {
           "title": "Hakkımızda",
           "navLinks": [
             {
@@ -36,15 +36,16 @@
             }
           ]
         },
-        {
+        "login": {
           "title": "Giriş yap",
           "href": "/login"
         },
-        {
+        "register": {
           "title": "Kayıt ol",
           "href": "/register"
         }
-      ],
+      },
+
       "title": "Ürünler"
     },
     "footer": {
@@ -656,6 +657,22 @@
   "productCategories": {
     "page": {
       "categoriesTitle": "Diğer kategoriler"
+    }
+  },
+  "activeOrder": {
+    "cart": {
+      "title": "Sepetiniz",
+      "addToCartButtonText": "Sepete ekle",
+      "addedToCartButtonText": "Eklendi",
+      "description": "Sepetinize eklediğiniz ürünleri buradan görüntüleyebilirsiniz",
+      "emptyCartMessage": "Sepetiniz boş",
+      "emptyCartAction": "Ürünlere gidin",
+      "actions": {
+        "approveCart": "Sepeti onayla",
+        "clearCart": "Sepeti temizle",
+        "continue": "Alışverişe devam et",
+        "removeLine": "Sil"
+      }
     }
   }
 }

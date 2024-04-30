@@ -16,8 +16,8 @@
     "navigation": {
       "categories": "Categories",
       "sectors": "Sectors",
-      "navItems": [
-        {
+      "navItems": {
+        "about": {
           "title": "about us",
           "navLinks": [
             {
@@ -38,15 +38,15 @@
             }
           ]
         },
-        {
+        "login": {
           "title": "log in",
           "href": "/login"
         },
-        {
+        "register": {
           "title": "Register",
           "href": "/register"
         }
-      ],
+      },
       "title": "Products"
     },
     "footer": {
@@ -658,6 +658,22 @@
   "productCategories": {
     "page": {
       "categoriesTitle": "Other categories"
+    }
+  },
+  "activeOrder": {
+    "cart": {
+      "title": "Your cart",
+      "addToCartButtonText": "Add to cart",
+      "addedToCartButtonText": "In cart",
+      "description": "You can view the products you added to your cart here.",
+      "emptyCartMessage": "Your cart is empty",
+      "emptyCartAction": "Go to products",
+      "actions": {
+        "approveCart": "Confirm cart",
+        "clearCart": "Clear cart",
+        "continue": "Continue shopping",
+        "removeLine": "Remove"
+      }
     }
   }
 }

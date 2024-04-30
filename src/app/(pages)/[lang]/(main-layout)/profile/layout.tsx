@@ -56,7 +56,7 @@ export default async function UserProfileLayout({
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0 ">
           <aside className="-mx-4 lg:w-1/5">
-            <UserProfileSideNavigation items={sideItems} />
+            <UserProfileSideNavigation lang={lang} items={sideItems} />
           </aside>
           <div className="flex-1">{children}</div>
         </div>

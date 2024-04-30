@@ -16,7 +16,7 @@ import Link from '../ui/link'
 import { Locale } from '@/i18n/types'
 import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '../ui/button'
-import { ArrowRight, ChevronRight, User } from 'lucide-react'
+import { ArrowRight, ChevronRight, ShoppingCart, User } from 'lucide-react'
 import NavbarMobile from './navbar-mobile'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import Container from './container'
@@ -27,6 +27,8 @@ import Image from '../ui/image'
 import { usePathname } from 'next/navigation'
 import PickLocaleAndCurrencyMenu from '@/features/locale/components/pick-locale-and-currency-menu'
 import Typography from '../ui/typography'
+import { useActiveOrder } from '@/features/active-order/context/active-order-context'
+import { Badge } from '../ui/badge'
 
 export function NavigationBar({
   categoryData,
@@ -500,7 +502,15 @@ function SectorData({
 
 function RightNavigation() {
   const { user } = useAuthenticatedUser()
-  const { dictionary, lang } = useDictionary()
+  const {
+    dictionary: {
+      layout: {
+        navigation: { navItems },
+      },
+    },
+    lang,
+  } = useDictionary()
+  const { activeOrder, setOpen } = useActiveOrder()
 
   return (
     <NavigationMenu>
@@ -508,42 +518,55 @@ function RightNavigation() {
         <NavigationMenuItem>
           <PickLocaleAndCurrencyMenu />
         </NavigationMenuItem>
-        {dictionary.layout.navigation.navItems?.map((item, i) =>
-          !item.href ? (
-            <NavigationMenuItem key={i}>
-              <NavigationMenuTrigger key={i} className="bg-transparent">
-                {item.title}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="bg-transparent">
+            {navItems.about.title}
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="p-4 min-w-[180px]">
+              {navItems?.about.navLinks?.map((item, i) => (
+                <ListItem key={i} href={item.href} title={item.title} />
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        {!user && (
+          <>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent">
+                {navItems.login.title}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="p-4 min-w-[180px]">
-                  {!item.href ? (
-                    item?.navLinks?.map((item, i) => (
-                      <ListItem key={i} href={item.href} title={item.title} />
-                    ))
-                  ) : (
-                    <div key={i}>
-                      <Link href="/docs" lang={lang}></Link>{' '}
-                    </div>
-                  )}
-                </ul>
+                <div>
+                  <Link href={navItems.login.href} lang={lang}></Link>{' '}
+                </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
-          ) : !user ? (
-            <NavigationMenuItem key={i}>
-              {item.href.includes('/register') ? (
-                <Button>
-                  <User className="mr-2" />
-                  <Link href={item.href} lang={lang}>
-                    <span className="text-sm pr-3">{item.title}</span>
-                  </Link>
-                </Button>
-              ) : (
-                <Link href={item.href} lang={lang}>
-                  <span className="text-sm pr-3">{item.title}</span>
+            <NavigationMenuItem>
+              <Button>
+                <User className="mr-2" />
+                <Link href={navItems.register.href} lang={lang}>
+                  <span className="text-sm pr-3">
+                    {navItems.register.title}
+                  </span>
                 </Link>
-              )}
+              </Button>
             </NavigationMenuItem>
-          ) : null
+          </>
+        )}
+        {activeOrder && (
+          <NavigationMenuItem>
+            <div className="relative">
+              <Badge className="rounded-full absolute top-[-15px] left-[50%] translate-x-[-50%]">
+                <Typography className="p-0 m-0 text-xs">
+                  {activeOrder.lines.length}
+                </Typography>
+              </Badge>
+              <Button onClick={() => setOpen(true)} variant="ghost">
+                <ShoppingCart />
+              </Button>
+            </div>
+          </NavigationMenuItem>
         )}
         {user && (
           <NavigationMenuItem>

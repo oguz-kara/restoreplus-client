@@ -8,7 +8,6 @@ import {
 } from 'react'
 import { AuthReducer, AuthAction } from './auth-reducer'
 import Cookies from 'js-cookie'
-import _ from 'lodash'
 import { refreshToken } from '@/features/auth/api/refresh-user'
 import { getActiveUser } from '@/features/auth/api/active-user'
 import { loginUser } from '@/features/auth/api/login-user'
