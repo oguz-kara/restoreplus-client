@@ -37,7 +37,7 @@ export default function CalculatedProductForActiveUserCard({
 
   const getSelectedVariant = (id: number | null) => {
     if (!id) return null
-    return product.variants.find((variant: any) => variant.id === id)
+    return product?.variants?.find((variant: any) => variant.id === id)
   }
 
   const handleAddToCartClick = async (e: any) => {
@@ -62,8 +62,8 @@ export default function CalculatedProductForActiveUserCard({
   const isAddedToCart = isProductVariantAddedToCart(selectedSize as number)
 
   useEffect(() => {
-    if (product.variants && product.variants.length > 0)
-      setSelectedSize(product.variants[0].id)
+    if (product?.variants && product?.variants?.length > 0)
+      setSelectedSize(product?.variants[0].id)
   }, [product])
 
   return (
@@ -122,7 +122,7 @@ export default function CalculatedProductForActiveUserCard({
                   Boyut seçin
                 </Typography>
                 <div className="flex gap-2">
-                  {product.variants.map((item: any) => (
+                  {product?.variants?.map((item: any) => (
                     <Button
                       variant={
                         selectedSize === item.id ? 'default' : 'secondary'
@@ -180,7 +180,11 @@ export default function CalculatedProductForActiveUserCard({
                   loading={adjustingOrderLine}
                   className="flex-1 bg-green-600 text-white w-full"
                   onClick={handleAddToCartClick}
-                  disabled={Boolean(isAddedToCart)}
+                  disabled={
+                    Boolean(isAddedToCart) ||
+                    !product?.variants ||
+                    product.variants.length === 0
+                  }
                 >
                   {isAddedToCart
                     ? cart.addedToCartButtonText

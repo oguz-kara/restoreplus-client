@@ -1,11 +1,11 @@
-import { cookies } from 'next/headers'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const GET = async (req: NextRequest) => {
   try {
     const authToken = req.headers.get('authorization')
-    
+
+
     if (authToken) {
       const { data } = await serverFetcher('/active-user', {
         headers: {

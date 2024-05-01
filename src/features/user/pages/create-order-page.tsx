@@ -1,4 +1,3 @@
-import serverConfig from '@/config/server-config.json'
 import Container from '@/components/common/container'
 import { advancedDataSearch } from '@/utils/fetch-data'
 import { Locale, PropsWithLang } from '@/i18n/types'
@@ -7,13 +6,9 @@ import { getCategoryIds } from '@/features/product-categories/data/get-category-
 import { getSectorIds } from '@/features/sectors/api/get-sector-ids'
 import Typography from '@/components/ui/typography'
 import Image from '@/components/ui/image'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import Link from '@/components/ui/link'
-import { Badge } from '@/components/ui/badge'
 import { getDictionary } from '@/i18n/get-dictionary'
 import ProductFinderFilters from '@/features/product/components/product-finder-filters'
 import { getFilteredCalculatedProducts } from '@/features/product/data/get-filtered-products'
-import { Button } from '@/components/ui/button'
 import CalculatedProductForActiveUserCard from '@/features/product/components/calculated-product-for-active-user-card'
 
 interface CalculatedAndGetProductFinderSectorAndCategoryIdArguments {

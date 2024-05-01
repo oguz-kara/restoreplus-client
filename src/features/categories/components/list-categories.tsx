@@ -20,32 +20,32 @@ export default async function ListCategories({ lang }: PropsWithLang) {
               className="uppercase my-10 border-b border-gray-200"
               as="h3"
             >
-              {topCategory.blogPostCategoryTranslation.name}
+              {topCategory.translation.name}
             </Typography>
             <Container>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
                 {topCategory.subCategories.map((subCategory, i) => (
                   <div key={i} className="flex items-start flex-col">
                     <Link
-                      href={`/categories/${subCategory.id}/${subCategory.blogPostCategoryTranslation.slug}`}
+                      href={`/categories/${subCategory.id}/${subCategory.translation.slug}`}
                       lang={lang}
                     >
                       <Typography
                         as="h5"
                         className="mb-3 border-b border-dashed border-gray-300 inline-block"
                       >
-                        {subCategory.blogPostCategoryTranslation.name}
+                        {subCategory.translation.name}
                       </Typography>
                     </Link>
                     <ul>
                       {subCategory.subCategories.map((subSubCategory, i) => (
                         <li key={i}>
                           <Link
-                            href={`/categories/${subSubCategory.id}/${subSubCategory.blogPostCategoryTranslation.slug}`}
+                            href={`/categories/${subSubCategory.id}/${subSubCategory.translation.slug}`}
                             lang={lang}
                             className="text-gray-600"
                           >
-                            {subSubCategory.blogPostCategoryTranslation.name}
+                            {subSubCategory.translation.name}
                           </Link>
                         </li>
                       ))}

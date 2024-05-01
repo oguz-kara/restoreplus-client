@@ -12,15 +12,15 @@ export async function getBlogPostData(lang: Locale = 'tr') {
 
   const result: { data: BlogPostWithOneTranslation[]; pagination: Pagination } =
     {
+      // @ts-ignore
       data: blogPostList.map((item) => ({
         ...item,
-        blogPostTranslation: item.translations.find(
+        translation: item.translations.find(
           (blogPostTranslation) => blogPostTranslation.locale.locale === lang
         ) as BlogPostTranslation,
       })),
       pagination,
     }
-
 
   return result
 }

@@ -533,14 +533,11 @@ function RightNavigation() {
         {!user && (
           <>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent">
-                {navItems.login.title}
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <div>
-                  <Link href={navItems.login.href} lang={lang}></Link>{' '}
-                </div>
-              </NavigationMenuContent>
+              <Button variant="ghost">
+                <Link href="/login" lang={lang}>
+                  <span className="text-sm">{navItems.login.title}</span>
+                </Link>
+              </Button>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Button>
@@ -554,12 +551,12 @@ function RightNavigation() {
             </NavigationMenuItem>
           </>
         )}
-        {activeOrder && (
+        {activeOrder?.lines && activeOrder?.lines.length > 0 && (
           <NavigationMenuItem>
             <div className="relative">
               <Badge className="rounded-full absolute top-[-15px] left-[50%] translate-x-[-50%]">
                 <Typography className="p-0 m-0 text-xs">
-                  {activeOrder.lines.length}
+                  {activeOrder?.lines?.length}
                 </Typography>
               </Badge>
               <Button onClick={() => setOpen(true)} variant="ghost">

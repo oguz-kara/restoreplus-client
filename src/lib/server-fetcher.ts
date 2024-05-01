@@ -1,6 +1,7 @@
 import 'server-only'
+import serverConfig from '@/config/server-config.json'
 
-const remoteUrl = 'http://localhost:5000'
+const remoteUrl = serverConfig.remoteUrl
 
 export const serverFetcher = async (
   init: string | URL | globalThis.Request,

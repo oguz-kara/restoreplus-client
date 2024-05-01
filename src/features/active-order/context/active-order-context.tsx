@@ -15,6 +15,7 @@ import {
   getActiveOrderApi,
   updateOrderLineApi,
 } from '../data/active-order'
+import { useCookies } from 'react-cookie'
 
 export interface ActiveOrderState {
   activeOrder: Order | null
@@ -71,6 +72,7 @@ export const ActiveOrderContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const currency = useCookies(['currency'])
   const [state, dispatch] = useReducer(ActiveOrderReducer, INITIAL_STATE)
   const [adjustingOrderLine, setAdjustingOrderLine] = useState<boolean>(false)
   const [removingOrderLine, setRemovingOrderLine] = useState<boolean>(false)

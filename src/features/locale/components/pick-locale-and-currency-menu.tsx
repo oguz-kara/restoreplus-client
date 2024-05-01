@@ -32,7 +32,6 @@ export default function PickLocaleAndCurrencyMenu() {
   const router = useRouter()
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
-  const { user } = useAuthenticatedUser()
   const {
     dictionary: { localeCurrencyMenu },
     lang,
@@ -69,7 +68,7 @@ export default function PickLocaleAndCurrencyMenu() {
     if (hasLocale)
       router.push(pathname.replace(`/${hasLocale}`, `/${currentLang}`))
 
-    router.refresh()
+    location.reload()
   }
 
   useEffect(() => {

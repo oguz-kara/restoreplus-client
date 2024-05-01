@@ -10,18 +10,18 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from '@/components/ui/drawer'
 
 import { useActiveOrder } from '../context/active-order-context'
 import { useDictionary } from '@/context/use-dictionary'
 import { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
-import { ArrowRight, Divide, Minus, Plus, ShoppingCart } from 'lucide-react'
+import { ArrowRight, Minus, Plus, ShoppingCart } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Link from '@/components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
+import { formatPrice } from '@/utils/format-price'
 
 export default function CartDrawer({ lang }: PropsWithLang) {
   const {
@@ -54,13 +54,13 @@ export default function CartDrawer({ lang }: PropsWithLang) {
               </DrawerHeader>
               <div className="p-4 pb-0">
                 <div>
-                  {activeOrder.lines.length > 0 ? (
-                    activeOrder.lines.map((line) => (
+                  {activeOrder?.lines?.length > 0 ? (
+                    activeOrder?.lines?.map((line) => (
                       <div
                         key={line.id}
                         className="border-b border-gray-300 border-dashed py-5"
                       >
-                        <div className="flex gap-5">
+                        <div className="flex gap-5 mb-3">
                           <div className="flex-1">
                             <ServerImage
                               src={
@@ -81,10 +81,22 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                           </div>
                           <div className="flex-[2]">
                             <Typography className="mb-2" as="h6">
-                              {line.productVariant.name}
+                              {`${line.productVariant.name} ${line.productVariant.value}`}
                             </Typography>
-                            <Typography className="text-xs">
+                            <Typography className="text-xs mb-2">
                               {line.productVariant.productType}
+                            </Typography>
+                            <Typography className="text-sm mb-2">
+                              {`${line.quantity} x ${formatPrice(
+                                line.price,
+                                activeOrder.currencyCode
+                              )}`}
+                            </Typography>
+                            <Typography className="text-sm font-semibold">
+                              {`Toplam: ${formatPrice(
+                                line.quantity * line.price,
+                                activeOrder.currencyCode
+                              )}`}
                             </Typography>
                           </div>
                         </div>
@@ -171,13 +183,25 @@ export default function CartDrawer({ lang }: PropsWithLang) {
           </div>
         </ScrollArea>
 
-        {activeOrder.lines.length === 0 ? null : (
+        {activeOrder?.lines?.length === 0 ? null : (
           <DrawerFooter
             className="w-full absolute bottom-0 bg-white"
             style={{
               boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
             }}
           >
+            <div className="mb-5">
+              <Typography as="h4">
+                Genel toplam:{' '}
+                {formatPrice(
+                  activeOrder.lines.reduce(
+                    (a, b) => a + b.price * b.quantity,
+                    0
+                  ),
+                  activeOrder.currencyCode
+                )}
+              </Typography>
+            </div>
             <div className="flex gap-5">
               <DrawerClose
                 asChild

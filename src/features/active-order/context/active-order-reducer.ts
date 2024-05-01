@@ -25,7 +25,7 @@ export const ActiveOrderReducer = (
         activeOrder: state.activeOrder
           ? {
               ...state.activeOrder,
-              lines: [action.payload, ...state.activeOrder.lines],
+              lines: [action.payload, ...state?.activeOrder?.lines],
             }
           : null,
       }
@@ -36,7 +36,7 @@ export const ActiveOrderReducer = (
         activeOrder: state.activeOrder
           ? {
               ...state.activeOrder,
-              lines: state.activeOrder.lines.map((line) =>
+              lines: state?.activeOrder?.lines?.map((line) =>
                 action.payload.id === line.id ? action.payload : line
               ),
             }
@@ -49,7 +49,7 @@ export const ActiveOrderReducer = (
         activeOrder: state.activeOrder
           ? {
               ...state.activeOrder,
-              lines: state.activeOrder.lines.filter(
+              lines: state?.activeOrder?.lines?.filter(
                 (line) => line.id !== action.payload
               ),
             }
