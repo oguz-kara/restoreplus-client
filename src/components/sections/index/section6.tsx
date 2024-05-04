@@ -23,7 +23,7 @@ export default async function Section6({
   return (
     <div className={classNames}>
       <Container>
-        <Section>
+        <Section className="p-0 py-5">
           <div className="lg:flex lg:items-center lg:gap-20">
             <div>
               <SectionHeader className="mb-5">{section6.heading}</SectionHeader>

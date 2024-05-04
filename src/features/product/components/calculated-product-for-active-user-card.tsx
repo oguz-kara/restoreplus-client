@@ -54,7 +54,7 @@ export default function CalculatedProductForActiveUserCard({
 
   const isProductVariantAddedToCart = (variantId: number | undefined) => {
     if (!variantId) return false
-    return activeOrder?.lines.find(
+    return activeOrder?.lines?.find(
       (line) => line.productVariant.id === variantId
     )
   }
@@ -69,11 +69,11 @@ export default function CalculatedProductForActiveUserCard({
   return (
     <div className="h-full mb-2" {...rest}>
       <Link href={`/product/${product.id}/${product.slug}`} lang={lang}>
-        <Card className="h-full flex justify-between">
+        <Card className="h-full flex justify-between flex-col lg:flex-row">
           <div className="flex flex-col lg:flex-row">
             <CardHeader className="relative">
               {product.reductionDiscounts ? (
-                <div className="absolute top-[-5px] left-[-5px] w-[300px]">
+                <div className="absolute top-[-5px] left-[-5px]">
                   <div className="flex ">
                     <Badge className="bg-primary text-xs rounded-none rounded-l-sm">
                       {product.reductionDiscounts.type === 'PERCENTAGE'
@@ -169,7 +169,7 @@ export default function CalculatedProductForActiveUserCard({
                 <Typography>{productFinder.equivalent}</Typography>
               </Badge>
             ) : null}
-            <div>
+            <div className="flex flex-row lg:flex-col gap-3 lg:gap-0">
               <div>
                 <Button className="mb-1" variant="secondary">
                   {createOrderPage.details}

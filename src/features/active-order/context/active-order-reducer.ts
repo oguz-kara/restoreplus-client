@@ -2,7 +2,7 @@ import { Line, Order } from '../types'
 import { ActiveOrderState } from './active-order-context'
 
 export type ActiveOrderAction =
-  | { type: 'SET_ACTIVE_ORDER'; payload: Order }
+  | { type: 'SET_ACTIVE_ORDER'; payload: Order | null }
   | { type: 'ADJUST_ORDER_LINE'; payload: Line }
   | { type: 'REMOVE_ORDER_LINE'; payload: number } // payload is line id
   | { type: 'UPDATE_ORDER_LINE'; payload: Line }

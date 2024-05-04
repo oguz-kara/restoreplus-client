@@ -14,8 +14,10 @@ export const getTranslationOfList = <T>(
   locale: Locale,
   list: { translations: { locale: { locale: Locale } }[] }[]
 ) => {
+  if (!list) return []
+
   return list
-    .filter((item) =>
+    ?.filter((item) =>
       item.translations.find(
         (translation) => translation.locale.locale === locale
       )

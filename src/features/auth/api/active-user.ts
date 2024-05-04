@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 
 export const getActiveUser = async () => {
   const token = Cookies.get('token')
+  
 
   if (!token) return false
 
@@ -12,5 +13,5 @@ export const getActiveUser = async () => {
 
   if (activeUser.message && activeUser.message === 'token_expired') return false
 
-  return activeUser
+  return activeUser as ActiveUser | null
 }

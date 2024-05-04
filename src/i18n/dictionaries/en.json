@@ -10,10 +10,18 @@
     "categories": "Products by category",
     "sectors": "Products by sector",
     "productFinder": "Find product",
-    "getTheLatestInfo": "get the latest information"
+    "getTheLatestInfo": "get the latest information",
+    "wait": "Please wait...",
+    "welcome": "Welcome",
+    "keyword": "Keyword..."
   },
   "layout": {
     "navigation": {
+      "mobile": {
+        "home": "home",
+        "about": "about us",
+        "productFinder": "find product"
+      },
       "categories": "Categories",
       "sectors": "Sectors",
       "navItems": {
@@ -45,6 +53,10 @@
         "register": {
           "title": "Register",
           "href": "/register"
+        },
+        "profile": {
+          "profile": "Profile",
+          "logout": "Logout"
         }
       },
       "title": "Products"
@@ -674,6 +686,70 @@
         "continue": "Continue shopping",
         "removeLine": "Remove"
       }
+    }
+  },
+
+  "checkoutPage": {
+    "title": "Checkout",
+    "orderSummary": "Order summary",
+    "tableHeads": {
+      "image": "image",
+      "name": "name",
+      "amount": "amount",
+      "price": "price"
+    },
+    "totalBeforeTaxes": "Total before taxes and discounts",
+    "totalTaxes": "Total taxes",
+    "totalDiscount": "Total discount",
+    "totalAfterTaxes": "Total after taxes",
+    "total": "Total",
+    "pickAddress": "Pick address",
+    "createOrderButtonText": "Create order"
+  },
+  "orderSuccessPage": {
+    "title": "Thank you for ordering!",
+    "description": "We've received your order and it's being processed. You'll receive a confirmation email shortly.",
+    "viewOrderButtonText": "view order",
+    "continueShoppingButtonText": "continue shopping",
+    "error": {
+      "title": "Order Unsuccessful!",
+      "description": "We're sorry, but there was a problem processing your order. Please try again later. If the issue persists, feel free to contact our support team for assistance.",
+      "viewOrderButtonText": "Support Team",
+      "continueShoppingButtonText": "View Products"
+    }
+  },
+  "profileOrderHistoryPage": {
+    "title": "Your Orders",
+    "viewOrderButtonText": "View order details",
+    "tabs": {
+      "all": "All Orders",
+      "pending": "Pending Orders",
+      "cancelled": "Cancelled Orders"
+    },
+    "orderDetails": {
+      "orderPlaced": "Order Placed",
+      "total": "Total",
+      "status": "Status",
+      "shipTo": "Ship To",
+      "order": "Order"
+    },
+    "dateFilters": {
+      "title": "Date Filters",
+      "past1Months": "Past 1 Month",
+      "past3Months": "Past 3 Months",
+      "past6Months": "Past 6 Months",
+      "past12Months": "Past 12 Months",
+      "all": "All"
+    },
+    "status": {
+      "created": "Order created",
+      "approved": "Order approved",
+      "cancelled": "Order cancelled",
+      "delivered": "Order delivered",
+      "declined": "Order declined",
+      "shipped": "Order shipped",
+      "refunded": "Refund processed",
+      "unknown": "Unknown"
     }
   }
 }

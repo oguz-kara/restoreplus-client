@@ -23,7 +23,7 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
       >
         <div className="flex items-center justify-center p-4">
           <Link lang={lang} href="/">
-            <Logo />
+            <Logo width={150} />
           </Link>
         </div>
         <div className="text-white p-4">
@@ -74,7 +74,7 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
                 {contactPage.aggreeForm}
               </Typography>
             </div>
-            <div>
+            <div className="text-center">
               <TermsConditionsPrivacyText lang={lang} />
             </div>
           </div>

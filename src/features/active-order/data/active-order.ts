@@ -72,3 +72,32 @@ export const deleteOrderLineApi = async (lineId: number) => {
   })
   return data
 }
+
+export const createOrderApi = async () => {
+  const token = Cookies.get('token')
+
+  if (!token) return null
+
+  const data = await clientFetcher(`/create-order`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  })
+  return data
+}
+
+export const setActiveOrderAddressApi = async (addressId: number) => {
+  const token = Cookies.get('token')
+
+  if (!token) return null
+
+  const data = await clientFetcher(
+    `/active-order/address?addressId=${addressId}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  )
+  return data
+}

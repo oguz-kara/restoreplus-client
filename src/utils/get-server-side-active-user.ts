@@ -3,17 +3,21 @@ import { serverFetcher } from '@/lib/server-fetcher'
 
 export const getServerSideActiveUser = async () => {
   const token = cookies().get('token')?.value
-  const jwt = cookies().get('jwt')?.value
+  const lang = cookies().get('lang')?.value
+  const currency = cookies().get('currency')?.value
 
   if (token) {
-    const { data } = await serverFetcher('/active-user', {
-      headers: {
-        ...(token && { authorization: `Bearer ${token}` }),
-      },
-      credentials: 'include',
-    })
+    const { data } = await serverFetcher(
+      `/active-user?lang=${lang}&currency=${currency}`,
+      {
+        headers: {
+          ...(token && { authorization: `Bearer ${token}` }),
+        },
+        credentials: 'include',
+      }
+    )
 
-    return data
+    return data as ActiveUser
   }
 
   return null

@@ -1,9 +1,11 @@
 import { Locale } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
-import { consoleLog } from '@/utils/log-to-console'
-import { getTranslation } from '@/utils/translations-utils'
+import {
+  getTranslation,
+  getTranslationOfList,
+} from '@/utils/translations-utils'
 
-export const getCategoryById = async (id: string, lang: Locale) => {
+export const getCategoryById = async (id: string | number, lang: Locale) => {
   const { data } = await serverFetcher(
     `/products/categories/single/${id}?lang=${lang}`,
     {
@@ -21,8 +23,6 @@ export const getCategoryById = async (id: string, lang: Locale) => {
     }
   )
 
-  console.log({ data })
-
   if (!data) return null
 
   const { translations, ...rest } = data
@@ -30,5 +30,7 @@ export const getCategoryById = async (id: string, lang: Locale) => {
   return {
     ...rest,
     translation: getTranslation(lang, translations),
+    subCategories: getTranslationOfList(lang, rest.subCategories),
   } as ProductCategoryWithTranslation
 }
+

@@ -18,7 +18,15 @@ export interface ProductVariant {
 export interface Line {
   id: number
   quantity: number
-  price: number
+  priceSummary: {
+    totalPrice: number
+    totalTaxes: number
+    totalPriceWithTaxes: number
+    totalDiscount: number
+    netTotal: number
+    priceForSingleProduct: number
+    netPriceForSingleProduct: number
+  }
   productVariant: ProductVariant
 }
 
@@ -27,5 +35,19 @@ export interface Order {
   status: string
   note: null | string
   currencyCode: string
+  totalDiscountPercentage: number | null
   lines: Line[]
+  orders?: ActiveOrder[]
+  shippingAddress?: Address
+  orderPriceSummary?: {
+    totalPrice: number
+    totalPriceWithoutTaxes: number
+    totalPriceWithTaxes: number
+    totalDiscount: number
+    totalTaxes: number
+    netTotal: number
+  }
+  orderCode: string
+  createdAt: Date
+  updatedAt: Date
 }

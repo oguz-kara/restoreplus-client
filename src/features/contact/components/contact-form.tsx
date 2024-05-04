@@ -37,7 +37,7 @@ export default function ContactForm({
   const defaultTheme = theme
     ? theme
     : {
-        bg: 'bg-gray-50',
+        bg: 'bg-transparent',
         text: 'text-black',
       }
   const {
@@ -48,8 +48,7 @@ export default function ContactForm({
     defaultValues,
   })
 
-  function onSubmit(values: ContactFormDataType) {
-  }
+  function onSubmit(values: ContactFormDataType) {}
 
   return (
     <div className={cn('p-5', defaultTheme.bg, defaultTheme.text, className)}>
@@ -64,13 +63,14 @@ export default function ContactForm({
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.firstName}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -87,13 +87,13 @@ export default function ContactForm({
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.lastName}
                   </FormLabel>
                   <FormControl>
                     <Input
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -110,13 +110,14 @@ export default function ContactForm({
               name="jobTitle"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.jobTitle}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -133,13 +134,14 @@ export default function ContactForm({
               name="companyName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.companyName}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -156,13 +158,14 @@ export default function ContactForm({
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.city}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -179,13 +182,14 @@ export default function ContactForm({
               name="country"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.country}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -202,13 +206,14 @@ export default function ContactForm({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.email}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -225,13 +230,14 @@ export default function ContactForm({
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.phoneNumber}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -248,13 +254,14 @@ export default function ContactForm({
               name="postalCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.postalCode}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -271,13 +278,14 @@ export default function ContactForm({
               name="website"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.website}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -294,13 +302,14 @@ export default function ContactForm({
               name="companyType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.companyType}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'
@@ -317,13 +326,14 @@ export default function ContactForm({
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-normal">
+                  <FormLabel className="text-sm font-semibold">
                     {contactPage.fields.message}
                   </FormLabel>
                   <FormControl>
                     <Input
+
                       className={cn(
-                        'bg-transparent py-3 rounded-sm bg-gray-300 text-black',
+                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
                           ? 'text-white'
                           : 'text-black'

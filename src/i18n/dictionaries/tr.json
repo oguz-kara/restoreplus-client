@@ -10,10 +10,18 @@
     "categories": "Kategoriye göre ürünler",
     "sectors": "Sektöre göre ürünler",
     "productFinder": "Ürün bul",
-    "getTheLatestInfo": "en son bilgileri al"
+    "getTheLatestInfo": "en son bilgileri al",
+    "wait": "Lütfen bekleyiniz...",
+    "welcome": "Hoşgeldin",
+    "keyword": "Anahtar kelime..."
   },
   "layout": {
     "navigation": {
+      "mobile": {
+        "home": "anasayfa",
+        "about": "hakkımızda",
+        "productFinder": "ürün bul"
+      },
       "navItems": {
         "about": {
           "title": "Hakkımızda",
@@ -43,6 +51,10 @@
         "register": {
           "title": "Kayıt ol",
           "href": "/register"
+        },
+        "profile": {
+          "profile": "Profil",
+          "logout": "Çıkış yap"
         }
       },
 
@@ -673,6 +685,69 @@
         "continue": "Alışverişe devam et",
         "removeLine": "Sil"
       }
+    }
+  },
+  "checkoutPage": {
+    "title": "Siparişi tamamla",
+    "orderSummary": "Sipariş özeti",
+    "tableHeads": {
+      "image": "resim",
+      "name": "isim",
+      "amount": "miktar",
+      "price": "fiyat"
+    },
+    "totalBeforeTaxes": "Vergilerden ve indirimlerden önce toplam",
+    "totalTaxes": "Toplam vergiler",
+    "totalDiscount": "Toplam indirim",
+    "totalAfterTaxes": "Vergilerden sonra toplam",
+    "total": "Toplam",
+    "pickAddress": "Adres seçiniz",
+    "createOrderButtonText": "Siparişi oluştur"
+  },
+  "orderSuccessPage": {
+    "title": "Siparişiniz için teşekkür ederiz!",
+    "description": "Siparişinizi aldık, siparişiniz şuanda işleniyor. Yakında bilgilendirme e-postası tarafınıza iletilecektir.",
+    "viewOrderButtonText": "Siparişi görüntüle",
+    "continueShoppingButtonText": "Alışverişe devam et",
+    "error": {
+      "title": "Sipariş Başarısız",
+      "description": "Üzgünüz, ancak siparişinizin işlenmesinde bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz. Sorun devam ederse, yardım için destek ekibimizle iletişime geçebilirsiniz.",
+      "viewOrderButtonText": "Destek ekibi",
+      "continueShoppingButtonText": "Ürünleri görüntüle"
+    }
+  },
+  "profileOrderHistoryPage": {
+    "title": "Siparişleriniz",
+    "viewOrderButtonText": "Siparişi görüntüle",
+    "tabs": {
+      "all": "Tüm siparişler",
+      "pending": "Bekleyen siparişler",
+      "cancelled": "İptal edilen siparişler"
+    },
+    "orderDetails": {
+      "orderPlaced": "Sipariş tarihi",
+      "total": "Toplam",
+      "status": "Durum",
+      "shipTo": "Alıcı",
+      "order": "Sipariş"
+    },
+    "dateFilters": {
+      "title": "Tarih filtrele",
+      "past1Months": "Son 1 ay",
+      "past3Months": "Son 3 ay",
+      "past6Months": "Son 6 ay",
+      "past12Months": "Son 12 ay",
+      "all": "Tüm"
+    },
+    "status": {
+      "created": "Sipariş oluşturuldu",
+      "approved": "Sipariş onaylandı",
+      "cancelled": "Sipariş iptal edildi",
+      "delivered": "Sipariş teslim edildi",
+      "declined": "Sipariş reddedildi",
+      "shipped": "Sipariş kargoya verildi",
+      "refunded": "Para iadesi yapıldı",
+      "unknown": "Bilinmiyor"
     }
   }
 }

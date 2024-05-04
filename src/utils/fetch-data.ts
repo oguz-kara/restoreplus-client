@@ -12,6 +12,7 @@ interface GetDataListWithPaginationParams extends Pagination {
   searchBy?: string | string[]
   lang?: Locale
   searchByTranslation?: string[] | string
+  dbQuery?: any
 }
 
 export const advancedDataSearch = async ({
@@ -23,6 +24,7 @@ export const advancedDataSearch = async ({
   searchBy = 'name',
   searchByTranslation,
   lang,
+  dbQuery,
 }: GetDataListWithPaginationParams) => {
   const properLang = getProperLanguage(lang)
   const pagination = {
@@ -38,6 +40,7 @@ export const advancedDataSearch = async ({
       query,
       lang: properLang as Locale,
       searchByTranslation,
+      dbQuery,
     })
   }
 
@@ -87,6 +90,7 @@ export async function searchData({
   searchBy = 'name',
   lang,
   searchByTranslation,
+  dbQuery,
 }: GetDataListWithPaginationParams) {
   const currencyCode = cookies().get('currency')?.value || 'USD'
   const token = cookies().get('token')
@@ -113,7 +117,7 @@ export async function searchData({
       },
       method: 'POST',
       cache: 'no-store',
-      body: JSON.stringify({ ...search }),
+      body: JSON.stringify({ ...search, ...(dbQuery && dbQuery) }),
     }
   )
 

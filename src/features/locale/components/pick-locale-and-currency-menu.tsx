@@ -19,7 +19,6 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import Typography from '@/components/ui/typography'
-import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useDictionary } from '@/context/use-dictionary'
 import { Locale } from '@/i18n/types'
 import { clientFetcher } from '@/lib/client-fetcher'
@@ -27,6 +26,7 @@ import { Globe } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import i18n from '@/i18n'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function PickLocaleAndCurrencyMenu() {
   const router = useRouter()
@@ -36,6 +36,7 @@ export default function PickLocaleAndCurrencyMenu() {
     dictionary: { localeCurrencyMenu },
     lang,
   } = useDictionary()
+  const [loading, setLoading] = useState<boolean>(false)
   const [locales, setLocales] = useState<SupportedLocale[]>([])
   const [currencies, setCurrencies] = useState<Currency[]>([])
   const [currentLang, setCurrentLang] = useState<string>(lang)
@@ -72,17 +73,27 @@ export default function PickLocaleAndCurrencyMenu() {
   }
 
   useEffect(() => {
-    if (cookies.currency) setCurrentCurrency(cookies.currency)
-    else {
-      const currency = getCurrencyByLang(lang)
-      setCookie('currency', currency, { expires: new Date('2030'), path: '/' })
-      setCurrentCurrency(currency)
+    try {
+      setLoading(true)
+      if (cookies.currency) setCurrentCurrency(cookies.currency)
+      else {
+        const currency = getCurrencyByLang(lang)
+        setCookie('currency', currency, {
+          expires: new Date('2030'),
+          path: '/',
+        })
+        setCurrentCurrency(currency)
+      }
+
+      if (cookies.lang) setCurrentLang(cookies.lang)
+
+      getAndSetLocales()
+      getAndSetCurrencies()
+    } catch (err: any) {
+      console.log({ err })
+    } finally {
+      setLoading(false)
     }
-
-    if (cookies.lang) setCurrentLang(cookies.lang)
-
-    getAndSetLocales()
-    getAndSetCurrencies()
   }, [])
 
   return (
@@ -107,55 +118,63 @@ export default function PickLocaleAndCurrencyMenu() {
                   <Typography className="text-sm mb-1">
                     {localeCurrencyMenu.language}
                   </Typography>
-                  <Select onValueChange={(val) => setCurrentLang(val)}>
-                    <SelectTrigger className="w-full justify-start gap-3 rounded-none">
-                      <SelectValue
-                        placeholder={
-                          locales?.find((l) => l.locale === currentLang)?.name
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>
-                          {localeCurrencyMenu.languages}
-                        </SelectLabel>
-                        {locales.map((item: SupportedLocale, i: number) => (
-                          <SelectItem key={i} value={item.locale}>
-                            {item.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  {!loading ? (
+                    <Select onValueChange={(val) => setCurrentLang(val)}>
+                      <SelectTrigger className="w-full justify-start gap-3 rounded-none">
+                        <SelectValue
+                          placeholder={
+                            locales?.find((l) => l.locale === currentLang)?.name
+                          }
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>
+                            {localeCurrencyMenu.languages}
+                          </SelectLabel>
+                          {locales.map((item: SupportedLocale, i: number) => (
+                            <SelectItem key={i} value={item.locale}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Skeleton className="h-[40px] w-full" />
+                  )}
                 </div>
                 <div>
                   <Typography className="text-sm mb-1">
                     {localeCurrencyMenu.currency}
                   </Typography>
-                  <Select onValueChange={(val) => setCurrentCurrency(val)}>
-                    <SelectTrigger className="w-full justify-start gap-3 rounded-none">
-                      <SelectValue
-                        placeholder={
-                          currencies.find(
-                            (l) => l.currencyCode === currentCurrency
-                          )?.currencyCode
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>
-                          {localeCurrencyMenu.currencies}
-                        </SelectLabel>
-                        {currencies.map((item: Currency, i: number) => (
-                          <SelectItem key={i} value={item.currencyCode}>
-                            {item.currencyCode}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  {!loading ? (
+                    <Select onValueChange={(val) => setCurrentCurrency(val)}>
+                      <SelectTrigger className="w-full justify-start gap-3 rounded-none">
+                        <SelectValue
+                          placeholder={
+                            currencies.find(
+                              (l) => l.currencyCode === currentCurrency
+                            )?.currencyCode
+                          }
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>
+                            {localeCurrencyMenu.currencies}
+                          </SelectLabel>
+                          {currencies.map((item: Currency, i: number) => (
+                            <SelectItem key={i} value={item.currencyCode}>
+                              {item.currencyCode}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Skeleton className="h-[40px] w-full" />
+                  )}
                 </div>
               </CardContent>
               <CardFooter>

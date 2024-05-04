@@ -7,6 +7,7 @@ import Footer from './footer'
 import { getTranslationOfList } from '@/utils/translations-utils'
 import CartDrawer from '@/features/active-order/components/cart-drawer'
 
+
 export default async function MainLayout({
   lang,
   children,

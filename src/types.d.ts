@@ -455,6 +455,7 @@ interface ActiveUser {
   role: string
   company?: Company
   addressList?: Address[]
+  orders?: ActiveOrder[]
 }
 
 interface CalculatedProduct {
@@ -657,6 +658,58 @@ interface DocumentCategoryTranslation {
   localeId: number
   locale: SupportedLocale
   resource: DocumentCategory
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ProductVariant {
+  id: number
+  featuredImage: {
+    path: string
+    name: string
+    alt: string
+  } | null
+  productType: string
+  stockQuantity: number
+  name: string
+  value: string
+  price: {
+    amount: number
+    baseCurrency: string
+  }
+}
+
+interface Line {
+  id: number
+  quantity: number
+  priceSummary: {
+    totalPrice: number
+    totalTaxes: number
+    totalPriceWithTaxes: number
+    totalDiscount: number
+    netTotal: number
+    priceForSingleProduct: number
+    netPriceForSingleProduct: number
+  }
+  productVariant: ProductVariant
+}
+
+interface ActiveOrder {
+  id: number
+  status: string
+  note: null | string
+  currencyCode: string
+  totalDiscountPercentage: number | null
+  lines: Line[]
+  orderPriceSummary?: {
+    totalPrice: number
+    totalPriceWithoutTaxes: number
+    totalPriceWithTaxes: number
+    totalDiscount: number
+    netTotal: number
+  }
+  shippingAddress?: Address
+  orderCode: string
   createdAt: Date
   updatedAt: Date
 }

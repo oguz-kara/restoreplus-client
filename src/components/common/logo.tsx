@@ -13,9 +13,11 @@ export default function Logo({
   height = 200,
   color = 'white',
 }: PropsWithClassName & LogoProps) {
-  if (color === 'black')
-    return (
-      <div>
+  const renderButHide = 'w-0 h-0 overflow-hidden'
+
+  return (
+    <>
+      <div className={color === 'white' ? renderButHide : ''}>
         <Image
           src="/images/restoreplus-logo-black.png"
           alt="restoreplus logo"
@@ -25,18 +27,16 @@ export default function Logo({
           priority
         />
       </div>
-    )
-
-  return (
-    <div>
-      <Image
-        src="/images/restoreplus-logo.png"
-        alt="restoreplus logo"
-        width={width}
-        height={height}
-        className={className}
-        priority
-      />
-    </div>
+      <div className={color === 'black' ? renderButHide : ''}>
+        <Image
+          src="/images/restoreplus-logo.png"
+          alt="restoreplus logo"
+          width={width}
+          height={height}
+          className={className}
+          priority
+        />
+      </div>
+    </>
   )
 }

@@ -29,6 +29,7 @@ import PickLocaleAndCurrencyMenu from '@/features/locale/components/pick-locale-
 import Typography from '../ui/typography'
 import { useActiveOrder } from '@/features/active-order/context/active-order-context'
 import { Badge } from '../ui/badge'
+import LoadingPortal from './loading-portal'
 
 export function NavigationBar({
   categoryData,
@@ -300,39 +301,47 @@ function ProductCategoryData({
       <div className="flex p-5 min-h-[50vh]">
         <div className="flex-1">
           <ul>
-            {parentCategories.map((category: TranslatedProductCategory, i) => (
-              <Link
-                lang={lang}
-                key={i}
-                href={`/product/categories/${category.id}/${category.slug}`}
-              >
-                <li
-                  className={cn(
-                    'p-3 cursor-pointer hover:bg-gray-100 capitalize',
-                    getActiveClass(category, 'top')
-                  )}
-                  onMouseOver={() => handleSelectedParentCategory(category)}
+            {parentCategories
+              .filter((category) =>
+                category.subCategories.some(
+                  (subCategory) => subCategory.subCategories.length > 0
+                )
+              )
+              .map((category: TranslatedProductCategory, i) => (
+                <Link
+                  lang={lang}
+                  key={i}
+                  href={`/product/categories/${category.id}/${category.slug}`}
                 >
-                  {category.name}
-                </li>
-              </Link>
-            ))}
+                  <li
+                    className={cn(
+                      'p-3 cursor-pointer hover:bg-gray-100 capitalize',
+                      getActiveClass(category, 'top')
+                    )}
+                    onMouseOver={() => handleSelectedParentCategory(category)}
+                  >
+                    {category.name}
+                  </li>
+                </Link>
+              ))}
           </ul>
         </div>
         <div className="flex-1 border-r border-l border-gray-300">
           <ul>
-            {subCategories?.map((category: any, i) => (
-              <li
-                key={i}
-                className={cn(
-                  'p-3 cursor-pointer hover:bg-gray-100 capitalize',
-                  getActiveClass(category, 'sub')
-                )}
-                onMouseOver={() => handleSelectedSubCategory(category)}
-              >
-                {category.name}
-              </li>
-            ))}
+            {subCategories
+              .filter((category) => !(category.subCategories.length === 0))
+              .map((category: any, i) => (
+                <li
+                  key={i}
+                  className={cn(
+                    'p-3 cursor-pointer hover:bg-gray-100 capitalize',
+                    getActiveClass(category, 'sub')
+                  )}
+                  onMouseOver={() => handleSelectedSubCategory(category)}
+                >
+                  {category.name}
+                </li>
+              ))}
           </ul>
         </div>
         <div className="flex-[2]">
@@ -501,7 +510,7 @@ function SectorData({
 }
 
 function RightNavigation() {
-  const { user } = useAuthenticatedUser()
+  const { user, loading, logout } = useAuthenticatedUser()
   const {
     dictionary: {
       layout: {
@@ -513,75 +522,98 @@ function RightNavigation() {
   const { activeOrder, setOpen } = useActiveOrder()
 
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <PickLocaleAndCurrencyMenu />
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-transparent">
-            {navItems.about.title}
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="p-4 min-w-[180px]">
-              {navItems?.about.navLinks?.map((item, i) => (
-                <ListItem key={i} href={item.href} title={item.title} />
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        {!user && (
-          <>
-            <NavigationMenuItem>
-              <Button variant="ghost">
-                <Link href="/login" lang={lang}>
-                  <span className="text-sm">{navItems.login.title}</span>
-                </Link>
-              </Button>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Button>
-                <User className="mr-2" />
-                <Link href={navItems.register.href} lang={lang}>
-                  <span className="text-sm pr-3">
-                    {navItems.register.title}
-                  </span>
-                </Link>
-              </Button>
-            </NavigationMenuItem>
-          </>
-        )}
-        {activeOrder?.lines && activeOrder?.lines.length > 0 && (
+    <>
+      <LoadingPortal isOpen={loading} />
+      <NavigationMenu>
+        <NavigationMenuList>
           <NavigationMenuItem>
-            <div className="relative">
-              <Badge className="rounded-full absolute top-[-15px] left-[50%] translate-x-[-50%]">
-                <Typography className="p-0 m-0 text-xs">
-                  {activeOrder?.lines?.length}
-                </Typography>
-              </Badge>
-              <Button onClick={() => setOpen(true)} variant="ghost">
-                <ShoppingCart />
-              </Button>
-            </div>
+            <PickLocaleAndCurrencyMenu />
           </NavigationMenuItem>
-        )}
-        {user && (
           <NavigationMenuItem>
-            <Button>
-              <User className="mr-2" />
-              <Link href="/profile" lang={lang}>
-                <span className="text-sm pr-3">
+            <NavigationMenuTrigger className="bg-transparent">
+              {navItems.about.title}
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="p-4 min-w-[180px]">
+                {navItems?.about.navLinks?.map((item, i) => (
+                  <ListItem key={i} href={item.href} title={item.title} />
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          {!user && (
+            <>
+              <NavigationMenuItem>
+                <Button variant="ghost">
+                  <Link href="/login" lang={lang}>
+                    <span className="text-sm">{navItems.login.title}</span>
+                  </Link>
+                </Button>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Button>
+                  <User className="mr-2" />
+                  <Link href={navItems.register.href} lang={lang}>
+                    <span className="text-sm pr-3">
+                      {navItems.register.title}
+                    </span>
+                  </Link>
+                </Button>
+              </NavigationMenuItem>
+            </>
+          )}
+          {activeOrder?.lines && activeOrder?.lines.length > 0 && (
+            <NavigationMenuItem>
+              <div className="relative">
+                <Badge className="rounded-full absolute top-[-15px] left-[50%] translate-x-[-50%]">
+                  <Typography className="p-0 m-0 text-xs">
+                    {activeOrder?.lines?.length}
+                  </Typography>
+                </Badge>
+                <Button onClick={() => setOpen(true)} variant="ghost">
+                  <ShoppingCart />
+                </Button>
+              </div>
+            </NavigationMenuItem>
+          )}
+        </NavigationMenuList>
+      </NavigationMenu>
+      {user && (
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-primary text-black">
+                <User className="mr-2" />
+                <span className="text-sm pr-3 font-semibold">
                   {user.firstName && user.lastName
                     ? `${user.firstName} ${user.lastName}`
                     : user.firstName
                     ? user.firstName
                     : 'User'}
                 </span>
-              </Link>
-            </Button>
-          </NavigationMenuItem>
-        )}
-      </NavigationMenuList>
-    </NavigationMenu>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="p-4 min-w-[180px]">
+                  <ListItem>
+                    <Link href="/profile" lang={lang}>
+                      {navItems.profile.profile}
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <span
+                      aria-label="Logout button"
+                      className="cursor-pointer"
+                      onClick={logout}
+                    >
+                      {navItems.profile.logout}
+                    </span>
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      )}
+    </>
   )
 }

@@ -1,4 +1,11 @@
 'use client'
+import { Filter } from 'lucide-react'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import {
   Select,
   SelectContent,
@@ -101,9 +108,9 @@ export default function ProductFinderFilters({
         <div className="w-full flex items-center justify-between">
           <div>
             <Input
-              className="w-full border-none outline-none focus:ring-primary focus-visible:ring-primary"
+              className="block !w-full border-none outline-none focus:ring-primary focus-visible:ring-primary"
               type="text"
-              placeholder="Keyword..."
+              placeholder={common.keyword}
               value={q}
               onChange={(e) => setQ(e.target.value)}
             />
@@ -115,139 +122,308 @@ export default function ProductFinderFilters({
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between mb-5">
-        <Typography as="h5">{common.filter}</Typography>
-        <Button
-          variant="ghost"
-          className="text-black gap-1 p-0"
-          onClick={() => handleResetSearchParams()}
-        >
-          <span>
-            <ArrowUpCircle />
-          </span>
-          <span>{productFinder.reset}</span>
-        </Button>
-      </div>
-      <div className="mb-5">
-        <Typography className="font-semibold text-sm mb-1">
-          {productFinder.category}
-        </Typography>
-        <div>
-          <Select
-            onValueChange={(val) =>
-              handleSelectFilterChange('categorySlug', val, setCategorySlug)
-            }
-            value={categorySlug}
-          >
-            <SelectTrigger className="w-full justify-start gap-3 rounded-none">
-              <List />
-              <SelectValue placeholder={productFinder.allCategories} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>{productFinder.categories}</SelectLabel>
-                {categoryData.map((item: any, i: number) => (
-                  <SelectItem
-                    key={i}
-                    value={`${item.translation.slug},${item.id}`}
+      <div className="lg:hidden">
+        <Accordion type="multiple" className="lg:hidden">
+          <AccordionItem value="filters">
+            <AccordionTrigger>
+              <div className="flex gap-1 items-center">
+                <Typography className="text-sm font-semibold">
+                  {common.filter}
+                </Typography>
+                <Filter size="20px" />
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex items-center justify-between mb-5">
+                <Typography as="h5">{common.filter}</Typography>
+                <Button
+                  variant="ghost"
+                  className="text-black gap-1 p-0"
+                  onClick={() => handleResetSearchParams()}
+                >
+                  <span>
+                    <ArrowUpCircle />
+                  </span>
+                  <span>{productFinder.reset}</span>
+                </Button>
+              </div>
+              <div className="mb-5">
+                <Typography className="font-semibold text-sm mb-1">
+                  {productFinder.category}
+                </Typography>
+                <div>
+                  <Select
+                    onValueChange={(val) =>
+                      handleSelectFilterChange(
+                        'categorySlug',
+                        val,
+                        setCategorySlug
+                      )
+                    }
+                    value={categorySlug}
                   >
-                    {item.translation.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Select
-            onValueChange={(val) =>
-              handleSelectFilterChange(
-                'subCategorySlug',
-                val,
-                setSubCategorySlug
-              )
-            }
-            value={subCategorySlug}
+                    <SelectTrigger className="w-full justify-start gap-3 rounded-none">
+                      <List />
+                      <SelectValue placeholder={productFinder.allCategories} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>{productFinder.categories}</SelectLabel>
+                        {categoryData.map((item: any, i: number) => (
+                          <SelectItem
+                            key={i}
+                            value={`${item.translation.slug},${item.id}`}
+                          >
+                            {item.translation.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <Select
+                    onValueChange={(val) =>
+                      handleSelectFilterChange(
+                        'subCategorySlug',
+                        val,
+                        setSubCategorySlug
+                      )
+                    }
+                    value={subCategorySlug}
+                  >
+                    <SelectTrigger
+                      disabled={
+                        !Boolean(subCategoryData && subCategoryData.length > 0)
+                      }
+                      className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
+                    >
+                      <ListTree />
+                      <SelectValue
+                        placeholder={productFinder.allSubCategories}
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>{productFinder.subCategories}</SelectLabel>
+                        {subCategoryData?.map((item: any, i: number) =>
+                          item.translation.slug ? (
+                            <SelectItem
+                              key={i}
+                              value={`${item.translation.slug},${item.id}`}
+                            >
+                              {item.translation.name}
+                            </SelectItem>
+                          ) : null
+                        )}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div>
+                <Typography className="font-semibold text-sm mb-1">
+                  {productFinder.sectors}
+                </Typography>
+                <div>
+                  <Select
+                    onValueChange={(val) =>
+                      handleSelectFilterChange('sectorSlug', val, setSectorSlug)
+                    }
+                    value={sectorSlug}
+                  >
+                    <SelectTrigger className="w-full justify-start gap-3 rounded-none">
+                      <Factory />
+                      <SelectValue placeholder={productFinder.allSectors} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>{productFinder.sectors}</SelectLabel>
+                        {sectorData?.map((item: any, i: number) => (
+                          <SelectItem
+                            key={i}
+                            value={`${item.translation.slug},${item.id}`}
+                          >
+                            {item?.translation.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <Select
+                    onValueChange={(val) =>
+                      handleSelectFilterChange(
+                        'subSectorSlug',
+                        val,
+                        setSubSectorSlug
+                      )
+                    }
+                    value={subSectorSlug}
+                  >
+                    <SelectTrigger
+                      disabled={
+                        !Boolean(subSectorData && subSectorData.length > 0)
+                      }
+                      className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
+                    >
+                      <Drill />
+                      <SelectValue placeholder={productFinder.allSubSectors} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>{productFinder.subSectors}</SelectLabel>
+                        {subSectorData?.map((item: any, i: number) => (
+                          <SelectItem
+                            key={i}
+                            value={`${item.translation.slug},${item.id}`}
+                          >
+                            {item.translation.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
+      <div className="hidden lg:block">
+        <div className="flex items-center justify-between mb-5">
+          <Typography as="h5">{common.filter}</Typography>
+          <Button
+            variant="ghost"
+            className="text-black gap-1 p-0"
+            onClick={() => handleResetSearchParams()}
           >
-            <SelectTrigger
-              disabled={!Boolean(subCategoryData && subCategoryData.length > 0)}
-              className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
+            <span>
+              <ArrowUpCircle />
+            </span>
+            <span>{productFinder.reset}</span>
+          </Button>
+        </div>
+        <div className="mb-5">
+          <Typography className="font-semibold text-sm mb-1">
+            {productFinder.category}
+          </Typography>
+          <div>
+            <Select
+              onValueChange={(val) =>
+                handleSelectFilterChange('categorySlug', val, setCategorySlug)
+              }
+              value={categorySlug}
             >
-              <ListTree />
-              <SelectValue placeholder={productFinder.allSubCategories} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>{productFinder.subCategories}</SelectLabel>
-                {subCategoryData?.map((item: any, i: number) =>
-                  item.translation.slug ? (
+              <SelectTrigger className="w-full justify-start gap-3 rounded-none">
+                <List />
+                <SelectValue placeholder={productFinder.allCategories} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>{productFinder.categories}</SelectLabel>
+                  {categoryData.map((item: any, i: number) => (
                     <SelectItem
                       key={i}
                       value={`${item.translation.slug},${item.id}`}
                     >
                       {item.translation.name}
                     </SelectItem>
-                  ) : null
-                )}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-      <div>
-        <Typography className="font-semibold text-sm mb-1">
-          {productFinder.sectors}
-        </Typography>
-        <div>
-          <Select
-            onValueChange={(val) =>
-              handleSelectFilterChange('sectorSlug', val, setSectorSlug)
-            }
-            value={sectorSlug}
-          >
-            <SelectTrigger className="w-full justify-start gap-3 rounded-none">
-              <Factory />
-              <SelectValue placeholder={productFinder.allSectors} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>{productFinder.sectors}</SelectLabel>
-                {sectorData?.map((item: any, i: number) => (
-                  <SelectItem
-                    key={i}
-                    value={`${item.translation.slug},${item.id}`}
-                  >
-                    {item?.translation.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Select
-            onValueChange={(val) =>
-              handleSelectFilterChange('subSectorSlug', val, setSubSectorSlug)
-            }
-            value={subSectorSlug}
-          >
-            <SelectTrigger
-              disabled={!Boolean(subSectorData && subSectorData.length > 0)}
-              className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Select
+              onValueChange={(val) =>
+                handleSelectFilterChange(
+                  'subCategorySlug',
+                  val,
+                  setSubCategorySlug
+                )
+              }
+              value={subCategorySlug}
             >
-              <Drill />
-              <SelectValue placeholder={productFinder.allSubSectors} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>{productFinder.subSectors}</SelectLabel>
-                {subSectorData?.map((item: any, i: number) => (
-                  <SelectItem
-                    key={i}
-                    value={`${item.translation.slug},${item.id}`}
-                  >
-                    {item.translation.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+              <SelectTrigger
+                disabled={
+                  !Boolean(subCategoryData && subCategoryData.length > 0)
+                }
+                className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
+              >
+                <ListTree />
+                <SelectValue placeholder={productFinder.allSubCategories} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>{productFinder.subCategories}</SelectLabel>
+                  {subCategoryData?.map((item: any, i: number) =>
+                    item.translation.slug ? (
+                      <SelectItem
+                        key={i}
+                        value={`${item.translation.slug},${item.id}`}
+                      >
+                        {item.translation.name}
+                      </SelectItem>
+                    ) : null
+                  )}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div>
+          <Typography className="font-semibold text-sm mb-1">
+            {productFinder.sectors}
+          </Typography>
+          <div>
+            <Select
+              onValueChange={(val) =>
+                handleSelectFilterChange('sectorSlug', val, setSectorSlug)
+              }
+              value={sectorSlug}
+            >
+              <SelectTrigger className="w-full justify-start gap-3 rounded-none">
+                <Factory />
+                <SelectValue placeholder={productFinder.allSectors} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>{productFinder.sectors}</SelectLabel>
+                  {sectorData?.map((item: any, i: number) => (
+                    <SelectItem
+                      key={i}
+                      value={`${item.translation.slug},${item.id}`}
+                    >
+                      {item?.translation.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Select
+              onValueChange={(val) =>
+                handleSelectFilterChange('subSectorSlug', val, setSubSectorSlug)
+              }
+              value={subSectorSlug}
+            >
+              <SelectTrigger
+                disabled={!Boolean(subSectorData && subSectorData.length > 0)}
+                className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
+              >
+                <Drill />
+                <SelectValue placeholder={productFinder.allSubSectors} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>{productFinder.subSectors}</SelectLabel>
+                  {subSectorData?.map((item: any, i: number) => (
+                    <SelectItem
+                      key={i}
+                      value={`${item.translation.slug},${item.id}`}
+                    >
+                      {item.translation.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </div>
     </div>

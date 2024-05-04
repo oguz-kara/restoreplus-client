@@ -1,0 +1,87 @@
+import Container from '@/components/common/container'
+import { Button } from '@/components/ui/button'
+import Image from '@/components/ui/image'
+import Link from '@/components/ui/link'
+import Typography from '@/components/ui/typography'
+import { getDictionary } from '@/i18n/get-dictionary'
+import { ParamsWithLang } from '@/i18n/types'
+
+export default async function Page({
+  params: { lang, id },
+  searchParams: { success },
+}: ParamsWithLang & { searchParams: { success: string } } & ParamsWithId) {
+  const { orderSuccessPage } = await getDictionary(lang)
+
+  console.log({ id })
+
+  const translation = id === '0' ? orderSuccessPage.error : orderSuccessPage
+
+  console.log({ translation })
+
+  return (
+    <div className="flex items-center justify-center bg-gray-100 h-[100vh]">
+      <Container className="max-w-[1024px]">
+        <div
+          className="bg-white p-5 lg:p-10 rounded-md h-[100vh] lg:h-[initial] "
+          style={{
+            boxShadow:
+              'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
+          }}
+        >
+          <div>
+            <Image
+              src={
+                id !== '0'
+                  ? '/images/order-success.svg'
+                  : '/images/order-failed.svg'
+              }
+              alt="order success"
+              width={1000}
+              height={1000}
+              priority
+              style={{
+                width: '100%',
+              }}
+            />
+          </div>
+          <div>
+            <Typography
+              as="h1"
+              className="font-semibold text-4xl text-center mb-5"
+            >
+              {translation.title}
+            </Typography>
+
+            <div className="flex items-center justify-center mb-10">
+              <Typography
+                as="p"
+                className="text-gray-400 text-lg text-center max-w-[65%]"
+              >
+                {translation.description}
+              </Typography>
+            </div>
+
+            <div className="flex gap-5">
+              <Link className="flex-1" href={`/profile/orders`} lang={lang}>
+                <Button
+                  className="w-full uppercase font-semibold lg:text-xl lg:p-7"
+                  variant="outline"
+                >
+                  {translation.viewOrderButtonText}
+                </Button>
+              </Link>
+              <Link className="flex-1" href="/create-order" lang={lang}>
+                <Button
+                  className="w-full uppercase font-semibold lg:text-xl lg:p-7"
+                  variant="default"
+                >
+                  {translation.continueShoppingButtonText}
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
+  )
+}

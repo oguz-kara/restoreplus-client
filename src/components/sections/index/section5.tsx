@@ -8,6 +8,7 @@ import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale, PropsWithLang } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { getTranslationOfList } from '@/utils/translations-utils'
+import bg from '../../../../public/images/hero-image.png'
 
 export default async function Section5({ lang }: PropsWithLang) {
   const {
@@ -26,7 +27,7 @@ export default async function Section5({ lang }: PropsWithLang) {
     <div
       className="bg-foreground"
       style={{
-        background: `url('images/hero-image.png')`,
+        background: `url(${bg.src})`,
         minHeight: '500px',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',

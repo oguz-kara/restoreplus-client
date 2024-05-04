@@ -1,10 +1,12 @@
 import { Locale } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import { serverFetcher } from '@/lib/server-fetcher'
+import { consoleLog } from '@/utils/log-to-console'
 
 export async function getProductCategoryData({ lang }: { lang: string }) {
   const properLang = getProperLanguage(lang as Locale)
-  const { data } = await serverFetcher('/products/categories/all')
+  console.log({ properLang })
+  const { data } = await serverFetcher(`/products/categories/all`)
 
   const { data: categoryData, pagination } = data
 

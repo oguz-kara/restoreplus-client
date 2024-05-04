@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import { Locale } from '@/i18n/types'
@@ -12,6 +13,8 @@ import { getProductsByCategoryId } from '@/features/product/data/get-products-by
 import { getAllCategories } from '../data/get-all-categories'
 import Link from '@/components/ui/link'
 import HighligtedHeader from '@/components/common/highligted-header'
+import { ArrowRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 type PageProps = {
   lang: Locale
@@ -24,6 +27,8 @@ export default async function SingleCategoryPage({
   slug,
   lang,
 }: PageProps) {
+  const heads = headers()
+  const pathname = heads.get('next-url')
   const category = await getCategoryById(id, lang)
   const productData = await getProductsByCategoryId({
     lang,
@@ -50,18 +55,32 @@ export default async function SingleCategoryPage({
               <div>
                 <HighligtedHeader>{categoriesTitle}</HighligtedHeader>
               </div>
-              {categoryData.data.map((item) => (
-                <div key={item?.id}>
-                  <Link
-                    lang={lang}
-                    href={`/product/categories/${item.id}/${item.translation.slug}`}
+              <ul>
+                {categoryData.data.map((item) => (
+                  <li
+                    className={cn(
+                      'p-2 hover:bg-secondary',
+                      pathname?.includes(`/${item.id}/`) ? 'bg-secondary' : ''
+                    )}
+                    key={item?.id}
                   >
-                    <Typography className="capitalize">
-                      {item.translation.name}
-                    </Typography>
-                  </Link>
-                </div>
-              ))}
+                    <Link
+                      className="flex items-center justify-between"
+                      lang={lang}
+                      href={`/product/categories/${item.id}/${item.translation.slug}`}
+                    >
+                      <div>
+                        <Typography className="capitalize">
+                          {item.translation.name}
+                        </Typography>
+                      </div>
+                      <div>
+                        <ArrowRight />
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
             <div className="flex-[3]">
               <MdxRenderer

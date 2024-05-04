@@ -13,6 +13,10 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import Link from '@/components/ui/link'
 import { Badge } from '@/components/ui/badge'
 import { getDictionary } from '@/i18n/get-dictionary'
+import { consoleLog } from '@/utils/log-to-console'
+import { initialQuery } from '../queries/initial-query'
+import { Filter } from 'lucide-react'
+import FiltersAccordion from '@/components/common/filters-accordion'
 
 interface CalculatedAndGetProductFinderSectorAndCategoryIdArguments {
   categorySlug?: string
@@ -112,7 +116,10 @@ export default async function ProductFinderPage({
         type: 'search',
         query: term,
         lang: properLang as Locale,
+        dbQuery: initialQuery,
       })
+
+  consoleLog({ productData })
 
   return (
     <Container>
@@ -145,12 +152,13 @@ export default async function ProductFinderPage({
           ) : null}
           <div className="grid xl:grid-cols-4 md:grid-cols-3 gap-5 auto-rows-fr">
             {productData && productData.data && productData.data.length > 0
-              ? productData.data.map(
-                  (product: ProductWithTranslation, i: number) => (
+              ? productData.data
+                  .filter((product: any) => product?.translation)
+                  .map((product: ProductWithTranslation, i: number) => (
                     <div key={i} className="h-full">
                       <Link
                         className="h-full"
-                        href={`/product/${product.id}/${product.translation.slug}`}
+                        href={`/product/${product.id}/${product?.translation?.slug}`}
                         lang={lang}
                       >
                         <Card className="h-full">
@@ -168,7 +176,7 @@ export default async function ProductFinderPage({
                                 style={{
                                   width: '300px',
                                   height: '150px',
-                                  objectFit: 'cover',
+                                  objectFit: 'contain',
                                 }}
                               />
                             </div>
@@ -194,8 +202,7 @@ export default async function ProductFinderPage({
                         </Card>
                       </Link>
                     </div>
-                  )
-                )
+                  ))
               : null}
           </div>
         </div>

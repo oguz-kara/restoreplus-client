@@ -3,11 +3,12 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Typography from '@/components/ui/typography'
 import { useDictionary } from '@/context/use-dictionary'
-import { Trash } from 'lucide-react'
+import { CheckCircle, Trash } from 'lucide-react'
 import { AddressFormModal } from './address-form-modal'
 import { clientFetcher } from '@/lib/client-fetcher'
 import { useToast } from '@/components/ui/use-toast'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
+import { cn } from '@/lib/utils'
 
 export interface AddressType {
   title: string
@@ -26,7 +27,11 @@ interface AddressCardProps {
   data: AddressType
 }
 
-export default function AddressCard({ data }: AddressCardProps) {
+export default function AddressCard({
+  data,
+  selected,
+  ...rest
+}: AddressCardProps & { onClick?: () => void; selected?: boolean }) {
   const { refetchUser } = useAuthenticatedUser()
   const {
     dictionary: {
@@ -53,9 +58,17 @@ export default function AddressCard({ data }: AddressCardProps) {
   }
 
   return (
-    <Card className="p-0 max-w-[300px] rounded-sm">
-      <Typography as="h5" className="bg-gray-100 p-4 text-sm font-[500]">
+    <Card className={cn('p-0 max-w-[300px] rounded-sm relative')} {...rest}>
+      {/* overlay */}
+      {selected && (
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.2)]"></div>
+      )}
+      <Typography
+        as="h5"
+        className="flex items-center justify-between bg-gray-100 p-4 text-sm font-[500]"
+      >
         {data.title}
+        {selected ? <CheckCircle color="green" /> : null}
       </Typography>
       <div className="p-4 text-xs">
         <Typography className="font-[500]" as="p">

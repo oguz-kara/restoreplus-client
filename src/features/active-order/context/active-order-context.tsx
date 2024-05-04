@@ -23,6 +23,7 @@ export interface ActiveOrderState {
   isOpen: boolean
   setOpen: any
   temporarilyOpen: (ms: number) => void
+  getAndSetActiveOrder: () => Promise<void>
   removingOrderLine: boolean
   updatingOrderLine: boolean
   adjustOrderLine: ({
@@ -50,19 +51,15 @@ const INITIAL_STATE: ActiveOrderState = {
   activeOrder: null,
   adjustingOrderLine: false,
   isOpen: false,
-  setOpen: () => {},
   removingOrderLine: false,
   updatingOrderLine: false,
+  setOpen: () => {},
+  getAndSetActiveOrder: () => Promise.reject(),
   temporarilyOpen: (ms: number) => {},
   adjustOrderLine: () => Promise.reject(),
   removeOrderLine: () => Promise.reject(),
   updateOrderLineQuantity: () => Promise.reject(),
   dispatch: () => console.error('ActiveOrder dispatch is empty'),
-}
-
-interface LoginParams {
-  identifier: string
-  pwd: string
 }
 
 export const ActiveOrderContext = createContext(INITIAL_STATE)
@@ -84,6 +81,7 @@ export const ActiveOrderContextProvider = ({
 
     if (activeOrder)
       dispatch({ type: 'SET_ACTIVE_ORDER', payload: activeOrder })
+    else dispatch({ type: 'SET_ACTIVE_ORDER', payload: null })
   }
 
   const temporarilyOpen = (ms: number = 500) => {
@@ -179,6 +177,7 @@ export const ActiveOrderContextProvider = ({
         temporarilyOpen,
         setOpen,
         dispatch,
+        getAndSetActiveOrder,
       }}
     >
       {children}

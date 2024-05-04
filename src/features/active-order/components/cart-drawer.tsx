@@ -1,6 +1,5 @@
 'use client'
 import * as React from 'react'
-
 import { Button } from '@/components/ui/button'
 import {
   Drawer,
@@ -11,7 +10,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer'
-
 import { useActiveOrder } from '../context/active-order-context'
 import { useDictionary } from '@/context/use-dictionary'
 import { ServerImage } from '@/components/ui/image'
@@ -22,8 +20,10 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import Link from '@/components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
+import { usePathname } from 'next/navigation'
 
 export default function CartDrawer({ lang }: PropsWithLang) {
+  const pathname = usePathname()
   const {
     dictionary: {
       activeOrder: { cart },
@@ -38,10 +38,16 @@ export default function CartDrawer({ lang }: PropsWithLang) {
     updateOrderLineQuantity,
   } = useActiveOrder()
 
-  if (!activeOrder) return null
+  React.useEffect(() => {
+    if (isOpen) setOpen(false)
+  }, [pathname])
+
+  if (!activeOrder || !activeOrder.lines || activeOrder.lines.length === 0)
+    return null
+
   return (
     <Drawer open={isOpen} direction="right" onOpenChange={setOpen}>
-      <DrawerContent className="h-screen top-0 right-0 left-auto mt-0 w-[500px] rounded-none">
+      <DrawerContent className="h-screen top-0 right-0 left-auto mt-0 lg:w-[500px] rounded-none">
         <ScrollArea>
           <div className="flex flex-col justify-between h-full mx-auto w-full max-w-sm pb-20">
             <div>
@@ -88,14 +94,14 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                             </Typography>
                             <Typography className="text-sm mb-2">
                               {`${line.quantity} x ${formatPrice(
-                                line.price,
-                                activeOrder.currencyCode
+                                line.priceSummary.netPriceForSingleProduct || 0,
+                                activeOrder.currencyCode || 'USD'
                               )}`}
                             </Typography>
                             <Typography className="text-sm font-semibold">
                               {`Toplam: ${formatPrice(
-                                line.quantity * line.price,
-                                activeOrder.currencyCode
+                                line.priceSummary.netTotal || 0,
+                                activeOrder.currencyCode || 'USD'
                               )}`}
                             </Typography>
                           </div>
@@ -194,11 +200,8 @@ export default function CartDrawer({ lang }: PropsWithLang) {
               <Typography as="h4">
                 Genel toplam:{' '}
                 {formatPrice(
-                  activeOrder.lines.reduce(
-                    (a, b) => a + b.price * b.quantity,
-                    0
-                  ),
-                  activeOrder.currencyCode
+                  activeOrder.orderPriceSummary?.netTotal || 0,
+                  activeOrder.currencyCode || 'USD'
                 )}
               </Typography>
             </div>
@@ -210,7 +213,9 @@ export default function CartDrawer({ lang }: PropsWithLang) {
               >
                 <Button variant="outline">{cart.actions.continue}</Button>
               </DrawerClose>
-              <Button className="flex-1">{cart.actions.approveCart}</Button>
+              <Link className="flex-1" lang={lang} href="/checkout">
+                <Button className="w-full">{cart.actions.approveCart}</Button>
+              </Link>
             </div>
           </DrawerFooter>
         )}

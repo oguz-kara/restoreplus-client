@@ -28,3 +28,14 @@ export const loginUser = async ({
     return false
   }
 }
+
+export const logoutUser = async () => {
+  try {
+    const data = await clientFetcher('/auth/logout')
+
+    return data
+  } catch (error: any) {
+    console.log({ loginError: error })
+    return false
+  }
+}

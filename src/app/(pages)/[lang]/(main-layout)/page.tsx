@@ -10,6 +10,7 @@ import Section1 from '@/components/sections/index/section1'
 import Section4 from '@/components/sections/index/section4'
 import ProductsSection from '@/features/product/components/products-section'
 import { getSectors } from '@/features/sectors/api/get-sectors'
+import { Progress } from '@/components/ui/progress'
 
 export default async function Home({ params: { lang } }: ParamsWithLang) {
   const { data: sectorData } = await getSectors({

@@ -5,12 +5,13 @@ import {
   useContext,
   useEffect,
   useReducer,
+  useState,
 } from 'react'
 import { AuthReducer, AuthAction } from './auth-reducer'
 import Cookies from 'js-cookie'
 import { refreshToken } from '@/features/auth/api/refresh-user'
 import { getActiveUser } from '@/features/auth/api/active-user'
-import { loginUser } from '@/features/auth/api/login-user'
+import { loginUser, logoutUser } from '@/features/auth/api/login-user'
 
 export type LoginValues = {
   email: string
@@ -26,6 +27,7 @@ export interface AuthState {
     identifier: string
     pwd: string
   }) => Promise<boolean>
+  logout: () => Promise<void>
   loading: boolean
   error?: Error
   dispatch: Dispatch<AuthAction>
@@ -36,6 +38,7 @@ const INITIAL_STATE: AuthState = {
   user: undefined,
   loading: false,
   login: () => Promise.reject(),
+  logout: () => Promise.reject(),
   refetchUser: () => Promise.reject(),
   dispatch: () => console.error('auth dispatch is empty'),
 }
@@ -47,17 +50,30 @@ interface LoginParams {
 
 export const AuthContext = createContext(INITIAL_STATE)
 
+const setLoadingToFalse = (loading: any, setLoading: any, ms: number = 500) => {
+  setTimeout(() => {
+    setLoading(false)
+  }, ms)
+}
+
 export const AuthContextProvider = ({
   children,
 }: {
   children: React.ReactNode
 }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
+  const [loading, setLoading] = useState(false)
 
   const setActiveUser = async () => {
-    const activeUser = await getActiveUser()
-
-    if (activeUser) dispatch({ type: 'SET_USER', payload: activeUser })
+    try {
+      setLoading(true)
+      const activeUser = await getActiveUser()
+      if (activeUser) dispatch({ type: 'SET_USER', payload: activeUser })
+    } catch (err: any) {
+      console.log(err)
+    } finally {
+      setLoadingToFalse(loading, setLoading)
+    }
   }
 
   const login = async ({ identifier, pwd }: LoginParams) => {
@@ -71,6 +87,22 @@ export const AuthContextProvider = ({
     return false
   }
 
+  const logout = async () => {
+    try {
+      setLoading(true)
+      const result = await logoutUser()
+
+      if (result.success) {
+        console.log('successfully logged out!')
+        dispatch({ type: 'SET_USER', payload: null })
+      }
+    } catch (err: any) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const refreshTokenAndSetUser = async () => {
     const success = await refreshToken()
     if (success) await setActiveUser()
@@ -80,6 +112,10 @@ export const AuthContextProvider = ({
   useEffect(() => {
     if (!state.user) refreshTokenAndSetUser()
   }, [])
+
+  useEffect(() => {
+    console.log('re-render')
+  })
 
   useEffect(() => {
     if (!state.user) setActiveUser()
@@ -97,7 +133,14 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ ...state, login, refetchUser: setActiveUser, dispatch }}
+      value={{
+        ...state,
+        login,
+        refetchUser: setActiveUser,
+        dispatch,
+        logout,
+        loading,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -8,6 +8,7 @@ import { getDictionary } from '@/i18n/get-dictionary'
 import Container from '@/components/common/container'
 import Link from '@/components/ui/link'
 import SectionHeader from '@/components/common/section-header'
+import bg from '../../../../public/images/hero-image.png'
 
 export default async function ProductsSection({ lang }: PropsWithLang) {
   const {
@@ -23,7 +24,7 @@ export default async function ProductsSection({ lang }: PropsWithLang) {
     <div
       className="bg-foreground py-10 text-white"
       style={{
-        background: `url('images/hero-image.png')`,
+        background: `url(${bg.src})`,
         minHeight: '500px',
         backgroundAttachment: 'fixed',
         backgroundPosition: 'center',
