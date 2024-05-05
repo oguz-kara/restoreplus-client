@@ -43,7 +43,6 @@ const query = {
 
 export async function getSingleCategoryById(id: string, locale: string = 'tr') {
   const { data } = await serverFetcher(`/blog-posts/categories/single/${id}`, {
-    cache: 'no-store',
     body: JSON.stringify(query),
     method: 'POST',
     headers: {

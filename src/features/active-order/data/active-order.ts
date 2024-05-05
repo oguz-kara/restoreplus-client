@@ -9,6 +9,8 @@ export const getActiveOrderApi = async () => {
   const data = await clientFetcher('/active-order', {
     headers: {
       authorization: `Bearer ${token}`,
+      'x-api-key': 'null',
+      'x-api-secret': 'null',
     },
   })
 
@@ -32,6 +34,8 @@ export const adjustOrderLineApi = async ({
     method: 'post',
     headers: {
       authorization: `Bearer ${token}`,
+      'x-api-key': 'null',
+      'x-api-secret': 'null',
     },
     body: JSON.stringify({ quantity, productVariantId, currencyCode }),
   })
@@ -53,6 +57,8 @@ export const updateOrderLineApi = async ({
     method: 'put',
     headers: {
       authorization: `Bearer ${token}`,
+      'x-api-key': 'null',
+      'x-api-secret': 'null',
     },
     body: JSON.stringify({ quantity }),
   })
@@ -68,6 +74,8 @@ export const deleteOrderLineApi = async (lineId: number) => {
     method: 'delete',
     headers: {
       authorization: `Bearer ${token}`,
+      'x-api-key': 'null',
+      'x-api-secret': 'null',
     },
   })
   return data
@@ -81,6 +89,8 @@ export const createOrderApi = async () => {
   const data = await clientFetcher(`/create-order`, {
     headers: {
       authorization: `Bearer ${token}`,
+      'x-api-key': 'null',
+      'x-api-secret': 'null',
     },
   })
   return data
@@ -96,6 +106,8 @@ export const setActiveOrderAddressApi = async (addressId: number) => {
     {
       headers: {
         authorization: `Bearer ${token}`,
+        'x-api-key': 'null',
+        'x-api-secret': 'null',
       },
     }
   )

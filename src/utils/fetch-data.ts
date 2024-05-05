@@ -45,11 +45,10 @@ export const advancedDataSearch = async ({
   }
 
   const { data } = await serverFetcher(
-    `/${name}/all?page=${pagination.page}&take=${pagination.take}&${query}&include.translations.include.locale=true`,
-    {
-      cache: 'no-store',
-    }
+    `/${name}/all?page=${pagination.page}&take=${pagination.take}&${query}&include.translations.include.locale=true`
   )
+
+  if(data.message) return data
 
   if (data?.data && data.data.length > 0 && data.data[0].translations) {
     const resultData = data.data
@@ -116,10 +115,11 @@ export async function searchData({
         ...(token && { Authorization: `Bearer ${token?.value}` }),
       },
       method: 'POST',
-      cache: 'no-store',
       body: JSON.stringify({ ...search, ...(dbQuery && dbQuery) }),
     }
   )
+
+  if (data.message) return data
 
   if (data?.data && data.data.length > 0 && data.data[0].translations) {
     const resultData = data.data

@@ -119,7 +119,7 @@ export default async function ProductFinderPage({
         dbQuery: initialQuery,
       })
 
-  consoleLog({ productData })
+  if (productData.message) return JSON.stringify(productData)
 
   return (
     <Container>
@@ -289,8 +289,9 @@ export async function getFilteredProducts({
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(query),
-    cache: 'no-store',
   })
+
+  if (data.message) return data
 
   return {
     data: data.data

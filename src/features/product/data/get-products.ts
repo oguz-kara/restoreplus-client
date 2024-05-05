@@ -18,7 +18,6 @@ export async function searchProducts(q: string = '', locale: string = 'tr') {
   const { data } = await serverFetcher(
     `/products/search/?q=${q}&lang=${locale}`,
     {
-      cache: 'no-store',
       body: JSON.stringify(query),
       method: 'POST',
       headers: {
@@ -64,7 +63,6 @@ export async function getProducts({
   }
 
   const { data } = await serverFetcher(`/products/all?lang=${lang}`, {
-    cache: 'no-store',
     body: JSON.stringify(q),
     method: 'POST',
     headers: {
@@ -94,7 +92,6 @@ export async function getCalculatedProductsForCompany(locale: string = 'tr') {
 
   if (token) {
     const data = await clientFetcher(`/active-user/products`, {
-      cache: 'no-store',
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -116,7 +113,6 @@ export async function getCalculatedProductForCompany(
     const { data } = await serverFetcher(
       `/active-user/calculated-products?lang=${locale}&productId=${productId}`,
       {
-        cache: 'no-store',
         headers: {
           'Content-Type': 'application/json',
           authorization: `Bearer ${token}`,

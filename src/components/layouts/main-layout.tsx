@@ -7,7 +7,6 @@ import Footer from './footer'
 import { getTranslationOfList } from '@/utils/translations-utils'
 import CartDrawer from '@/features/active-order/components/cart-drawer'
 
-
 export default async function MainLayout({
   lang,
   children,
@@ -35,6 +34,8 @@ async function getSectorData({ lang }: { lang: string }) {
   const { data } = await serverFetcher(
     '/sectors/all?include.translations.include.locale=true&include.featuredImage=true&include.applicationScopes.include.translations.include.locale=true'
   )
+
+  if (data.message) return data
 
   const { data: sectorsData, pagination } = data
 

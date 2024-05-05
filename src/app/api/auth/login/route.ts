@@ -19,8 +19,8 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         'Content-Type': 'application/json',
         credentials: 'include',
       },
+      cache: 'no-store',
     })
-
 
     return NextResponse.json(data, { headers })
   } catch (error) {

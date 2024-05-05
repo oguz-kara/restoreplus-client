@@ -4,9 +4,7 @@ import { getTranslation } from '@/utils/translations-utils'
 
 export async function getSingleBlogPostById(id: string, lang: Locale = 'tr') {
   const query = `?include.translations.include.locale=true&include.featuredImage=true`
-  const { data } = await serverFetcher(`/blog-posts/${id}${query}`, {
-    cache: 'no-store',
-  })
+  const { data } = await serverFetcher(`/blog-posts/${id}${query}`)
 
   if (!data) return null
 

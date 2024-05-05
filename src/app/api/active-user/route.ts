@@ -5,12 +5,14 @@ export const GET = async (req: NextRequest) => {
   try {
     const authToken = req.headers.get('authorization')
 
-
     if (authToken) {
       const { data } = await serverFetcher('/active-user', {
         headers: {
           authorization: authToken,
+          'x-api-key': 'null',
+          'x-api-secret': 'null',
         },
+        cache: 'no-store',
       })
 
       return NextResponse.json(data)
@@ -41,9 +43,12 @@ export const PUT = async (req: NextRequest) => {
         method: 'put',
         headers: {
           authorization: authToken,
+          'x-api-key': 'null',
+          'x-api-secret': 'null',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ firstName, lastName, email }),
+        cache: 'no-store',
       })
 
       return NextResponse.json(data)

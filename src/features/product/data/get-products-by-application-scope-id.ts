@@ -33,7 +33,6 @@ export const getProductsByApplicationScopeId = async ({
     headers: {
       'Content-Type': 'application/json',
     },
-    cache: 'no-store',
   })
 
   if (!data || !data.data || (data.data.length && data.data.length < 1))

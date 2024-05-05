@@ -16,10 +16,10 @@ export const GET = async (req: NextRequest) => {
           headers: {
             authorization: authToken,
           },
-          cache: 'no-store',
           next: {
             tags: ['active-order'],
           },
+          cache: 'no-store',
         }
       )
 

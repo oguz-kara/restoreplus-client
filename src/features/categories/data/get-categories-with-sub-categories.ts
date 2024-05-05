@@ -34,7 +34,6 @@ export async function getCategoriesWithSubCategories(locale: string = 'tr') {
   }
 
   const result = await serverFetcher(`/blog-posts/categories/all`, {
-    cache: 'no-store',
     body: JSON.stringify(query),
     method: 'POST',
     headers: {

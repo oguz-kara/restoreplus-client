@@ -27,7 +27,6 @@ export async function getSectorById(id: string, locale: string = 'tr') {
   }
 
   const { data } = await serverFetcher(`/sectors/single/${id}`, {
-    cache: 'no-store',
     body: JSON.stringify(query),
     method: 'POST',
     headers: {

@@ -50,7 +50,6 @@ export async function getFilteredProducts({
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(query),
-    cache: 'no-store',
   })
 
   return {
@@ -130,7 +129,6 @@ export async function getFilteredCalculatedProducts({
         ...(token && { Authorization: `Bearer ${token}` }),
       },
       body: JSON.stringify(query),
-      cache: 'no-store',
     }
   )
 

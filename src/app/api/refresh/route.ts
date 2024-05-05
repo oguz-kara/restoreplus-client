@@ -8,7 +8,13 @@ export const GET = async (req: NextRequest) => {
     const result = await serverFetcher('/refresh', {
       method: 'POST',
       body: JSON.stringify({ refreshToken: jwt }),
-      headers: { credentials: 'include', 'Content-Type': 'application/json' },
+      headers: {
+        credentials: 'include',
+        'Content-Type': 'application/json',
+        'x-api-key': 'null',
+        'x-api-secret': 'null',
+      },
+      cache: 'no-store',
     })
 
     return NextResponse.json(result, { status: 200 })

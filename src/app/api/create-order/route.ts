@@ -17,7 +17,6 @@ export const GET = async (req: NextRequest) => {
           headers: {
             authorization: authToken,
           },
-          cache: 'no-store',
           next: {
             tags: ['create-order'],
           },

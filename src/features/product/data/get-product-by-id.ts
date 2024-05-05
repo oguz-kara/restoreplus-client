@@ -56,7 +56,6 @@ export async function getProductById(id: string, locale: Locale = 'tr') {
   }
 
   const { data } = await serverFetcher(`/products/single/${id}`, {
-    cache: 'no-store',
     body: JSON.stringify(query),
     method: 'POST',
     headers: {

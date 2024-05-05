@@ -21,7 +21,6 @@ export async function getApplicationScopeById(
   }
 
   const { data } = await serverFetcher(`/application-scopes/single/${id}`, {
-    cache: 'no-store',
     body: JSON.stringify(query),
     method: 'POST',
     headers: {

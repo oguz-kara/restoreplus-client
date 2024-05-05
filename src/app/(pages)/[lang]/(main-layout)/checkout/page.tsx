@@ -65,7 +65,7 @@ export default function Page({ params: { lang } }: ParamsWithLang) {
   }
 
   const handleOrderAddressChange = async (address: Address) => {
-    if (address.id) {
+    if (address?.id) {
       const result = await setActiveOrderAddressApi(address.id)
       if (!result.message) {
         setSelectedAddress(address)

@@ -86,7 +86,12 @@ export default function ProductFinderFilters({
   }
 
   useEffect(() => {
-    handleSelectFilterChange('term', q)
+    const timeout = setTimeout(() => {
+      handleSelectFilterChange('term', q)
+      localStorage.removeItem('product-finter-search-timeout')
+    }, 1000)
+
+    return () => clearTimeout(timeout)
   }, [q])
 
   useEffect(() => {
