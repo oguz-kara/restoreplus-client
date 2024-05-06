@@ -102,7 +102,7 @@ export default function ContactForm({
           className="flex flex-col gap-5"
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <div className="grid lg:grid-cols-2 gap-5 mb-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
             <FormField
               control={form.control}
               name="firstName"
@@ -287,7 +287,7 @@ export default function ContactForm({
                 </FormItem>
               )}
             />
-            <div className="col-span-2">
+            <div className="lg:col-span-2">
               <FormField
                 control={form.control}
                 name="message"

@@ -64,7 +64,7 @@ export default async function ImageContentPanel({
         </div>
         <div className="lg:flex-1">
           <Image
-            className="w-full"
+            className="w-full max-w-[500px] max-h-[500px] lg:h-[500px] lg:w-[500px] object-cover"
             src={data.image.src}
             alt={data.image.alt}
             width={500}

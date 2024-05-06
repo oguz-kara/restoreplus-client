@@ -60,25 +60,24 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
         <ScrollArea className="h-screen">
           <div className="flex lg:hidden justify-center bg-foreground p-5 w-full">
             <Link lang={lang} href="/">
-              <Logo />
+              <Logo width={100} />
             </Link>
           </div>
           <div className="p-5 lg:p-10">
             <Typography
-              className="text-center font-normal text-4xl text-blue-400 mb-10"
+              className="text-center font-normal text-xl lg:text-4xl text-blue-400 mb-3 lg:mb-10"
               as="h2"
             >
               {contactPage.title}
             </Typography>
-            <Typography className="text-center text-lg" as="p">
+            <Typography className="text-center text-sm lg:text-lg" as="p">
               {contactPage.text}
             </Typography>
           </div>
           <div className="p-5">
             <ContactForm lang={lang} />
           </div>
-          <div>
-            {/* form footer */}
+          <div className="p-5">
             <div className="mb-5">
               <Typography as="p" className="text-xs text-center">
                 {contactPage.aggreeForm}

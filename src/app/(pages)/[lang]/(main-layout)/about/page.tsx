@@ -6,10 +6,11 @@ import HeroSection from '@/components/sections/about/hero-section'
 import Section1 from '@/components/sections/about/section1'
 import Section2 from '@/components/sections/about/section2'
 import Section3 from '@/components/sections/about/section3'
+import { getStaticBlogPosts } from '@/components/sections/index/section5'
 import { getBlogPostData } from '@/features/blog/data/get-blog-post-data'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'
-import { ParamsWithLang } from '@/i18n/types'
+import { Locale, ParamsWithLang } from '@/i18n/types'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
@@ -24,7 +25,7 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
   const {
     index: { section6 },
   } = await getDictionary(lang)
-  const { data } = await getBlogPostData()
+  const data = await getStaticBlogPosts({ lang })
 
   return (
     <div>
@@ -32,7 +33,7 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
       <Section1 lang={lang} />
       <Section2 lang={lang} />
       <Section3 lang={lang} />
-      <div className="bg-secondary">
+      <div className="bg-[#1f1f28]">
         <Section>
           <Container>
             <BlogCardList blogPostList={data} lang={lang} />

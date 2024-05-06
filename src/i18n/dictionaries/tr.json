@@ -293,9 +293,9 @@
   "contactPage": {
     "title": "Daha fazla alıcıya ulaşıp işinizi büyütecek bir çözüm için Restoreplus ile iletişime geçin.",
     "text": "Bize endüstriyel iş hedeflerinizden bahsedin, biz de onlara nasıl ulaşacağınıza dair önerilerle sizinle iletişime geçelim.",
-    "aggreeForm": "Bu formu göndererek iletişim bilgilerinizi Thomas ile paylaşmayı kabul etmiş olursunuz.",
+    "aggreeForm": "Bu formu göndererek iletişim bilgilerinizi Restoreplus ile paylaşmayı kabul etmiş olursunuz.",
     "sideInfo": {
-      "text": "Thomas'ın sektör uzmanlığı ve ürünleri eşsizdir.  ",
+      "text": "Restoreplus'ın sektör uzmanlığı ve ürünleri eşsizdir.  ",
       "author": "Hasan Kara"
     },
     "fields": {
@@ -317,110 +317,105 @@
   "aboutPage": {
     "hero": {
       "topTitle": "Restoreplus Hakkında",
-      "title": "Kuzey Amerika Üretiminin Büyümesine Güç Veriyoruz",
-      "description": "Thomas, 125 yılı aşkın bir süredir Kuzey Amerika'nın bir numaralı endüstriyel kaynak bulma platformu ve pazarlama merkezi olarak hizmet vermektedir. ",
+      "title": "Endüstriyel Yağlama Alanında Verimliliği Artırma",
+      "description": "Restoreplus, makinalarda endüstriyel yağlayıcıların önde gelen üreticisi ve distribütörlerinden biri olmuştur. 20 yıldan fazla bir süredir müşterilerimize en yüksek kalitede ürünler ve işletmelerinin sorunsuz çalışmasını sağlamak için olağanüstü hizmet sunmaya adamışız.",
       "columns": [
         {
-          "title": "1.400.000",
-          "text": "Kayıtlı Uzmanlar",
+          "title": "3000+",
+          "text": "Endüstriyel Yağlayıcı Ürünler",
           "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "görüntü"
+            "src": "/images/product.png",
+            "alt": "endustriyel yaglar"
           }
         },
         {
-          "title": "500.000",
-          "text": "Listelenen İşletmeler",
+          "title": "10000+",
+          "text": "Memnun Müşteriler",
           "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "görüntü"
+            "src": "/images/satisfied.png",
+            "alt": "mutlu musteriler"
           }
         },
         {
-          "title": "125",
-          "text": "İşletmede Yıllar",
+          "title": "20+",
+          "text": "İş Yılı",
           "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "görüntü"
+            "src": "/images/experience.png",
+            "alt": "yuksek tecrube"
           }
         }
       ]
     },
     "section1": {
-      "title": "Thomas'ta Kaynak Kullanımında Zamandan Tasarruf Edin",
-      "description": "Thomasnet.com®, 1898'den bu yana içeriğimizden ve uzmanlığımızdan yararlanan milyonlarca endüstriyel alıcının güvenini taşıyor. Alıcıları, mühendisleri ve MRO profesyonellerini her gün 500.000'den fazla Kuzey Amerikalı üreticiyle buluşturuyoruz. ",
-      "listTitle": "Thomasnet.com'la şunları yapabilirsiniz:",
+      "title": "Kapsamlı Endüstriyel Yağlayıcı Seçimi",
+      "description": "Restoreplus'ta modern endüstrinin çeşitli ihtiyaçlarını anlıyoruz. Bu yüzden kapsamlı bir endüstriyel yağlayıcı seçimi sunuyoruz.",
+      "listTitle": "Şunları içerir:",
       "list": [
         {
-          "text": "500.000'den fazla tedarikçinin bilgilerine erişin"
+          "text": "Gresler"
         },
         {
-          "text": "Aramanızı konuma, şirket türüne, çeşitlilik durumuna, sertifikalara,"
+          "text": "Yağlar"
         },
         {
-          "text": "Tedarikçileri karşılaştırın ve kısa listeye alın"
+          "text": "Spreyler"
         },
         {
-          "text": "Tek tıklamayla birden fazla tedarikçiye RFQ gönderin"
+          "text": "Pastalar"
+        },
+        {
+          "text": "Ve daha birçok ürün"
         }
       ],
-      "buttonText": "Ücretsiz hesap oluştur",
+      "buttonText": "Ürünlere bak",
       "image": {
-        "src": "/images/image-placeholder.png",
-        "alt": "resim yer tutucusu"
+        "src": "/images/lubricants.jpg",
+        "alt": "görsel yer tutucu"
       }
     },
     "section2": {
-      "title": "İşinizi Thomas'la Büyütün",
-      "description": "Thomas, yüksek nitelikli satın alma uzmanlarına ve mühendislere ulaşmak ve işlerini büyütmek isteyen imalat işletmeleri için bir numaralı reklam platformu ve dijital pazarlama hizmet sağlayıcısıdır. ",
-      "listTitle": "Aşağıdakilerle bugün yeni iş kazanmaya başlayın:",
+      "title": "Düzenli Çevrimiçi Sipariş ve Bayi Programı",
+      "description": "Müşterilerimizin ihtiyaç duydukları yağlayıcıları bulup satın almalarını kolaylaştırdık.",
+      "listTitle": "Kullanıcı dostu web sitemizle şunları yapabilirsiniz:",
       "list": [
         {
-          "text": "Hedeflenen Thomasnet.com Reklamcılık Fırsatları",
-          "href": ""
+          "text": "Kategorilere veya uygulamalara göre ürünleri göz atın ve arayın"
         },
         {
-          "text": "Web sitesi tasarımı",
-          "href": ""
+          "text": "Detaylı ürün bilgilerine ve özelliklerine erişim"
         },
         {
-          "text": "e-Ticaret",
-          "href": ""
+          "text": "Siparişlerinizi çevrimiçi olarak oluşturun ve yönetin"
         },
         {
-          "text": "Stratejik İçerik Pazarlama",
-          "href": ""
-        },
-        {
-          "text": "Web Sitesi Analitiği",
-          "href": ""
+          "text": "Sevkiyatlarınızı kolayca takip edin"
         }
       ],
-      "buttonText": "İşletmenizi Listeleyin",
+      "buttonText": "Ürünlere bak",
       "image": {
-        "src": "/images/image-placeholder.png",
-        "alt": "resim yer tutucusu"
+        "src": "/images/orders.jpg",
+        "alt": "görsel yer tutucu"
       }
     },
     "section3": {
-      "title": "Thomas'ta çalışıyor",
-      "description": "Thomas'ta yol gösterici ilkelerimiz, gerçekleştirdiğimiz her eylemde ve geliştirdiğimiz her ilişkide gösterilmektedir. ",
-      "listTitle": "Thomas Takımına katılarak şunları yapabilirsiniz:",
+      "title": "Bir Restoreplus Bayisi Olun",
+      "description": "Restoreplus, nitelikli işletmelere sağlayan tatmin edici bir bayi programı sunmaktadır.",
+      "listTitle": "Restoreplus Ekibine Katılarak Şunlara Sahip Olun:",
       "list": [
         {
-          "text": "Üretim ve endüstriyel alanın geleceğini yönlendirmeye kararlı olun"
+          "text": "%10'a kadar indirimlerle rekabetçi fiyatlandırma"
         },
         {
-          "text": "Gelişmek için ihtiyaç duydukları bilgi, fikir ve çözümlerle sektöre rehberlik edin"
+          "text": "Dedike satış desteği"
         },
         {
-          "text": "Müşterilerimizi, kullanıcılarımızı ve birbirimizi desteklemek için verileri ve öngörüleri kullanarak kararları yönlendirin"
+          "text": "Pazarlama kaynaklarına erişim"
         }
       ],
-      "buttonText": "Açık Pozisyonları Görün",
+      "buttonText": "Bayi olmak için kaydolun",
       "image": {
-        "src": "/images/image-placeholder.png",
-        "alt": "resim yer tutucusu"
+        "src": "/images/reseller.jpg",
+        "alt": "görsel yer tutucu"
       }
     }
   },

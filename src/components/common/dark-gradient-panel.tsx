@@ -37,7 +37,7 @@ export default async function DarkGradientPanel({
               </Typography>
             </div>
             <div className="flex justify-center">
-              <Button className="p-7 text-lg">{dictionary.aboutButton}</Button>
+              <Button className="text-lg">{dictionary.aboutButton}</Button>
             </div>
           </div>
         </Section>

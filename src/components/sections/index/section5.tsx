@@ -9,6 +9,7 @@ import { Locale, PropsWithLang } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { getTranslationOfList } from '@/utils/translations-utils'
 import bg from '../../../../public/images/hero-image.png'
+import { BlogPostCard } from '@/components/common/blog-post-card'
 
 export default async function Section5({ lang }: PropsWithLang) {
   const {
@@ -94,45 +95,8 @@ function FeaturedBlogPostCard({
   )
 }
 
-function BlogPostCard({
-  id,
-  featuredImage,
-  translation: { title, slug },
-  categories,
-  lang,
-}: BlogPostWithOneTranslation & PropsWithLang) {
-  return (
-    <Link href={`/blog/${id}/${slug}`} lang={lang}>
-      <div className="text-white mb-5">
-        <div>
-          <ServerImage
-            className="object-cover aspect-video"
-            src={featuredImage?.path || ''}
-            width={500}
-            height={500}
-            alt={featuredImage?.alt || ''}
-          />
-        </div>
-        {categories?.length && categories?.length > 0 ? (
-          <Typography
-            as="h5"
-            className="text-sm md:text-md font-normal py-1 text-gray-100 capitalize"
-          >
-            {categories[0].translation.name}
-          </Typography>
-        ) : null}
-        <Typography
-          as="h4"
-          className="text-md md:text-lg pb-5 font-semibold font-[500]"
-        >
-          {title}
-        </Typography>
-      </div>
-    </Link>
-  )
-}
-
-async function getStaticBlogPosts({ lang }: { lang: Locale }) {
+export async function getStaticBlogPosts({ lang }: { lang: Locale }) {
+  console.log({ lang })
   const { data } = await serverFetcher('/blog-posts/all', {
     method: 'POST',
     headers: {
@@ -162,7 +126,10 @@ async function getStaticBlogPosts({ lang }: { lang: Locale }) {
         },
       },
     }),
+    cache: 'no-store',
   })
+
+  console.log({ data })
 
   return [
     ...getTranslationOfList<BlogPostWithOneTranslation>(lang, data.data).map(

@@ -294,9 +294,9 @@
   "contactPage": {
     "title": "Contact Restoreplus for a solution to reach more buyers and grow your business.",
     "text": "Tell us about your industrial business goals and we'll be in touch with recommendations on how to meet them.",
-    "aggreeForm": "By submitting this form, you agree to share your contact information with Thomas.",
+    "aggreeForm": "By submitting this form, you agree to share your contact information with Restoreplus.",
     "sideInfo": {
-      "text": "The industry expertise and products at Thomas are unmatched. Thomas helped us align our profile to our service offerings and immediately we received inquiries and quotes, helping us win an extremely large project. Working with Thomas is a game changer. ",
+      "text": "The industry expertise and products at Restoreplus are unmatched. Restoreplus helped us align our profile to our service offerings and immediately we received inquiries and quotes, helping us win an extremely large project. Working with Restoreplus is a game changer. ",
       "author": "Hasan Kara"
     },
     "fields": {
@@ -318,109 +318,104 @@
   "aboutPage": {
     "hero": {
       "topTitle": "About Restoreplus",
-      "title": "We Power the Growth of North American Manufacturing",
-      "description": "For over 125+ years, Thomas has served as North America’s number one industrial sourcing platform and marketing powerhouse. We serve professionals on both sides of the industrial buying process to create solutions that inform, support, and empower industry.",
+      "title": "Empowering Efficiency in Industrial Lubrication",
+      "description": "For over 20 years, Restoreplus has been a leading manufacturer and distributor of industrial lubricants in machinery. We are committed to providing our customers with the highest quality products and exceptional service to keep their operations running smoothly.",
       "columns": [
         {
-          "title": "1,400,000+",
-          "text": "Registered Professionals",
+          "title": "3000+",
+          "text": "Industrial Lubricant Products",
           "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placehi"
+            "src": "/images/product.png",
+            "alt": "industrial lubricants"
           }
         },
         {
-          "title": "500,000+",
-          "text": "Businesses Listed",
+          "title": "10000+",
+          "text": "Satisfied Customers",
           "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placehi"
+            "src": "/images/satisfied.png",
+            "alt": "satisfied customers"
           }
         },
         {
-          "title": "125+",
+          "title": "20+",
           "text": "Years in Business",
           "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placehi"
+            "src": "/images/experience.png",
+            "alt": "years of experience"
           }
         }
       ]
     },
     "section1": {
-      "title": "Save Time Sourcing on Thomas",
-      "description": "Thomasnet.com® is trusted by millions of industrial buyers who have leveraged our content and expertise since 1898. We connect buyers, engineers, and MRO professionals to over 500,000 North American manufacturers daily. We have a dedicated team of specialists who ensure you always have vetted and up-to-date company information to get your job done faster.",
-      "listTitle": "With Thomasnet.com, you can:",
+      "title": "A Comprehensive Selection of Industrial Lubricants",
+      "description": "At Restoreplus, we understand the diverse needs of modern industry. That's why we offer a comprehensive selection of industrial lubricants.",
+      "listTitle": "Including:",
       "list": [
         {
-          "text": "Access information from over 500,000 suppliers"
+          "text": "Greases"
         },
         {
-          "text": "Filter your search by location, company type, diversity status, certifications, & more"
+          "text": "Oils"
         },
         {
-          "text": "Compare and shortlist suppliers"
+          "text": "Sprays"
         },
         {
-          "text": "Send RFQs to multiple suppliers with one click"
+          "text": "Pastas"
+        },
+        {
+          "text": "And many more"
         }
       ],
-      "buttonText": "Create FREE Account",
+      "buttonText": "See products",
       "image": {
-        "src": "/images/image-placeholder.png",
+        "src": "/images/lubricants.jpg",
         "alt": "image placeholder"
       }
     },
     "section2": {
-      "title": "Grow Your Business with Thomas",
-      "description": "Thomas is the number one advertising platform and digital marketing service provider for manufacturing businesses looking to reach highly-qualified procurement professionals and engineers and grow their business. Our product and service suite is designed to help our partners attract, convert, and retain customers in the industrial space.",
-      "listTitle": "Start earning new business today with:",
+      "title": "Streamlined Online Ordering and Reseller Program",
+      "description": "We've made it easy for our customers to find and purchase the lubricants they need.",
+      "listTitle": "Our user-friendly website allows you to:",
       "list": [
         {
-          "text": "Targeted Thomasnet.com Advertising Opportunities",
-          "href": "/"
+          "text": "Browse and search for products by category or application"
         },
         {
-          "text": "Website Design & Development & Search Engine Optimization",
-          "href": "/"
+          "text": "Access detailed product information and specifications"
         },
         {
-          "text": "eCommerce & Product Catalog Development",
-          "href": "/"
+          "text": "Create and manage your orders online"
         },
         {
-          "text": "Strategic Content Marketing",
-          "href": "/"
-        },
-        {
-          "text": "Website Analytics",
-          "href": "/"
+          "text": "Track your shipments conveniently"
         }
       ],
-      "buttonText": "List Your Business",
+      "buttonText": "See products",
       "image": {
-        "src": "/images/image-placeholder.png",
+        "src": "/images/orders.jpg",
         "alt": "image placeholder"
       }
     },
     "section3": {
-      "title": "Work at Thomas",
-      "description": "At Thomas, our guiding principles are illustrated through every action we take and every relationship we foster. Whatever the job title, Thomas is a team of people helping others do their jobs, advance their careers, and grow their businesses in the digital industrial economy. Working at Thomas means joining an enduring, focused, guiding, and approachable team that has been a trusted resource for our marketplace for over 120 years.",
-      "listTitle": "Join Team Thomas to:",
+      "title": "Become a Restoreplus Reseller",
+      "description": "Restoreplus offers a rewarding reseller program that provides qualified businesses.",
+      "listTitle": "Join Team Restoreplus to:",
       "list": [
         {
-          "text": "Commit to driving the future of the manufacturing and industrial space"
+          "text": "Competitive pricing with up to 10% discounts"
         },
         {
-          "text": "Guide the industry with information, ideas, and solutions they need to thrive"
+          "text": "Dedicated sales support"
         },
         {
-          "text": "Drive decisions using data and insights to support our customers, users, and each other"
+          "text": "Access to marketing resources"
         }
       ],
-      "buttonText": "See Open Positions",
+      "buttonText": "Register to become a reseller",
       "image": {
-        "src": "/images/image-placeholder.png",
+        "src": "/images/reseller.jpg",
         "alt": "image placeholder"
       }
     }

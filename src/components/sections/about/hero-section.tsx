@@ -12,12 +12,10 @@ export default async function HeroSection({ lang }: PropsWithLang) {
   } = await getDictionary(lang)
 
   return (
-    <div
-      className="about-page-hero-container min-h-[500px] lg:min-h-[700px]"
-    >
+    <div className="about-page-hero-container min-h-[500px] lg:min-h-[700px]">
       <Section>
         <Container>
-          <div className="text-center p-10">
+          <div className="text-center lg:p-10">
             <Typography as="h5" className="text-2xl font-semibold mb-2">
               {hero.topTitle}
             </Typography>
@@ -30,7 +28,10 @@ export default async function HeroSection({ lang }: PropsWithLang) {
           </div>
           <div className="grid lg:grid-cols-3">
             {hero.columns.map((item, i) => (
-              <div key={i} className="flex flex-col items-center text-center">
+              <div
+                key={i}
+                className="flex flex-col items-center text-center py-5 lg:py-0"
+              >
                 <div className="mb-5">
                   <Image
                     src={item.image.src}
