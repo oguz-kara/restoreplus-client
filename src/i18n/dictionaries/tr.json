@@ -31,16 +31,8 @@
               "href": "/about"
             },
             {
-              "title": "Hizmetler",
-              "href": "/services"
-            },
-            {
-              "title": "Sektörler",
-              "href": "/sectors"
-            },
-            {
-              "title": "Yardım Merkezi",
-              "href": "/help-center"
+              "title": "Bize ulaşın",
+              "href": "/contact"
             }
           ]
         },
@@ -307,8 +299,8 @@
       "author": "Hasan Kara"
     },
     "fields": {
-      "firstName": "İlk adı",
-      "lastName": "Soy isim",
+      "firstName": "İlk İsim",
+      "lastName": "Soyisim",
       "email": "E-posta",
       "jobTitle": "İş unvanı",
       "companyName": "Firma Adı",
@@ -748,6 +740,15 @@
       "shipped": "Sipariş kargoya verildi",
       "refunded": "Para iadesi yapıldı",
       "unknown": "Bilinmiyor"
+    }
+  },
+  "quoteRequest": {
+    "quoteSubmittedMessage": {
+      "successMessage": {
+        "message": "Mesajın başarıyla gönderildi.",
+        "description": "Yakında size e-posta yolu ile dönüş yapılacaktır."
+      },
+      "errorMessage": "Mesaj gönderilirken bir hata oluştu. Lütfen girişlerinizi kontrol ediniz."
     }
   }
 }

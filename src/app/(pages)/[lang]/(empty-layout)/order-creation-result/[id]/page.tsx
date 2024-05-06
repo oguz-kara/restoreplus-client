@@ -3,8 +3,21 @@ import { Button } from '@/components/ui/button'
 import Image from '@/components/ui/image'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale(
+    '/order-creation-result',
+    lang
+  )
+
+  return seoData
+}
 
 export default async function Page({
   params: { lang, id },
@@ -12,11 +25,7 @@ export default async function Page({
 }: ParamsWithLang & { searchParams: { success: string } } & ParamsWithId) {
   const { orderSuccessPage } = await getDictionary(lang)
 
-  console.log({ id })
-
   const translation = id === '0' ? orderSuccessPage.error : orderSuccessPage
-
-  console.log({ translation })
 
   return (
     <div className="flex items-center justify-center bg-gray-100 h-[100vh]">

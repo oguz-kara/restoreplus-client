@@ -42,7 +42,6 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
 
-
   if (pathnameIsMissingLocale && pathname.includes('/product/finder')) {
     return NextResponse.redirect(
       new URL(
@@ -60,7 +59,6 @@ export function middleware(request: NextRequest) {
       )
     )
   }
-
 
   if (lang && pathnameIsMissingLocale)
     return NextResponse.redirect(

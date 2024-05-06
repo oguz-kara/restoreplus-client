@@ -18,6 +18,7 @@ export const POST = async (req: NextRequest) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ company }),
+        cache: 'no-store',
       })
 
 

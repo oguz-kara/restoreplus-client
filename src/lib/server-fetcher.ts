@@ -24,7 +24,9 @@ export const serverFetcher = async (
   }
 
   const res = await fetch(url, {
-    next: { revalidate: 60 * 60 * 24 },
+    ...(fargs?.cache !== 'no-store' && {
+      next: { revalidate: 60 * 60 * 24 },
+    }),
     ...fargs,
     headers: { ...apiKeyCredentials, ...fargs?.headers },
   })

@@ -8,6 +8,16 @@ import ContactForm from '@/features/contact/components/contact-form'
 import TermsConditionsPrivacyText from '@/components/common/term-conditions-privacy'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Link from '@/components/ui/link'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/contact', lang)
+
+  return seoData
+}
 
 export default async function Page({ params: { lang } }: ParamsWithLang) {
   const { contactPage } = await getDictionary(lang)

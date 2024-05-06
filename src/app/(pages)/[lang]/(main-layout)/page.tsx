@@ -10,7 +10,16 @@ import Section1 from '@/components/sections/index/section1'
 import Section4 from '@/components/sections/index/section4'
 import ProductsSection from '@/features/product/components/products-section'
 import { getSectors } from '@/features/sectors/api/get-sectors'
-import { Progress } from '@/components/ui/progress'
+import { Metadata } from 'next'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/', lang)
+
+  return seoData
+}
 
 export default async function Home({ params: { lang } }: ParamsWithLang) {
   const { data: sectorData } = await getSectors({

@@ -34,6 +34,7 @@ export const POST = async (req: NextRequest) => {
           postalCode,
           country,
         }),
+        cache: 'no-store',
       })
 
 

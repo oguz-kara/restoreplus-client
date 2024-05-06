@@ -12,6 +12,19 @@ import { ArrowRight } from 'lucide-react'
 import { getProductsBySectorId } from '@/features/product/data/get-products-by-sector-id'
 import ListProductCards from '@/features/product/components/list-product-cards'
 import InfoCard from '@/components/common/info-card'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const id = params.id
+  const lang = params.lang
+
+  const sector = await getSectorById(id, lang)
+
+  return {
+    title: sector?.translation?.metaTitle,
+    description: sector?.translation?.metaDescription,
+  }
+}
 
 export default async function Page({
   params: { id, lang, slug },

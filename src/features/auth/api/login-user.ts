@@ -15,10 +15,10 @@ export const loginUser = async ({
     })
 
     if (data.user) {
-      const { accessToken: token, tokenExpiresDate } = data
-      let expirationDate = new Date(tokenExpiresDate)
-      Cookies.set('token', token)
-      Cookies.set('token_expires', expirationDate.toLocaleString('en-US'))
+      // const { accessToken: token, tokenExpiresDate } = data
+      // let expirationDate = new Date(tokenExpiresDate)
+      // Cookies.set('token', token)
+      // Cookies.set('token_expires', expirationDate.toLocaleString('en-US'))
       return true
     }
 

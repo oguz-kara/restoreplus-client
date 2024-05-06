@@ -4,10 +4,8 @@ import { serverFetcher } from '@/lib/server-fetcher'
 
 export async function getProductCategoryData({ lang }: { lang: string }) {
   const properLang = getProperLanguage(lang as Locale)
-  console.log({ properLang })
   const { data } = await serverFetcher(`/products/categories/all`)
 
-  console.log({ data })
   if (data.message) return data
 
   const { data: categoryData, pagination } = data

@@ -1,5 +1,7 @@
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import CreateOrderPage from '@/features/user/pages/create-order-page'
 import { ParamsWithLang } from '@/i18n/types'
+import { Metadata } from 'next'
 
 interface ProductFinderSearchParams {
   searchParams: {
@@ -9,6 +11,14 @@ interface ProductFinderSearchParams {
     subSectorSlug?: string
     term?: string
   }
+}
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/create-order', lang)
+
+  return seoData
 }
 
 export default function Page({

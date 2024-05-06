@@ -8,13 +8,23 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
 import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 import { getStatus } from '@/utils/get-status'
 import { consoleLog } from '@/utils/log-to-console'
+import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/profile/orders', lang)
+
+  return seoData
+}
 
 export default async function Page({ params: { lang } }: ParamsWithLang) {
   const {

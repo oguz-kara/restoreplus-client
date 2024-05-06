@@ -530,11 +530,11 @@ function RightNavigation() {
             <PickLocaleAndCurrencyMenu />
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent">
+            <NavigationMenuTrigger className="bg-transparent capitalize mr-1">
               {navItems.about.title}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="p-4 min-w-[180px]">
+              <ul className="p-4 min-w-[180px] capitalize">
                 {navItems?.about.navLinks?.map((item, i) => (
                   <ListItem key={i} href={item.href} title={item.title} />
                 ))}

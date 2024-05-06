@@ -114,12 +114,9 @@ export const AuthContextProvider = ({
   }, [])
 
   useEffect(() => {
-    console.log('re-render')
-  })
-
-  useEffect(() => {
     if (!state.user) setActiveUser()
     const expiresDateString = Cookies.get('token_expires')
+    console.log({ user: state.user })
     if (expiresDateString) {
       const expiresDate = new Date(expiresDateString)
       const refreshTime = expiresDate.getTime() - Date.now() - 10000

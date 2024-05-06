@@ -6,6 +6,7 @@ import { getProductCategoryData } from '@/features/product/data/get-product-cate
 import Footer from './footer'
 import { getTranslationOfList } from '@/utils/translations-utils'
 import CartDrawer from '@/features/active-order/components/cart-drawer'
+import CookieConsentBanner from '../common/cookie-consent-banner'
 
 export default async function MainLayout({
   lang,
@@ -26,6 +27,7 @@ export default async function MainLayout({
       </header>
       <main className="min-h-screen mt-9">{children}</main>
       <Footer lang={lang} />
+      {/* <CookieConsentBanner /> */}
     </div>
   )
 }

@@ -9,7 +9,6 @@ export const GET = async (req: NextRequest) => {
     const authTokenCookie = cookies().get('token')?.value
     const authToken = authTokenHeader ? authTokenHeader : authTokenCookie
 
-
     const url = id
       ? `/active-user/calculated-products/?productId=${id}&lang=tr`
       : '/active-user/calculated-products/all/?lang=tr'
@@ -20,6 +19,7 @@ export const GET = async (req: NextRequest) => {
           authorization: authToken,
           'Content-Type': 'application/json',
         },
+        cache: 'no-store',
       })
 
       return NextResponse.json(data)

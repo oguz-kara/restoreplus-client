@@ -37,9 +37,7 @@ export default async function CreateOrderPage({
   term,
 }: ProductFinderPageProps) {
   const properLang = getProperLanguage(lang)
-  const { productFinder, createOrderPage, common } = await getDictionary(
-    properLang as Locale
-  )
+  const { common } = await getDictionary(properLang as Locale)
 
   const { data: categoryData } = await advancedDataSearch({
     page,

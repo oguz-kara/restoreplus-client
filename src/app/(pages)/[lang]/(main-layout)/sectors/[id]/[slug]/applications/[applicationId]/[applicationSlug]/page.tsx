@@ -9,6 +9,7 @@ import MdxRenderer from '@/components/common/mdx-renderer'
 import { getProductsByApplicationScopeId } from '@/features/product/data/get-products-by-application-scope-id'
 import ListProductCards from '@/features/product/components/list-product-cards'
 import { getDictionary } from '@/i18n/get-dictionary'
+import { Metadata } from 'next'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &
@@ -18,6 +19,18 @@ type PageProps = ParamsWithId &
       applicationSlug: string
     }
   }
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const id = params.id
+  const lang = params.lang
+
+  const applicationScope = await getApplicationScopeById(id, lang)
+
+  return {
+    title: applicationScope?.translation?.metaTitle,
+    description: applicationScope?.translation?.metaDescription,
+  }
+}
 
 export default async function Page({
   params: { id, slug, lang, applicationId, applicationSlug },

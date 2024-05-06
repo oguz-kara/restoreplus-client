@@ -19,13 +19,23 @@ import {
   createOrderApi,
   setActiveOrderAddressApi,
 } from '@/features/active-order/data/active-order'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { AddressFormModal } from '@/features/user/components/address-form-modal'
 import AddressList from '@/features/user/components/address-list'
 import { ParamsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
 import { ArrowRight } from 'lucide-react'
+import { Metadata } from 'next'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/checkout', lang)
+
+  return seoData
+}
 
 export default function Page({ params: { lang } }: ParamsWithLang) {
   const router = useRouter()

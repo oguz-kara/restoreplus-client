@@ -4,8 +4,18 @@ import Section from '@/components/common/section'
 import Typography from '@/components/ui/typography'
 import ListSectorsMain from '@/features/sectors/components/list-sectors-main'
 import HeroSection from '@/features/sectors/components/sections/hero-section'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/sectors', lang)
+
+  return seoData
+}
 
 export default async function Page({ params: { lang } }: ParamsWithLang) {
   const {

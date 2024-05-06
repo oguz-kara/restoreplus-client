@@ -108,7 +108,6 @@ export const ActiveOrderContextProvider = ({
         currencyCode,
       })
 
-      console.log({ quantity, productVariantId, currencyCode })
 
       if (!data.message) dispatch({ type: 'SET_ACTIVE_ORDER', payload: data })
     } catch (err: any) {
@@ -124,7 +123,6 @@ export const ActiveOrderContextProvider = ({
     try {
       setRemovingOrderLine(true)
       const data = await deleteOrderLineApi(lineId)
-      console.log({ data })
       if (!data.message) dispatch({ type: 'SET_ACTIVE_ORDER', payload: data })
     } catch (err: any) {
       dispatch({ type: 'SET_ERROR', payload: err })

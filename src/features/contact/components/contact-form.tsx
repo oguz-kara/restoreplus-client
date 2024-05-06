@@ -15,15 +15,24 @@ import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
 import contactSchema, { ContactFormDataType } from '../schema/contact.schema'
 import { cn } from '@/lib/utils'
+import { clientFetcher } from '@/lib/client-fetcher'
+import { useToast } from '@/components/ui/use-toast'
+import { useRouter } from 'next/navigation'
+import { Textarea } from '@/components/ui/textarea'
+import { useState } from 'react'
+import { useLoading } from '@/hooks/use-loading'
 
 interface ContactFormProps {}
 
 const defaultValues = {
-  email: '',
-  password: '',
-  confirmPassword: '',
-  firstName: '',
-  lastName: '',
+  fullName: '',
+  emailAddress: '',
+  phoneNumber: '',
+  city: '',
+  country: '',
+  postalCode: '',
+  message: '',
+  companyTitle: '',
 }
 
 export default function ContactForm({
@@ -34,6 +43,10 @@ export default function ContactForm({
   PropsWithLang & {
     theme?: { bg: string; text: string }
   } & PropsWithClassName) {
+  const router = useRouter()
+  const { toast } = useToast()
+  const { loading, startLoading, stopLoading } = useLoading()
+
   const defaultTheme = theme
     ? theme
     : {
@@ -41,14 +54,46 @@ export default function ContactForm({
         text: 'text-black',
       }
   const {
-    dictionary: { contactPage },
+    dictionary: {
+      contactPage,
+      quoteRequest: {
+        quoteSubmittedMessage: { errorMessage, successMessage },
+      },
+    },
   } = useDictionary()
   const form = useForm<ContactFormDataType>({
     resolver: zodResolver(contactSchema),
     defaultValues,
   })
 
-  function onSubmit(values: ContactFormDataType) {}
+  async function onSubmit(values: ContactFormDataType) {
+    try {
+      startLoading()
+      const result = await clientFetcher('/quote-request', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...values,
+        }),
+      })
+
+      if (result.id) {
+        toast({
+          title: successMessage.message,
+          description: successMessage.description,
+        })
+        router.push('/')
+        return
+      } else
+        return toast({
+          variant: 'destructive',
+          title: errorMessage,
+        })
+    } catch (err) {
+      console.log(err)
+    } finally {
+      stopLoading()
+    }
+  }
 
   return (
     <div className={cn('p-5', defaultTheme.bg, defaultTheme.text, className)}>
@@ -68,7 +113,6 @@ export default function ContactForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-
                       className={cn(
                         'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
@@ -107,31 +151,7 @@ export default function ContactForm({
             />
             <FormField
               control={form.control}
-              name="jobTitle"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold">
-                    {contactPage.fields.jobTitle}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-
-                      className={cn(
-                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
-                        defaultTheme.bg === 'white'
-                          ? 'text-white'
-                          : 'text-black'
-                      )}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="companyName"
+              name="companyTitle"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-semibold">
@@ -139,7 +159,6 @@ export default function ContactForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-
                       className={cn(
                         'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
@@ -163,7 +182,6 @@ export default function ContactForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-
                       className={cn(
                         'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
@@ -187,7 +205,6 @@ export default function ContactForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-
                       className={cn(
                         'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
@@ -203,7 +220,7 @@ export default function ContactForm({
             />
             <FormField
               control={form.control}
-              name="email"
+              name="emailAddress"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-semibold">
@@ -211,7 +228,6 @@ export default function ContactForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-
                       className={cn(
                         'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
@@ -235,7 +251,6 @@ export default function ContactForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-
                       className={cn(
                         'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
@@ -259,7 +274,6 @@ export default function ContactForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-
                       className={cn(
                         'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
                         defaultTheme.bg === 'white'
@@ -273,81 +287,38 @@ export default function ContactForm({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="website"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold">
-                    {contactPage.fields.website}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-
-                      className={cn(
-                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
-                        defaultTheme.bg === 'white'
-                          ? 'text-white'
-                          : 'text-black'
-                      )}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="companyType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold">
-                    {contactPage.fields.companyType}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-
-                      className={cn(
-                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
-                        defaultTheme.bg === 'white'
-                          ? 'text-white'
-                          : 'text-black'
-                      )}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold">
-                    {contactPage.fields.message}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-
-                      className={cn(
-                        'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
-                        defaultTheme.bg === 'white'
-                          ? 'text-white'
-                          : 'text-black'
-                      )}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="col-span-2">
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel className="text-sm font-semibold">
+                      {contactPage.fields.message}
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        rows={9}
+                        className={cn(
+                          'bg-transparent py-3 rounded-sm border border-gray-400 text-black',
+                          defaultTheme.bg === 'white'
+                            ? 'text-white'
+                            : 'text-black'
+                        )}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
           <div className="mb-5">
-            <Button className="w-full py-3 rounded-sm text-sm">
+            <Button
+              loading={loading}
+              className="w-full py-3 rounded-sm text-sm"
+            >
               {contactPage.buttonText}
             </Button>
           </div>
