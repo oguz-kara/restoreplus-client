@@ -113,3 +113,23 @@ export const setActiveOrderAddressApi = async (addressId: number) => {
   )
   return data
 }
+
+export const orderCancelRequest = async (orderId: number, note?: string) => {
+  const token = Cookies.get('token')
+
+  if (!token) return null
+
+  const data = await clientFetcher(
+    `/active-order/cancelRequest?orderId=${orderId}`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ note }),
+      headers: {
+        authorization: `Bearer ${token}`,
+        'x-api-key': 'null',
+        'x-api-secret': 'null',
+      },
+    }
+  )
+  return data
+}

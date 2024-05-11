@@ -38,7 +38,7 @@ export default function UserProfileSideNavigation({
             href={item.href}
             className={cn(
               buttonVariants({ variant: 'ghost' }),
-              pathname === item.href
+              pathname.endsWith(item.href)
                 ? 'bg-muted hover:bg-muted'
                 : 'hover:bg-transparent hover:underline',
               'justify-start'

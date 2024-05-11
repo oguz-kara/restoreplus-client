@@ -22,15 +22,17 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default function Page({
-  params: { page, take, lang },
+  params: { lang },
   searchParams: {
     categorySlug,
     sectorSlug,
     subCategorySlug,
     subSectorSlug,
     term,
+    page,
+    take,
   },
-}: ProductFinderSearchParams & ParamsWithLang & ParamsWithPagination) {
+}: ProductFinderSearchParams & ParamsWithLang & SearchParamsWithPagination) {
   return (
     <CreateOrderPage
       lang={lang}

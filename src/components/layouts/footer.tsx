@@ -9,6 +9,7 @@ import ContactForm from '@/features/contact/components/contact-form'
 import { Input } from '../ui/input'
 import { cn } from '@/lib/utils'
 import { Button } from '../ui/button'
+import RegisterEmail from '../common/register-email'
 
 const socials = [
   {
@@ -82,24 +83,7 @@ export default async function Footer({ lang }: PropsWithLang) {
             <Typography as="h6" className="text-xl pb-5 uppercase">
               {common.getTheLatestInfo}
             </Typography>
-            <div>
-              <Input
-                type="email"
-                className={cn(
-                  'bg-transparent py-3 rounded-sm border border-gray-400 text-black mb-2 bg-white'
-                )}
-                placeholder="Enter your email address"
-              />
-              <Button
-                className="font-semibold"
-                style={{
-                  background:
-                    'linear-gradient(90deg, rgba(255,217,0,1) 0%, rgba(255,221,33,1) 35%, rgba(255,225,51,1) 100%)',
-                }}
-              >
-                Register for industiry news
-              </Button>
-            </div>
+            <RegisterEmail />
           </div>
         </div>
       </Container>

@@ -17,7 +17,10 @@ export default async function BlogCardList({
 
   return (
     <div>
-      <Typography as="h3" className="text-center py-10 text-3xl">
+      <Typography
+        as="h3"
+        className="text-center py-10 text-xl lg:text-3xl text-white"
+      >
         {blogCards.title}
       </Typography>
       <div className="grid lg:grid-cols-4 gap-10">

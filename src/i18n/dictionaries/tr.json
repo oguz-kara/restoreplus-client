@@ -1,5 +1,7 @@
 {
   "common": {
+    "noDataFound": "Sonuç bulunamadı.",
+    "registerEmail": "Endüstri haberleri için kayıt ol",
     "learnMore": "Daha fazla bilgi edin",
     "learnMoreUs": "Hakkımızda Daha Fazla Bilgi Edinin",
     "or": "veya",
@@ -745,5 +747,11 @@
       },
       "errorMessage": "Mesaj gönderilirken bir hata oluştu. Lütfen girişlerinizi kontrol ediniz."
     }
+  },
+  "registerEmailMessages": {
+    "successfully": "Kaydınız için teşekkür ederiz. Hesabınızı doğrulamak için lütfen e-postanızı kontrol edin.",
+    "uniqueError": "Daha önce kayıt oldunuz.",
+    "errorMessage": "Üzgünüz, isteğiniz işlenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyin. Sorun devam ederse, yardım için destek ekibimizle iletişime geçmekten çekinmeyin.",
+    "placeholder": "E-posta adresiniz"
   }
 }

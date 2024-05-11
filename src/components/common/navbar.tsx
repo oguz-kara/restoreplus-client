@@ -16,7 +16,13 @@ import Link from '../ui/link'
 import { Locale } from '@/i18n/types'
 import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '../ui/button'
-import { ArrowRight, ChevronRight, ShoppingCart, User } from 'lucide-react'
+import {
+  ArrowRight,
+  ChevronDown,
+  ChevronRight,
+  ShoppingCart,
+  User,
+} from 'lucide-react'
 import NavbarMobile from './navbar-mobile'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import Container from './container'
@@ -109,15 +115,33 @@ export function NavigationBar({
                   onClose={onCloseCategories}
                   onOpen={onOpenCategories}
                   trigger={
-                    <div className="cursor-pointer h-full flex items-center ">
+                    <div
+                      className={cn(
+                        'cursor-pointer h-full flex items-center',
+                        openCategories ? 'border-b-4 border-primary' : ''
+                      )}
+                    >
                       <Typography
                         className={cn(
                           whiteState ? 'text-black' : 'text-white',
-                          'text-sm'
+                          'text-sm',
+                          'leading-0 mr-1'
                         )}
                       >
                         {common.categories}
                       </Typography>
+                      <ChevronDown
+                        color={
+                          openCategories || openSectors || scrollPosition > 0
+                            ? 'black'
+                            : 'white'
+                        }
+                        className={cn(
+                          openCategories ? 'rotate-180' : '',
+                          'transition-all ease-in-out'
+                        )}
+                        size="15px"
+                      />
                     </div>
                   }
                   content={
@@ -135,15 +159,33 @@ export function NavigationBar({
                   onClose={onCloseSectors}
                   onOpen={onOpenSectors}
                   trigger={
-                    <div className="cursor-pointer h-full flex items-center ">
+                    <div
+                      className={cn(
+                        'cursor-pointer h-full flex items-center',
+                        openSectors ? 'border-b-4 border-primary' : ''
+                      )}
+                    >
                       <Typography
                         className={cn(
                           whiteState ? 'text-black' : 'text-white',
-                          'text-sm'
+                          'text-sm',
+                          'leading-0 mr-1'
                         )}
                       >
                         {common.sectors}
                       </Typography>
+                      <ChevronDown
+                        color={
+                          openSectors || openCategories || scrollPosition > 0
+                            ? 'black'
+                            : 'white'
+                        }
+                        className={cn(
+                          openSectors ? 'rotate-180' : '',
+                          'transition-all ease-in-out'
+                        )}
+                        size="15px"
+                      />
                     </div>
                   }
                   content={

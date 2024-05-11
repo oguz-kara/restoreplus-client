@@ -513,8 +513,8 @@ interface PropsWithPagination {
   take?: string
 }
 
-interface ParamsWithPagination {
-  params: PropsWithPagination
+interface SearchParamsWithPagination {
+  searchParams: PropsWithPagination
 }
 
 interface ParamsWithQuery {

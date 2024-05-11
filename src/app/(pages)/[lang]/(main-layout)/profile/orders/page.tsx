@@ -1,3 +1,5 @@
+import NoDataFound from '@/components/common/no-data-found'
+import Paginate from '@/components/common/pagination'
 import {
   Accordion,
   AccordionContent,
@@ -12,11 +14,9 @@ import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
-import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
+import { getOrdersOfActiveUser } from '@/utils/get-server-side-active-user'
 import { getStatus } from '@/utils/get-status'
-import { consoleLog } from '@/utils/log-to-console'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const lang = params.lang
@@ -26,132 +26,134 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   return seoData
 }
 
-export default async function Page({ params: { lang } }: ParamsWithLang) {
+export default async function Page({
+  params: { lang },
+  searchParams: { page, take },
+}: ParamsWithLang & SearchParamsWithPagination) {
   const {
     profileOrderHistoryPage: { orderDetails, status },
   } = await getDictionary(lang)
-  const user = await getServerSideActiveUser()
+  const response = await getOrdersOfActiveUser({
+    page: page as any,
+    take: take as any,
+  })
 
-  if (!user) redirect('/login')
+  if (!response || !response.data) return <NoDataFound />
 
-  const { orders } = user
-
-  consoleLog({ orders })
+  const { data: orders, pagination } = response
 
   return (
     <div>
-      <div>
-        <Accordion type="multiple" className="w-full">
-          {orders?.map((order) => (
-            <AccordionItem
-              className="mb-5 border-none outline-none"
-              value={order.id.toString()}
-              key={order.id}
-              style={{
-                boxShadow:
-                  'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px',
-              }}
-            >
-              <Card className="border-none outline-none">
-                <AccordionTrigger className="bg-gray-100 pr-5 text-left border-none outline-none">
-                  <CardHeader className="w-full">
-                    <table className="w-full">
-                      <thead>
-                        <tr>
-                          <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
-                            {orderDetails.orderPlaced}
-                          </th>
-                          <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
-                            {orderDetails.total}
-                          </th>
-                          <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
-                            {orderDetails.shipTo}
-                          </th>
-                          <th className="pb-2 text-left w-2/5 text-sm pr-5">
-                            {orderDetails.order} {` `} # {` `} {order.orderCode}
-                          </th>
+      <Accordion type="multiple" className="w-full">
+        {orders?.map((order) => (
+          <AccordionItem
+            className="mb-5 border-none outline-none"
+            value={order.id.toString()}
+            key={order.id}
+            style={{
+              boxShadow:
+                'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px',
+            }}
+          >
+            <Card className="border-none outline-none">
+              <AccordionTrigger className="bg-gray-100 pr-5 text-left border-none outline-none">
+                <CardHeader className="w-full">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
+                          {orderDetails.orderPlaced}
+                        </th>
+                        <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
+                          {orderDetails.total}
+                        </th>
+                        <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
+                          {orderDetails.shipTo}
+                        </th>
+                        <th className="pb-2 text-left w-2/5 text-sm pr-5">
+                          {orderDetails.order} {` `} # {` `} {order.orderCode}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="pr-5">{order?.createdAt.toString()}</td>
+                        <td className="pr-5">
+                          {formatPrice(
+                            order.orderPriceSummary?.netTotal || 0,
+                            order.currencyCode
+                          )}
+                        </td>
+                        <td className="pr-5">
+                          {order.shippingAddress?.authorizedPerson}
+                        </td>
+                        <td className="pr-5">
+                          <Badge className="m-0">
+                            {getStatus(order.status, status)}
+                          </Badge>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </CardHeader>
+              </AccordionTrigger>
+              <AccordionContent>
+                <CardContent>
+                  <table className="w-full">
+                    <tbody>
+                      {order.lines.map((line) => (
+                        <tr key={line.id}>
+                          <td>
+                            <ServerImage
+                              src={
+                                line.productVariant.featuredImage?.path || '/'
+                              }
+                              alt={line.productVariant.featuredImage?.alt || ''}
+                              width={300}
+                              height={300}
+                              style={{
+                                width: '150px',
+                                height: '150px',
+                                objectFit: 'contain',
+                              }}
+                            />
+                          </td>
+                          <td className="p-5">
+                            <Typography as="h6" className="font-semibold">
+                              {`${line.productVariant.name} ${line.productVariant.value}`}
+                            </Typography>
+                            <Typography
+                              as="p"
+                              className="font-semibold text-sm"
+                            >
+                              {line.productVariant.productType}
+                            </Typography>
+                          </td>
+                          <td>
+                            <Typography
+                              as="p"
+                              className="font-semibold text-sm"
+                            >
+                              {`${formatPrice(
+                                line.priceSummary.netPriceForSingleProduct,
+                                order.currencyCode
+                              )} x ${line.quantity}`}
+                            </Typography>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="pr-5">
-                            {order?.createdAt.toString()}
-                          </td>
-                          <td className="pr-5">
-                            {formatPrice(
-                              order.orderPriceSummary?.netTotal || 0,
-                              order.currencyCode
-                            )}
-                          </td>
-                          <td className="pr-5">
-                            {order.shippingAddress?.authorizedPerson}
-                          </td>
-                          <td className="pr-5">
-                            <Badge className="m-0">
-                              {getStatus(order.status, status)}
-                            </Badge>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </CardHeader>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <CardContent>
-                    <table className="w-full">
-                      <tbody>
-                        {order.lines.map((line) => (
-                          <tr key={line.id}>
-                            <td>
-                              <ServerImage
-                                src={
-                                  line.productVariant.featuredImage?.path || '/'
-                                }
-                                alt={
-                                  line.productVariant.featuredImage?.alt || ''
-                                }
-                                width={300}
-                                height={300}
-                                style={{
-                                  width: '150px',
-                                  height: '150px',
-                                  objectFit: 'contain',
-                                }}
-                              />
-                            </td>
-                            <td className="p-5">
-                              <Typography as="h6" className="font-semibold">
-                                {`${line.productVariant.name} ${line.productVariant.value}`}
-                              </Typography>
-                              <Typography
-                                as="p"
-                                className="font-semibold text-sm"
-                              >
-                                {line.productVariant.productType}
-                              </Typography>
-                            </td>
-                            <td>
-                              <Typography
-                                as="p"
-                                className="font-semibold text-sm"
-                              >
-                                {`${formatPrice(
-                                  line.priceSummary.netPriceForSingleProduct,
-                                  order.currencyCode
-                                )} x ${line.quantity}`}
-                              </Typography>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </CardContent>
-                </AccordionContent>
-              </Card>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+                      ))}
+                    </tbody>
+                  </table>
+                </CardContent>
+              </AccordionContent>
+            </Card>
+          </AccordionItem>
+        ))}
+      </Accordion>
+      <Paginate
+        total={pagination.total ? pagination.total : 0}
+        url="/profile/orders"
+      />
     </div>
   )
 }

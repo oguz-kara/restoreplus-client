@@ -25,10 +25,10 @@ export default async function DarkGradientPanel({
   return (
     <div className={classNames}>
       <Container>
-        <Section>
+        <Section className="lg:px-0">
           <div className="lg:flex lg:items-center lg:gap-20">
             <div>
-              <Typography as="h3" className="mb-5">
+              <Typography as="h3" className="mb-5 text-inherit">
                 {dictionary.heading}
               </Typography>
               <Typography as="p" className="mb-5">

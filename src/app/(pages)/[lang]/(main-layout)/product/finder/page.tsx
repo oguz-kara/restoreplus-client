@@ -22,15 +22,17 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default function Page({
-  params: { page, take, lang },
+  params: { lang },
   searchParams: {
     categorySlug,
     sectorSlug,
     subCategorySlug,
     subSectorSlug,
     term,
+    page,
+    take,
   },
-}: ParamsWithPagination & ParamsWithLang & ProductFinderSearchParams) {
+}: SearchParamsWithPagination & ParamsWithLang & ProductFinderSearchParams) {
   return (
     <ProductFinderPage
       page={page as string}
