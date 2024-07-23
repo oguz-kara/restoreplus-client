@@ -1,5 +1,6 @@
 import { Locale } from '@/i18n/types'
 import { serverFetcher } from '@/lib/server-fetcher'
+import { sdk } from '@/restoreplus-sdk'
 import { getTranslationOfList } from '@/utils/translations-utils'
 
 export const getSectors = async ({
@@ -9,30 +10,7 @@ export const getSectors = async ({
   query?: any
   lang: Locale
 }) => {
-  const q = {
-    select: {
-      translations: {
-        select: {
-          locale: true,
-        },
-      },
-      featuredImage: true,
-    },
-  }
+  const data = await sdk.sectors.getAllByQuery(query, { lang })
 
-  const { data } = await serverFetcher(`/sectors/all`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ ...q, ...query }),
-  })
-
-  return {
-    data: getTranslationOfList(lang, data.data),
-    pagination: data.pagination,
-  } as {
-    data: SectorWithTranslation[]
-    pagination: Pagination
-  }
+  return data
 }

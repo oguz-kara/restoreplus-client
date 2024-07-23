@@ -4,7 +4,7 @@ import { getDictionary } from '@/i18n/get-dictionary'
 import { BlogPostCard } from './blog-post-card'
 
 interface BlogCardListProps extends PropsWithLang {
-  blogPostList: BlogPostWithOneTranslation[]
+  blogPostList: BlogPost[]
 }
 
 export default async function BlogCardList({

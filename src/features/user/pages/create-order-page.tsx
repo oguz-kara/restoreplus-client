@@ -10,6 +10,7 @@ import { getDictionary } from '@/i18n/get-dictionary'
 import ProductFinderFilters from '@/features/product/components/product-finder-filters'
 import { getFilteredCalculatedProducts } from '@/features/product/data/get-filtered-products'
 import CalculatedProductForActiveUserCard from '@/features/product/components/calculated-product-for-active-user-card'
+import { consoleLog } from '@/utils/log-to-console'
 
 interface CalculatedAndGetProductFinderSectorAndCategoryIdArguments {
   categorySlug?: string
@@ -43,7 +44,6 @@ export default async function CreateOrderPage({
     page,
     take,
     name: 'products/categories',
-    query: 'where.isTopLevelCategory=true',
     lang: properLang as Locale,
   })
 
@@ -51,7 +51,6 @@ export default async function CreateOrderPage({
     page,
     take,
     name: 'sectors',
-    query: 'where.isTopLevelSector=true',
     lang: properLang as Locale,
   })
 
@@ -103,13 +102,15 @@ export default async function CreateOrderPage({
     : await advancedDataSearch({
         page,
         take,
-        name: 'active-user/calculated-products',
+        name: '/v2/calculated-products',
         searchBy: 'name',
         searchByTranslation: ['productType', 'equivalents'],
         type: 'search',
         query: term,
         lang: properLang as Locale,
       })
+
+  consoleLog({ data: productData.data })
 
   return (
     <Container>

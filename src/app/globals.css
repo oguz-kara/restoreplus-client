@@ -81,3 +81,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-moz-selection {
+  background: hsl(51, 100%, 50%);
+}
+
+::selection {
+  background: hsl(51, 100%, 50%);
+}

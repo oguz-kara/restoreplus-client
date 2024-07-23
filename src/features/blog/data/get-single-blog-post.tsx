@@ -16,5 +16,5 @@ export async function getSingleBlogPostById(id: string, lang: Locale = 'tr') {
     ) as BlogPostCategoryWithOneTranslation,
   }
 
-  return result as BlogPostWithOneTranslation
+  return result as BlogPost
 }

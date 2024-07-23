@@ -42,7 +42,7 @@ export const getProductsBySectorId = async ({
     data: getTranslationOfList(lang, data.data),
     pagination: data.pagination,
   } as {
-    data: ProductWithTranslation[]
+    data: ProductCategory[]
     pagination: Pagination
   }
 }

@@ -7,7 +7,7 @@ export default function ListProductCards({
   products,
   lang,
 }: {
-  products: ProductWithTranslation[] | null
+  products: Product[] | null
 } & PropsWithLang) {
   if (!products) return null
 

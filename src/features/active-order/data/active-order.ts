@@ -2,13 +2,8 @@ import { clientFetcher } from '@/lib/client-fetcher'
 import Cookies from 'js-cookie'
 
 export const getActiveOrderApi = async () => {
-  const token = Cookies.get('token')
-
-  if (!token) return null
-
   const data = await clientFetcher('/active-order', {
     headers: {
-      authorization: `Bearer ${token}`,
       'x-api-key': 'null',
       'x-api-secret': 'null',
     },
@@ -26,14 +21,9 @@ export const adjustOrderLineApi = async ({
   productVariantId: number
   currencyCode: string
 }) => {
-  const token = Cookies.get('token')
-
-  if (!token) return null
-
   const data = await clientFetcher('/active-order', {
     method: 'post',
     headers: {
-      authorization: `Bearer ${token}`,
       'x-api-key': 'null',
       'x-api-secret': 'null',
     },
@@ -49,14 +39,9 @@ export const updateOrderLineApi = async ({
   lineId: number
   quantity: number
 }) => {
-  const token = Cookies.get('token')
-
-  if (!token) return null
-
   const data = await clientFetcher(`/active-order?id=${lineId}`, {
     method: 'put',
     headers: {
-      authorization: `Bearer ${token}`,
       'x-api-key': 'null',
       'x-api-secret': 'null',
     },
@@ -66,14 +51,9 @@ export const updateOrderLineApi = async ({
 }
 
 export const deleteOrderLineApi = async (lineId: number) => {
-  const token = Cookies.get('token')
-
-  if (!token) return null
-
   const data = await clientFetcher(`/active-order?id=${lineId}`, {
     method: 'delete',
     headers: {
-      authorization: `Bearer ${token}`,
       'x-api-key': 'null',
       'x-api-secret': 'null',
     },
@@ -82,13 +62,8 @@ export const deleteOrderLineApi = async (lineId: number) => {
 }
 
 export const createOrderApi = async () => {
-  const token = Cookies.get('token')
-
-  if (!token) return null
-
   const data = await clientFetcher(`/create-order`, {
     headers: {
-      authorization: `Bearer ${token}`,
       'x-api-key': 'null',
       'x-api-secret': 'null',
     },
@@ -97,15 +72,10 @@ export const createOrderApi = async () => {
 }
 
 export const setActiveOrderAddressApi = async (addressId: number) => {
-  const token = Cookies.get('token')
-
-  if (!token) return null
-
   const data = await clientFetcher(
     `/active-order/address?addressId=${addressId}`,
     {
       headers: {
-        authorization: `Bearer ${token}`,
         'x-api-key': 'null',
         'x-api-secret': 'null',
       },
@@ -115,17 +85,12 @@ export const setActiveOrderAddressApi = async (addressId: number) => {
 }
 
 export const orderCancelRequest = async (orderId: number, note?: string) => {
-  const token = Cookies.get('token')
-
-  if (!token) return null
-
   const data = await clientFetcher(
     `/active-order/cancelRequest?orderId=${orderId}`,
     {
       method: 'POST',
       body: JSON.stringify({ note }),
       headers: {
-        authorization: `Bearer ${token}`,
         'x-api-key': 'null',
         'x-api-secret': 'null',
       },

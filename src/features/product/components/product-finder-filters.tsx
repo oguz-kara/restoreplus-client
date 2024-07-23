@@ -103,11 +103,7 @@ export default function ProductFinderFilters({
 
   return (
     <div
-      className="p-5"
-      style={{
-        boxShadow:
-          'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
-      }}
+      className="px-5 py-10 border border-gray-100"
     >
       <div className="mb-5 flex border border-gray-200 rounded-md">
         <div className="w-full flex items-center justify-between">
@@ -174,7 +170,7 @@ export default function ProductFinderFilters({
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>{productFinder.categories}</SelectLabel>
-                        {categoryData.map((item: any, i: number) => (
+                        {categoryData?.map((item: any, i: number) => (
                           <SelectItem
                             key={i}
                             value={`${item.translation.slug},${item.id}`}
@@ -324,7 +320,7 @@ export default function ProductFinderFilters({
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>{productFinder.categories}</SelectLabel>
-                  {categoryData.map((item: any, i: number) => (
+                  {categoryData?.map((item: any, i: number) => (
                     <SelectItem
                       key={i}
                       value={`${item.translation.slug},${item.id}`}

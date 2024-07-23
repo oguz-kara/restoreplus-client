@@ -51,15 +51,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Comp
-        className={cn('static', buttonVariants({ variant, size, className }))}
+        className={cn(
+          'relative w-auto',
+          buttonVariants({ variant, size, className }),
+          loading && 'cursor-not-allowed opacity-50 pointer-events-none'
+        )}
         disabled={loading}
         ref={ref}
         {...props}
       >
         {loading ? (
-          <div className="animate-spin">
-            <Loader />
-          </div>
+          <>
+            <div>
+              <div className="animate-spin mr-2">
+                <Loader />
+              </div>
+            </div>
+            <div>{children}</div>
+          </>
         ) : (
           children
         )}

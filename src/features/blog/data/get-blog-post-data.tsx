@@ -3,12 +3,14 @@ import { serverFetcher } from '@/lib/server-fetcher'
 
 export async function getBlogPostData(lang: Locale = 'tr') {
   const query = `?include.translations.include.locale=true&include.featuredImage=true`
-  const { data } = await serverFetcher(`/blog-posts/all${query}`)
+  const { data } = await serverFetcher(`/blog-posts/all${query}`, {
+    cache: 'no-store',
+  })
 
   const blogPostList: BlogPost[] = data.data
   const pagination: Pagination = data.pagination
 
-  const result: { data: BlogPostWithOneTranslation[]; pagination: Pagination } =
+  const result: { data: BlogPost[]; pagination: Pagination } =
     {
       // @ts-ignore
       data: blogPostList.map((item) => ({

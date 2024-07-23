@@ -2,7 +2,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import { PropsWithLang } from '@/i18n/types'
-import loginSchema, { LoginFormDataType } from '../schema/login.schema'
 import {
   Form,
   FormControl,
@@ -16,6 +15,7 @@ import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useRouter } from 'next/navigation'
+import { LoginSchema, LoginType } from '../schema/login.schema'
 
 interface LoginFormProps {}
 
@@ -38,12 +38,12 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
       },
     },
   } = useDictionary()
-  const form = useForm<LoginFormDataType>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<LoginType>({
+    resolver: zodResolver(LoginSchema),
     defaultValues,
   })
 
-  async function onSubmit(values: LoginFormDataType) {
+  async function onSubmit(values: LoginType) {
     try {
       const loginSuccess = await login({
         identifier: values.email,

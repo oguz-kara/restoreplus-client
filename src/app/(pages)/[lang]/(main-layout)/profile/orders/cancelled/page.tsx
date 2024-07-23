@@ -16,11 +16,9 @@ import { ParamsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
 import {
   getOrdersOfActiveUser,
-  getServerSideActiveUser,
 } from '@/utils/get-server-side-active-user'
 import { getStatus } from '@/utils/get-status'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const lang = params.lang

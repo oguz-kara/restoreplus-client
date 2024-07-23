@@ -1,20 +1,21 @@
-import { serverFetcher } from '@/lib/server-fetcher'
+import { sdk } from '@/restoreplus-sdk'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const GET = async (req: NextRequest, res: NextResponse) => {
+export const GET = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')
 
     if (id) {
       if (Number.isNaN(id)) throw new Error('id bir numara olmalidir!')
-      const response = await serverFetcher(`/supported-locales/${id}`)
-      const { data: responseData } = response
-      return NextResponse.json(responseData, { status: 200 })
+
+      const data = await sdk.supportedLocales.getById(Number(id))
+
+      return NextResponse.json(data, { status: 200 })
     }
 
-    const response = await serverFetcher('/supported-locales/all')
-    const { data: responseData } = response
-    return NextResponse.json(responseData, { status: 200 })
+    const data = await sdk.supportedLocales.getAll({ isAdmin: true })
+
+    return NextResponse.json(data, { status: 200 })
   } catch (err: any) {
     console.log(err)
     if (err.message)

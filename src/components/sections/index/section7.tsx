@@ -12,7 +12,7 @@ import Link from '@/components/ui/link'
 export default function Section7({
   lang,
   sectorData,
-}: PropsWithLang & { sectorData: SectorWithTranslation[] | null }) {
+}: PropsWithLang & { sectorData: Sector[] | null }) {
   const {
     dictionary: {
       index: {
@@ -24,11 +24,11 @@ export default function Section7({
   if (!sectorData || !sectorData.length) return 'No category data found!'
 
   return (
-    <div className="bg-white">
+    <div className="bg-white pb-20">
       <Section>
         <Container>
-          <SectionHeader className="py-5 text-center">{title}</SectionHeader>
-          <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-fr gap-5">
+          <SectionHeader className="py-10 text-center">{title}</SectionHeader>
+          <div className="grid md:grid-cols-3 auto-rows-fr gap-5">
             {sectorData.map(({ id, featuredImage, translation }) => (
               <Link
                 key={id}
@@ -46,10 +46,10 @@ export default function Section7({
                     />
                   </div>
                   <div className="flex items-center gap-2">
-                    <Typography as="h5" className="font-normal uppercase">
+                    <Typography as="h5" className="font-[500] capitalize">
                       {translation.name}
                     </Typography>
-                    <ArrowRight />
+                    <ArrowRight size="15px" />
                   </div>
                 </div>
               </Link>

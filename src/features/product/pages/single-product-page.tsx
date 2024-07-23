@@ -1,124 +1,136 @@
+import React from 'react'
+import { PropsWithLang } from '@/i18n/types'
+import { sdk } from '@/restoreplus-sdk'
+import { initialQuery } from '../queries/initial-query'
+import { getSingleProductQueryByLang } from '../queries/get-single-product-query'
+import { getDictionary } from '@/i18n/get-dictionary'
 import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import MdxRenderer from '@/components/common/mdx-renderer'
-import {
-  getProductById,
-  getProductsByCategoryIdOrIds,
-} from '../data/get-product-by-id'
-import { PropsWithLang } from '@/i18n/types'
 import Image from '@/components/ui/image'
-import '@/styles/github-markdown.css'
 import ListDocuments from '../components/list-documents'
 import ListProductCards from '../components/list-product-cards'
-import { redirect } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import Link from '@/components/ui/link'
+import AddProductToOfferButton from '../components/add-product-to-offer-button'
+import { ArrowLeft } from 'lucide-react'
+import '@/styles/github-markdown.css'
 
 interface SingleProductPageProps extends PropsWithLang {
   id: string
+  redirectBackSearchParam?: string
 }
 
 export default async function SingleProductPage({
   id,
   lang,
+  redirectBackSearchParam,
 }: SingleProductPageProps) {
-  const result = await getProductById(id, lang)
-  if (!result || !result.translation) return redirect('/product/finder')
-  const ids = result.categories.map((category) => category.id)
-  const data = await getProductsByCategoryIdOrIds(ids, lang)
-
-  return (
-    <div className="lg:bg-gray-50">
-      <HeroSection data={result} />
-      <Container>
-        <Section>
-          <MdxRenderer mdxText={result.translation.description} />
-        </Section>
-        {result.sectors.length > 0 && (
-          <Section>
-            <Typography className="mb-4" as="h4">
-              Kullanılan sektörler
-            </Typography>
-            <div className="flex flex-wrap gap-5">
-              {result.sectors.map((sector, i) => (
-                <div
-                  className="inline-flex flex-col items-center justify-center"
-                  key={i}
-                >
-                  <Image
-                    className="mb-2 lg:h-[100px] lg:w-[100px] h-[50px] w-[50px] object-cover rounded-full"
-                    src={`${serverConfig.remoteUrl}${sector.featuredImage?.path}`}
-                    alt={
-                      sector.featuredImage?.alt ? sector.featuredImage.alt : ''
-                    }
-                    width={100}
-                    height={100}
-                  />
-                  <Typography as="p" key={sector.id} className="mb-4">
-                    {sector.translation.name}
-                  </Typography>
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
-        {result.documents.length > 0 && (
-          <Section>
-            <ListDocuments documents={result.documents} lang={lang} />
-          </Section>
-        )}
-        {data?.length && data?.length > 0 && (
-          <Section>
-            <Typography className="py-5 pb-10" as="h3">
-              Benzer ürünler
-            </Typography>
-            <ListProductCards lang={lang} products={data} />
-          </Section>
-        )}
-      </Container>
-    </div>
+  const {
+    product,
+    productFinder: {
+      productActionButtons: {
+        addToOfferList: { removeFromOfferListButtonText, tooltip },
+      },
+    },
+    offerProducts: { requestOfferText },
+    publicProductPageList: { backButtonText },
+  } = await getDictionary(lang)
+  const result = await sdk.products.getSingleByQuery(
+    Number(id),
+    getSingleProductQueryByLang(lang),
+    { lang }
   )
-}
 
-function HeroSection({ data }: { data: ProductWithTranslation }) {
+  const ids = result.categories.map((category: any) => category.id)
+  const data = await sdk.products.getAllByQuery(
+    { where: { categories: { some: { id: { in: ids } } } }, ...initialQuery },
+    { lang }
+  )
+
+  const getRedirectPath = (searchParam?: string) => {
+    if (searchParam) {
+      return `/${searchParam.split('.').join('/')}`
+    }
+
+    return `/product/finder`
+  }
+
   return (
-    <div>
-      <Container>
-        <Section>
-          <div className="flex flex-col lg:flex-row gap-10">
-            <div className="flex items-center justify-center flex-1 border border-gray-300">
-              <Image
-                src={`${serverConfig.remoteUrl}/${data.featuredImage?.path}`}
-                width={300}
-                height={300}
-                alt={data.featuredImage?.alt || ''}
-              />
-            </div>
-            <div className="flex-[2] pb-10">
-              <div className="border-b border-dashed border-gray-300 mb-5">
-                <Typography
-                  as="h1"
-                  className="text-2xl text-gray-800 font-normal mb-1"
-                >
-                  {data.name}
-                </Typography>
-                <Typography
-                  as="h3"
-                  className="pb-5 text-lg text-gray-700 font-normal"
-                >
-                  {data.translation.productType}
-                </Typography>
-              </div>
+    <Container className="pb-10 px-5">
+      <div className="py-10">
+        <Link
+          lang={lang as any}
+          href={`${getRedirectPath(redirectBackSearchParam)}`}
+        >
+          <Button
+            variant="ghost"
+            className="p-0 hover:bg-transparent hover:text-gray-500"
+          >
+            <ArrowLeft className="mr-1" />
+            {backButtonText}
+          </Button>
+        </Link>
+      </div>
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex-1 mb-10 lg:mb-0">
+          <Image
+            className="object-cover w-full rounded-md"
+            src={`${serverConfig.remoteUrl}/${result?.featuredImage?.path}`}
+            width={300}
+            height={300}
+            alt={result?.featuredImage?.alt || ''}
+          />
+        </div>
+        <div className="flex-[2] lg:px-10">
+          <div>
+            <div className="border-b border-dashed border-gray-300 mb-5">
+              <Typography
+                as="h1"
+                className="text-5xl text-gray-800 font-semibold mb-3"
+              >
+                {result?.name}
+              </Typography>
               <Typography
                 as="h3"
-                className="pb-5 text-md text-gray-400 font-[300] leading-7"
+                className="pb-5 text-md text-gray-700 font-normal "
               >
-                {data.translation.metaDescription}
+                {result?.translation?.productType}
               </Typography>
             </div>
+            <Typography
+              as="h3"
+              className="pb-5 text-md text-gray-700 font-normal leading-7"
+            >
+              {result.translation.metaDescription}
+            </Typography>
+            <AddProductToOfferButton productData={result} />
           </div>
-        </Section>
-      </Container>
-    </div>
+          <div>
+            <Section className="p-0">
+              <MdxRenderer mdxText={result.translation.description} />
+            </Section>
+            {result?.documents?.length > 0 && (
+              <Section>
+                <ListDocuments
+                  documents={result.documents}
+                  lang={lang as any}
+                />
+              </Section>
+            )}
+            {data?.length && data?.length > 0 && (
+              <Section>
+                <Typography className="py-5 pb-10" as="h3">
+                  {product?.similarProductsText}
+                </Typography>
+                <ListProductCards lang={lang as any} products={data} />
+              </Section>
+            )}
+          </div>
+        </div>
+      </div>
+    </Container>
   )
 }

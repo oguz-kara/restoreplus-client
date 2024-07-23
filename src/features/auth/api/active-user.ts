@@ -1,17 +1,9 @@
 import { clientFetcher } from '@/lib/client-fetcher'
-import Cookies from 'js-cookie'
 
 export const getActiveUser = async () => {
-  const token = Cookies.get('token')
-  
-
-  if (!token) return false
-
-  const activeUser = await clientFetcher('/active-user', {
-    headers: { authorization: `Bearer ${token}` },
-  })
+  const activeUser = await clientFetcher('/active-user')
 
   if (activeUser.message && activeUser.message === 'token_expired') return false
 
-  return activeUser as ActiveUser | null
+  return activeUser as (ActiveUser & { message?: string }) | null
 }

@@ -1,4 +1,6 @@
+import { getProductForNavbarQuery } from '@/features/product/queries/get-product-for-navbar-query'
 import { serverFetcher } from '@/lib/server-fetcher'
+import { sdk } from '@/restoreplus-sdk'
 import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -23,19 +25,17 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
 
 export const GET = async (req: NextRequest) => {
   try {
-    const id = req.nextUrl.searchParams.get('id')
+    const lang = req.nextUrl.searchParams.get('lang')
+    const categoryId = req.nextUrl.searchParams.get('categoryId')
 
-    if (id) {
-      if (Number.isNaN(id)) throw new Error('id bir numara olmalidir!')
-      const response = await serverFetcher(`/products/${id}`)
-      const { data: responseData } = response
-      return NextResponse.json(responseData, { status: 201 })
-    }
+    const data = await sdk.products.getAllByQuery(
+      getProductForNavbarQuery(Number(categoryId)),
+      {
+        lang,
+      }
+    )
 
-    const response = await serverFetcher('/products/all')
-    const { data: responseData } = response
-    revalidateTag('locales')
-    return NextResponse.json(responseData, { status: 201 })
+    return NextResponse.json(data, { status: 201 })
   } catch (err: any) {
     console.log(err)
     if (err.message)

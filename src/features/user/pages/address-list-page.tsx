@@ -4,11 +4,14 @@ import { PropsWithLang } from '@/i18n/types'
 import { AddressFormModal } from '../components/address-form-modal'
 import AddressList from '../components/address-list'
 import { Button } from '@/components/ui/button'
+import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 
 export default async function AddressListPage({ lang }: PropsWithLang) {
   const {
     profile: { addressList },
   } = await getDictionary(lang)
+  const user = await getServerSideActiveUser()
+
   return (
     <div className="space-y-6">
       <div>
@@ -18,9 +21,11 @@ export default async function AddressListPage({ lang }: PropsWithLang) {
         </p>
       </div>
       <Separator />
-      <AddressFormModal>
-        <Button variant="outline">{addressList.newAddressButton}</Button>
-      </AddressFormModal>
+      {!user?.billingAddress && (
+        <AddressFormModal>
+          <Button variant="outline">{addressList.newAddressButton}</Button>
+        </AddressFormModal>
+      )}
       <AddressList />
     </div>
   )

@@ -94,7 +94,7 @@ export default async function Page({
   )
 }
 
-function HeroSection({ data }: { data: SectorWithTranslation }) {
+function HeroSection({ data }: { data: Sector }) {
   return (
     <div
       className="flex items-center justify-center relative lg:h-[500px] bg-no-repeat bg-cover text-white text-center py-10"

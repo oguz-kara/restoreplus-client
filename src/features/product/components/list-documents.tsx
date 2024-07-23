@@ -10,7 +10,7 @@ export default function ListDocuments({
   documents,
   lang,
 }: {
-  documents: DocumentWithTranslation[]
+  documents: Document[]
   lang: Locale
 }) {
   const { user, loading } = useAuthenticatedUser()
@@ -49,7 +49,7 @@ export default function ListDocuments({
         {documents.map((document, i) => (
           <div
             onClick={async () =>
-              await handleDownload(document.translation.file.name)
+              await handleDownload(document?.file.name)
             }
             className="cursor-pointer flex-1 flex items-start justify-start gap-2 bg-primary p-3"
             key={i}

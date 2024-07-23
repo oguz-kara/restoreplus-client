@@ -42,7 +42,7 @@ export function AddressFormModal({
         </DialogHeader>
         <ScrollArea className="max-h-[500px]">
           <div className="grid gap-4 p-4">
-            <AddressForm address={companyAddress} />
+            <AddressForm addressObj={companyAddress} />
           </div>
         </ScrollArea>
       </DialogContent>

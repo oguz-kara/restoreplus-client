@@ -13,7 +13,10 @@ export default function MdxRenderer({
   if (!mdxText) return null
 
   return (
-    <div className={cn('markdown-body', className)}>
+    <div
+      className={cn('markdown-body', className)}
+      style={{ backgroundColor: 'white', color: 'black' }}
+    >
       <MDXRemote source={mdxText} />
     </div>
   )

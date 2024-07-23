@@ -27,6 +27,7 @@ import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useQuery } from '@/hooks/use-query'
 
 export default function PickLocaleAndCurrencyMenu() {
   const router = useRouter()
@@ -37,20 +38,16 @@ export default function PickLocaleAndCurrencyMenu() {
     lang,
   } = useDictionary()
   const [loading, setLoading] = useState<boolean>(false)
-  const [locales, setLocales] = useState<SupportedLocale[]>([])
-  const [currencies, setCurrencies] = useState<Currency[]>([])
+  // const [locales, setLocales] = useState<SupportedLocale[]>([])
+  // const [currencies, setCurrencies] = useState<Currency[]>([])
+  const { data: currencyData, isPending: isCurrenciesPending } = useQuery([
+    '/currency',
+  ])
+  const { data: localeData, isPending: isLocalesPending } = useQuery([
+    '/supported-locales',
+  ])
   const [currentLang, setCurrentLang] = useState<string>(lang)
   const [currentCurrency, setCurrentCurrency] = useState<string>('USD')
-
-  const getAndSetLocales = async () => {
-    const { data } = await clientFetcher('/supported-locales')
-    if (data && Array.isArray(data)) setLocales(data)
-  }
-
-  const getAndSetCurrencies = async () => {
-    const { data } = await clientFetcher('/currency')
-    if (data && Array.isArray(data)) setCurrencies(data)
-  }
 
   const getCurrencyByLang = (lang: Locale) => {
     if (lang === 'tr') return 'TRY'
@@ -73,28 +70,22 @@ export default function PickLocaleAndCurrencyMenu() {
   }
 
   useEffect(() => {
-    try {
-      setLoading(true)
-      if (cookies.currency) setCurrentCurrency(cookies.currency)
-      else {
-        const currency = getCurrencyByLang(lang)
-        setCookie('currency', currency, {
-          expires: new Date('2030'),
-          path: '/',
-        })
-        setCurrentCurrency(currency)
-      }
-
-      if (cookies.lang) setCurrentLang(cookies.lang)
-
-      getAndSetLocales()
-      getAndSetCurrencies()
-    } catch (err: any) {
-      console.log({ err })
-    } finally {
-      setLoading(false)
+    if (cookies.currency) setCurrentCurrency(cookies.currency)
+    else {
+      const currency = getCurrencyByLang(lang)
+      setCookie('currency', currency, {
+        expires: new Date('2030'),
+        path: '/',
+      })
+      setCurrentCurrency(currency)
     }
+
+    if (cookies.lang) setCurrentLang(cookies.lang)
   }, [])
+
+  useEffect(() => {
+    console.log({ currencyData, localeData })
+  }, [currencyData, localeData])
 
   return (
     <NavigationMenu>
@@ -118,12 +109,14 @@ export default function PickLocaleAndCurrencyMenu() {
                   <Typography className="text-sm mb-1">
                     {localeCurrencyMenu.language}
                   </Typography>
-                  {!loading ? (
+                  {!isLocalesPending ? (
                     <Select onValueChange={(val) => setCurrentLang(val)}>
                       <SelectTrigger className="w-full justify-start gap-3 rounded-none">
                         <SelectValue
                           placeholder={
-                            locales?.find((l) => l.locale === currentLang)?.name
+                            (localeData as any)?.data.find(
+                              (l: any) => l.locale === currentLang
+                            )?.name
                           }
                         />
                       </SelectTrigger>
@@ -132,11 +125,13 @@ export default function PickLocaleAndCurrencyMenu() {
                           <SelectLabel>
                             {localeCurrencyMenu.languages}
                           </SelectLabel>
-                          {locales.map((item: SupportedLocale, i: number) => (
-                            <SelectItem key={i} value={item.locale}>
-                              {item.name}
-                            </SelectItem>
-                          ))}
+                          {(localeData as any)?.data.map(
+                            (item: SupportedLocale, i: number) => (
+                              <SelectItem key={i} value={item.locale}>
+                                {item.name}
+                              </SelectItem>
+                            )
+                          )}
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -148,13 +143,13 @@ export default function PickLocaleAndCurrencyMenu() {
                   <Typography className="text-sm mb-1">
                     {localeCurrencyMenu.currency}
                   </Typography>
-                  {!loading ? (
+                  {!isCurrenciesPending ? (
                     <Select onValueChange={(val) => setCurrentCurrency(val)}>
                       <SelectTrigger className="w-full justify-start gap-3 rounded-none">
                         <SelectValue
                           placeholder={
-                            currencies.find(
-                              (l) => l.currencyCode === currentCurrency
+                            (currencyData as any)?.data?.find(
+                              (l: any) => l.currencyCode === currentCurrency
                             )?.currencyCode
                           }
                         />
@@ -164,11 +159,13 @@ export default function PickLocaleAndCurrencyMenu() {
                           <SelectLabel>
                             {localeCurrencyMenu.currencies}
                           </SelectLabel>
-                          {currencies.map((item: Currency, i: number) => (
-                            <SelectItem key={i} value={item.currencyCode}>
-                              {item.currencyCode}
-                            </SelectItem>
-                          ))}
+                          {(currencyData as any)?.data?.map(
+                            (item: Currency, i: number) => (
+                              <SelectItem key={i} value={item.currencyCode}>
+                                {item.currencyCode}
+                              </SelectItem>
+                            )
+                          )}
                         </SelectGroup>
                       </SelectContent>
                     </Select>

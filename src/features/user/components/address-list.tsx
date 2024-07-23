@@ -1,8 +1,10 @@
 'use client'
 
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
-import AddressCard, { AddressType } from './address-card'
+import AddressCard from './address-card'
 import { useEffect, useState } from 'react'
+import Typography from '@/components/ui/typography'
+import { useDictionary } from '@/context/use-dictionary'
 
 export default function AddressList({
   onChange,
@@ -11,6 +13,13 @@ export default function AddressList({
   onChange?: any
   value?: any
 }) {
+  const {
+    dictionary: {
+      profile: {
+        addressList: { billingAddressText },
+      },
+    },
+  } = useDictionary()
   const { user } = useAuthenticatedUser()
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(value)
 
@@ -19,15 +28,17 @@ export default function AddressList({
   }, [selectedAddress, onChange])
 
   return (
-    <div className="grid lg:grid-cols-2 gap-5">
-      {user?.addressList?.map((address, i) => (
+    user?.billingAddress && (
+      <div>
+        <Typography className="mb-3" as="h3">
+          {billingAddressText}
+        </Typography>
         <AddressCard
-          data={address as AddressType}
-          key={i}
-          onClick={() => setSelectedAddress(address)}
-          selected={selectedAddress?.id === address.id}
+          data={user?.billingAddress as any}
+          onClick={() => setSelectedAddress(user?.billingAddress as any)}
+          selected={selectedAddress?.id === user?.billingAddress?.id}
         />
-      ))}
-    </div>
+      </div>
+    )
   )
 }

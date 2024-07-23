@@ -47,7 +47,7 @@ export default function RegisterForm({
   }
 
   return (
-    <div className="text-white">
+    <div className="">
       <Form {...form}>
         <form
           className="flex flex-col gap-5"
@@ -61,7 +61,7 @@ export default function RegisterForm({
                 <FormLabel>{page.fields.email}</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-transparent text-white py-7 rounded-sm"
+                    className="bg-transparent  py-7 rounded-sm"
                     {...field}
                   />
                 </FormControl>
@@ -77,7 +77,7 @@ export default function RegisterForm({
                 <FormLabel>{page.fields.firstName}</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-transparent text-white py-7 rounded-sm"
+                    className="bg-transparent  py-7 rounded-sm"
                     {...field}
                   />
                 </FormControl>
@@ -93,7 +93,7 @@ export default function RegisterForm({
                 <FormLabel>{page.fields.lastName}</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-transparent text-white py-7 rounded-sm"
+                    className="bg-transparent  py-7 rounded-sm"
                     {...field}
                   />
                 </FormControl>
@@ -110,7 +110,7 @@ export default function RegisterForm({
                 <FormControl>
                   <Input
                     type="password"
-                    className="bg-transparent text-white py-7 rounded-sm"
+                    className="bg-transparent  py-7 rounded-sm"
                     {...field}
                   />
                 </FormControl>
@@ -127,7 +127,7 @@ export default function RegisterForm({
                 <FormControl>
                   <Input
                     type="password"
-                    className="bg-transparent text-white py-7 rounded-sm"
+                    className="bg-transparent  py-7 rounded-sm"
                     {...field}
                   />
                 </FormControl>

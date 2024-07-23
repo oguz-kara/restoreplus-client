@@ -4,7 +4,7 @@ import MainBlogCard from './main-blog-card'
 export default async function MainBlogList({
   lang,
   data,
-}: PropsWithLang & { data: BlogPostWithOneTranslation[] }) {
+}: PropsWithLang & { data: BlogPost[] }) {
   return (
     <div className="flex-[3]">
       {data.map((item, i) => (

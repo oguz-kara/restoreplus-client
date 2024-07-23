@@ -1,5 +1,3 @@
-import { Button } from '@/components/ui/button'
-import Link from '@/components/ui/link'
 import {
   Select,
   SelectContent,
@@ -28,16 +26,11 @@ export default async function Layout({
 
   if (!user) redirect('/login')
 
-  const { orders } = user
-
   return (
     <div>
       <div className="flex items-center gap-2 mb-5">
         <Typography as="h4" className="font-semibold">
           {title}
-        </Typography>
-        <Typography className="flex justify-center items-center w-[25px] h-[25px] bg-gray-100 rounded-md font-bold text-sm">
-          {orders?.length}
         </Typography>
       </div>
       <div className="flex justify-between">

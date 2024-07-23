@@ -70,7 +70,7 @@ export default function RegisterEmail() {
       />
       <Button
         loading={loading}
-        className="font-semibold"
+        className="font-semibold hover:text-black"
         style={{
           background:
             'linear-gradient(90deg, rgba(255,217,0,1) 0%, rgba(255,221,33,1) 35%, rgba(255,225,51,1) 100%)',

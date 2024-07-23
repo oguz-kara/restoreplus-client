@@ -1,9 +1,11 @@
 import { serverFetcher } from '@/lib/server-fetcher'
+import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const POST = async (req: NextRequest) => {
   try {
-    const authToken = req.headers.get('authorization')
+    const accessToken = cookies().get('accessToken')?.value
+
     const {
       title,
       authorizedPerson,
@@ -11,16 +13,16 @@ export const POST = async (req: NextRequest) => {
       street2,
       city,
       district,
-      phone,
-      postalCode,
+      zipCode,
+      address,
       country,
     } = await req.json()
 
-    if (authToken) {
+    if (accessToken) {
       const { data } = await serverFetcher(`/active-user/address`, {
         method: 'post',
         headers: {
-          authorization: authToken,
+          authorization: accessToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -30,13 +32,12 @@ export const POST = async (req: NextRequest) => {
           street2,
           city,
           district,
-          phone,
-          postalCode,
+          zipCode,
+          address,
           country,
         }),
         cache: 'no-store',
       })
-
 
       return NextResponse.json(data)
     }
@@ -59,7 +60,7 @@ export const PUT = async (req: NextRequest) => {
 
     if (!id) throw new Error('no id provided to update an adress!')
 
-    const authToken = req.headers.get('authorization')
+    const accessToken = cookies().get('accessToken')?.value
     const {
       title,
       authorizedPerson,
@@ -72,11 +73,11 @@ export const PUT = async (req: NextRequest) => {
       country,
     } = await req.json()
 
-    if (authToken) {
+    if (accessToken) {
       const { data } = await serverFetcher(`/active-user/address/${id}`, {
         method: 'put',
         headers: {
-          authorization: authToken,
+          authorization: accessToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -113,17 +114,15 @@ export const DELETE = async (req: NextRequest) => {
 
     if (!id) throw new Error('no id provided to update an adress!')
 
-    const authToken = req.headers.get('authorization')
-    
+    const accessToken = cookies().get('accessToken')?.value
 
-    if (authToken) {
+    if (accessToken) {
       const { data } = await serverFetcher(`/active-user/address/${id}`, {
         method: 'delete',
         headers: {
-          authorization: authToken,
+          authorization: accessToken,
         },
       })
-
 
       return NextResponse.json(data)
     }

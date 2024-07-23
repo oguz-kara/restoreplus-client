@@ -1,6 +1,6 @@
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
-import { Locale, ParamsWithLang } from '@/i18n/types'
+import { ParamsWithLang } from '@/i18n/types'
 import React from 'react'
 import Typography from '@/components/ui/typography'
 import serverConfig from '@/config/server-config.json'
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default async function Page({
-  params: { id, slug, lang, applicationId, applicationSlug },
+  params: { lang, applicationId },
 }: PageProps) {
   const applicationScope = await getApplicationScopeById(applicationId, lang)
   const productData = await getProductsByApplicationScopeId({
@@ -49,7 +49,7 @@ export default async function Page({
 
   return (
     <div>
-      <HeroSection data={applicationScope as ApplicationScopeWithTranslation} />
+      <HeroSection data={applicationScope as ApplicationScope} />
       <Container>
         <Section>
           <MdxRenderer
@@ -83,7 +83,7 @@ export default async function Page({
   )
 }
 
-function HeroSection({ data }: { data: ApplicationScopeWithTranslation }) {
+function HeroSection({ data }: { data: ApplicationScope }) {
   return (
     <div
       className="flex items-center justify-center relative lg:h-[500px] bg-no-repeat bg-cover text-white text-center py-10"

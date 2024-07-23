@@ -52,7 +52,7 @@ export default async function ListProductsMain({
 function ProductCard({
   product,
   lang,
-}: { product: ProductWithTranslation } & PropsWithLang) {
+}: { product: ProductCategory } & PropsWithLang) {
   return (
     <Link
       href={`/product/${product.id}/${product.translation.slug}`}

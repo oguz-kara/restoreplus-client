@@ -6,10 +6,10 @@ import { PropsWithLang } from '@/i18n/types'
 export function BlogPostCard({
   id,
   featuredImage,
-  translation: { title, slug },
+  translation: { title, slug, description },
   categories,
   lang,
-}: BlogPostWithOneTranslation & PropsWithLang) {
+}: BlogPost & PropsWithLang) {
   return (
     <Link href={`/blog/${id}/${slug}`} lang={lang}>
       <div className="text-white mb-5">

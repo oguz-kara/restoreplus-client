@@ -9,17 +9,16 @@ import { clientFetcher } from '@/lib/client-fetcher'
 import { useToast } from '@/components/ui/use-toast'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 export interface AddressType {
   title: string
   authorizedPerson: string
-  street1: string
-  street2: string
+  address: string
   city: string
   district: string
-  phone: string
   state?: string
-  postalCode: string
+  zipCode: string
   country: string
 }
 
@@ -33,8 +32,10 @@ export default function AddressCard({
   ...rest
 }: AddressCardProps & { onClick?: () => void; selected?: boolean }) {
   const { refetchUser } = useAuthenticatedUser()
+  const router = useRouter()
   const {
     dictionary: {
+      common,
       profile: { addressList },
       toastMessages: { userInfo },
     },
@@ -55,6 +56,8 @@ export default function AddressCard({
         description: userInfo.description,
       })
     }
+
+    router.refresh()
   }
 
   return (
@@ -74,12 +77,11 @@ export default function AddressCard({
         <Typography className="font-[500]" as="p">
           {data.authorizedPerson}
         </Typography>
-        <Typography as="p">{data.street1}</Typography>
-        <Typography as="p">{data.street2}</Typography>
+        <Typography as="p">{data.address}</Typography>
+        <Typography as="p">{data.zipCode}</Typography>
         <Typography as="p">
           {data.district}/{data.city}
         </Typography>
-        <Typography as="p">{data.phone}</Typography>
       </div>
       {/* actions */}
       <div className="flex justify-between items-center p-4">
@@ -89,7 +91,7 @@ export default function AddressCard({
           onClick={async () => handleDeleteAddress()}
         >
           <Trash size="16px" className="mr-1" />
-          Sil
+          {common.removeText}
         </Button>
         <AddressFormModal address={data}>
           <Button

@@ -1,5 +1,6 @@
 {
   "common": {
+    "contactUs": "Bize ulaşın",
     "noDataFound": "Sonuç bulunamadı.",
     "registerEmail": "Endüstri haberleri için kayıt ol",
     "learnMore": "Daha fazla bilgi edin",
@@ -15,7 +16,8 @@
     "getTheLatestInfo": "en son bilgileri al",
     "wait": "Lütfen bekleyiniz...",
     "welcome": "Hoşgeldin",
-    "keyword": "Anahtar kelime..."
+    "keyword": "Anahtar kelime...",
+    "removeText": "Sil"
   },
   "layout": {
     "navigation": {
@@ -127,6 +129,49 @@
         },
         "buttonText": "Kayıt Ol"
       }
+    }
+  },
+  "indexV2": {
+    "hero": {
+      "title": "Endüstriyi Güçlendirin",
+      "subTitle": "Hassas Yağlar"
+    },
+    "sloganSection": {
+      "title": "Doğru Yağ. Her Zaman",
+      "subTitle": "İşletmenizin ihtiyaçlarına göre uyarlanmış güvenilir, yüksek performanslı çözümler. Uzman desteğimiz ve kaliteli ürünlerimizle farkı yaşayın.",
+      "buttonText": "Ürünlerimizi Keşfedin"
+    },
+    "findProductSection": {
+      "title": "İhtiyacınız Olan Yağı Hızla Bulun.",
+      "subTitle": "Kullanıcı dostu ürün bulucumuz <br/> özel ihtiyaçlarınız için doğru endüstriyel yağı belirlemenize yardımcı olur.",
+      "buttonText": "Şimdi Ürünleri Keşfedin"
+    },
+    "b2bSection": {
+      "title": "İşletmenizi B2B Platformumuzla Kolaylaştırın",
+      "subTitle": "Özel indirimlerden yararlanın, sorunsuz pazar entegrasyonu ve verimli sipariş yönetimi sağlayın. Kapsamlı B2B çözümlerimizle operasyonlarınızı yükseltin.",
+      "buttonText": "B2B Erişimi İçin Başvurun"
+    },
+    "sections": [
+      {
+        "title": "Makine Verimliliğini Optimize Edin: <br/> Premium Yağlarımızın Gücünü Keşfedin",
+        "subTitle": "Hidrolik Yağlar!"
+      },
+      {
+        "title": "Makine Performansını Artırın: <br/> Üstün Kesme Sıvılarımızı Keşfedin",
+        "subTitle": "Bugün!"
+      },
+      {
+        "title": "Makine Performansını Artırın: <br/> Üstün Isı Transfer Sıvılarımızı Keşfedin",
+        "subTitle": "Bugün!"
+      }
+    ],
+    "section1": {
+      "title": "Makine Performansını Artırın: <br/> Üstün Kompresör Yağlarımızı Keşfedin",
+      "subTitle": "Bugün!"
+    },
+    "section2": {
+      "title": "Makine Verimliliğini Optimize Edin: <br/> Premium Yağlarımızın Gücünü Keşfedin",
+      "subTitle": "Hidrolik Yağlar!"
     }
   },
   "index": {
@@ -296,10 +341,7 @@
     "title": "Daha fazla alıcıya ulaşıp işinizi büyütecek bir çözüm için Restoreplus ile iletişime geçin.",
     "text": "Bize endüstriyel iş hedeflerinizden bahsedin, biz de onlara nasıl ulaşacağınıza dair önerilerle sizinle iletişime geçelim.",
     "aggreeForm": "Bu formu göndererek iletişim bilgilerinizi Restoreplus ile paylaşmayı kabul etmiş olursunuz.",
-    "sideInfo": {
-      "text": "Restoreplus'ın sektör uzmanlığı ve ürünleri eşsizdir.  ",
-      "author": "Hasan Kara"
-    },
+    "products": "Ürünleriniz",
     "fields": {
       "firstName": "İlk İsim",
       "lastName": "Soyisim",
@@ -454,12 +496,14 @@
     "productsTitle": "Sektörde kullanılan ürünler"
   },
   "product": {
+    "productsText": "ürünler",
     "listProductPage": {
       "title": "Restoreplus ürün listesi"
     },
     "listProductsSection": {
       "title": "Ürünlerimiz"
-    }
+    },
+    "similarProductsText": "Benzer ürünler"
   },
   "profile": {
     "header": {
@@ -524,7 +568,9 @@
       "description": "Adres listenizi yönetin. ",
       "editAddressButtonText": "Adresi düzelt",
       "buttonText": "Adresi kaydet",
-      "newAddressButton": "yeni adres ekleyin",
+      "billingAddressText": "Fatura adresi",
+      "shippingAddressText": "Teslimat adresi",
+      "newAddressButton": "yeni fatura adresi ekleyin",
       "addressForm": {
         "address": {
           "title": "yeni adres ekleyin",
@@ -539,12 +585,8 @@
           "placeholder": "Yetkili kişiyi girin"
         },
         "street1": {
-          "label": "Adres satırı 1",
+          "label": "Adres satırı",
           "placeholder": "Adres satırı 1'i girin"
-        },
-        "street2": {
-          "label": "Adres Satırı 2",
-          "placeholder": "Adres satırı 2'yi girin"
         },
         "country": {
           "label": "Ülke",
@@ -613,7 +655,8 @@
   },
   "publicProductPageList": {
     "products": "Ürünler",
-    "available": "ürün bulundu"
+    "available": "ürün bulundu",
+    "backButtonText": "Geri"
   },
   "productCollection": {
     "meta": {
@@ -622,23 +665,38 @@
     }
   },
   "productFinder": {
+    "noProductsMessage": "Ürün adıyla aramayı deneyebilir veya bizimle iletişime geçebilirsiniz ->",
     "reset": "Sıfırla",
     "category": "Kategori",
     "categories": "Kategoriler",
     "subCategories": "Alt kategoriler",
-    "allCategories": "Tüm Kategoriler",
+    "allCategories": "Tüm kategoriler",
     "allSubCategories": "Tüm alt kategoriler",
     "sectors": "Sektörler",
-    "subSectors": "Alt sektörler",
+    "applicationScopes": "Uygulama alanları",
     "allSectors": "Tüm sektörler",
     "allSubSectors": "Tüm alt sektörler",
-    "equivalent": "Muadil"
+    "equivalent": "Eşdeğer",
+    "productActionButtons": {
+      "addToOfferList": {
+        "buttonText": "",
+        "tooltip": "Teklif listesine ekle",
+        "removeFromOfferListButtonText": "İstek listesinden çıkar"
+      },
+      "goToProductDetails": {
+        "buttonText": "",
+        "tooltip": "Detayları gör"
+      }
+    }
   },
   "createOrderPage": {
     "reduction": "iskonto",
     "details": "Detaylar",
     "addToCart": "Sepete ekle",
-    "sectorDiscount": "sektör indirimi"
+    "sectorDiscount": "sektör indirimi",
+    "productCard": {
+      "pickDimention": "Boyut seçin"
+    }
   },
   "localeCurrencyMenu": {
     "title": "Dili ve para birimini ayarlayın",
@@ -655,6 +713,7 @@
       "productsTitle": "için Restoreplus ürünlerini keşfedin"
     }
   },
+
   "productCategories": {
     "page": {
       "categoriesTitle": "Diğer kategoriler"
@@ -742,7 +801,7 @@
   "quoteRequest": {
     "quoteSubmittedMessage": {
       "successMessage": {
-        "message": "Mesajın başarıyla gönderildi.",
+        "message": "Mesajınız başarıyla gönderildi.",
         "description": "Yakında size e-posta yolu ile dönüş yapılacaktır."
       },
       "errorMessage": "Mesaj gönderilirken bir hata oluştu. Lütfen girişlerinizi kontrol ediniz."
@@ -753,5 +812,15 @@
     "uniqueError": "Daha önce kayıt oldunuz.",
     "errorMessage": "Üzgünüz, isteğiniz işlenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyin. Sorun devam ederse, yardım için destek ekibimizle iletişime geçmekten çekinmeyin.",
     "placeholder": "E-posta adresiniz"
+  },
+  "offerProducts": {
+    "offerProductSuccessfullyAdded": {
+      "modalTitle": "Ürün başarıyla eklendi",
+      "modalDescription": "Sepetinize eklediğiniz ürünleri burada görüntüleyebilirsiniz.",
+      "viewButtonText": "Ürünleri görüntüle",
+      "closeButtonText": "Kapat"
+    },
+    "requestOfferText": "Teklif iste",
+    "emptyList": "Henüz ürün eklemediniz"
   }
 }

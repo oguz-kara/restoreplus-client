@@ -30,12 +30,12 @@ import MegaMenu from './mega-menu'
 import { useDisclosure } from '@/hooks/use-disclosure'
 import useScrollPosition from '@/hooks/use-scroll-position'
 import Image from '../ui/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import PickLocaleAndCurrencyMenu from '@/features/locale/components/pick-locale-and-currency-menu'
 import Typography from '../ui/typography'
 import { useActiveOrder } from '@/features/active-order/context/active-order-context'
 import { Badge } from '../ui/badge'
-import LoadingPortal from './loading-portal'
+import { useQuery } from '@/hooks/use-query'
 
 export function NavigationBar({
   categoryData,
@@ -85,12 +85,12 @@ export function NavigationBar({
       ref={navbarRef}
       className={cn(
         'fixed top-0 left-0 right-0',
-        whiteState ? 'bg-white text-black' : 'bg-foreground text-white'
+        whiteState
+          ? 'bg-white text-black  border-b border-gray-200'
+          : 'bg-foreground text-white border-b border-foreground'
       )}
       style={{
         zIndex: 50,
-        boxShadow:
-          'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
       }}
     >
       <Container className={cn('px-5 py-0')}>
@@ -264,24 +264,27 @@ function ProductCategoryData({
   categoryData,
   lang,
 }: {
-  categoryData: TranslatedProductCategory[] | undefined
+  categoryData: ProductCategory[]
   lang: Locale
 }) {
-  const [selectedSubCategory, setSelectedSubCategory] = React.useState<
-    TranslatedProductCategory | ProductCategory | {}
-  >({})
-  const [selectedParentCategory, setSelectedParentCategory] = React.useState<
-    TranslatedProductCategory | ProductCategory | {}
-  >({})
-  const [subCategories, setSubCategories] = React.useState<
-    TranslatedProductCategory[] | ProductCategory[]
-  >([])
-  const [bottomCategories, setBottomCategories] = React.useState<
-    TranslatedProductCategory[] | ProductCategory[]
-  >([])
+  const {
+    dictionary: { product },
+  } = useDictionary()
+  const [isSetInitialValue, setInitialValue] = React.useState<boolean>(false)
+  const [selectedSubCategory, setSelectedSubCategory] =
+    React.useState<ProductCategory | null>(null)
+  const [selectedParentCategory, setSelectedParentCategory] =
+    React.useState<ProductCategory | null>(null)
+  const [subCategories, setSubCategories] = React.useState<ProductCategory[]>(
+    []
+  )
   const [parentCategories, setParentCategories] = React.useState<
-    TranslatedProductCategory[]
+    ProductCategory[]
   >([])
+
+  const { refetch, data } = useQuery([
+    `/product?categoryId=${selectedSubCategory?.id}`,
+  ])
 
   const handleSelectedParentCategory = (category: any) => {
     setSelectedParentCategory(category)
@@ -289,38 +292,27 @@ function ProductCategoryData({
       setSubCategories(category.subCategories)
       const subCategory = category.subCategories[0]
       setSelectedSubCategory(subCategory)
-      if (subCategory?.subCategories) {
-        setBottomCategories(subCategory.subCategories)
-      } else {
-        setBottomCategories([])
-      }
     } else {
       setSubCategories([])
-      setSelectedSubCategory({})
-      setBottomCategories([])
+      setSelectedSubCategory(null)
     }
-  }
-
-  const handleSelectedSubCategory = (category: any) => {
-    setBottomCategories(category.subCategories)
-    setSelectedSubCategory(category)
   }
 
   const getActiveClass = (category: any, type: 'sub' | 'top' | 'bottom') => {
     if (
       type === 'sub' &&
       selectedSubCategory &&
-      Object.keys(selectedSubCategory).length > 0
+      Object.keys(selectedSubCategory)?.length > 0
     ) {
       // @ts-ignore
-      return category.id === selectedSubCategory.id ? 'bg-gray-100' : ''
+      return category.id === selectedSubCategory?.id ? 'bg-gray-100' : ''
     } else if (
       type === 'top' &&
       selectedParentCategory &&
-      Object.keys(selectedParentCategory).length > 0
+      Object.keys(selectedParentCategory)?.length > 0
     ) {
       // @ts-ignore
-      return category.id === selectedParentCategory.id ? 'bg-gray-100' : ''
+      return category.id === selectedParentCategory?.id ? 'bg-gray-100' : ''
     }
 
     return ''
@@ -333,10 +325,17 @@ function ProductCategoryData({
   }, [parentCategories])
 
   React.useEffect(() => {
-    if (categoryData) {
-      setParentCategories(categoryData.slice(0, 7))
+    if (categoryData && !isSetInitialValue) {
+      setInitialValue(true)
+      setParentCategories(
+        categoryData.filter(({ parentCategory }) => !parentCategory)
+      )
     }
-  }, [categoryData])
+  }, [categoryData, isSetInitialValue])
+
+  React.useEffect(() => {
+    refetch()
+  }, [selectedSubCategory, refetch])
 
   return (
     <Container>
@@ -344,16 +343,12 @@ function ProductCategoryData({
         <div className="flex-1">
           <ul>
             {parentCategories
-              .filter((category) =>
-                category.subCategories.some(
-                  (subCategory) => subCategory.subCategories.length > 0
-                )
-              )
-              .map((category: TranslatedProductCategory, i) => (
+              .filter(({ parentCategory }) => !parentCategory)
+              .map((category: ProductCategory, i) => (
                 <Link
                   lang={lang}
                   key={i}
-                  href={`/product/categories/${category.id}/${category.slug}`}
+                  href={`/product/categories/${category.id}/${category?.translation?.slug}`}
                 >
                   <li
                     className={cn(
@@ -362,7 +357,7 @@ function ProductCategoryData({
                     )}
                     onMouseOver={() => handleSelectedParentCategory(category)}
                   >
-                    {category.name}
+                    {category?.translation?.name}
                   </li>
                 </Link>
               ))}
@@ -370,49 +365,46 @@ function ProductCategoryData({
         </div>
         <div className="flex-1 border-r border-l border-gray-300">
           <ul>
-            {subCategories
-              .filter((category) => !(category.subCategories.length === 0))
-              .map((category: any, i) => (
-                <li
-                  key={i}
-                  className={cn(
-                    'p-3 cursor-pointer hover:bg-gray-100 capitalize',
-                    getActiveClass(category, 'sub')
-                  )}
-                  onMouseOver={() => handleSelectedSubCategory(category)}
-                >
-                  {category.name}
-                </li>
-              ))}
+            {subCategories.map((category: ProductCategory, i) => (
+              <li
+                key={i}
+                className={cn(
+                  'p-3 cursor-pointer hover:bg-gray-100 capitalize',
+                  getActiveClass(category, 'sub')
+                )}
+                onMouseOver={() => setSelectedSubCategory(category)}
+              >
+                {category?.translation?.name}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="flex-[2]">
           <div className="flex items-center gap-2 mb-5">
             <Typography as="h6" className="font-[600] pl-6 capitalize">
-              {/* @ts-ignore */}
-              {selectedSubCategory.name}
+              {product.productsText}
             </Typography>
             <ChevronRight size={15} />
           </div>
-          <ul className="grid grid-cols-4 ">
-            {bottomCategories?.map((category: any, i) => (
+          <ul className="grid grid-cols-4 p-5">
+            {(data as any)?.data?.map((product: Product, i: number) => (
               <Link
                 lang={lang}
                 key={i}
-                href={`/product/categories/${category.id}/${category.slug}`}
+                href={`/product/${product.id}/${product.translation.slug}`}
               >
                 <li className="flex flex-col items-center gap-2 justify-center p-3 cursor-pointer hover:bg-gray-200 capitalize">
                   <div>
                     <Image
                       className="rounded-full w-[50px] h-[50px]"
-                      src={`${serverConfig.remoteUrl}/${category.featuredImage?.path}`}
-                      alt={category.name}
+                      src={`${serverConfig.remoteUrl}/${product.featuredImage?.path}`}
+                      alt={product.name}
                       width={50}
                       height={50}
                     />
                   </div>
                   <Typography className="text-sm text-center">
-                    {category.name}
+                    {product.name}
                   </Typography>
                 </li>
               </Link>
@@ -428,7 +420,7 @@ function SectorData({
   sectorData,
   lang,
 }: {
-  sectorData: SectorWithTranslation[] | undefined
+  sectorData: Sector[] | undefined
   lang: Locale
 }) {
   const {
@@ -438,10 +430,10 @@ function SectorData({
     },
   } = useDictionary()
   const [selectedSector, setSelectedSector] = React.useState<
-    SectorWithTranslation | undefined
+    Sector | undefined
   >(undefined)
   const [hoveredApplicationScope, setHoveredApplicationScope] = React.useState<
-    ApplicationScopeWithTranslation | undefined
+    ApplicationScope | undefined
   >(undefined)
 
   React.useEffect(() => {
@@ -453,7 +445,7 @@ function SectorData({
     <Container>
       <div className="flex gap-10 p-5 min-h-[50vh]">
         <div className="flex-1 h-[max-content]">
-          <div className="p-3 bg-primary rounded-sm mb-3">
+          <div className="p-3 rounded-sm mb-3">
             <Typography as="h6" className="uppercase">
               {common.sectors}
             </Typography>
@@ -496,7 +488,7 @@ function SectorData({
         {selectedSector?.applicationScopes &&
         selectedSector?.applicationScopes?.length > 0 ? (
           <div className="flex-1">
-            <div className="p-3 bg-primary rounded-sm mb-3">
+            <div className="p-3 rounded-sm mb-3">
               <Typography as="h6" className="uppercase">
                 {title}
               </Typography>
@@ -512,7 +504,11 @@ function SectorData({
             >
               <div>
                 {selectedSector?.applicationScopes?.map((scope, i) => (
-                  <Link key={scope.id} lang={lang} href={`/`}>
+                  <Link
+                    key={scope.id}
+                    lang={lang}
+                    href={`/sectors/${selectedSector.id}/${selectedSector.translation.slug}/applications/${scope.id}/${scope.translation.slug}`}
+                  >
                     <div
                       className="hover:bg-gray-100 uppercase flex gap-5 justify-between text-lg p-3 border-b border-gray-300 px-3"
                       key={i}
@@ -552,7 +548,8 @@ function SectorData({
 }
 
 function RightNavigation() {
-  const { user, loading, logout } = useAuthenticatedUser()
+  const { user, logout } = useAuthenticatedUser()
+  const router = useRouter()
   const {
     dictionary: {
       layout: {
@@ -563,9 +560,15 @@ function RightNavigation() {
   } = useDictionary()
   const { activeOrder, setOpen } = useActiveOrder()
 
+  const handleLogoutButton = async () => {
+    const res = await logout()
+    if (res?.success) {
+      router.push('/login')
+    }
+  }
+
   return (
     <>
-      <LoadingPortal isOpen={loading} />
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -627,11 +630,7 @@ function RightNavigation() {
               <NavigationMenuTrigger className="bg-primary text-black">
                 <User className="mr-2" />
                 <span className="text-sm pr-3 font-semibold">
-                  {user.firstName && user.lastName
-                    ? `${user.firstName} ${user.lastName}`
-                    : user.firstName
-                    ? user.firstName
-                    : 'User'}
+                  {user.name ? user.name : user.email}
                 </span>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -645,7 +644,7 @@ function RightNavigation() {
                     <span
                       aria-label="Logout button"
                       className="cursor-pointer"
-                      onClick={logout}
+                      onClick={handleLogoutButton}
                     >
                       {navItems.profile.logout}
                     </span>

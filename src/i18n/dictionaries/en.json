@@ -1,5 +1,6 @@
 {
   "common": {
+    "contactUs": "Contact us",
     "noDataFound": "No results.",
     "registerEmail": "Register for industry news",
     "learnMore": "Learn more",
@@ -8,13 +9,14 @@
     "price": "price",
     "search": "search",
     "filter": "Filter",
-    "productFound": "product found",
+    "productFound": "Results",
     "categories": "Products by category",
     "sectors": "Products by sector",
     "productFinder": "Find product",
     "getTheLatestInfo": "get the latest information",
     "wait": "Please wait...",
     "welcome": "Welcome",
+    "removeText": "Remove",
     "keyword": "Keyword..."
   },
   "layout": {
@@ -128,6 +130,49 @@
         },
         "buttonText": "Register"
       }
+    }
+  },
+  "indexV2": {
+    "hero": {
+      "title": "Powering Industry with",
+      "subTitle": "Precision Oils"
+    },
+    "sloganSection": {
+      "title": "The Right Oil. Every Time",
+      "subTitle": "Reliable, high-performance solutions tailored for your business needs. Experience the difference with our expert support and top-quality products.",
+      "buttonText": "Explore Our Products"
+    },
+    "findProductSection": {
+      "title": "Find the Oil You Need. Fast.",
+      "subTitle": "Our user-friendly product finder <br/> helps you identify the right industrial oil for your specific needs.",
+      "buttonText": "Explore Products Now"
+    },
+    "b2bSection": {
+      "title": "Streamline Your Business with Our B2B Platform",
+      "subTitle": "Enjoy exclusive discounts, seamless marketplace integration, and efficient order management. Elevate your operations with our comprehensive B2B solutions.",
+      "buttonText": "Apply for B2B Access"
+    },
+    "sections": [
+      {
+        "title": "Optimize Machine Efficiency: <br/> Unlock the Power of Our Premium",
+        "subTitle": "Hydraulic Oils!"
+      },
+      {
+        "title": "Enhance Machinery Performance: <br/> Explore Our Superior",
+        "subTitle": "Cutting Fluids Today!"
+      },
+      {
+        "title": "Enhance Machinery Performance: <br/> Explore Our Superior",
+        "subTitle": "Heat Transfer Fluids Today!"
+      }
+    ],
+    "section1": {
+      "title": "Enhance Machinery Performance: <br/> Explore Our Superior",
+      "subTitle": "Compressor Oils Today!"
+    },
+    "section2": {
+      "title": "Optimize Machine Efficiency: <br/> Unlock the Power of Our Premium",
+      "subTitle": "Hydraulic Oils!"
     }
   },
   "index": {
@@ -297,10 +342,7 @@
     "title": "Contact Restoreplus for a solution to reach more buyers and grow your business.",
     "text": "Tell us about your industrial business goals and we'll be in touch with recommendations on how to meet them.",
     "aggreeForm": "By submitting this form, you agree to share your contact information with Restoreplus.",
-    "sideInfo": {
-      "text": "The industry expertise and products at Restoreplus are unmatched. Restoreplus helped us align our profile to our service offerings and immediately we received inquiries and quotes, helping us win an extremely large project. Working with Restoreplus is a game changer. ",
-      "author": "Hasan Kara"
-    },
+    "products": "Your products",
     "fields": {
       "firstName": "First Name",
       "lastName": "Last Name",
@@ -455,12 +497,14 @@
     "productsTitle": "Products used in the sector"
   },
   "product": {
+    "productsText": "products",
     "listProductPage": {
       "title": "Restoreplus product list"
     },
     "listProductsSection": {
       "title": "Our products"
-    }
+    },
+    "similarProductsText": "Similar products"
   },
   "profile": {
     "header": {
@@ -525,7 +569,9 @@
       "description": "Manage your address list. Add, edit, and delete your address list.",
       "editAddressButtonText": "Edit address",
       "buttonText": "Save address",
-      "newAddressButton": "Add new address",
+      "billingAddressText": "Billing address",
+      "shippingAddressText": "Shipping address",
+      "newAddressButton": "Add new billing address",
       "addressForm": {
         "address": {
           "title": "Add new address",
@@ -540,12 +586,8 @@
           "placeholder": "Enter authorized person"
         },
         "street1": {
-          "label": "Address line 1",
-          "placeholder": "Enter address line 1"
-        },
-        "street2": {
-          "label": "Address line 2",
-          "placeholder": "Enter address line 2"
+          "label": "Address",
+          "placeholder": "Enter address"
         },
         "country": {
           "label": "Country",
@@ -614,7 +656,8 @@
   },
   "publicProductPageList": {
     "products": "Products",
-    "available": "products available"
+    "available": "products available",
+    "backButtonText": "Back"
   },
   "productCollection": {
     "meta": {
@@ -623,6 +666,7 @@
     }
   },
   "productFinder": {
+    "noProductsMessage": "You can try to search by product name or contact us -> ",
     "reset": "reset",
     "category": "Category",
     "categories": "Categories",
@@ -630,16 +674,30 @@
     "allCategories": "All categories",
     "allSubCategories": "All sub categories",
     "sectors": "Sectors",
-    "subSectors": "Sub sectors",
+    "applicationScopes": "Application scopes",
     "allSectors": "All sectors",
     "allSubSectors": "All sub sectors",
-    "equivalent": "Equivalent"
+    "equivalent": "Equivalent",
+    "productActionButtons": {
+      "addToOfferList": {
+        "buttonText": "",
+        "tooltip": "Add to offer list",
+        "removeFromOfferListButtonText": "Remove from offer list"
+      },
+      "goToProductDetails": {
+        "buttonText": "",
+        "tooltip": "See details"
+      }
+    }
   },
   "createOrderPage": {
     "reduction": "reduction",
     "details": "Details",
     "addToCart": "Add to cart",
-    "sectorDiscount": "sector discount"
+    "sectorDiscount": "sector discount",
+    "productCard": {
+      "pickDimention": "Pick dimention"
+    }
   },
   "localeCurrencyMenu": {
     "title": "Set language and currency",
@@ -650,6 +708,7 @@
     "currencies": "Currencies",
     "save": "Save"
   },
+
   "applicationScope": {
     "title": "Applications",
     "page": {
@@ -759,5 +818,20 @@
     "uniqueError": "You have registered before.",
     "errorMessage": "We're sorry, but there was a problem processing your request. Please try again later. If the issue persists, feel free to contact our support team for assistance.",
     "placeholder": "Your e-mail"
+  },
+  "shoulLoginModal": {
+    "title": "You should login in order to download the document!",
+    "login": "Login",
+    "close": "Close"
+  },
+  "offerProducts": {
+    "offerProductSuccessfullyAdded": {
+      "modalTitle": "Product successfully added",
+      "modalDescription": "You can view the products you added to your cart here.",
+      "viewButtonText": "View products",
+      "closeButtonText": "Close"
+    },
+    "requestOfferText": "Request an offer",
+    "emptyList": "No products"
   }
 }

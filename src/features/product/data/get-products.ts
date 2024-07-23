@@ -40,7 +40,7 @@ export async function searchProducts(q: string = '', locale: string = 'tr') {
       }
     }),
     pagination,
-  } as { data: ProductWithTranslation[]; pagination: Pagination }
+  } as { data: ProductCategory[]; pagination: Pagination }
 }
 
 export async function getProducts({
@@ -84,7 +84,7 @@ export async function getProducts({
       }
     }),
     pagination,
-  } as { data: ProductWithTranslation[]; pagination: Pagination }
+  } as { data: ProductCategory[]; pagination: Pagination }
 }
 
 export async function getCalculatedProductsForCompany(locale: string = 'tr') {

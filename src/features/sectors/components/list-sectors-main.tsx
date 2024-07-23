@@ -27,7 +27,7 @@ export default async function ListSectorsMain({ lang }: PropsWithLang) {
 function SectorCard({
   sector,
   lang,
-}: { sector: SectorWithTranslation } & PropsWithLang) {
+}: { sector: Sector } & PropsWithLang) {
   return (
     <Link href={`/sectors/${sector.id}/${sector.translation.slug}`} lang={lang}>
       <div className="flex gap-5 flex-col items-center text-center border border-gray-300 p-5 mb-5">

@@ -1,15 +1,10 @@
 'use client'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,25 +18,27 @@ import { clientFetcher } from '@/lib/client-fetcher'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { AddressType } from './address-card'
+import { useMutation } from '@/hooks/use-mutation'
+import { useRouter } from 'next/navigation'
 
 const defaultValues: Partial<AddressFormData> = {
   title: '',
   authorizedPerson: '',
-  street1: '',
-  street2: '',
+  address: '',
   city: '',
   state: '',
   district: '',
-  phone: '',
-  postalCode: '',
+  zipCode: '',
   country: '',
 }
 
 interface AddressFormProps {
-  address?: AddressType
+  addressObj?: AddressType
 }
 
-export function AddressForm({ address }: AddressFormProps) {
+export function AddressForm({ addressObj }: AddressFormProps) {
+  const router = useRouter()
+  const { mutateAsync, isPending } = useMutation<any>()
   const { refetchUser } = useAuthenticatedUser()
   const {
     dictionary: {
@@ -58,36 +55,33 @@ export function AddressForm({ address }: AddressFormProps) {
   })
 
   async function onSubmit(data: AddressFormData) {
-    const method = address ? 'PUT' : 'POST'
+    const method = addressObj ? 'PUT' : 'POST'
     // @ts-ignore
-    const idParam = address ? `?id=${address.id}` : ''
+    const idParam = addressObj ? `?id=${addressObj.id}` : ''
     const {
       authorizedPerson,
       city,
       country,
       district,
-      phone,
-      postalCode,
+      zipCode,
       state,
-      street1,
-      street2,
+      address,
       title,
     } = data
 
-    const res = await clientFetcher(`/active-user/address${idParam}`, {
+    const res = await mutateAsync({
+      path: `/active-user/address${idParam}`,
       method,
-      body: JSON.stringify({
+      body: {
         authorizedPerson,
         city,
         country,
         district,
-        phone,
-        postalCode,
+        zipCode,
         state,
-        street1,
-        street2,
+        address,
         title,
-      }),
+      },
     })
 
     if (res.success) {
@@ -96,12 +90,13 @@ export function AddressForm({ address }: AddressFormProps) {
         title: userInfo.title,
         description: userInfo.description,
       })
+      router.refresh()
     }
   }
 
   useEffect(() => {
-    if (address) form.reset(address)
-  }, [address, form])
+    if (addressObj) form.reset(addressObj)
+  }, [addressObj, form])
 
   return (
     <Form {...form}>
@@ -140,29 +135,13 @@ export function AddressForm({ address }: AddressFormProps) {
         />
         <FormField
           control={form.control}
-          name="street1"
+          name="address"
           render={({ field }) => (
             <FormItem>
               <FormLabel>{addressForm.street1.label}</FormLabel>
               <FormControl>
                 <Input
                   placeholder={addressForm.street1.placeholder}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="street2"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{addressForm.street2.label}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={addressForm.street2.placeholder}
                   {...field}
                 />
               </FormControl>
@@ -217,7 +196,7 @@ export function AddressForm({ address }: AddressFormProps) {
         />
         <FormField
           control={form.control}
-          name="postalCode"
+          name="zipCode"
           render={({ field }) => (
             <FormItem>
               <FormLabel>{addressForm.postalCode.label}</FormLabel>
@@ -231,20 +210,9 @@ export function AddressForm({ address }: AddressFormProps) {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{addressForm.phone.label}</FormLabel>
-              <FormControl>
-                <Input placeholder={addressForm.phone.placeholder} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">{buttonText}</Button>
+        <Button type="submit" loading={isPending}>
+          {buttonText}
+        </Button>
       </form>
     </Form>
   )

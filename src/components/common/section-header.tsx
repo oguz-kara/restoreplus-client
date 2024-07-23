@@ -9,7 +9,7 @@ export default function SectionHeader({
   return (
     <Typography
       as="h4"
-      className={cn('font-normal capitalize lg:text-3xl', className)}
+      className={cn('font-bold capitalize lg:text-3xl', className)}
     >
       {children}
     </Typography>

@@ -17,27 +17,12 @@ interface User {
 }
 
 interface Pagination {
-  page: string
-  take: string
+  page?: string | null
+  take?: string | null
   total?: number
 }
 
 interface BlogPost {
-  id: number
-  authorName: string
-  minsRead?: number | null
-  userId?: number | null
-  imageId?: number | null
-  blogPostCategoryId?: number | null
-  featuredImage: Image | null
-  user?: User | null
-  categories?: BlogPostCategory[] | null
-  translations: BlogPostTranslation[]
-  createdAt: Date
-  updatedAt: Date
-}
-
-interface BlogPostWithOneTranslation {
   id: number
   authorName: string
   minsRead?: number | null
@@ -59,6 +44,7 @@ interface BlogPostTranslation {
   excerpt?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
+  description?: string | null
   keywords?: string | null
   tags?: string | null
   blogPostId?: number | null
@@ -174,7 +160,7 @@ interface Product {
   id: number
   name: string
   imageId?: number | null
-  translations: ProductTranslation[]
+  translation: ProductTranslation
   documents: Document[]
   categories: ProductCategory[]
   featuredImage?: Image | null
@@ -312,36 +298,13 @@ interface ParamsWithSlug {
     slug: string
   }
 }
-
 interface Sector {
   id: number
   featuredImageId?: number | null
   featuredImage?: Image | null
   products: Product[]
-  translations: SectorTranslation[]
-  createdAt: Date
-  updatedAt: Date
-}
-
-interface SectorWithTranslation {
-  id: number
-  featuredImageId?: number | null
-  featuredImage?: Image | null
-  products: Product[]
   translation: SectorTranslation
-  applicationScopes?: ApplicationScopeWithTranslation[]
-  createdAt: Date
-  updatedAt: Date
-}
-
-interface ApplicationScope {
-  id: number
-  featuredImageId?: number | null
-  sectorId?: number | null
-  featuredImage?: Image | null
-  productGroups: ProductGroup[]
-  translations: ApplicationScopeTranslation[]
-  sector?: Sector | null
+  applicationScopes?: ApplicationScope[]
   createdAt: Date
   updatedAt: Date
 }
@@ -361,7 +324,7 @@ interface ApplicationScopeTranslation {
   resource?: ApplicationScope | null
 }
 
-interface ApplicationScopeWithTranslation {
+interface ApplicationScope {
   id: number
   featuredImageId?: number | null
   sectorId?: number | null
@@ -390,29 +353,29 @@ interface SectorTranslation {
   updatedAt: Date
 }
 
-interface SectorWithTranslation {
+interface Sector {
   id: number
   featuredImageId?: number | null
   featuredImage?: Image | null
   products: Product[]
-  translations: SectorTranslation[]
   translation: SectorTranslation
   createdAt: Date
   updatedAt: Date
 }
 
-interface ProductWithTranslation {
+interface ProductCategory {
   id: number
   name: string
   imageId?: number | null
+  iconId?: number | null
   equivalents?: string
-  translations: ProductTranslation[]
-  translation: ProductTranslation
+  translation: ProductCategoryTranslation
   productDocumentation: ProductDocumentation[]
   categories: TranslatedProductCategory[]
   featuredImage?: Image | null
-  sectors: SectorWithTranslation[]
-  documents: DocumentWithTranslation[]
+  icon?: Image | null
+  sectors: Sector[]
+  documents: Document[]
   createdAt: Date
   updatedAt: Date
 }
@@ -449,35 +412,51 @@ interface Company {
 
 interface ActiveUser {
   id: number
-  firstName: string
-  lastName: string
+  name?: string
   email: string
   role: string
   company?: Company
-  addressList?: Address[]
-  orders?: ActiveOrder[]
+  shippingAddress?: Address
+  billingAddress?: Address
 }
 
 interface CalculatedProduct {
   id: number
-  slug: string
-  name: string
-  metaTitle: string
-  metaDescription: string
-  productType: string
-  description: string
-  supportedLocaleId: number
-  equivalents?: string
-  productGroupId: number | null
   featuredImage: Image
-  price: number
-  totalDiscount: number
-  calculatedPrice: number
+  name: string
   currencyCode: string
-  sectorsDiscounts: SectorDiscount[]
-  reductionDiscounts: ReductionDiscounts
-  sectors: TranslatedSector[]
-  variants: any
+  translation: {
+    slug: string
+    metaTitle: string
+    metaDescription: string
+    productType: string
+    description: string
+    equivalents?: string
+  }
+  reductionValue: number | null
+  variants: {
+    id: number
+    name: string
+    featuredImage: Image
+    translation: {
+      value: string
+    }
+    variant: {
+      id: number
+      translation: {
+        id: number
+        name: string
+      }
+    }
+    discount: {
+      reductionAmount: number
+    }
+    price: {
+      value: number
+      brutto: number
+      currencyCode: string
+    }
+  }[]
 }
 
 interface SectorDiscount {
@@ -547,9 +526,10 @@ interface ProductCategory {
   imageId?: number | null
   featuredImage?: Image | null
   subCategories: ProductCategory[]
-  parentCategories: ProductCategory[]
+  parentCategory: ProductCategory
   products: Product[]
-  translations: ProductCategoryTranslation[]
+  translation: ProductCategoryTranslation
+  documents: Document[]
   createdAt: Date
   updatedAt: Date
 }
@@ -601,21 +581,13 @@ interface TranslatedProductCategory {
 
 interface Document {
   id: number
-  documentCategoryId?: number | null
-  productId?: number | null
-  translations: DocumentTranslation[]
-  documentCategory?: DocumentCategory | null
-  product?: Product | null
-  createdAt: Date
-  updatedAt: Date
-}
-
-interface DocumentWithTranslation {
-  id: number
+  file?: FileStorage
+  featuredImageId?: number
+  fileId?: Number
+  featuredImage?: Image
   documentCategoryId?: number | null
   productId?: number | null
   translation: DocumentTranslation
-  documentCategory?: DocumentCategory | null
   product?: Product | null
   createdAt: Date
   updatedAt: Date
@@ -627,11 +599,9 @@ interface DocumentTranslation {
   description?: string | null
   resourceId: number
   localeId: number
-  fileId: number
   createdAt: Date
   updatedAt: Date
   locale: SupportedLocale
-  file: File
   resource: Document
 }
 
@@ -662,7 +632,7 @@ interface DocumentCategoryTranslation {
   updatedAt: Date
 }
 
-interface ProductVariant {
+interface Product {
   id: number
   featuredImage: {
     path: string
@@ -691,7 +661,7 @@ interface Line {
     priceForSingleProduct: number
     netPriceForSingleProduct: number
   }
-  productVariant: ProductVariant
+  productVariant: Product
 }
 
 interface ActiveOrder {

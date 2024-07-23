@@ -1,4 +1,5 @@
 import { serverFetcher } from '@/lib/server-fetcher'
+import { sdk } from '@/restoreplus-sdk'
 import { cookies } from 'next/headers'
 
 export async function getFilteredProducts({
@@ -44,34 +45,9 @@ export async function getFilteredProducts({
     },
   }
 
-  const { data } = await serverFetcher('/products/all', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(query),
-  })
+  const result = await sdk.products.getAllByQuery(query, { lang })
 
-  return {
-    data: data.data
-      .filter((item: Product) =>
-        item.translations.find(
-          (translation) => translation.locale.locale === lang
-        )
-      )
-      .map((item: Product) => {
-        const { translations, ...rest } = item
-        const translation = translations.find(
-          (translation) => translation.locale.locale === lang
-        )
-
-        return {
-          ...rest,
-          translation,
-        }
-      }),
-    pagination: data.pagination,
-  } as { data: ProductWithTranslation[]; pagination: Pagination }
+  return result as { data: Product[]; pagination: Pagination }
 }
 
 export async function getFilteredCalculatedProducts({
@@ -120,8 +96,8 @@ export async function getFilteredCalculatedProducts({
     },
   }
 
-  const { data } = await serverFetcher(
-    `/active-user/calculated-products/search?lang=${lang}&currency=${currencyCode}`,
+  const result = await serverFetcher(
+    `/v2/calculated-products/search?lang=${lang}&currency=${currencyCode}`,
     {
       method: 'POST',
       headers: {
@@ -132,5 +108,5 @@ export async function getFilteredCalculatedProducts({
     }
   )
 
-  return data
+  return result
 }

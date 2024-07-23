@@ -18,15 +18,16 @@ import { useDictionary } from '@/context/use-dictionary'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { clientFetcher } from '@/lib/client-fetcher'
+import { useMutation } from '@/hooks/use-mutation'
 
 const defaultValues: Partial<ProfileFormData> = {
-  firstName: '',
-  lastName: '',
+  name: '',
   email: '',
   password: 'xxxxx',
 }
 
 export function ProfileForm() {
+  const { mutateAsync, isPending } = useMutation<any>()
   const { toast } = useToast()
   const { user } = useAuthenticatedUser()
   const {
@@ -43,10 +44,12 @@ export function ProfileForm() {
   })
 
   async function onSubmit(data: ProfileFormData) {
-    const { firstName, lastName, email } = data
-    const res = await clientFetcher(`/active-user?id=${user?.id}`, {
+    const { name, email } = data
+
+    const res = await mutateAsync({
+      path: `/active-user?id=${user?.id}`,
       method: 'PUT',
-      body: JSON.stringify({ firstName, lastName, email }),
+      body: { name, email },
     })
 
     if (res.success)
@@ -58,9 +61,8 @@ export function ProfileForm() {
 
   useEffect(() => {
     const initialFormData = {
-      firstName: user?.firstName || '',
-      lastName: user?.lastName || '',
       email: user?.email || '',
+      name: user?.name || '',
       password: 'xxxxxxxxxxxx',
     }
     form.reset(initialFormData)
@@ -74,7 +76,7 @@ export function ProfileForm() {
       >
         <FormField
           control={form.control}
-          name="firstName"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>{accountForm.firstName.label}</FormLabel>
@@ -86,25 +88,6 @@ export function ProfileForm() {
               </FormControl>
               <FormDescription>
                 {accountForm.firstName.description}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="lastName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{accountForm.lastName.label}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={accountForm.lastName.placeholder}
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription>
-                {accountForm.lastName.description}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -146,7 +129,11 @@ export function ProfileForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={!form.formState.isDirty}>
+        <Button
+          type="submit"
+          disabled={!form.formState.isDirty}
+          loading={isPending}
+        >
           {buttonText}
         </Button>
       </form>

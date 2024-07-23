@@ -20,7 +20,7 @@ import { useDictionary } from '@/context/use-dictionary'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { Textarea } from '@/components/ui/textarea'
-import { clientFetcher } from '@/lib/client-fetcher'
+import { useMutation } from '@/hooks/use-mutation'
 
 // This can come from your database or API.
 const defaultValues: Partial<CompanyFormData> = {
@@ -29,6 +29,7 @@ const defaultValues: Partial<CompanyFormData> = {
 }
 
 export function CompanyForm() {
+  const { mutateAsync, isPending } = useMutation<any>()
   const { user } = useAuthenticatedUser()
   const {
     dictionary: {
@@ -50,12 +51,16 @@ export function CompanyForm() {
       ? `/active-user/company/?id=${user?.company?.id}`
       : '/active-user/company'
 
-    const res = await clientFetcher(url, {
+    const res = await mutateAsync({
+      path: url,
+      body: {
+        name,
+        description,
+        phoneNumber,
+        website,
+      },
       method: 'POST',
-      body: JSON.stringify({ name, description, phoneNumber, website }),
     })
-
-    console.log(res)
 
     if (res.success)
       toast({
@@ -142,7 +147,9 @@ export function CompanyForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">{buttonText}</Button>
+        <Button type="submit" loading={isPending}>
+          {buttonText}
+        </Button>
       </form>
     </Form>
   )

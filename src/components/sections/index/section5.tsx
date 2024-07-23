@@ -1,15 +1,14 @@
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import SectionHeader from '@/components/common/section-header'
-import Image, { ServerImage } from '@/components/ui/image'
+import { ServerImage } from '@/components/ui/image'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale, PropsWithLang } from '@/i18n/types'
-import { serverFetcher } from '@/lib/server-fetcher'
-import { getTranslationOfList } from '@/utils/translations-utils'
 import bg from '../../../../public/images/hero-image.png'
 import { BlogPostCard } from '@/components/common/blog-post-card'
+import { sdk } from '@/restoreplus-sdk'
 
 export default async function Section5({ lang }: PropsWithLang) {
   const {
@@ -26,7 +25,7 @@ export default async function Section5({ lang }: PropsWithLang) {
 
   return (
     <div
-      className="bg-foreground"
+      className="bg-foreground pb-20"
       style={{
         background: `url(${bg.src})`,
         minHeight: '500px',
@@ -38,8 +37,8 @@ export default async function Section5({ lang }: PropsWithLang) {
     >
       <Container>
         <Section className="relative">
-          <div className="py-5">
-            <SectionHeader className="text-center text-white">
+          <div>
+            <SectionHeader className="text-center text-white py-10">
               {title}
             </SectionHeader>
           </div>
@@ -60,10 +59,10 @@ export default async function Section5({ lang }: PropsWithLang) {
 function FeaturedBlogPostCard({
   id,
   featuredImage,
-  translation: { title, excerpt, slug },
+  translation: { title, description, slug },
   categories,
   lang,
-}: BlogPostWithOneTranslation & PropsWithLang) {
+}: BlogPost & PropsWithLang) {
   return (
     <Link href={`/blog/${id}/${slug}`} lang={lang}>
       <div className="text-white mb-5">
@@ -88,7 +87,7 @@ function FeaturedBlogPostCard({
           {title}
         </Typography>
         <Typography as="p" className="text-lg">
-          {excerpt}
+          {description}
         </Typography>
       </div>
     </Link>
@@ -96,50 +95,33 @@ function FeaturedBlogPostCard({
 }
 
 export async function getStaticBlogPosts({ lang }: { lang: Locale }) {
-  console.log({ lang })
-  const { data } = await serverFetcher('/blog-posts/all', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const query = {
+    where: {
+      id: {
+        in: [1, 2, 3, 4, 5],
+      },
     },
-    body: JSON.stringify({
-      where: {
-        id: {
-          in: [2, 3, 4, 5, 6],
+    select: {
+      id: true,
+      featuredImage: true,
+      translations: {
+        include: {
+          locale: true,
         },
       },
-      include: {
-        featuredImage: true,
-        translations: {
-          include: {
-            locale: true,
-          },
-        },
-        categories: {
-          include: {
-            translations: {
-              include: {
-                locale: true,
-              },
+      categories: {
+        include: {
+          translations: {
+            include: {
+              locale: true,
             },
           },
         },
       },
-    }),
-    cache: 'no-store',
-  })
+    },
+  }
 
-  console.log({ data })
+  const { data } = await sdk.blogPosts.getAllByQuery(query, { lang })
 
-  return [
-    ...getTranslationOfList<BlogPostWithOneTranslation>(lang, data.data).map(
-      (item) => ({
-        ...item,
-        categories: getTranslationOfList<BlogPostCategoryWithOneTranslation>(
-          lang,
-          item.categories as any
-        ),
-      })
-    ),
-  ] as BlogPostWithOneTranslation[]
+  return data as BlogPost[]
 }

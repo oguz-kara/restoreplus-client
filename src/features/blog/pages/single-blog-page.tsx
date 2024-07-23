@@ -46,7 +46,7 @@ export default async function SingleBlogPage({
           </div>
           <div className="pb-5 lg:max-w-[60%]">
             <ServerImage
-              className="object-contain aspect-video"
+              className="object-contain"
               src={data?.featuredImage?.path || ''}
               width={500}
               height={500}
@@ -87,7 +87,7 @@ export default async function SingleBlogPage({
       </Section>
       <Section className="lg:flex-[1]">
         <div className="pb-5 pt-10">
-          <InfoCard data={rightCard} />
+          <InfoCard data={rightCard} lang={lang} />
         </div>
       </Section>
     </Container>

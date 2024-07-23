@@ -36,5 +36,5 @@ export async function getApplicationScopeById(
       locale as Locale,
       data.translations
     ) as ApplicationScopeTranslation,
-  } as ApplicationScopeWithTranslation
+  } as ApplicationScope
 }

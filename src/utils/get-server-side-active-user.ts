@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { serverFetcher } from '@/lib/server-fetcher'
 
 export const getServerSideActiveUser = async () => {
-  const token = cookies().get('token')?.value
+  const token = cookies().get('accessToken')?.value
   const lang = cookies().get('lang')?.value
   const currency = cookies().get('currency')?.value
 

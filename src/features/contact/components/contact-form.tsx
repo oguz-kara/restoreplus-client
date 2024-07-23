@@ -15,14 +15,15 @@ import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
 import contactSchema, { ContactFormDataType } from '../schema/contact.schema'
 import { cn } from '@/lib/utils'
-import { clientFetcher } from '@/lib/client-fetcher'
 import { useToast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
 import { Textarea } from '@/components/ui/textarea'
-import { useState } from 'react'
-import { useLoading } from '@/hooks/use-loading'
+import { useOfferProducts } from '@/context/use-offer-products'
+import { useMutation } from '@/hooks/use-mutation'
 
-interface ContactFormProps {}
+interface ContactFormProps {
+  path: string
+}
 
 const defaultValues = {
   fullName: '',
@@ -36,16 +37,21 @@ const defaultValues = {
 }
 
 export default function ContactForm({
-  lang,
   theme,
   className,
+  path = '/quote-request',
 }: ContactFormProps &
   PropsWithLang & {
     theme?: { bg: string; text: string }
   } & PropsWithClassName) {
   const router = useRouter()
+  const { mutateAsync, isPending } = useMutation<{
+    quoteRequest: QuoteRequest
+    offer?: { products: Product[] }
+    message?: string
+  }>()
   const { toast } = useToast()
-  const { loading, startLoading, stopLoading } = useLoading()
+  const { offerProducts } = useOfferProducts()
 
   const defaultTheme = theme
     ? theme
@@ -68,30 +74,58 @@ export default function ContactForm({
 
   async function onSubmit(values: ContactFormDataType) {
     try {
-      startLoading()
-      const result = await clientFetcher('/quote-request', {
-        method: 'POST',
-        body: JSON.stringify({
-          ...values,
-        }),
-      })
+      if (path === '/offer-products') {
+        const result = await mutateAsync({
+          path: '/offer-products',
+          body: {
+            quoteRequest: {
+              ...values,
+            },
+            offer: {
+              products: offerProducts,
+            },
+          },
+          method: 'POST',
+        })
 
-      if (result.id) {
-        toast({
-          title: successMessage.message,
-          description: successMessage.description,
+        if (!result.message) {
+          toast({
+            title: successMessage.message,
+            description: successMessage.description,
+          })
+          router.push('/')
+          return
+        } else
+          return toast({
+            variant: 'destructive',
+            title: errorMessage,
+            description: result.message,
+          })
+      } else {
+        const result = await mutateAsync({
+          path: '/quote-request',
+          body: {
+            ...values,
+          },
+          method: 'POST',
         })
-        router.push('/')
-        return
-      } else
-        return toast({
-          variant: 'destructive',
-          title: errorMessage,
-        })
+
+        if ((result as any).id) {
+          toast({
+            title: successMessage.message,
+            description: successMessage.description,
+          })
+          router.push('/')
+          return
+        } else
+          return toast({
+            variant: 'destructive',
+            title: errorMessage,
+            description: result.message,
+          })
+      }
     } catch (err) {
       console.log(err)
-    } finally {
-      stopLoading()
     }
   }
 
@@ -108,7 +142,7 @@ export default function ContactForm({
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+                  <FormLabel className="text-sm text-gray-700">
                     {contactPage.fields.firstName}
                   </FormLabel>
                   <FormControl>
@@ -131,7 +165,7 @@ export default function ContactForm({
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+                  <FormLabel className="text-sm text-gray-700">
                     {contactPage.fields.lastName}
                   </FormLabel>
                   <FormControl>
@@ -154,7 +188,7 @@ export default function ContactForm({
               name="companyTitle"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+                  <FormLabel className="text-sm text-gray-700">
                     {contactPage.fields.companyName}
                   </FormLabel>
                   <FormControl>
@@ -177,7 +211,7 @@ export default function ContactForm({
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+                  <FormLabel className="text-sm text-gray-700">
                     {contactPage.fields.city}
                   </FormLabel>
                   <FormControl>
@@ -200,7 +234,7 @@ export default function ContactForm({
               name="country"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+                  <FormLabel className="text-sm text-gray-700">
                     {contactPage.fields.country}
                   </FormLabel>
                   <FormControl>
@@ -223,7 +257,7 @@ export default function ContactForm({
               name="emailAddress"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+                  <FormLabel className="text-sm text-gray-700">
                     {contactPage.fields.email}
                   </FormLabel>
                   <FormControl>
@@ -246,7 +280,7 @@ export default function ContactForm({
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+                  <FormLabel className="text-sm text-gray-700">
                     {contactPage.fields.phoneNumber}
                   </FormLabel>
                   <FormControl>
@@ -269,7 +303,7 @@ export default function ContactForm({
               name="postalCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+                  <FormLabel className="text-sm text-gray-700">
                     {contactPage.fields.postalCode}
                   </FormLabel>
                   <FormControl>
@@ -293,7 +327,7 @@ export default function ContactForm({
                 name="message"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel className="text-sm font-semibold">
+                    <FormLabel className="text-sm text-gray-700">
                       {contactPage.fields.message}
                     </FormLabel>
                     <FormControl>
@@ -316,7 +350,7 @@ export default function ContactForm({
           </div>
           <div className="mb-5">
             <Button
-              loading={loading}
+              loading={isPending}
               className="w-full py-3 rounded-sm text-sm"
             >
               {contactPage.buttonText}

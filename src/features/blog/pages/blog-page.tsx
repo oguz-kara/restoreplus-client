@@ -29,7 +29,7 @@ export default async function BlogPage({ lang }: PropsWithLang) {
         <Section>
           <div className="flex gap-20">
             <MainBlogList lang={lang} data={data} />
-            <InfoCard data={page.rightCard} />
+            <InfoCard data={page.rightCard} lang={lang} />
           </div>
           <div>
             <Paginate

@@ -128,7 +128,7 @@ export async function searchData({
   if (data?.data && data.data.length > 0 && data.data[0].translations) {
     const resultData = data.data
       .filter((product: Product) =>
-        getTranslation(properLang as Locale, product.translations)
+        getTranslation(properLang as Locale, (product as any).translations)
       )
       .map((item: any) => {
         const { translations, ...restData } = item

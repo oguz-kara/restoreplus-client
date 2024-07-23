@@ -28,7 +28,7 @@ function getLocale(request: NextRequest) {
 
 export function middleware(request: NextRequest) {
   const lang = request.cookies.get('lang')
-  const isAuthenticated = request.cookies.get('jwt')
+  const isAuthenticated = request.cookies.get('accessToken')
   const isProtectedRoute = protectedRoutes.includes(request.nextUrl.pathname)
 
   if (!isAuthenticated && isProtectedRoute) {

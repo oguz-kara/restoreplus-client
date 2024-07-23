@@ -1,12 +1,11 @@
 import { cookies } from 'next/headers'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { NextRequest, NextResponse } from 'next/server'
-import { revalidateTag } from 'next/cache'
 
 export const GET = async (req: NextRequest) => {
   try {
     const addressId = req.nextUrl.searchParams.get('addressId')
-    const authToken = req.headers.get('authorization')
+    const authToken = cookies().get('authToken')?.value
     const currencyCode = cookies().get('currency')?.value || 'USD'
     const lang = cookies().get('lang')?.value
 
@@ -17,7 +16,9 @@ export const GET = async (req: NextRequest) => {
         `/set-active-order-address/${addressId}?currency=${currencyCode}&lang=${lang}`,
         {
           headers: {
-            authorization: authToken,
+            ...(authToken && {
+              authorization: `Bearer ${authToken}`,
+            }),
           },
           cache: 'no-store',
         }

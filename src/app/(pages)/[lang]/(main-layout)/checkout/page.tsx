@@ -19,23 +19,21 @@ import {
   createOrderApi,
   setActiveOrderAddressApi,
 } from '@/features/active-order/data/active-order'
-import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { AddressFormModal } from '@/features/user/components/address-form-modal'
 import AddressList from '@/features/user/components/address-list'
 import { ParamsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
 import { ArrowRight } from 'lucide-react'
-import { Metadata } from 'next'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const lang = params.lang
+// export async function generateMetadata({ params }: any): Promise<Metadata> {
+//   const lang = params.lang
 
-  const seoData = await getSeoPageByPathnameAndLocale('/checkout', lang)
+//   const seoData = await getSeoPageByPathnameAndLocale('/checkout', lang)
 
-  return seoData
-}
+//   return seoData
+// }
 
 export default function Page({ params: { lang } }: ParamsWithLang) {
   const router = useRouter()
@@ -65,7 +63,6 @@ export default function Page({ params: { lang } }: ParamsWithLang) {
 
   const handleCreateOrderButton = async () => {
     const result = await createOrderApi()
-    console.log({ result })
     if (result.success) {
       await getAndSetActiveOrder()
       router.push('/order-creation-result/' + result.orderId, {})
@@ -79,7 +76,6 @@ export default function Page({ params: { lang } }: ParamsWithLang) {
       const result = await setActiveOrderAddressApi(address.id)
       if (!result.message) {
         setSelectedAddress(address)
-        console.log({ result })
       } else {
         console.error({ message: result.message })
       }
@@ -90,8 +86,6 @@ export default function Page({ params: { lang } }: ParamsWithLang) {
     router.push(`/${lang}/create-order`)
     return
   }
-
-  console.log({ activeOrder })
 
   return (
     <div className="py-10">

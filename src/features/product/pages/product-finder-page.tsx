@@ -4,7 +4,6 @@ import { advancedDataSearch } from '@/utils/fetch-data'
 import { Locale, PropsWithLang } from '@/i18n/types'
 import ProductFinderFilters from '../components/product-finder-filters'
 import { getProperLanguage } from '@/i18n/utils'
-import { serverFetcher } from '@/lib/server-fetcher'
 import { getCategoryIds } from '@/features/product-categories/data/get-category-ids'
 import { getSectorIds } from '@/features/sectors/api/get-sector-ids'
 import Typography from '@/components/ui/typography'
@@ -13,10 +12,8 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import Link from '@/components/ui/link'
 import { Badge } from '@/components/ui/badge'
 import { getDictionary } from '@/i18n/get-dictionary'
-import { consoleLog } from '@/utils/log-to-console'
 import { initialQuery } from '../queries/initial-query'
-import { Filter } from 'lucide-react'
-import FiltersAccordion from '@/components/common/filters-accordion'
+import { sdk } from '@/restoreplus-sdk'
 
 interface CalculatedAndGetProductFinderSectorAndCategoryIdArguments {
   categorySlug?: string
@@ -46,21 +43,9 @@ export default async function ProductFinderPage({
   const properLang = getProperLanguage(lang)
   const { productFinder, common } = await getDictionary(properLang as Locale)
 
-  const { data: categoryData } = await advancedDataSearch({
-    page,
-    take,
-    name: 'products/categories',
-    query: 'where.isTopLevelCategory=true',
-    lang: properLang as Locale,
-  })
+  const { data: categoryData } = await sdk.productCategories.getAll({ lang })
 
-  const { data: sectorData } = await advancedDataSearch({
-    page,
-    take,
-    name: 'sectors',
-    query: 'where.isTopLevelSector=true',
-    lang: properLang as Locale,
-  })
+  const { data: sectorData } = await sdk.sectors.getAll({ lang })
 
   const subCategories = categorySlug
     ? await advancedDataSearch({
@@ -119,6 +104,13 @@ export default async function ProductFinderPage({
         dbQuery: initialQuery,
       })
 
+  console.log({
+    categoryIds,
+    sectorIds,
+    subCategories,
+    subSectors,
+  })
+
   if (productData.message) return JSON.stringify(productData)
 
   return (
@@ -131,7 +123,7 @@ export default async function ProductFinderPage({
           subSectorData={subSectors?.data}
         />
         {/* main */}
-        <div className="flex-[3] p-5  bg-gray-100">
+        <div className="flex-[3] px-5 py-10  bg-gray-100">
           <div>
             <Typography as="h5" className="mb-5">
               {productData.data.length} {common.productFound}
@@ -154,7 +146,7 @@ export default async function ProductFinderPage({
             {productData && productData.data && productData.data.length > 0
               ? productData.data
                   .filter((product: any) => product?.translation)
-                  .map((product: ProductWithTranslation, i: number) => (
+                  .map((product: ProductCategory, i: number) => (
                     <div key={i} className="h-full">
                       <Link
                         className="h-full"
@@ -272,45 +264,9 @@ export async function getFilteredProducts({
           },
         }),
     },
-
-    include: {
-      translations: {
-        include: {
-          locale: true,
-        },
-      },
-      featuredImage: true,
-    },
   }
 
-  const { data } = await serverFetcher('/products/all', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(query),
-  })
+  const data = await sdk.products.getAllByQuery(query, { lang })
 
-  if (data.message) return data
-
-  return {
-    data: data.data
-      .filter((item: Product) =>
-        item.translations.find(
-          (translation) => translation.locale.locale === lang
-        )
-      )
-      .map((item: Product) => {
-        const { translations, ...rest } = item
-        const translation = translations.find(
-          (translation) => translation.locale.locale === lang
-        )
-
-        return {
-          ...rest,
-          translation,
-        }
-      }),
-    pagination: data.pagination,
-  } as { data: ProductWithTranslation[]; pagination: Pagination }
+  return data
 }

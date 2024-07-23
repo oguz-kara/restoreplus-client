@@ -5,13 +5,11 @@ import {
   useContext,
   useEffect,
   useReducer,
-  useState,
 } from 'react'
 import { AuthReducer, AuthAction } from './auth-reducer'
-import Cookies from 'js-cookie'
-import { refreshToken } from '@/features/auth/api/refresh-user'
 import { getActiveUser } from '@/features/auth/api/active-user'
-import { loginUser, logoutUser } from '@/features/auth/api/login-user'
+import { useMutation } from '@/hooks/use-mutation'
+import useMessages from '@/hooks/use-messages'
 
 export type LoginValues = {
   email: string
@@ -27,7 +25,7 @@ export interface AuthState {
     identifier: string
     pwd: string
   }) => Promise<boolean>
-  logout: () => Promise<void>
+  logout: () => Promise<any>
   loading: boolean
   error?: Error
   dispatch: Dispatch<AuthAction>
@@ -50,37 +48,37 @@ interface LoginParams {
 
 export const AuthContext = createContext(INITIAL_STATE)
 
-const setLoadingToFalse = (loading: any, setLoading: any, ms: number = 500) => {
-  setTimeout(() => {
-    setLoading(false)
-  }, ms)
-}
-
 export const AuthContextProvider = ({
   children,
 }: {
   children: React.ReactNode
 }) => {
+  const { showErrorMessage, showSuccessMessage } = useMessages()
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
-  const [loading, setLoading] = useState(false)
+  const { data, mutateAsync, isPending, error, isError, isSuccess } =
+    useMutation<{
+      accessToken?: string
+      email: string
+      name: string | null
+      role: string
+    } | null>()
 
   const setActiveUser = async () => {
-    try {
-      setLoading(true)
-      const activeUser = await getActiveUser()
+    const activeUser = await getActiveUser()
+    if (activeUser && !activeUser?.message)
       if (activeUser) dispatch({ type: 'SET_USER', payload: activeUser })
-    } catch (err: any) {
-      console.log(err)
-    } finally {
-      setLoadingToFalse(loading, setLoading)
-    }
   }
 
   const login = async ({ identifier, pwd }: LoginParams) => {
-    const isLoggedIn = await loginUser({ identifier, pwd })
+    const data = await mutateAsync({
+      path: '/auth/login',
+      body: { email: identifier, password: pwd },
+      method: 'POST',
+    })
 
-    if (isLoggedIn) {
-      await setActiveUser()
+    if (data?.accessToken) {
+      setActiveUser()
+
       return true
     }
 
@@ -88,45 +86,28 @@ export const AuthContextProvider = ({
   }
 
   const logout = async () => {
-    try {
-      setLoading(true)
-      const result = await logoutUser()
-
-      if (result.success) {
-        console.log('successfully logged out!')
-        dispatch({ type: 'SET_USER', payload: null })
-      }
-    } catch (err: any) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
+    return await mutateAsync({
+      path: '/auth/logout',
+      method: 'GET',
+    })
   }
-
-  const refreshTokenAndSetUser = async () => {
-    const success = await refreshToken()
-    if (success) await setActiveUser()
-    else dispatch({ type: 'SET_USER', payload: null })
-  }
-
-  useEffect(() => {
-    if (!state.user) refreshTokenAndSetUser()
-  }, [])
 
   useEffect(() => {
     if (!state.user) setActiveUser()
-    const expiresDateString = Cookies.get('token_expires')
-    console.log({ user: state.user })
-    if (expiresDateString) {
-      const expiresDate = new Date(expiresDateString)
-      const refreshTime = expiresDate.getTime() - Date.now() - 10000
-
-      const timeoutMilliseconds = refreshTime > 0 ? refreshTime : 0
-
-      const timeout = setTimeout(refreshTokenAndSetUser, timeoutMilliseconds)
-      return () => clearTimeout(timeout)
-    }
   }, [state, state.user])
+
+  useEffect(() => {
+    if (isError) {
+      console.log({ error })
+      showErrorMessage(error.message)
+      return
+    }
+
+    if (isSuccess && data?.email) {
+      showSuccessMessage('Successfully logged in')
+      return
+    }
+  }, [isError, error, isSuccess])
 
   return (
     <AuthContext.Provider
@@ -136,7 +117,7 @@ export const AuthContextProvider = ({
         refetchUser: setActiveUser,
         dispatch,
         logout,
-        loading,
+        loading: isPending,
       }}
     >
       {children}

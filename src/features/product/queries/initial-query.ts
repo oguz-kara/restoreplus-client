@@ -1,5 +1,6 @@
 export const initialQuery = {
-  include: {
+  select: {
+    name: true,
     featuredImage: true,
     translations: {
       include: {

@@ -11,7 +11,7 @@ export default async function MainBlogCard({
   data,
   lang,
 }: {
-  data: BlogPostWithOneTranslation
+  data: BlogPost
 } & PropsWithLang) {
   const {
     blog: { buttonText },
@@ -20,10 +20,10 @@ export default async function MainBlogCard({
     <Link href={`/blog/${data.id}/${data.translation.slug}`} lang={lang}>
       <div className="flex flex-col-reverse gap-5 lg:flex-row lg:justify-between lg:gap-10  py-10 border-b border-dashed border-gray-200">
         <div className="flex-[2]">
-          <Typography as="h3" className="mb-5 hover:text-primary">
+          <Typography as="h3" className="mb-5">
             {data.translation.title}
           </Typography>
-          <Typography as="p">{data.translation.excerpt}</Typography>
+          <Typography as="p">{data.translation.description}</Typography>
           <div>
             <Link
               lang={lang}

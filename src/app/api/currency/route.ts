@@ -1,20 +1,21 @@
-import { serverFetcher } from '@/lib/server-fetcher'
+import { sdk } from '@/restoreplus-sdk'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const GET = async (req: NextRequest, res: NextResponse) => {
+export const GET = async (req: NextRequest) => {
   try {
     const id = req.nextUrl.searchParams.get('id')
+    const lang = req.nextUrl.searchParams.get('lang')
 
     if (id) {
       if (Number.isNaN(id)) throw new Error('id bir numara olmalidir!')
-      const response = await serverFetcher(`/currencies/${id}`)
-      const { data: responseData } = response
-      return NextResponse.json(responseData, { status: 200 })
+      const currecy = await sdk.currencies.getById(Number(id))
+
+      return NextResponse.json(currecy, { status: 200 })
     }
 
-    const response = await serverFetcher('/currencies/all')
-    const { data: responseData } = response
-    return NextResponse.json(responseData, { status: 200 })
+    const currecies = await sdk.currencies.getAll({ lang, isAdmin: true })
+
+    return NextResponse.json(currecies, { status: 200 })
   } catch (err: any) {
     console.log(err)
     if (err.message)

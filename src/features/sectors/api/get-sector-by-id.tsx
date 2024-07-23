@@ -46,5 +46,5 @@ export async function getSectorById(id: string, locale: string = 'tr') {
       locale as Locale,
       data.applicationScopes
     ),
-  } as SectorWithTranslation
+  } as Sector
 }

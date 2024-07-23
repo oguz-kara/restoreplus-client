@@ -1,4 +1,5 @@
 import 'server-only'
+import { cookies } from 'next/headers'
 import serverConfig from '@/config/server-config.json'
 
 const remoteUrl = serverConfig.remoteUrl
@@ -23,12 +24,19 @@ export const serverFetcher = async (
     ['x-api-key-name']: xApiKeyName,
   }
 
+  const token = cookies().get('accessToken')?.value
+
   const res = await fetch(url, {
-    ...(fargs?.cache !== 'no-store' && {
-      next: { revalidate: 60 * 60 * 24 },
-    }),
+    // ...(fargs?.cache !== 'no-store' && {
+    //   next: { revalidate: 60 * 60 * 24 },
+    // }),
+    cache: 'no-store',
     ...fargs,
-    headers: { ...apiKeyCredentials, ...fargs?.headers },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      ...apiKeyCredentials,
+      ...fargs?.headers,
+    },
   })
   const data = await res.json()
   const headers = res.headers

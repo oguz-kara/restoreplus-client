@@ -3,6 +3,7 @@ import Logo from './logo'
 import Typography from '../ui/typography'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
+import Link from '../ui/link'
 
 interface InfoCardProps {
   data: {
@@ -10,11 +11,13 @@ interface InfoCardProps {
     text: string
     buttonText: string
   }
+  lang: string
 }
 
 export default function InfoCard({
   data,
   className,
+  lang,
 }: InfoCardProps & PropsWithClassName) {
   return (
     <div
@@ -30,7 +33,9 @@ export default function InfoCard({
       <Typography as="p" className="mb-5">
         {data.text}
       </Typography>
-      <Button className="w-full lg:w-auto">{data.buttonText}</Button>
+      <Link href="/register" lang={lang as any}>
+        <Button className="w-full lg:w-auto">{data.buttonText}</Button>
+      </Link>
     </div>
   )
 }

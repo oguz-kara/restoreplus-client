@@ -6,10 +6,14 @@ export default function Typography({
   className,
   children,
   style,
-}: TypographyProps & PropsWithClassName & PropsWithChildren & { style?: any }) {
+  dangerouslySetInnerHTML,
+}: TypographyProps &
+  PropsWithClassName &
+  PropsWithChildren & { style?: any; dangerouslySetInnerHTML?: any }) {
   if (as === 'h1')
     return (
       <h1
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
           'scroll-m-20 text-4xl font-extrabold tracking-tight',
@@ -23,6 +27,7 @@ export default function Typography({
   if (as === 'h2')
     return (
       <h2
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
           'scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0',
@@ -36,6 +41,7 @@ export default function Typography({
   if (as === 'h3')
     return (
       <h3
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
           'scroll-m-20 text-2xl font-semibold tracking-tight',
@@ -49,6 +55,7 @@ export default function Typography({
   if (as === 'h4')
     return (
       <h4
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
           'scroll-m-20 text-xl font-semibold tracking-tight',
@@ -62,6 +69,7 @@ export default function Typography({
   if (as === 'h5')
     return (
       <h5
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
           'scroll-m-20 text-lg font-extrabold tracking-tight',
@@ -75,6 +83,7 @@ export default function Typography({
   if (as === 'h6')
     return (
       <h6
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
           'scroll-m-20 text-md font-extrabold tracking-tight ',
@@ -87,7 +96,11 @@ export default function Typography({
 
   if (as === 'p')
     return (
-      <p style={style} className={cn('leading-7', className)}>
+      <p
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+        style={style}
+        className={cn('leading-7', className)}
+      >
         {children}
       </p>
     )
