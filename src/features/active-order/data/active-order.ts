@@ -1,5 +1,4 @@
 import { clientFetcher } from '@/lib/client-fetcher'
-import Cookies from 'js-cookie'
 
 export const getActiveOrderApi = async () => {
   const data = await clientFetcher('/active-order', {

@@ -34,7 +34,7 @@ export default function AddressList({
           {billingAddressText}
         </Typography>
         <AddressCard
-          data={user?.billingAddress as any}
+          addressData={user?.billingAddress as any}
           onClick={() => setSelectedAddress(user?.billingAddress as any)}
           selected={selectedAddress?.id === user?.billingAddress?.id}
         />

@@ -1,5 +1,6 @@
 import Container from '@/components/common/container'
 import MdxRenderer from '@/components/common/mdx-renderer'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 const termsText = `
 # Terms and Conditions
@@ -77,7 +78,9 @@ export default function Page() {
   return (
     <div className="py-10">
       <Container>
-        <MdxRenderer mdxText={termsText} />
+        <ScrollArea className="mx-5 h-screen">
+          <MdxRenderer mdxText={termsText} />
+        </ScrollArea>
       </Container>
     </div>
   )

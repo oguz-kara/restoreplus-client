@@ -10,7 +10,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer'
-import { useActiveOrder } from '../context/active-order-context'
 import { useDictionary } from '@/context/use-dictionary'
 import { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
@@ -21,6 +20,8 @@ import Link from '@/components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
 import { usePathname } from 'next/navigation'
+import { useActiveOrder } from '../context/use-active-order'
+import { useCart } from '../context/use-cart-view'
 
 export default function CartDrawer({ lang }: PropsWithLang) {
   const pathname = usePathname()
@@ -30,13 +31,9 @@ export default function CartDrawer({ lang }: PropsWithLang) {
     },
   } = useDictionary()
 
-  const {
-    activeOrder,
-    isOpen,
-    setOpen,
-    removeOrderLine,
-    updateOrderLineQuantity,
-  } = useActiveOrder()
+  const { isOpen, setOpen } = useCart()
+  const { activeOrder, removeOrderLineData, updateOrderLineQuantityData } =
+    useActiveOrder()
 
   React.useEffect(() => {
     if (isOpen) setOpen(false)
@@ -69,13 +66,8 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                         <div className="flex gap-5 mb-3">
                           <div className="flex-1">
                             <ServerImage
-                              src={
-                                line.productVariant.featuredImage?.path || '/'
-                              }
-                              alt={
-                                line.productVariant.featuredImage?.alt ||
-                                'image'
-                              }
+                              src={line.product.featuredImage?.path || '/'}
+                              alt={line.product.featuredImage?.alt || 'image'}
                               width={300}
                               height={300}
                               style={{
@@ -87,20 +79,20 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                           </div>
                           <div className="flex-[2]">
                             <Typography className="mb-2" as="h6">
-                              {`${line.productVariant.name} ${line.productVariant.value}`}
+                              {line.product.name}
                             </Typography>
                             <Typography className="text-xs mb-2">
-                              {line.productVariant.productType}
+                              {line.product.productType}
                             </Typography>
                             <Typography className="text-sm mb-2">
                               {`${line.quantity} x ${formatPrice(
-                                line.priceSummary.netPriceForSingleProduct || 0,
+                                line.price.value || 0,
                                 activeOrder.currencyCode || 'USD'
                               )}`}
                             </Typography>
                             <Typography className="text-sm font-semibold">
                               {`Toplam: ${formatPrice(
-                                line.priceSummary.netTotal || 0,
+                                line.price.value * line.quantity || 0,
                                 activeOrder.currencyCode || 'USD'
                               )}`}
                             </Typography>
@@ -111,7 +103,7 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                             <Button
                               className="flex-1"
                               onClick={async () =>
-                                await updateOrderLineQuantity({
+                                await updateOrderLineQuantityData?.mutate({
                                   lineId: line.id,
                                   quantity:
                                     line.quantity - 1 <= 1
@@ -127,7 +119,7 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                               className="flex-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none.currentTarget.value,e"
                               value={line.quantity}
                               onChange={async (e) =>
-                                await updateOrderLineQuantity({
+                                await updateOrderLineQuantityData?.mutate({
                                   lineId: line.id,
                                   quantity: Number.isNaN(
                                     Number(e.currentTarget.value)
@@ -140,14 +132,14 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                             <Button
                               className="flex-1"
                               onClick={async () =>
-                                await updateOrderLineQuantity({
+                                await updateOrderLineQuantityData?.mutate({
                                   lineId: line.id,
                                   quantity:
-                                    line.productVariant.stockQuantity -
+                                    line.product.stockQuantity -
                                       line.quantity +
                                       1 <=
                                     0
-                                      ? line.productVariant.stockQuantity
+                                      ? line.product.stockQuantity
                                       : line.quantity + 1,
                                 })
                               }
@@ -158,7 +150,11 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                           <div className="flex-1 text-right">
                             <Button
                               variant="ghost"
-                              onClick={async () => removeOrderLine(line.id)}
+                              onClick={async () =>
+                                await removeOrderLineData?.mutate({
+                                  lineId: line.id,
+                                })
+                              }
                             >
                               <Typography className="text-sm text-red-500 underline">
                                 {cart.actions.removeLine}
@@ -200,7 +196,7 @@ export default function CartDrawer({ lang }: PropsWithLang) {
               <Typography as="h4">
                 Genel toplam:{' '}
                 {formatPrice(
-                  activeOrder.orderPriceSummary?.netTotal || 0,
+                  activeOrder.priceSummary.netPrice || 0,
                   activeOrder.currencyCode || 'USD'
                 )}
               </Typography>

@@ -10,14 +10,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import Typography from '@/components/ui/typography'
-import {
-  Bolt,
-  Castle,
-  Loader,
-  Search,
-  SwatchBook,
-  Undo,
-} from 'lucide-react'
+import { Bolt, Castle, Loader, Search, SwatchBook, Undo } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDictionary } from '@/context/use-dictionary'
 import { useManageSearchParams } from '@/hooks/use-manage-search-params'

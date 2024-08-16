@@ -53,6 +53,9 @@
         "profile": {
           "profile": "Profile",
           "logout": "Logout"
+        },
+        "b2b": {
+          "partnerText": "Partner with us"
         }
       },
       "title": "Products"
@@ -833,5 +836,88 @@
     },
     "requestOfferText": "Request an offer",
     "emptyList": "No products"
+  },
+  "orderAddressPickers": {
+    "shippingAddress": {
+      "shippingAddressText": "Shipping address",
+      "newShippingAddressText": "Add new shipping address",
+      "sameWithShippingAddressText": "The billing address can be the same as the shipping address."
+    },
+    "billingAddress": {
+      "billingAddressText": "Billing address",
+      "newBillingAddressText": "Add new billing address"
+    }
+  },
+  "b2bRegisterPage": {
+    "formFields": {
+      "nameText": "Name",
+      "surnameText": "Surname",
+      "companyNameText": "Company name",
+      "cityText": "City",
+      "countryText": "Country",
+      "emailText": "Email",
+      "phoneNumberText": "Phone number",
+      "postalCodeText": "Postal code",
+      "passwordText": "Password",
+      "confirmPasswordText": "Confirm password"
+    },
+    "title": "Parner with us",
+    "description": "Register your company with us and get exclusive offers, integrated marketing and discounts.",
+    "submitButtonText": "Register for B2B",
+    "passwordNotMatchedErrorText": "Passwords are not match!"
+  },
+  "b2bRegisterRequestSuccessPage": {
+    "titleText": "Register request successfully sent.",
+    "descriptionText": "Check your e-mail to confirm your registration and result of your application.",
+    "gotoText": "Go to",
+    "homepageText": "Homepage"
+  },
+  "b2bCompleteRegistrationPage": {
+    "pageTitle": "Complete your registration",
+    "nextStepText": "Next step",
+    "previousStepText": "Previous step",
+    "completeText": "Complete",
+    "b2bRegistrationCompleted": {
+      "title": "Congratulations!",
+      "description": "Your B2B account has been successfully created. You now have full access to our business services. Explore your dashboard to get started.",
+      "gotoText": "Go to",
+      "homepageText": "Homepage"
+    },
+    "isSameWithShippingAddressText": "Billing address can be same with shipping address",
+    "step1": {
+      "title": "User information",
+      "formFields": {
+        "nameText": "Name",
+        "emailText": "Email",
+        "passwordText": "Password",
+        "confirmPasswordText": "Confirm password"
+      }
+    },
+    "step2": {
+      "title": "Company information",
+      "formFields": {
+        "nameText": "Company name",
+        "descriptionText": "Company description",
+        "websiteText": "Website",
+        "phoneNumberText": "Phone number",
+        "fixedLineText": "Fixed line",
+        "taxNumberText": "Tax number"
+      }
+    },
+    "step3": {
+      "title": "Address information",
+      "shippinAddressTitle": "Shipping address",
+      "billingAddressTitle": "Billing address",
+      "formFields": {
+        "titleText": "Address title",
+        "authorizedPersonText": "Authorized person",
+        "addressDescriptionText": "Address description",
+        "countryText": "Country",
+        "cityText": "City",
+        "districtText": "District",
+        "zipCodeText": "Postal code",
+        "stateText": "State"
+      }
+    }
   }
 }

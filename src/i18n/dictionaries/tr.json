@@ -51,6 +51,9 @@
         "profile": {
           "profile": "Profil",
           "logout": "Çıkış yap"
+        },
+        "b2b": {
+          "partnerText": "Bize katılın"
         }
       },
 
@@ -822,5 +825,35 @@
     },
     "requestOfferText": "Teklif iste",
     "emptyList": "Henüz ürün eklemediniz"
+  },
+  "orderAddressPickers": {
+    "shippingAddress": {
+      "shippingAddressText": "Teslimat adresi",
+      "newShippingAddressText": "Yeni teslimat adresi ekle",
+      "sameWithShippingAddressText": "Fatura adresi, teslimat adresi ile aynı olabilir."
+    },
+    "billingAddress": {
+      "billingAddressText": "Fatura adresi",
+      "newBillingAddressText": "Yeni fatura adresi ekle"
+    }
+  },
+  "b2bRegisterPage": {
+    "formFields": {
+      "nameText": "İsim",
+      "surnameText": "Soyisim",
+      "companyNameText": "Şirket Adı",
+      "cityText": "Şehir",
+      "countryText": "Ülke",
+      "emailText": "E-posta",
+      "phoneNumberText": "Telefon Numarası",
+      "postalCodeText": "Posta Kodu",
+      "passwordText": "Şifre",
+      "confirmPasswordText": "Şifreyi onayla"
+    },
+
+    "title": "Bizimle İş Ortağı Olun",
+    "description": "Şirketinizi kaydedin ve özel teklifler, entegre pazarlama ve indirimler kazanın.",
+    "submitButtonText": "B2B için kayıt ol",
+    "passwordNotMatchedErrorText": "Şifreler eşleşmiyor!"
   }
 }

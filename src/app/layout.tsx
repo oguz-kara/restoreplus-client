@@ -2,9 +2,10 @@ import { Toaster } from '@/components/ui/toaster'
 import NextTopLoader from 'nextjs-toploader'
 import { Inter } from 'next/font/google'
 import { AuthContextProvider } from '@/context/auth/auth-context'
-import { ActiveOrderContextProvider } from '@/features/active-order/context/active-order-context'
-import './globals.css'
 import ReactQueryProvider from '@/providers/react-query-provider'
+import './globals.css'
+import { CartContextProvider } from '@/features/active-order/context/use-cart-view'
+import { ActiveOrderContextProvider } from '@/features/active-order/context/use-active-order'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,7 +38,11 @@ export default function RootLayout({
         />
         <ReactQueryProvider>
           <AuthContextProvider>
-            <ActiveOrderContextProvider>{children}</ActiveOrderContextProvider>
+            <CartContextProvider>
+              <ActiveOrderContextProvider>
+                {children}
+              </ActiveOrderContextProvider>
+            </CartContextProvider>
           </AuthContextProvider>
         </ReactQueryProvider>
         <Toaster />

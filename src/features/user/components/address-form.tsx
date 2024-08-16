@@ -10,16 +10,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { toast } from '@/components/ui/use-toast'
 import { AddressFormData, AddressSchema } from '../schema/address.schema'
 import { useDictionary } from '@/context/use-dictionary'
 import { Input } from '@/components/ui/input'
-import { clientFetcher } from '@/lib/client-fetcher'
-import { useAuthenticatedUser } from '@/context/auth/auth-context'
+import { AddressInput, useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { AddressType } from './address-card'
-import { useMutation } from '@/hooks/use-mutation'
-import { useRouter } from 'next/navigation'
 
 const defaultValues: Partial<AddressFormData> = {
   title: '',
@@ -34,12 +30,11 @@ const defaultValues: Partial<AddressFormData> = {
 
 interface AddressFormProps {
   addressObj?: AddressType
+  type: 'billing' | 'shipping'
 }
 
-export function AddressForm({ addressObj }: AddressFormProps) {
-  const router = useRouter()
-  const { mutateAsync, isPending } = useMutation<any>()
-  const { refetchUser } = useAuthenticatedUser()
+export function AddressForm({ addressObj, type }: AddressFormProps) {
+  const { address } = useAuthenticatedUser()
   const {
     dictionary: {
       profile: {
@@ -55,9 +50,6 @@ export function AddressForm({ addressObj }: AddressFormProps) {
   })
 
   async function onSubmit(data: AddressFormData) {
-    const method = addressObj ? 'PUT' : 'POST'
-    // @ts-ignore
-    const idParam = addressObj ? `?id=${addressObj.id}` : ''
     const {
       authorizedPerson,
       city,
@@ -65,33 +57,28 @@ export function AddressForm({ addressObj }: AddressFormProps) {
       district,
       zipCode,
       state,
-      address,
+      address: addressText,
       title,
     } = data
 
-    const res = await mutateAsync({
-      path: `/active-user/address${idParam}`,
-      method,
-      body: {
-        authorizedPerson,
-        city,
-        country,
-        district,
-        zipCode,
-        state,
-        address,
-        title,
-      },
-    })
+    const inputData = {
+      authorizedPerson,
+      city,
+      country,
+      district,
+      zipCode,
+      state,
+      address: addressText,
+      title,
+    } as AddressInput
 
-    if (res.success) {
-      await refetchUser()
-      toast({
-        title: userInfo.title,
-        description: userInfo.description,
-      })
-      router.refresh()
-    }
+    console.log({ type })
+
+    const result = addressObj
+      ? await address?.shipping.set(inputData)
+      : await address?.shipping.create(inputData)
+
+    console.log({ result })
   }
 
   useEffect(() => {
@@ -210,7 +197,7 @@ export function AddressForm({ addressObj }: AddressFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" loading={isPending}>
+        <Button type="submit" loading={false}>
           {buttonText}
         </Button>
       </form>

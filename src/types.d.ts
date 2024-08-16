@@ -420,45 +420,6 @@ interface ActiveUser {
   billingAddress?: Address
 }
 
-interface CalculatedProduct {
-  id: number
-  featuredImage: Image
-  name: string
-  currencyCode: string
-  translation: {
-    slug: string
-    metaTitle: string
-    metaDescription: string
-    productType: string
-    description: string
-    equivalents?: string
-  }
-  reductionValue: number | null
-  variants: {
-    id: number
-    name: string
-    featuredImage: Image
-    translation: {
-      value: string
-    }
-    variant: {
-      id: number
-      translation: {
-        id: number
-        name: string
-      }
-    }
-    discount: {
-      reductionAmount: number
-    }
-    price: {
-      value: number
-      brutto: number
-      currencyCode: string
-    }
-  }[]
-}
-
 interface SectorDiscount {
   sectorName: string
   type: string

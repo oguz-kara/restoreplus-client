@@ -43,8 +43,7 @@ export default function RegisterForm({
     defaultValues,
   })
 
-  function onSubmit(values: RegisterFormDataType) {
-  }
+  function onSubmit(values: RegisterFormDataType) {}
 
   return (
     <div className="">
@@ -62,6 +61,7 @@ export default function RegisterForm({
                 <FormControl>
                   <Input
                     className="bg-transparent  py-7 rounded-sm"
+                    autoComplete="off"
                     {...field}
                   />
                 </FormControl>
@@ -110,6 +110,7 @@ export default function RegisterForm({
                 <FormControl>
                   <Input
                     type="password"
+                    autoComplete="off"
                     className="bg-transparent  py-7 rounded-sm"
                     {...field}
                   />

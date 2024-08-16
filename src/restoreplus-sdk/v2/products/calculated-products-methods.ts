@@ -2,11 +2,10 @@ import { cookies } from 'next/headers'
 import { Locale } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import { serverFetcher } from '@/lib/server-fetcher'
-import { getApiKey } from '@/utils/get-api-key'
+import { CalculatedProduct } from '@/features/product/types'
 
 export const getCalculatedProductsMethods = (entityUrl: string) => ({
-  getAllByQuery: async (
-    query: any,
+  getAll: async (
     metadata: Pagination & {
       lang?: string | undefined | null
       isAdmin?: boolean
@@ -21,18 +20,16 @@ export const getCalculatedProductsMethods = (entityUrl: string) => ({
         : ''
 
     const { data } = await serverFetcher(
-      `/v2/${entityUrl}/all?lang=${properLang}${paginationQuery}`,
+      `/v2/${entityUrl}?lang=${properLang}${paginationQuery}`,
       {
         headers: {
           'Content-Type': 'application/json',
           ...(authToken && { Authorization: `Bearer ${authToken}` }),
         },
-        body: JSON.stringify(query),
-        method: 'POST',
       }
     )
 
-    return data
+    return data as CalculatedProduct[] | null | undefined
   },
   searchCalculatedProducts: async (
     query: any,
@@ -62,6 +59,6 @@ export const getCalculatedProductsMethods = (entityUrl: string) => ({
       }
     )
 
-    return data
+    return data as CalculatedProduct[] | null | undefined
   },
 })

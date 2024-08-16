@@ -1,7 +1,3 @@
-import Logo from '@/components/common/logo'
-import Link from '@/components/ui/link'
-import Typography from '@/components/ui/typography'
-import RegisterForm from '@/features/auth/components/register-form'
 import RegisterPage from '@/features/auth/pages/register-page'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'

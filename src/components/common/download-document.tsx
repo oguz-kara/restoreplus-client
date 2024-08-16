@@ -1,19 +1,17 @@
 'use client'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { PropsWithLang } from '@/i18n/types'
-import { useRouter } from 'next/navigation'
 import { PropsWithChildren, useState } from 'react'
 import ShouldLoginModal from './should-login-modal'
-import { useDisclosure } from '@/hooks/use-disclosure'
+import { useActiveOrder } from '@/features/active-order/context/use-active-order'
 
 export default function DownloadDocument({
   children,
   filename,
-  lang,
 }: PropsWithChildren & { filename: string } & PropsWithLang) {
   const { user, loading } = useAuthenticatedUser()
   const [isOpen, setOpen] = useState<boolean>(false)
-  const router = useRouter()
+  const {} = useActiveOrder()
 
   const handleDownload = async (fileName: string) => {
     try {

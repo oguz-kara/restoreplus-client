@@ -125,6 +125,7 @@
   box-sizing: content-box;
   overflow: hidden;
   background: transparent;
+  color: red !important;
   border-bottom: 1px solid hsla(210, 18%, 87%, 1);
   height: 0.25em;
   padding: 0;
@@ -274,6 +275,7 @@
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
+  
   margin-top: 24px;
   margin-bottom: 16px;
   font-weight: 600;

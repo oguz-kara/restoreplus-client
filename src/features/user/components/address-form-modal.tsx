@@ -1,6 +1,4 @@
 'use client'
-
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -17,10 +15,12 @@ import { AddressType } from './address-card'
 
 interface AddressFormModalProps {
   address?: AddressType
+  type: 'billing' | 'shipping'
 }
 
 export function AddressFormModal({
   children,
+  type,
   address: companyAddress,
 }: PropsWithChildren & AddressFormModalProps) {
   const {
@@ -42,7 +42,7 @@ export function AddressFormModal({
         </DialogHeader>
         <ScrollArea className="max-h-[500px]">
           <div className="grid gap-4 p-4">
-            <AddressForm addressObj={companyAddress} />
+            <AddressForm addressObj={companyAddress} type={type} />
           </div>
         </ScrollArea>
       </DialogContent>

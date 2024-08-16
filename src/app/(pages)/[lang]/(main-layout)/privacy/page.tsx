@@ -1,5 +1,6 @@
 import Container from '@/components/common/container'
 import MdxRenderer from '@/components/common/mdx-renderer'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 const privacyText = `
 # Privacy Policy
@@ -170,7 +171,9 @@ export default function Page() {
   return (
     <div className="py-10">
       <Container>
-        <MdxRenderer mdxText={privacyText} />
+        <ScrollArea className="h-screen px-5">
+          <MdxRenderer mdxText={privacyText} />
+        </ScrollArea>
       </Container>
     </div>
   )

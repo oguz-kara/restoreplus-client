@@ -1,53 +1,64 @@
-export interface ProductVariant {
+interface Address {
   id: number
-  featuredImage: {
-    path: string
-    name: string
-    alt: string
-  } | null
-  productType: string
-  stockQuantity: number
-  name: string
-  value: string
-  price: {
-    amount: number
-    baseCurrency: string
-  }
+  title: string
+  city: string
+  country: string
+  district: string
+  state: string
+  address: string
+  authorizedPerson: string
 }
 
-export interface Line {
+interface FeaturedImage {
+  path: string
+  name: string
+  alt: string
+}
+
+interface Product {
+  name: string
+  variantId: number
+  productType: string
+  featuredImage: FeaturedImage
+  stockQuantity: number
+}
+
+interface Discount {
+  reductionAmount: number
+}
+
+interface Price {
+  value: number
+  brutto: number
+  vat: number
+  currencyCode: string
+}
+
+interface OrderLine {
   id: number
   quantity: number
-  priceSummary: {
-    totalPrice: number
-    totalTaxes: number
-    totalPriceWithTaxes: number
-    totalDiscount: number
-    netTotal: number
-    priceForSingleProduct: number
-    netPriceForSingleProduct: number
-  }
-  productVariant: ProductVariant
+  product: Product
+  discount: Discount
+  price: Price
 }
 
-export interface Order {
+interface PriceSummary {
+  totalPrice: number
+  totalDiscount: number
+  totalTaxes: number
+  netPrice: number
+}
+
+export interface ActiveOrder {
+  companyReduction: number
   id: number
   status: string
-  note: null | string
+  note: string | null
   currencyCode: string
-  totalDiscountPercentage: number | null
-  lines: Line[]
-  orders?: ActiveOrder[]
-  shippingAddress?: Address
-  orderPriceSummary?: {
-    totalPrice: number
-    totalPriceWithoutTaxes: number
-    totalPriceWithTaxes: number
-    totalDiscount: number
-    totalTaxes: number
-    netTotal: number
-  }
   orderCode: string
-  createdAt: Date
-  updatedAt: Date
+  orderCreationDate: string | null
+  shippingAddress: Address
+  billingAddress: Address | null
+  lines: OrderLine[]
+  priceSummary: PriceSummary
 }

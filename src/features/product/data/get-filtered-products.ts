@@ -62,40 +62,6 @@ export async function getFilteredCalculatedProducts({
   const currencyCode = cookies().get('currency')?.value || 'USD'
   const token = cookies().get('token')?.value
 
-  const query = {
-    where: {
-      ...(categoryIds &&
-        categoryIds.length > 0 && {
-          categories: {
-            some: {
-              id: {
-                in: categoryIds,
-              },
-            },
-          },
-        }),
-      ...(sectorIds &&
-        sectorIds.length > 0 && {
-          sectors: {
-            some: {
-              id: {
-                in: sectorIds,
-              },
-            },
-          },
-        }),
-    },
-
-    include: {
-      translations: {
-        include: {
-          locale: true,
-        },
-      },
-      featuredImage: true,
-    },
-  }
-
   const result = await serverFetcher(
     `/v2/calculated-products/search?lang=${lang}&currency=${currencyCode}`,
     {
@@ -104,7 +70,7 @@ export async function getFilteredCalculatedProducts({
         'Content-Type': 'application/json',
         ...(token && { Authorization: `Bearer ${token}` }),
       },
-      body: JSON.stringify(query),
+      body: JSON.stringify({}),
     }
   )
 

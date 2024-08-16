@@ -10,7 +10,8 @@ import { Locale } from '@/i18n/types'
 import { useDictionary } from '@/context/use-dictionary'
 import { useEffect, useState } from 'react'
 import { formatPrice } from '@/utils/format-price'
-import { useActiveOrder } from '@/features/active-order/context/active-order-context'
+import { CalculatedProduct } from '../types'
+import { useActiveOrder } from '@/features/active-order/context/use-active-order'
 
 export default function CalculatedProductForActiveUserCard({
   product,
@@ -24,46 +25,38 @@ export default function CalculatedProductForActiveUserCard({
 }) {
   const {
     dictionary: {
-      productFinder,
       createOrderPage,
       activeOrder: { cart },
       common,
     },
   } = useDictionary()
   const [selectedSize, setSelectedSize] = useState<number | null>(null)
-  const { activeOrder } = useActiveOrder()
-
-  const { adjustOrderLine, temporarilyOpen, adjustingOrderLine } =
-    useActiveOrder()
+  const { activeOrder, adjustOrderLineData } = useActiveOrder()
 
   const getSelectedVariant = (id: number | null) => {
     if (!id) return null
-    return product?.variants?.find((variant: any) => variant.id === id)
+    return product?.variants?.find((variant) => variant.id === id)
   }
 
   const handleAddToCartClick = async (e: any) => {
     e.stopPropagation()
     e.preventDefault()
-    await adjustOrderLine({
+    await adjustOrderLineData?.mutate({
       productVariantId: selectedSize as number,
       quantity: 1,
-      currencyCode: 'USD',
     })
-
-    temporarilyOpen(2000)
   }
 
   const isProductVariantAddedToCart = (variantId: number | undefined) => {
     if (!variantId) return false
     return activeOrder?.lines?.find(
-      (line) => line.productVariant.id === variantId
+      (line) => line?.product?.variantId === variantId
     )
   }
 
   const isAddedToCart = isProductVariantAddedToCart(selectedSize as number)
 
   useEffect(() => {
-    console.log({ product })
     if (product?.variants && product?.variants?.length > 0)
       setSelectedSize(product?.variants[0].id)
   }, [product])
@@ -161,11 +154,6 @@ export default function CalculatedProductForActiveUserCard({
           </CardContent>
         </div>
         <CardFooter className="relative flex items-end">
-          {term && product.translation?.equivalents?.includes(term) ? (
-            <Badge className="absolute top-[-5px] right-[-5px]">
-              <Typography>{productFinder.equivalent}</Typography>
-            </Badge>
-          ) : null}
           <div className="flex flex-row lg:flex-col gap-3 lg:gap-0">
             <div>
               <Link
@@ -179,7 +167,7 @@ export default function CalculatedProductForActiveUserCard({
             </div>
             <div>
               <Button
-                loading={adjustingOrderLine}
+                loading={adjustOrderLineData?.isPending}
                 className="flex-1 bg-green-600 text-white w-full"
                 onClick={handleAddToCartClick}
                 disabled={

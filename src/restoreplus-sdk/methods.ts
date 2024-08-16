@@ -5,6 +5,9 @@ import { getAuthMethods } from './v2/auth/methods'
 import { productCategoryExtensionMethods } from './v2/product-category/extension-methods'
 import { productMethods } from './v2/products/methods'
 import { getCalculatedProductsMethods } from './v2/products/calculated-products-methods'
+import { orderManagementMethods } from './v2/order-management/methods'
+import { activeUserMethods } from './v2/active-user/methods'
+import { b2bMethods } from './v2/b2b/methods'
 
 export const restorePlusSdk = {
   applicationScopes: getBaseMethods('application-scopes'),
@@ -26,4 +29,7 @@ export const restorePlusSdk = {
   variants: getBaseMethods('variants'),
   documents: getBaseMethods('documents'),
   auth: getAuthMethods(),
+  orderManagement: orderManagementMethods,
+  activeUser: activeUserMethods,
+  b2b: b2bMethods,
 }

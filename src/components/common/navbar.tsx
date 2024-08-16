@@ -20,6 +20,7 @@ import {
   ArrowRight,
   ChevronDown,
   ChevronRight,
+  PlusSquare,
   ShoppingCart,
   User,
 } from 'lucide-react'
@@ -33,9 +34,10 @@ import Image from '../ui/image'
 import { usePathname, useRouter } from 'next/navigation'
 import PickLocaleAndCurrencyMenu from '@/features/locale/components/pick-locale-and-currency-menu'
 import Typography from '../ui/typography'
-import { useActiveOrder } from '@/features/active-order/context/active-order-context'
 import { Badge } from '../ui/badge'
 import { useQuery } from '@/hooks/use-query'
+import { useActiveOrder } from '@/features/active-order/context/use-active-order'
+import { useCart } from '@/features/active-order/context/use-cart-view'
 
 export function NavigationBar({
   categoryData,
@@ -558,7 +560,8 @@ function RightNavigation() {
     },
     lang,
   } = useDictionary()
-  const { activeOrder, setOpen } = useActiveOrder()
+  const { activeOrder } = useActiveOrder()
+  const { isOpen, setOpen } = useCart()
 
   const handleLogoutButton = async () => {
     const res = await logout()
@@ -597,10 +600,14 @@ function RightNavigation() {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Button>
-                  <User className="mr-2" />
-                  <Link href={navItems.register.href} lang={lang}>
+                  <PlusSquare className="mr-2" />
+                  <Link
+                    href="/partner-register"
+                    lang={lang}
+                    className="hover:text-white font-semibold"
+                  >
                     <span className="text-sm pr-3">
-                      {navItems.register.title}
+                      {navItems.b2b.partnerText}
                     </span>
                   </Link>
                 </Button>

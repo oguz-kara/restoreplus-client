@@ -3,6 +3,7 @@ import { serverFetcher } from '@/lib/server-fetcher'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const GET = async (req: NextRequest) => {
+  // ! update to a never version later.
   try {
     const id = req.nextUrl.searchParams.get('id')
     const authTokenHeader = req.headers.get('authorization')

@@ -3,7 +3,6 @@ import { Locale } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { getApiKey } from '@/utils/get-api-key'
-import { consoleLog } from '@/utils/log-to-console'
 
 export const getBaseMethods = (entityUrl: string) => ({
   create: async <T>(
