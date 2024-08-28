@@ -20,8 +20,9 @@ import Typography from '@/components/ui/typography'
 import { useMutation } from '@/hooks/use-mutation'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Check } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PhoneInput } from '@/components/ui/phone-input'
+import { useAuthenticatedUser } from '@/context/auth/auth-context'
 
 interface RegisterFormProps {}
 
@@ -39,6 +40,7 @@ const defaultValues = {
 export default function B2BApplicationForm({
   lang,
 }: RegisterFormProps & PropsWithLang) {
+  const { user } = useAuthenticatedUser()
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
   const { mutateAsync, isPending } = useMutation()
   const {
@@ -71,6 +73,21 @@ export default function B2BApplicationForm({
       form.reset({})
     }
   }
+
+  useEffect(() => {
+    if (user) {
+      const initialValues = {
+        email: user.email,
+        firstName: user.name,
+        companyName: user.company?.name,
+        city: user.shippingAddress?.city,
+        country: user.shippingAddress?.country,
+        phoneNumber: user.company?.phoneNumber,
+        postalCode: user.shippingAddress?.postalCode as string | undefined,
+      }
+      form.reset(initialValues)
+    }
+  }, [user])
 
   return (
     <div>
@@ -190,14 +207,11 @@ export default function B2BApplicationForm({
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-start">
-                  <FormLabel className="text-left">
+                  <FormLabel className="text-left mb-2">
                     {formFields.phoneNumberText}
                   </FormLabel>
                   <FormControl className="w-full">
-                    <PhoneInput
-                      className="bg-transparent  py-7 rounded-sm"
-                      {...field}
-                    />
+                    <PhoneInput className="rounded-sm" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

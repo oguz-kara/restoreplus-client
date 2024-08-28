@@ -17,6 +17,10 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
+import { useAuthenticatedUser } from '@/context/auth/auth-context'
+import useMessages from '@/hooks/use-messages'
+import SecondaryMessage from '@/components/common/secondary-message'
+import { useEffect } from 'react'
 
 interface RegisterFormProps {}
 
@@ -31,6 +35,8 @@ const defaultValues = {
 export default function RegisterForm({
   lang,
 }: RegisterFormProps & PropsWithLang) {
+  const { showErrorMessage } = useMessages()
+  const { register } = useAuthenticatedUser()
   const {
     dictionary: {
       auth: {
@@ -43,10 +49,34 @@ export default function RegisterForm({
     defaultValues,
   })
 
-  function onSubmit(values: RegisterFormDataType) {}
+  const values = form.watch()
+
+  async function onSubmit(values: RegisterFormDataType) {
+    const { isError, isSuccess, registerUser } = register
+
+    const result = await registerUser(values)
+
+    console.log({ result })
+
+    if (isSuccess) form.reset({})
+
+    if (isError) showErrorMessage()
+  }
+
+  useEffect(() => {
+    console.log({ values })
+  }, [values])
 
   return (
     <div className="">
+      {register.isSuccess && (
+        <div className="pb-5">
+          <SecondaryMessage
+            title={page.success.title}
+            description={page.success.message}
+          />
+        </div>
+      )}
       <Form {...form}>
         <form
           className="flex flex-col gap-5"
@@ -142,7 +172,14 @@ export default function RegisterForm({
             render={({ field }) => (
               <FormItem className="flex items-center gap-2">
                 <FormControl className="mt-[8px]">
-                  <Checkbox {...field} />
+                  <Checkbox
+                    onCheckedChange={field.onChange}
+                    checked={field.value}
+                    onBlur={field.onBlur}
+                    disabled={field.disabled}
+                    ref={field.ref}
+                    name={field.name}
+                  />
                 </FormControl>
                 <FormLabel className="mt-0">
                   <Typography as="p" className="leading-6">
@@ -159,20 +196,31 @@ export default function RegisterForm({
             render={({ field }) => (
               <FormItem className="flex items-center gap-2">
                 <FormControl className="mt-[8px]">
-                  <Checkbox {...field} />
+                  <Checkbox
+                    onCheckedChange={field.onChange}
+                    checked={field.value}
+                    onBlur={field.onBlur}
+                    disabled={field.disabled}
+                    ref={field.ref}
+                    name={field.name}
+                  />
                 </FormControl>
                 <FormLabel className="mt-0">
                   <Typography as="p" className="leading-6">
                     <span>{page.checkboxes.reconciliations.text}</span>{' '}
                     <span className="text-blue-500 underline">
-                      <Link href="/terms-and-conditions" lang={lang}>
+                      <Link
+                        href="/terms-and-conditions"
+                        lang={lang}
+                        target="_blank"
+                      >
                         {page.checkboxes.reconciliations.termsAndConditions}{' '}
                         {` `}
                       </Link>
                     </span>
                     <span>and {` `} </span>
                     <span className="text-blue-500 underline">
-                      <Link href="/privacy-policy" lang={lang}>
+                      <Link href="/privacy" lang={lang} target="_blank">
                         {page.checkboxes.reconciliations.privacy}
                       </Link>
                     </span>
@@ -182,8 +230,12 @@ export default function RegisterForm({
               </FormItem>
             )}
           />
+
           <div className="mb-5">
-            <Button className="w-full py-7 rounded-sm text-lg">
+            <Button
+              loading={register.isPending}
+              className="w-full py-7 rounded-sm text-lg"
+            >
               {page.buttonText}
             </Button>
           </div>

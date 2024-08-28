@@ -1,5 +1,9 @@
 {
   "common": {
+    "goTo": "go to",
+    "anyText": "any",
+    "homepage": "homepage",
+    "loginPageText": "login page",
     "contactUs": "Contact us",
     "noDataFound": "No results.",
     "registerEmail": "Register for industry news",
@@ -90,14 +94,11 @@
     "login": {
       "text": "Log In",
       "link": "/login",
-      "page": {
+      "form": {
         "title": "Log In",
         "text": "Sign in to your account",
-        "signUp": {
-          "text": "Sign Up",
-          "href": "/register",
-          "linkText": "Don't have an account yet? Sign up"
-        },
+        "forgotPasswordText": "Forgot Password?",
+        "dontHaveAccountText": "Don't have an account?",
         "fields": {
           "email": "Email Address",
           "password": "Password"
@@ -131,7 +132,11 @@
             "privacy": "Privacy Policy"
           }
         },
-        "buttonText": "Register"
+        "buttonText": "Register",
+        "success": {
+          "title": "Registration successful.",
+          "message": "Registration successful! Please check your email to activate your account. Once activated, you can log in and start using our services."
+        }
       }
     }
   },
@@ -574,7 +579,8 @@
       "buttonText": "Save address",
       "billingAddressText": "Billing address",
       "shippingAddressText": "Shipping address",
-      "newAddressButton": "Add new billing address",
+      "newBillingAddressText": "Add new billing address",
+      "newShippingAddressText": "Add new shipping address",
       "addressForm": {
         "address": {
           "title": "Add new address",
@@ -629,11 +635,13 @@
       },
       {
         "title": "Create order",
-        "href": "/create-order"
+        "href": "/create-order",
+        "forB2B": true
       },
       {
         "title": "Orders",
-        "href": "/profile/orders"
+        "href": "/profile/orders",
+        "forB2B": true
       }
     ],
     "products": {
@@ -645,7 +653,9 @@
   "toastMessages": {
     "userInfo": {
       "title": "Updated successfully!",
-      "description": "User information updated successfully!"
+      "description": "User information updated successfully!",
+      "errorText": "Failed to update user information",
+      "errorDescription": "Please make sure your fields are correct!"
     }
   },
   "search": {
@@ -919,5 +929,38 @@
         "stateText": "State"
       }
     }
+  },
+  "zodMessages": {
+    "invalid_type_string": "Invalid data type. String expected.",
+    "invalid_type": "Invalid data type.",
+    "unrecognized_keys": "Unrecognized fields found.",
+    "invalid_union": "Invalid union type.",
+    "invalid_enum_value": "Invalid value.",
+    "invalid_arguments": "Invalid arguments.",
+    "invalid_return_type": "Invalid return type.",
+    "invalid_date": "Invalid date.",
+    "invalid_string_email": "Invalid email address.",
+    "invalid_string_url": "Invalid URL.",
+    "invalid_string_uuid": "Invalid UUID.",
+    "invalid_string": "Invalid string.",
+    "too_small_required": "Required field.",
+    "too_small_string_2": "Must be at least two characters.",
+    "too_small_string": "Must be at least {minimum} characters.",
+    "too_small_number_inclusive": "Value must be at least {minimum}.",
+    "too_small_number": "Value must be greater than {minimum}.",
+    "too_small": "Value is too small.",
+    "too_big_string_1": "Must be at most one character.",
+    "too_big_string_2": "Must be at most two characters.",
+    "too_big_string": "Must be at most {maximum} characters.",
+    "too_big_number_inclusive": "Value must be at most {maximum}.",
+    "too_big_number": "Value must be less than {maximum}.",
+    "too_big": "Value is too big.",
+    "not_multiple_of": "Value must be a multiple of {multipleOf}.",
+    "custom_rule": "Does not meet the custom rule.",
+    "default_error": "Invalid input."
+  },
+  "emailVerificationSuccessfullPage": {
+    "titleText": "Email verified successfully!",
+    "descriptionText": "Your email has been successfully verified! Your account is now active, and you can start exploring all the features available to you. Thank you for confirming your email address. Click below to log in and begin using our services."
   }
 }

@@ -37,12 +37,14 @@ export const productCategoryExtensionMethods = {
     applicationScopeId,
     term,
     lang,
+    facetValueIds,
   }: {
     sectorId?: number
     categoryId?: number
     applicationScopeId?: number
     term?: string
     lang: Locale
+    facetValueIds?: number[]
   }) => {
     const { data } = await serverFetcher(
       `/v2/products/categories/count?lang=${lang}`,
@@ -53,6 +55,7 @@ export const productCategoryExtensionMethods = {
           categoryId,
           applicationScopeId,
           term,
+          facetValueIds,
         }),
         headers: {
           'Content-Type': 'application/json',

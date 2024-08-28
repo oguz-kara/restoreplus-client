@@ -9,6 +9,7 @@ interface ProductFinderSearchParams {
     sectorId?: string
     applicationScopeId?: string
     term?: string
+    facetValues?: string
   }
 }
 
@@ -23,5 +24,13 @@ export default function Page({
   params: { lang },
   searchParams,
 }: SearchParamsWithPagination & ParamsWithLang & ProductFinderSearchParams) {
-  return <ProductFinderPageV2 lang={lang} {...searchParams} />
+  const { facetValues, ...restSearchParams } = searchParams
+  const facetValueIds = facetValues?.split('-').map((item) => Number(item))
+  return (
+    <ProductFinderPageV2
+      lang={lang}
+      {...restSearchParams}
+      facetValueIds={facetValueIds}
+    />
+  )
 }

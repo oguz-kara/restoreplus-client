@@ -21,6 +21,7 @@ interface ProductFinderPageProps extends Pagination, PropsWithLang {
   categoryId?: string
   sectorId?: string
   applicationScopeId?: string
+  facetValueIds: number[] | undefined
 }
 
 export default async function ProductFinderPageV2({
@@ -29,6 +30,7 @@ export default async function ProductFinderPageV2({
   sectorId,
   applicationScopeId,
   term,
+  facetValueIds,
 }: ProductFinderPageProps) {
   const properLang = getProperLanguage(lang)
   const { common, productFinder } = await getDictionary(properLang as Locale)
@@ -50,9 +52,12 @@ export default async function ProductFinderPageV2({
       ...(applicationScopeId && {
         applicationScopeId: Number(applicationScopeId),
       }),
+      ...(facetValueIds && facetValueIds.length > 0 && { facetValueIds }),
       term,
       lang: properLang as Locale,
     })
+
+  const { data: facetData } = await sdk.facets.getAll({ lang })
 
   return (
     <Container>
@@ -73,6 +78,7 @@ export default async function ProductFinderPageV2({
                 <ProductFinderFiltersV2
                   categoryData={categoryData}
                   sectorData={sectorData}
+                  facetData={facetData}
                 />
               </AccordionContent>
             </AccordionItem>
@@ -82,6 +88,7 @@ export default async function ProductFinderPageV2({
           <ProductFinderFiltersV2
             categoryData={categoryData}
             sectorData={sectorData}
+            facetData={facetData}
           />
         </div>
         <div className="flex-[3] px-5 py-10 pt-5 bg-gray-100">

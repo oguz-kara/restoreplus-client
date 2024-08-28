@@ -1,8 +1,7 @@
 'use client'
-
+import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -18,19 +17,19 @@ import { toast } from '@/components/ui/use-toast'
 import { CompanyFormData, CompanySchema } from '../schema/company.schema'
 import { useDictionary } from '@/context/use-dictionary'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
-import { useEffect } from 'react'
 import { Textarea } from '@/components/ui/textarea'
-import { useMutation } from '@/hooks/use-mutation'
+import { Loader } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
-// This can come from your database or API.
-const defaultValues: Partial<CompanyFormData> = {
-  // name: "Your name",
-  // dob: new Date("2023-01-23"),
-}
+const defaultValues: Partial<CompanyFormData> = {}
 
-export function CompanyForm() {
-  const { mutateAsync, isPending } = useMutation<any>()
-  const { user } = useAuthenticatedUser()
+export function CompanyForm({
+  initialUserCompanyInfo,
+}: {
+  initialUserCompanyInfo: CompanyFormData | null
+}) {
+  const router = useRouter()
+  const { user, company } = useAuthenticatedUser()
   const {
     dictionary: {
       profile: {
@@ -47,31 +46,37 @@ export function CompanyForm() {
   async function onSubmit(data: CompanyFormData) {
     const { description, name, phoneNumber, website } = data
 
-    const url = user?.company?.id
-      ? `/active-user/company/?id=${user?.company?.id}`
-      : '/active-user/company'
-
-    const res = await mutateAsync({
-      path: url,
-      body: {
-        name,
-        description,
-        phoneNumber,
-        website,
-      },
-      method: 'POST',
+    const result = await company?.set({
+      name,
+      description,
+      phoneNumber,
+      website,
     })
 
-    if (res.success)
+    if (!result || result.message)
+      toast({
+        title: userInfo.errorText,
+        description: userInfo.errorDescription,
+      })
+    else
       toast({
         title: userInfo.title,
         description: userInfo.description,
       })
+
+    router.refresh()
   }
 
   useEffect(() => {
-    if (user) form.reset(user.company)
-  }, [user, form])
+    if (initialUserCompanyInfo) form.reset(initialUserCompanyInfo)
+  }, [initialUserCompanyInfo, form])
+
+  if (company?.isPending)
+    return (
+      <div>
+        <Loader className="animate-spin" />
+      </div>
+    )
 
   return (
     <Form {...form}>
@@ -147,7 +152,7 @@ export function CompanyForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" loading={isPending}>
+        <Button type="submit" loading={company?.isPending}>
           {buttonText}
         </Button>
       </form>

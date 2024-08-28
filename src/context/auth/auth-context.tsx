@@ -5,12 +5,12 @@ import {
   useContext,
   useEffect,
   useReducer,
-  useState,
 } from 'react'
 import { AuthReducer, AuthAction } from './auth-reducer'
-import { getActiveUser } from '@/features/auth/api/active-user'
 import { useMutation } from '@/hooks/use-mutation'
 import useMessages from '@/hooks/use-messages'
+import { RegisterFormDataType } from '@/features/auth/schema/register.schema'
+import { useRouter } from 'next/navigation'
 
 export type LoginValues = {
   email: string
@@ -40,13 +40,25 @@ export type AddressInput = {
 
 export interface AuthState {
   user: ActiveUser | null | undefined
-  login: ({
-    identifier,
-    pwd,
-  }: {
-    identifier: string
-    pwd: string
-  }) => Promise<boolean>
+  login: {
+    loginUser: ({
+      identifier,
+      pwd,
+    }: {
+      identifier: string
+      pwd: string
+    }) => Promise<boolean>
+    isPending: boolean
+    isSuccess: boolean
+    error: any
+    isError: boolean
+  }
+  register: {
+    registerUser: (userInfo: RegisterFormDataType) => Promise<any>
+    isPending: boolean
+    isSuccess: boolean
+    isError: boolean
+  }
   logout: () => Promise<any>
   loading: boolean
   error?: Error
@@ -77,8 +89,20 @@ export interface AuthState {
 const INITIAL_STATE: AuthState = {
   user: undefined,
   loading: false,
-  login: () => Promise.reject(),
+  login: {
+    loginUser: () => Promise.reject(),
+    isSuccess: false,
+    isPending: false,
+    isError: false,
+    error: null,
+  },
   logout: () => Promise.reject(),
+  register: {
+    registerUser: () => Promise.reject(),
+    isError: false,
+    isPending: false,
+    isSuccess: false,
+  },
   refetchUser: () => Promise.reject(),
   dispatch: () => console.error('auth dispatch is empty'),
 }
@@ -95,15 +119,36 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const router = useRouter()
   const { showErrorMessage, showSuccessMessage } = useMessages()
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
-  const { data, mutateAsync, isPending, error, isError, isSuccess } =
-    useMutation<{
-      accessToken?: string
-      email: string
-      name: string | null
-      role: string
-    } | null>()
+  const {
+    data: activeUserData,
+    mutateAsync: activeUserMutation,
+    isPending: isActiveUserPending,
+    isSuccess: isActiveUserSuccess,
+    isError: isActiveUserError,
+  } = useMutation()
+  const {
+    mutateAsync: registerMutation,
+    isPending: isRegisterPending,
+    isSuccess: isRegisterSuccess,
+    isError: isRegisterError,
+  } = useMutation()
+  const {
+    data,
+    mutateAsync,
+    isPending,
+    error,
+    isError,
+    isSuccess,
+    failureReason,
+  } = useMutation<{
+    accessToken?: string
+    email: string
+    name: string | null
+    role: string
+  } | null>()
   const {
     mutateAsync: shippingAddressMutate,
     isPending: isShippingAddressPending,
@@ -117,10 +162,25 @@ export const AuthContextProvider = ({
   const { mutateAsync: companyMutate, isPending: isCompanyPending } =
     useMutation<any>()
 
+  const getActiveUser = async () => {
+    const activeUser: any = await activeUserMutation({
+      method: 'GET',
+      path: '/active-user',
+    })
+
+    if (!activeUser || activeUser.message) return false
+
+    return activeUser
+  }
+
   const setActiveUser = async () => {
-    const activeUser = await getActiveUser()
-    if (activeUser && !activeUser?.message)
-      if (activeUser) dispatch({ type: 'SET_USER', payload: activeUser })
+    try {
+      const activeUser = await getActiveUser()
+      if (activeUser && !activeUser?.message)
+        if (activeUser) dispatch({ type: 'SET_USER', payload: activeUser })
+    } catch (err: any) {
+      console.log({ errorWhenSetActiveUser: err })
+    }
   }
 
   const login = async ({ identifier, pwd }: LoginParams) => {
@@ -132,7 +192,7 @@ export const AuthContextProvider = ({
 
     if (data?.accessToken) {
       setActiveUser()
-
+      location.reload()
       return true
     }
 
@@ -140,9 +200,23 @@ export const AuthContextProvider = ({
   }
 
   const logout = async () => {
-    return await mutateAsync({
+    const result = await mutateAsync({
       path: '/auth/logout',
       method: 'GET',
+    })
+
+    if (result) {
+      location.reload()
+    }
+
+    return result
+  }
+
+  const registerUser = async (userInfo: RegisterFormDataType) => {
+    return await registerMutation({
+      path: '/auth/register',
+      body: userInfo,
+      method: 'POST',
     })
   }
 
@@ -174,7 +248,7 @@ export const AuthContextProvider = ({
 
   const createBillingAddress = async (address: AddressInput) => {
     const activeUser = await billingAddressMutate({
-      path: '/active-user/address/shipping',
+      path: '/active-user/address/billing',
       body: address,
       method: 'POST',
     })
@@ -187,7 +261,7 @@ export const AuthContextProvider = ({
 
   const setBillingAddress = async (address: Partial<AddressInput>) => {
     const activeUser = await billingAddressMutate({
-      path: '/active-user/address/shipping',
+      path: '/active-user/address/billing',
       body: address,
       method: 'PUT',
     })
@@ -199,8 +273,8 @@ export const AuthContextProvider = ({
   }
 
   const setUserInfo = async (userInfo: { name: string }) => {
-    const activeUser = await billingAddressMutate({
-      path: '/active-user/address/shipping',
+    const activeUser = await userInfoMutate({
+      path: '/active-user',
       body: userInfo,
       method: 'PUT',
     })
@@ -212,8 +286,8 @@ export const AuthContextProvider = ({
   }
 
   const setUserCompany = async (companyInfo: Partial<CompanyInput>) => {
-    const activeUser = await billingAddressMutate({
-      path: '/active-user/address/shipping',
+    const activeUser = await companyMutate({
+      path: '/active-user/company',
       body: companyInfo,
       method: 'PUT',
     })
@@ -230,7 +304,6 @@ export const AuthContextProvider = ({
 
   useEffect(() => {
     if (isError) {
-      console.log({ error })
       showErrorMessage(error.message)
       return
     }
@@ -245,10 +318,22 @@ export const AuthContextProvider = ({
     <AuthContext.Provider
       value={{
         ...state,
-        login,
+        login: {
+          loginUser: login,
+          isPending: isPending,
+          isSuccess,
+          isError,
+          error,
+        },
         refetchUser: setActiveUser,
         dispatch,
         logout,
+        register: {
+          registerUser,
+          isPending: isRegisterPending,
+          isSuccess: isRegisterSuccess,
+          isError: isRegisterError,
+        },
         loading: isPending,
         address: {
           shipping: {

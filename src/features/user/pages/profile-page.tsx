@@ -1,15 +1,22 @@
-'use client'
-
 import { Separator } from '@/components/ui/separator'
 import { ProfileForm } from '../components/profile-form'
 import { useDictionary } from '@/context/use-dictionary'
+import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
+import { getDictionary } from '@/i18n/get-dictionary'
+import { Locale } from '@/i18n/types'
 
-export default function ProfilePage() {
+export default async function ProfilePage({ lang }: { lang: Locale }) {
   const {
-    dictionary: {
-      profile: { account },
-    },
-  } = useDictionary()
+    profile: { account },
+  } = await getDictionary(lang)
+
+  const user = await getServerSideActiveUser()
+
+  const profileData = {
+    name: user?.name,
+    email: user?.email,
+    password: '',
+  }
 
   return (
     <div className="space-y-6">
@@ -18,7 +25,7 @@ export default function ProfilePage() {
         <p className="text-sm text-muted-foreground">{account.description}</p>
       </div>
       <Separator />
-      <ProfileForm />
+      <ProfileForm initialProfileFormData={profileData} />
     </div>
   )
 }

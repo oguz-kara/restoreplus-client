@@ -48,6 +48,11 @@ export default function ListCategoryProductAccordionItem({
   const searchParams = useSearchParams()
 
   const getProductsByFields = async (categoryId: number) => {
+    const facetValues = searchParams.get('facetValues')
+    const facetValueIds =
+      facetValues && facetValues.length > 0
+        ? facetValues?.split('-').map((item) => Number(item))
+        : undefined
     const data = await mutateAsync({
       path: `/product/by-fields?lang=${lang}`,
       body: {
@@ -56,6 +61,7 @@ export default function ListCategoryProductAccordionItem({
         applicationScopeId:
           filters?.applicationScopeId && Number(filters?.applicationScopeId),
         term: searchParams.get('term'),
+        facetValueIds,
       },
       method: 'POST',
     })

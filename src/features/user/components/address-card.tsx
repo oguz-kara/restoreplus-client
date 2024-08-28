@@ -19,10 +19,14 @@ export interface AddressType {
 
 interface AddressCardProps {
   addressData: AddressType
+  className?: string
+  type?: 'billing' | 'shipping'
 }
 
 export default function AddressCard({
   addressData,
+  className,
+  type = 'shipping',
   ...rest
 }: AddressCardProps & { onClick?: () => void; selected?: boolean }) {
   const {
@@ -32,7 +36,10 @@ export default function AddressCard({
   } = useDictionary()
 
   return (
-    <Card className={cn('p-0 max-w-[300px] rounded-sm relative')} {...rest}>
+    <Card
+      className={cn('p-0 max-w-[300px] rounded-sm relative', className)}
+      {...rest}
+    >
       {/* overlay */}
       <Typography
         as="h5"
@@ -52,7 +59,7 @@ export default function AddressCard({
       </div>
       {/* actions */}
       <div className="flex justify-between items-center p-4">
-        <AddressFormModal address={addressData}>
+        <AddressFormModal type={type} address={addressData}>
           <Button
             variant="outline"
             className="border-primary text-primary hover:bg-primary hover:text-black"

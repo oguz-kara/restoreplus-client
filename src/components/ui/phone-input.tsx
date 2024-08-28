@@ -63,12 +63,13 @@ PhoneInput.displayName = 'PhoneInput'
 const InputComponent = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => (
     <Input
-      className={cn('rounded-e-lg rounded-s-none', className)}
+      className={cn('rounded-e-lg rounded-s-none p-7 rounded-r-sm', className)}
       {...props}
       ref={ref}
     />
   )
 )
+
 InputComponent.displayName = 'InputComponent'
 
 type CountrySelectOption = { label: string; value: RPNInput.Country }
@@ -99,7 +100,9 @@ const CountrySelect = ({
         <Button
           type="button"
           variant={'outline'}
-          className={cn('flex gap-1 rounded-e-none rounded-s-lg px-3')}
+          className={cn(
+            'flex gap-1 rounded-e-none rounded-s-lg px-3 p-7 !rounded-l-sm'
+          )}
           disabled={disabled}
         >
           <FlagComponent country={value} countryName={value} />

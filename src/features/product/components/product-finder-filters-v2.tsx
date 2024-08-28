@@ -21,6 +21,7 @@ import { useMutation } from '@/hooks/use-mutation'
 interface ProductFinderFiltersProps {
   categoryData: ProductCategory[]
   sectorData: Sector[]
+  facetData: Facet[]
 }
 
 interface CategoryStateType {
@@ -32,6 +33,7 @@ interface CategoryStateType {
 export default function ProductFinderFiltersV2({
   categoryData,
   sectorData,
+  facetData,
 }: ProductFinderFiltersProps) {
   const { mutateAsync: mutateAsyncCategory, isPending: categoryIsPending } =
     useMutation<ProductCategory[] | undefined | null>()
@@ -60,6 +62,10 @@ export default function ProductFinderFiltersV2({
     applicationScopeId: string | undefined
     applicationScopes: ApplicationScope[] | null
   }>({ sectorId: '', applicationScopes: null, applicationScopeId: '' })
+
+  const [selectedFacetValues, setSelectedFacetValues] = useState<
+    { facetId: number; id: string }[]
+  >([])
 
   const handleCategoryChange = async (val: string, i: number) => {
     setSearchParam({ name: 'categoryId', value: val.toString() })
@@ -128,6 +134,7 @@ export default function ProductFinderFiltersV2({
   }
 
   const resetData = () => {
+    setSelectedFacetValues([])
     setListCategoryData([
       {
         id: 1,
@@ -142,17 +149,46 @@ export default function ProductFinderFiltersV2({
         applicationScopes: null,
       },
     })
-
     setQ('')
-
     deleteSearchParam({
-      name: ['categoryId', 'sectorId', 'applicationScopeId', 'term'],
+      name: [
+        'facetValues',
+        'categoryId',
+        'sectorId',
+        'applicationScopeId',
+        'term',
+      ],
+    })
+  }
+
+  const handleFacetValueChange = (val: string, facetId: number) => {
+    setSelectedFacetValues((prev) => {
+      const hasValue = prev.find((v) => v.facetId === facetId)
+
+      if (hasValue)
+        return prev.map((v) =>
+          v.facetId === facetId ? { facetId, id: val.toString() } : v
+        )
+      else return [...prev, { facetId, id: val.toString() }]
     })
   }
 
   useEffect(() => {
     setSearchParam({ name: 'term', value: q })
   }, [q])
+
+  useEffect(() => {
+    console.log({ selectedFacetValues })
+  }, [selectedFacetValues])
+
+  useEffect(() => {
+    if (selectedFacetValues && selectedFacetValues.length > 0) {
+      setSearchParam({
+        name: 'facetValues',
+        value: selectedFacetValues.map((item) => item.id).join('-'),
+      })
+    }
+  }, [selectedFacetValues])
 
   return (
     <div className="px-5 py-10 border border-gray-200 flex-1">
@@ -282,7 +318,7 @@ export default function ProductFinderFiltersV2({
             </div>
           )}
         </div>
-        <div>
+        <div className="mb-10">
           <Typography className="font-semibold text-sm mb-1">
             {productFinder.sectors}
           </Typography>
@@ -371,6 +407,52 @@ export default function ProductFinderFiltersV2({
             </div>
           </div>
         </div>
+        <div className="bg-gray-200 h-[1px] my-5 border-solid"></div>
+        {facetData.map((item, i) => (
+          <div key={i} className="pb-5">
+            <Typography className="font-semibold text-sm capitalize mb-1">
+              {item.translation.name}
+            </Typography>
+            <div>
+              <Select
+                onValueChange={(val) => handleFacetValueChange(val, item.id)}
+                value={
+                  selectedFacetValues.find(({ facetId }) => facetId === item.id)
+                    ?.id
+                }
+              >
+                <SelectTrigger className={cn('w-full gap-3 py-7 rounded-lg')}>
+                  <div className="flex items-center gap-1">
+                    {sectorIsPending ? (
+                      <Loader
+                        color="rgba(218,218,218,1)"
+                        className="animate-spin"
+                      />
+                    ) : null}
+                    <SelectValue
+                      placeholder={
+                        <Typography className="text-[16px] text-gray-400 capitalize">
+                          {common.anyText}
+                        </Typography>
+                      }
+                    />
+                  </div>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {item.values?.map((facetValue, i) => (
+                      <SelectItem key={i} value={`${facetValue.id}`}>
+                        <Typography className="text-[16px] text-gray-600 py-2 px-5 capitalize">
+                          {facetValue?.translation?.name}
+                        </Typography>
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )

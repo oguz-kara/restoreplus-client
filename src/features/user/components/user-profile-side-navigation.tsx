@@ -12,6 +12,7 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
     href: string
     title: string
     icon: any
+    forB2B?: boolean
   }[]
   lang: Locale
 }
@@ -23,6 +24,7 @@ export default function UserProfileSideNavigation({
   ...props
 }: SidebarNavProps) {
   const pathname = usePathname()
+
   return (
     <ScrollArea className="max-w-sm md:max-w-initial whitespace-nowrap">
       <nav

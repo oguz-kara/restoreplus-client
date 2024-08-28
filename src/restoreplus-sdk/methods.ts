@@ -32,4 +32,5 @@ export const restorePlusSdk = {
   orderManagement: orderManagementMethods,
   activeUser: activeUserMethods,
   b2b: b2bMethods,
+  facets: getBaseMethods('facets'),
 }

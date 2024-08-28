@@ -1,4 +1,6 @@
 import Container from '@/components/common/container'
+import { Button } from '@/components/ui/button'
+import Link from '@/components/ui/link'
 import { Separator } from '@/components/ui/separator'
 import UserProfileSideNavigation from '@/features/user/components/user-profile-side-navigation'
 import { getDictionary } from '@/i18n/get-dictionary'
@@ -35,24 +37,41 @@ export default async function UserProfileLayout({
   params: { lang },
 }: SettingsLayoutProps & ParamsWithLang) {
   const user = await getServerSideActiveUser()
-  console.log({ user })
   const {
+    layout: {
+      navigation: {
+        navItems: { b2b },
+      },
+    },
     profile: { sideNavigationItems, header },
   } = await getDictionary(lang)
 
-  const sideItems = sideNavigationItems.map((item, i) => ({
-    ...item,
-    icon: icons[i],
-  }))
+  const sideItems = sideNavigationItems
+    .map((item, i) => ({
+      ...item,
+      icon: icons[i],
+    }))
+    .filter((item) =>
+      item.forB2B ? (user?.company?.b2bCustomer ? true : false) : true
+    )
 
   return (
     <Container>
       <div className="space-y-6 p-10 pb-16">
-        <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">
-            {header.title}, {user?.name}
-          </h2>
-          <p className="text-muted-foreground">{header.description}</p>
+        <div className="flex justify-between">
+          <div className="space-y-0.5">
+            <h2 className="text-2xl font-bold tracking-tight">
+              {header.title}, {user?.name}
+            </h2>
+            <p className="text-muted-foreground">{header.description}</p>
+          </div>
+          {!user?.company?.b2bCustomer && (
+            <div>
+              <Link href="/partner-register" lang={lang}>
+                <Button>{b2b.partnerText}</Button>
+              </Link>
+            </div>
+          )}
         </div>
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0 ">

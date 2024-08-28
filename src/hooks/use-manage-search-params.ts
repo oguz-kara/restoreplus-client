@@ -36,7 +36,6 @@ export const useManageSearchParams = () => {
 
   const deleteSearchParam = ({ name }: { name: string | string[] }) => {
     if (Array.isArray(name)) {
-      // @ts-ignore
       const current = new URLSearchParams(Array.from(searchParams.entries()))
 
       name.forEach((name) => {
@@ -45,14 +44,17 @@ export const useManageSearchParams = () => {
 
       const search = current.toString()
 
+      console.log({ after: search })
+
       const searchparam = search ? `?${search}` : ''
 
-      router.push(pathname + searchparam)
+      const u = pathname + searchparam
+
+      router.push(u)
 
       return
     }
 
-    // @ts-ignore
     const current = new URLSearchParams(Array.from(searchParams.entries()))
 
     current.delete(name)
@@ -63,6 +65,8 @@ export const useManageSearchParams = () => {
 
     router.push(pathname + searchparam)
   }
+
+
 
   return { setSearchParam, deleteSearchParam, searchParams }
 }

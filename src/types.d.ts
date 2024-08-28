@@ -405,6 +405,7 @@ interface Company {
   website?: string
   phoneNumber?: string
   addressList: Address[]
+  b2bCustomer?: boolean
   user: User[]
   createdAt: Date
   updatedAt: Date
@@ -643,4 +644,37 @@ interface ActiveOrder {
   orderCode: string
   createdAt: Date
   updatedAt: Date
+}
+
+interface Facet {
+  id: number
+  code: string
+  color: string
+  translation: {
+    name: string
+  }
+  values?: FacetValue[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface FacetValue {
+  id: number
+  code: string
+  translation: {
+    name: string
+  }
+  facet?: Facet
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ProductFacet {
+  id: number
+  productId: number
+  facetValueId: number
+  createdAt: Date
+  updatedAt: Date
+  product?: Product
+  facetValue?: FacetValue
 }

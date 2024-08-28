@@ -17,8 +17,7 @@ import { ProfileFormData, ProfileFormSchema } from '../schema/profile.schema'
 import { useDictionary } from '@/context/use-dictionary'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
-import { clientFetcher } from '@/lib/client-fetcher'
-import { useMutation } from '@/hooks/use-mutation'
+import { useRouter } from 'next/navigation'
 
 const defaultValues: Partial<ProfileFormData> = {
   name: '',
@@ -26,16 +25,20 @@ const defaultValues: Partial<ProfileFormData> = {
   password: 'xxxxx',
 }
 
-export function ProfileForm() {
-  const { mutateAsync, isPending } = useMutation<any>()
+export function ProfileForm({
+  initialProfileFormData,
+}: {
+  initialProfileFormData: Partial<ProfileFormData> | null
+}) {
+  const router = useRouter()
   const { toast } = useToast()
-  const { user } = useAuthenticatedUser()
+  const { user, userInfo } = useAuthenticatedUser()
   const {
     dictionary: {
       profile: {
         account: { accountForm, buttonText },
       },
-      toastMessages: { userInfo },
+      toastMessages: { userInfo: userInfoDict },
     },
   } = useDictionary()
   const form = useForm<ProfileFormData>({
@@ -44,29 +47,37 @@ export function ProfileForm() {
   })
 
   async function onSubmit(data: ProfileFormData) {
-    const { name, email } = data
+    const { name } = data
 
-    const res = await mutateAsync({
-      path: `/active-user?id=${user?.id}`,
-      method: 'PUT',
-      body: { name, email },
+    const result = await userInfo?.set({
+      name,
     })
 
-    if (res.success)
+    if (!result || result.message)
       toast({
-        title: userInfo.title,
-        description: userInfo.description,
+        title: userInfoDict.errorText,
+        description: userInfoDict.errorDescription,
       })
+    else
+      toast({
+        title: userInfoDict.title,
+        description: userInfoDict.description,
+      })
+
+    router.refresh()
   }
 
   useEffect(() => {
-    const initialFormData = {
-      email: user?.email || '',
-      name: user?.name || '',
-      password: 'xxxxxxxxxxxx',
+    if (initialProfileFormData) {
+      const { name, email } = initialProfileFormData
+      const initialFormData = {
+        email: email || '',
+        name: name || '',
+        password: 'xxxxxxxxxxxx',
+      }
+      form.reset(initialFormData)
     }
-    form.reset(initialFormData)
-  }, [user])
+  }, [initialProfileFormData, form])
 
   return (
     <Form {...form}>
@@ -102,6 +113,7 @@ export function ProfileForm() {
               <FormControl>
                 <Input
                   type="email"
+                  disabled={true}
                   placeholder={accountForm.email.placeholder}
                   {...field}
                 />
@@ -132,7 +144,7 @@ export function ProfileForm() {
         <Button
           type="submit"
           disabled={!form.formState.isDirty}
-          loading={isPending}
+          loading={userInfo?.isPending}
         >
           {buttonText}
         </Button>

@@ -7,6 +7,7 @@ export const productMethods = {
     categoryId,
     sectorId,
     applicationScopeId,
+    facetValueIds,
     lang,
     page,
     take,
@@ -19,6 +20,7 @@ export const productMethods = {
     page?: number
     take?: number
     term?: string
+    facetValueIds?: number[]
   }) => {
     const { data } = await serverFetcher(
       `/v2/products/by-fields?lang=${lang}`,
@@ -31,6 +33,7 @@ export const productMethods = {
           page,
           take,
           term,
+          facetValueIds,
         }),
         headers: {
           'Content-Type': 'application/json',

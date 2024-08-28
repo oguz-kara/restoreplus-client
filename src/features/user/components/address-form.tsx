@@ -16,6 +16,9 @@ import { Input } from '@/components/ui/input'
 import { AddressInput, useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { AddressType } from './address-card'
+import { useTransform } from 'framer-motion'
+import { useToast } from '@/components/ui/use-toast'
+import { useRouter } from 'next/navigation'
 
 const defaultValues: Partial<AddressFormData> = {
   title: '',
@@ -35,6 +38,8 @@ interface AddressFormProps {
 
 export function AddressForm({ addressObj, type }: AddressFormProps) {
   const { address } = useAuthenticatedUser()
+  const { toast } = useToast()
+  const router = useRouter()
   const {
     dictionary: {
       profile: {
@@ -72,13 +77,30 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
       title,
     } as AddressInput
 
-    console.log({ type })
+    let result = null
 
-    const result = addressObj
-      ? await address?.shipping.set(inputData)
-      : await address?.shipping.create(inputData)
+    if (type === 'shipping') {
+      result = addressObj
+        ? await address?.shipping.set(inputData)
+        : await address?.shipping.create(inputData)
+    } else {
+      result = addressObj
+        ? await address?.billing.set(inputData)
+        : await address?.billing.create(inputData)
+    }
 
-    console.log({ result })
+    if (!result || result.message)
+      toast({
+        title: userInfo.errorText,
+        description: userInfo.errorDescription,
+      })
+    else
+      toast({
+        title: userInfo.title,
+        description: userInfo.description,
+      })
+
+    router.refresh()
   }
 
   useEffect(() => {
@@ -197,7 +219,14 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" loading={false}>
+        <Button
+          type="submit"
+          loading={
+            type === 'shipping'
+              ? address?.shipping.isPending
+              : address?.billing.isPending
+          }
+        >
           {buttonText}
         </Button>
       </form>

@@ -1,6 +1,8 @@
 import { serverFetcher } from '@/lib/server-fetcher'
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
+import { consoleLog } from '@/utils/log-to-console'
 
 export const GET = async (req: NextRequest) => {
   try {
@@ -30,26 +32,22 @@ export const GET = async (req: NextRequest) => {
 export const PUT = async (req: NextRequest) => {
   try {
     const accessToken = cookies().get('accessToken')?.value
-    const id = req.nextUrl.searchParams.get('id')
-    if (!id)
-      return NextResponse.json(
-        { message: 'no id provided to update a user' },
-        { status: 400 }
-      )
-    const { name, email } = await req.json()
+    const { name } = await req.json()
 
     if (accessToken) {
-      const { data } = await serverFetcher(`/active-user/${id}`, {
-        method: 'put',
+      const { data } = await serverFetcher(`/v2/active-user`, {
+        method: 'PUT',
         headers: {
           authorization: accessToken,
           'x-api-key': 'null',
           'x-api-secret': 'null',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email }),
+        body: JSON.stringify({ name }),
         cache: 'no-store',
       })
+
+      consoleLog({ data })
 
       return NextResponse.json(data)
     }

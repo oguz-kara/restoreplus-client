@@ -1,5 +1,6 @@
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import ProfilePage from '@/features/user/pages/profile-page'
+import { ParamsWithLang } from '@/i18n/types'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
@@ -10,10 +11,10 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   return seoData
 }
 
-export default function Page() {
+export default function Page({ params: { lang } }: ParamsWithLang) {
   return (
     <div>
-      <ProfilePage />
+      <ProfilePage lang={lang} />
     </div>
   )
 }

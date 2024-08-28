@@ -17,8 +17,11 @@ import { LoginSchema, LoginType } from '../schema/login.schema'
 import Link from '@/components/ui/link'
 import { Button } from '@/components/ui/button'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
-import Typography from '@/components/ui/typography'
 import { PropsWithLang } from '@/i18n/types'
+import { useDictionary } from '@/context/use-dictionary'
+import Typography from '@/components/ui/typography'
+import { AlertMessage } from '@/components/common/alert-message'
+import { useEffect } from 'react'
 
 const defaultValues: LoginType = {
   email: '',
@@ -26,8 +29,11 @@ const defaultValues: LoginType = {
 }
 
 export default function LoginForm({ lang }: PropsWithLang) {
+  const {
+    dictionary: { auth },
+  } = useDictionary()
   const router = useRouter()
-  const { login, loading, error } = useAuthenticatedUser()
+  const { login } = useAuthenticatedUser()
   const { showErrorMessage } = useMessages()
   const form = useForm<LoginType>({
     resolver: zodResolver(LoginSchema),
@@ -38,7 +44,7 @@ export default function LoginForm({ lang }: PropsWithLang) {
 
   async function handleSubmit() {
     try {
-      const user = await login({
+      const user = await login.loginUser({
         identifier: values.email,
         pwd: values.password,
       })
@@ -49,80 +55,108 @@ export default function LoginForm({ lang }: PropsWithLang) {
     }
   }
 
+  useEffect(() => {
+    console.log({ error: login.error })
+    console.log({ message: login.error ? login.error.message : null })
+  }, [login.error])
+
   return (
-    <FormProvider {...form}>
-      <Form {...form}>
-        <form className="relative space-y-8">
-          <div className="p-[1px]">
-            <FormSectionContainer className="border-none mb-0 pb-0">
+    <div>
+      {login.isError && (
+        <div className="pt-5">
+          <AlertMessage
+            title="Error"
+            text={login.error.message}
+            variant="destructive"
+          />
+        </div>
+      )}
+      <FormProvider {...form}>
+        <Form {...form}>
+          <form className="relative space-y-8">
+            <div className="p-[1px]">
+              <FormSectionContainer className="border-none mb-0 pb-0">
+                <div>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field, fieldState }) => (
+                        <FormItem className="mb-5">
+                          <FormLabel>{auth.login.form.fields.email}</FormLabel>
+                          <Input type="text" {...field} />
+                          <FormControl>
+                            {fieldState.error ? (
+                              <FormMessage>
+                                {fieldState.error.message}
+                              </FormMessage>
+                            ) : null}
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field, fieldState }) => (
+                        <FormItem className="mb-5">
+                          <FormLabel>
+                            {auth.login.form.fields.password}
+                          </FormLabel>
+                          <Input type="password" {...field} />
+                          <FormControl>
+                            {fieldState.error ? (
+                              <FormMessage>
+                                {fieldState.error.message}
+                              </FormMessage>
+                            ) : null}
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+              </FormSectionContainer>
               <div>
-                <div>
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field, fieldState }) => (
-                      <FormItem className="mb-5">
-                        <FormLabel>E posta adresi *</FormLabel>
-                        <Input type="text" {...field} />
-                        <FormControl>
-                          {fieldState.error ? (
-                            <FormMessage>
-                              {fieldState.error.message}
-                            </FormMessage>
-                          ) : null}
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div>
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field, fieldState }) => (
-                      <FormItem className="mb-5">
-                        <FormLabel>Şifre *</FormLabel>
-                        <Input type="password" {...field} />
-                        <FormControl>
-                          {fieldState.error ? (
-                            <FormMessage>
-                              {fieldState.error.message}
-                            </FormMessage>
-                          ) : null}
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
+                <FormItem className="mb-5">
+                  <Typography>
+                    {auth.login.form.dontHaveAccountText} {` `}
+                    <Link
+                      href="/register"
+                      lang={lang}
+                      className="text-blue-500 text-md"
+                    >
+                      {auth.register.page.signUp.text} {` `}
+                    </Link>
+                  </Typography>
+                  <Link
+                    href="/auth/sifre-sifirla"
+                    className="text-blue-500 text-md"
+                    lang={lang}
+                  >
+                    {auth.login.form.forgotPasswordText}
+                  </Link>
+                </FormItem>
               </div>
-            </FormSectionContainer>
-            <div>
-              <FormItem className="mb-5">
-                <Link
-                  href="/auth/sifre-sifirla"
-                  className="text-blue-500 text-md"
-                  lang={lang}
-                >
-                  Şifremi unuttum
-                </Link>
-              </FormItem>
+              <div>
+                <FormItem>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="w-full"
+                    loading={login.isPending}
+                    onClick={handleSubmit}
+                  >
+                    {auth.login.form.buttonText}
+                  </Button>
+                </FormItem>
+              </div>
             </div>
-            <div>
-              <FormItem>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  className="w-full"
-                  loading={loading}
-                  onClick={handleSubmit}
-                >
-                  Giriş yap
-                </Button>
-              </FormItem>
-            </div>
-          </div>
-        </form>
-      </Form>
-    </FormProvider>
+          </form>
+        </Form>
+      </FormProvider>
+    </div>
   )
 }

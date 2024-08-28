@@ -7,7 +7,6 @@ import { Locale } from '@/i18n/types'
 import B2BRegisterUserCompanyForm from './b2b-register-user-company-form'
 import B2BRegisterUserAddressForm from './b2b-register-user-address-form'
 import {
-  Address,
   ApplicantRegistrationResponseData,
   NormalizedApplicantData,
 } from '../types'
@@ -17,7 +16,7 @@ import { useMutation } from '@/hooks/use-mutation'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import b2bRegisterUserCompanySchema from '../schema/b2b-register-user-company.schema'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import b2bRegisterUserAddressSchema, {
   B2BRegisterUserAddressDataType,
 } from '../schema/b2b-register-address.shema'
@@ -90,6 +89,8 @@ export default function B2BRegistrationStepper({
     password: string
     confirmPassword: string
   }) => {
+    const token = searchParams.get('token')
+
     if (password.length < 6) {
       setError({
         title: 'Error',
@@ -107,7 +108,7 @@ export default function B2BRegistrationStepper({
 
     const result = await mutate({
       path: '/b2b/register-user',
-      body: { email, name, password },
+      body: { email, name, password, token },
       method: 'POST',
     })
 

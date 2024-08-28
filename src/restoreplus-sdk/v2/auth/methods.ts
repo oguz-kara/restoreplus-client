@@ -2,6 +2,7 @@ import 'server-only'
 
 import { serverFetcher } from '@/lib/server-fetcher'
 import { cookies } from 'next/headers'
+import { RegisterFormDataType } from '@/features/auth/schema/register.schema'
 
 export const getAuthMethods = () => {
   return {
@@ -30,6 +31,43 @@ export const getAuthMethods = () => {
       }
 
       return { data, headers }
+    },
+    register: async (registerData: RegisterFormDataType) => {
+      const { data } = await serverFetcher('/register', {
+        method: 'POST',
+        body: JSON.stringify(registerData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      return data
+    },
+    verifyUserEmail: async (email: string, token: string) => {
+      try {
+        const { data } = await serverFetcher('/verify-email', {
+          method: 'POST',
+          body: JSON.stringify({ email, token }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (data.message)
+          return {
+            success: false,
+            message: data.message,
+          }
+
+        if (data.success)
+          return {
+            success: true,
+          }
+
+        return { success: false }
+      } catch (err: any) {
+        console.log({ err })
+      }
     },
   }
 }

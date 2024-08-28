@@ -44,17 +44,19 @@ export const b2bMethods = {
     email,
     name,
     password,
+    token,
   }: {
     email: string
     name: string
     password: string
+    token: string
   }) => {
     try {
       const { data: response } = await serverFetcher(
         '/v2/b2b-register-request/register-user',
         {
           method: 'POST',
-          body: JSON.stringify({ email, name, password }),
+          body: JSON.stringify({ email, name, password, token }),
           headers: {
             'Content-Type': 'application/json',
           },

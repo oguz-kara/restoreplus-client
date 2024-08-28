@@ -16,6 +16,7 @@ import { useEffect } from 'react'
 import b2bRegisterUserCompanySchema, {
   B2BRegisterUserCompanyDataType,
 } from '../schema/b2b-register-user-company.schema'
+import { PhoneInput } from '@/components/ui/phone-input'
 
 interface RegisterFormProps {
   onChange?: (values: B2BRegisterUserCompanyDataType) => void
@@ -31,7 +32,6 @@ const defaultValues = {
 }
 
 export default function B2BRegisterUserCompanyForm({
-  lang,
   value,
   onChange,
 }: RegisterFormProps & PropsWithLang) {
@@ -96,7 +96,10 @@ export default function B2BRegisterUserCompanyForm({
                     {step2.formFields.phoneNumberText}
                   </FormLabel>
                   <FormControl>
-                    <Input className="py-7 rounded-sm" {...field} />
+                    <PhoneInput
+                      className="rounded-sm"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

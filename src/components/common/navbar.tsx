@@ -38,11 +38,13 @@ import { Badge } from '../ui/badge'
 import { useQuery } from '@/hooks/use-query'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
 import { useCart } from '@/features/active-order/context/use-cart-view'
+import { Skeleton } from '../ui/skeleton'
 
 export function NavigationBar({
   categoryData,
   sectorData,
   lang,
+  activeUser,
 }: {
   categoryData: {
     data: any
@@ -53,6 +55,7 @@ export function NavigationBar({
     pagination: Pagination
   } | null
   lang: Locale
+  activeUser: ActiveUser | null
 }) {
   const {
     dictionary: { common },
@@ -207,7 +210,7 @@ export function NavigationBar({
               </Link>
             </div>
             <div className="flex justify-end flex-1 py-5">
-              <RightNavigation />
+              <RightNavigation user={activeUser} />
             </div>
           </div>
           <div className="flex items-center justify-between py-5 lg:hidden">
@@ -549,8 +552,8 @@ function SectorData({
   )
 }
 
-function RightNavigation() {
-  const { user, logout } = useAuthenticatedUser()
+function RightNavigation({ user }: { user: ActiveUser | null }) {
+  const { loading, logout } = useAuthenticatedUser()
   const router = useRouter()
   const {
     dictionary: {
@@ -561,7 +564,7 @@ function RightNavigation() {
     lang,
   } = useDictionary()
   const { activeOrder } = useActiveOrder()
-  const { isOpen, setOpen } = useCart()
+  const { setOpen } = useCart()
 
   const handleLogoutButton = async () => {
     const res = await logout()
@@ -589,7 +592,52 @@ function RightNavigation() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          {!user && (
+          {activeOrder?.lines && (activeOrder?.lines.length || 0) > 0 && (
+            <NavigationMenuItem>
+              <div className="relative">
+                <Badge className="rounded-full absolute top-[-15px] left-[50%] translate-x-[-50%]">
+                  <Typography className="p-0 m-0 text-xs">
+                    {activeOrder?.lines?.length}
+                  </Typography>
+                </Badge>
+                <Button onClick={() => setOpen(true)} variant="ghost">
+                  <ShoppingCart />
+                </Button>
+              </div>
+            </NavigationMenuItem>
+          )}
+          {user ? (
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-primary text-black">
+                    <User className="mr-2" />
+                    <span className="text-sm pr-3 font-semibold">
+                      {user?.name ? user?.name : user?.email}
+                    </span>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="p-4 min-w-[180px]">
+                      <ListItem>
+                        <Link href="/profile" lang={lang}>
+                          {navItems.profile.profile}
+                        </Link>
+                      </ListItem>
+                      <ListItem>
+                        <span
+                          aria-label="Logout button"
+                          className="cursor-pointer"
+                          onClick={handleLogoutButton}
+                        >
+                          {navItems.profile.logout}
+                        </span>
+                      </ListItem>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          ) : (
             <>
               <NavigationMenuItem>
                 <Button variant="ghost">
@@ -614,54 +662,8 @@ function RightNavigation() {
               </NavigationMenuItem>
             </>
           )}
-          {activeOrder?.lines && activeOrder?.lines.length > 0 && (
-            <NavigationMenuItem>
-              <div className="relative">
-                <Badge className="rounded-full absolute top-[-15px] left-[50%] translate-x-[-50%]">
-                  <Typography className="p-0 m-0 text-xs">
-                    {activeOrder?.lines?.length}
-                  </Typography>
-                </Badge>
-                <Button onClick={() => setOpen(true)} variant="ghost">
-                  <ShoppingCart />
-                </Button>
-              </div>
-            </NavigationMenuItem>
-          )}
         </NavigationMenuList>
       </NavigationMenu>
-      {user && (
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-primary text-black">
-                <User className="mr-2" />
-                <span className="text-sm pr-3 font-semibold">
-                  {user.name ? user.name : user.email}
-                </span>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="p-4 min-w-[180px]">
-                  <ListItem>
-                    <Link href="/profile" lang={lang}>
-                      {navItems.profile.profile}
-                    </Link>
-                  </ListItem>
-                  <ListItem>
-                    <span
-                      aria-label="Logout button"
-                      className="cursor-pointer"
-                      onClick={handleLogoutButton}
-                    >
-                      {navItems.profile.logout}
-                    </span>
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      )}
     </>
   )
 }

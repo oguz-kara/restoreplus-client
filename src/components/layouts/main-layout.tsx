@@ -6,6 +6,7 @@ import CartDrawer from '@/features/active-order/components/cart-drawer'
 import { sdk } from '@/restoreplus-sdk'
 import { categoryTreeQuery } from '@/features/product-categories/queries/category-tree-query'
 import { getWithApplicationScopesQuery } from '@/features/sectors/queries/get-with-application-scopes.query'
+import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 
 export default async function MainLayout({
   lang,
@@ -20,6 +21,8 @@ export default async function MainLayout({
     { lang, isAdmin: true }
   )
 
+  const user = await getServerSideActiveUser()
+
   return (
     <div className="grid pt-[42px]">
       <CartDrawer lang={lang} />
@@ -28,6 +31,7 @@ export default async function MainLayout({
           lang={lang}
           categoryData={categoryData}
           sectorData={sectorData}
+          activeUser={user}
         />
       </header>
       <main className="min-h-screen mt-9">{children}</main>
