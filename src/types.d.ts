@@ -146,11 +146,11 @@ interface Currency {
 
 interface ExchangeRate {
   id: number
-  baseCurrencyId: number
+  currencyId: number
   targetCurrencyId: number
   rate: number
   date: Date
-  baseCurrency: Currency
+  currency: Currency
   targetCurrency: Currency
   createdAt: Date
   updatedAt: Date
@@ -607,7 +607,7 @@ interface Product {
   value: string
   price: {
     amount: number
-    baseCurrency: string
+    currency: string
   }
 }
 
