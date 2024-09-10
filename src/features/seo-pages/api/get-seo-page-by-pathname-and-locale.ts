@@ -4,11 +4,14 @@ export const getSeoPageByPathnameAndLocale = async (
   pathname: string,
   locale: string
 ) => {
-  const { data } = await sdk.seoPages.getAllByQuery({
-    where: {
-      path: pathname === '' ? '/' : pathname,
+  const { data } = await sdk.seoPages.getAllByQuery(
+    {
+      where: {
+        path: pathname === '' ? '/' : pathname,
+      },
     },
-  })
+    { lang: locale }
+  )
 
   if (data && Array.isArray(data) && data?.length > 0) {
     const pageData = data[0]
