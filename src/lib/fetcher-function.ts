@@ -4,6 +4,8 @@ export const getFetcherFunction = <T = any>(path: string) => {
   return async () => {
     let url = `${serverUrl}/api`
 
+    console.log({ fetcherFuncUrl: url })
+
     url = (url as string) + path
 
     const res = await fetch(url, {

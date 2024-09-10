@@ -21,7 +21,6 @@ import {
 import Typography from '@/components/ui/typography'
 import { useDictionary } from '@/context/use-dictionary'
 import { Locale } from '@/i18n/types'
-import { clientFetcher } from '@/lib/client-fetcher'
 import { Globe } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
@@ -46,6 +45,7 @@ export default function PickLocaleAndCurrencyMenu() {
   const { data: localeData, isPending: isLocalesPending } = useQuery([
     '/supported-locales',
   ])
+  console.log({ localeData })
   const [currentLang, setCurrentLang] = useState<string>(lang)
   const [currentCurrency, setCurrentCurrency] = useState<string>('USD')
 
@@ -87,6 +87,8 @@ export default function PickLocaleAndCurrencyMenu() {
     console.log({ currencyData, localeData })
   }, [currencyData, localeData])
 
+  if ((currencyData as any)?.data || (localeData as any)?.data) return null
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -114,7 +116,7 @@ export default function PickLocaleAndCurrencyMenu() {
                       <SelectTrigger className="w-full justify-start gap-3 rounded-none">
                         <SelectValue
                           placeholder={
-                            (localeData as any)?.data.find(
+                            (localeData as any)?.data?.find(
                               (l: any) => l.locale === currentLang
                             )?.name
                           }
@@ -125,7 +127,7 @@ export default function PickLocaleAndCurrencyMenu() {
                           <SelectLabel>
                             {localeCurrencyMenu.languages}
                           </SelectLabel>
-                          {(localeData as any)?.data.map(
+                          {(localeData as any)?.data?.map(
                             (item: SupportedLocale, i: number) => (
                               <SelectItem key={i} value={item.locale}>
                                 {item.name}

@@ -13,6 +13,8 @@ const nextConfig = {
     NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
     NEXT_PUBLIC_REMOTE_URL: process.env.NEXT_PUBLIC_REMOTE_URL,
     NEXT_PUBLIC_NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
+    X_API_KEY: process.env.X_API_KEY,
+    X_API_KEY_NAME: process.env.X_API_KEY_NAME,
   },
   images: {
     remotePatterns: [
