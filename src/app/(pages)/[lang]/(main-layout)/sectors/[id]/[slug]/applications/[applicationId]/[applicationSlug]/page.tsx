@@ -10,6 +10,7 @@ import { getProductsByApplicationScopeId } from '@/features/product/data/get-pro
 import ListProductCards from '@/features/product/components/list-product-cards'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Metadata } from 'next'
+import { sdk } from '@/restoreplus-sdk'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   const id = params.id
   const lang = params.lang
 
-  const applicationScope = await getApplicationScopeById(id, lang)
+  const applicationScope = await sdk.applicationScopes.getById(id, { lang })
 
   return {
     title: applicationScope?.translation?.metaTitle,

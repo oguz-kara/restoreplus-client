@@ -1,6 +1,8 @@
 import Container from '@/components/common/container'
 import MdxRenderer from '@/components/common/mdx-renderer'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
+import { Metadata } from 'next'
 
 const privacyText = `
 # Privacy Policy
@@ -166,6 +168,14 @@ info.restoreplus.com
 17.06.2022
 
 `
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/privacy', lang)
+
+  return seoData
+}
 
 export default function Page() {
   return (

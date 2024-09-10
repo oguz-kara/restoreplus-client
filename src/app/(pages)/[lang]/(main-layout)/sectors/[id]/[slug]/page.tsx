@@ -1,6 +1,5 @@
 import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
-import { getSectorById } from '@/features/sectors/api/get-sector-by-id'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import MdxRenderer from '@/components/common/mdx-renderer'
@@ -13,12 +12,15 @@ import { getProductsBySectorId } from '@/features/product/data/get-products-by-s
 import ListProductCards from '@/features/product/components/list-product-cards'
 import InfoCard from '@/components/common/info-card'
 import { Metadata } from 'next'
+import { sdk } from '@/restoreplus-sdk'
+import { getWithApplicationScopesQuery } from '@/features/sectors/queries/get-with-application-scopes.query'
+import { consoleLog } from '@/utils/log-to-console'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const id = params.id
   const lang = params.lang
 
-  const sector = await getSectorById(id, lang)
+  const sector = await sdk.sectors.getById(id, { lang })
 
   return {
     title: sector?.translation?.metaTitle,
@@ -31,7 +33,11 @@ export default async function Page({
 }: {
   params: { slug: string; id: string; lang: Locale }
 }) {
-  const result = await getSectorById(id, lang)
+  const result = await sdk.sectors.getSingleByQuery(
+    Number(id),
+    getWithApplicationScopesQuery
+  )
+  consoleLog({ result })
   const productData = await getProductsBySectorId({ lang, id: Number(id) })
   if (!result) return 'no sector data found!'
   const {
@@ -52,43 +58,47 @@ export default async function Page({
                   {title}
                 </Typography>
               </div>
-              {result.applicationScopes?.map((applicationScope) => (
-                <div key={applicationScope.id}>
-                  <Link
-                    href={`/sectors/${id}/${slug}/applications/${applicationScope.id}/${applicationScope.translation.slug}`}
-                    lang={lang}
-                  >
-                    <li
-                      className={cn(
-                        'hover:bg-gray-100 uppercase flex gap-5 justify-between text-lg p-3 border-b border-gray-300'
-                      )}
-                      key={applicationScope.id}
+              {result.applicationScopes?.map(
+                (applicationScope: ApplicationScope) => (
+                  <div key={applicationScope.id}>
+                    <Link
+                      href={`/sectors/${id}/${slug}/applications/${applicationScope.id}/${applicationScope.translation.slug}`}
+                      lang={lang}
                     >
-                      <Typography as="p">
-                        {applicationScope.translation.name}
-                      </Typography>
-                      <ArrowRight />
-                    </li>
-                  </Link>
-                </div>
-              ))}
+                      <li
+                        className={cn(
+                          'hover:bg-gray-100 uppercase flex gap-5 justify-between text-lg p-3 border-b border-gray-300'
+                        )}
+                        key={applicationScope.id}
+                      >
+                        <Typography as="p">
+                          {applicationScope.translation.name}
+                        </Typography>
+                        <ArrowRight />
+                      </li>
+                    </Link>
+                  </div>
+                )
+              )}
             </div>
             <div className="flex-[3]">
-              <MdxRenderer mdxText={result.translation.content} />
-              <div className="py-10">
-                <Typography as="h6" className="text-xl font-[500]">
-                  {productsTitle}
-                </Typography>
-              </div>
+              <MdxRenderer mdxText={result.translation.description} />
               {productData && productData.data.length > 0 ? (
-                <ListProductCards lang={lang} products={productData.data} />
+                <>
+                  <div className="py-10">
+                    <Typography as="h6" className="text-xl font-[500]">
+                      {productsTitle}
+                    </Typography>
+                  </div>
+                  <ListProductCards lang={lang} products={productData.data} />
+                </>
               ) : null}
             </div>
           </div>
         </Section>
       </Container>
       <div className="lg:hidden">
-        <InfoCard data={page.rightCard} />
+        <InfoCard data={page.rightCard} lang={lang} />
       </div>
     </div>
   )
@@ -118,7 +128,7 @@ function HeroSection({ data }: { data: Sector }) {
               as="h3"
               className="lg:text-lg font-semibold relative text-gray-300 pb-5"
             >
-              {data.translation.title}
+              {data.translation.name}
             </Typography>
             <Typography
               className="relative font-normal text-sm lg:max-w-[764px]"

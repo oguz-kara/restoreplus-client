@@ -1,9 +1,8 @@
+import { serverUrl } from '@/config/get-env-fields'
+
 export const getFetcherFunction = <T = any>(path: string) => {
   return async () => {
-    let url =
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000/api'
-        : process.env.SERVER_URL
+    let url = `${serverUrl}/api`
 
     url = (url as string) + path
 

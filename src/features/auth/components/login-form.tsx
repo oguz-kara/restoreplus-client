@@ -33,9 +33,7 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
 
   const {
     dictionary: {
-      auth: {
-        login: { page },
-      },
+      auth: { login: loginTexts },
     },
   } = useDictionary()
   const form = useForm<LoginType>({
@@ -45,7 +43,7 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
 
   async function onSubmit(values: LoginType) {
     try {
-      const loginSuccess = await login({
+      const loginSuccess = await login.loginUser({
         identifier: values.email,
         pwd: values.password,
       })
@@ -68,7 +66,7 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{page.fields.email}</FormLabel>
+                <FormLabel>{loginTexts.form.fields.email}</FormLabel>
                 <FormControl>
                   <Input
                     className="bg-transparent text-white py-7 rounded-sm"
@@ -84,7 +82,7 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{page.fields.password}</FormLabel>
+                <FormLabel>{loginTexts.form.fields.password}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
@@ -98,7 +96,7 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
           />
           <div className="mb-5">
             <Button className="w-full py-7 rounded-sm text-lg">
-              {page.buttonText}
+              {loginTexts.form.buttonText}
             </Button>
           </div>
         </form>

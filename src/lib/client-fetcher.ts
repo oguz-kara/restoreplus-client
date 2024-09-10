@@ -1,3 +1,4 @@
+import { serverUrl } from '@/config/get-env-fields'
 import Cookies from 'js-cookie'
 
 export const clientFetcher = async (
@@ -5,10 +6,7 @@ export const clientFetcher = async (
   fargs?: RequestInit
 ) => {
   const authToken = Cookies.get('token')
-  let url =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/api'
-      : process.env.SERVER_URL
+  let url = `${serverUrl}/api`
 
   url = (url as string) + init
 

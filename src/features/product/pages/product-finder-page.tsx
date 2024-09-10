@@ -146,7 +146,7 @@ export default async function ProductFinderPage({
             {productData && productData.data && productData.data.length > 0
               ? productData.data
                   .filter((product: any) => product?.translation)
-                  .map((product: ProductCategory, i: number) => (
+                  .map((product: Product, i: number) => (
                     <div key={i} className="h-full">
                       <Link
                         className="h-full"

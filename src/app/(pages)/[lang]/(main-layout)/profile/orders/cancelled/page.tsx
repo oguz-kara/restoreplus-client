@@ -14,16 +14,17 @@ import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
-import {
-  getOrdersOfActiveUser,
-} from '@/utils/get-server-side-active-user'
+import { getOrdersOfActiveUser } from '@/utils/get-server-side-active-user'
 import { getStatus } from '@/utils/get-status'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const lang = params.lang
 
-  const seoData = await getSeoPageByPathnameAndLocale('/profile/orders', lang)
+  const seoData = await getSeoPageByPathnameAndLocale(
+    '/profile/orders/cancelled',
+    lang
+  )
 
   return seoData
 }

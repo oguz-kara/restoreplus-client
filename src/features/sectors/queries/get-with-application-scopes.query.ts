@@ -5,6 +5,7 @@ export const getWithApplicationScopesQuery = {
       select: {
         name: true,
         slug: true,
+        description:true,
         locale: {
           select: {
             locale: true,

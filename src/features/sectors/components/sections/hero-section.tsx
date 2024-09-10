@@ -43,7 +43,7 @@ export default function HeroSection() {
           <Typography as="p">{hero.join.text}</Typography>
           <div className="flex items-center gap-2">
             <Typography as="p">
-              <Link className="text-primary" href={hero.join.href} lang={lang}>
+              <Link className="text-primary" href="/" lang={lang}>
                 {hero.join.linkText}
               </Link>
             </Typography>

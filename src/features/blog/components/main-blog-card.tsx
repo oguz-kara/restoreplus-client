@@ -3,7 +3,6 @@ import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
-import { Button } from '@/components/ui/button'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ArrowRight } from 'lucide-react'
 
@@ -24,16 +23,9 @@ export default async function MainBlogCard({
             {data.translation.title}
           </Typography>
           <Typography as="p">{data.translation.description}</Typography>
-          <div>
-            <Link
-              lang={lang}
-              href={`/blog/${data.id}/${data.translation.slug}`}
-            >
-              <Button className="bg-foreground text-white mt-5 hover:bg-primary hover:text-black">
-                <span className="mr-3">{buttonText}</span>
-                <ArrowRight />
-              </Button>
-            </Link>
+          <div className="inline-flex bg-foreground text-white p-3 rounded-md hover:bg-primary hover:text-foreground transition-all my-5">
+            <span className="mr-3">{buttonText}</span>
+            <ArrowRight />
           </div>
         </div>
         <div className="flex-[1]">

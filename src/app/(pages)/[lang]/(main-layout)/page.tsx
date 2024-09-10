@@ -8,9 +8,12 @@ import Typography from '@/components/ui/typography'
 import { getCategoryWithDocumentsQuery } from '@/features/product-categories/queries/get-category-with-documents-query'
 import SimpleProductCard from '@/features/product/components/simple-product-card'
 import { getSectors } from '@/features/sectors/api/get-sectors'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
+import { consoleLog } from '@/utils/log-to-console'
+import { Metadata } from 'next'
 
 const bgImages = [
   {
@@ -43,6 +46,14 @@ const bgImages = [
   },
 ]
 
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/', lang)
+
+  return seoData
+}
+
 export default async function Page({
   params: { lang },
 }: {
@@ -69,27 +80,8 @@ export default async function Page({
     { lang }
   )
 
-  const { data: sectorData } = await getSectors({
-    lang,
-    query: {
-      where: {
-        id: {
-          in: [1, 2, 3, 4, 5, 6],
-        },
-      },
-      select: {
-        id: true,
-        translations: {
-          select: { name: true, slug: true, locale: true },
-        },
-        featuredImage: {
-          select: {
-            path: true,
-            alt: true,
-          },
-        },
-      },
-    },
+  const sectorData = await sdk.sectors.getAllByQuery({
+    take: 6,
   })
 
   return (
@@ -228,7 +220,7 @@ export default async function Page({
                 />
               </div>
               <div>
-                <Link href="/product/finder" lang={lang}>
+                <Link href="/partner-register" lang={lang}>
                   <Button className="text-lg lg:text-xl px-10 py-7 font-bold uppercase">
                     {b2bSection.buttonText}
                   </Button>
@@ -300,7 +292,7 @@ export default async function Page({
         <Section5 lang={lang} />
       </div>
       <div>
-        <Section7 lang={lang} sectorData={sectorData} />
+        <Section7 lang={lang} sectorData={sectorData.data} />
       </div>
     </div>
   )

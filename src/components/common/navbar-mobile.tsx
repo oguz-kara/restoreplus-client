@@ -80,7 +80,7 @@ export default function NavbarMobile({
               {user && (
                 <Typography className="text-lg py-3" as="h3">
                   <span className="font-normal italic">{welcome}</span>{' '}
-                  {`${user?.firstName} ${user?.lastName}`}
+                  {user.name}
                 </Typography>
               )}
             </DrawerHeader>
@@ -177,7 +177,7 @@ export default function NavbarMobile({
                             as="p"
                             className="text-black uppercase font-bold px-2"
                           >
-                            {navItems.profile.logout}
+                            {navItems.logout.title}
                           </Typography>
                         </span>
                       </li>

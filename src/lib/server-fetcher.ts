@@ -8,10 +8,7 @@ export const serverFetcher = async (
   init: string | URL | globalThis.Request,
   fargs?: RequestInit
 ) => {
-  let url =
-    process.env.NODE_ENV === 'development'
-      ? `${remoteUrl}/api`
-      : process.env.SERVER_URL
+  let url = `${remoteUrl}/api`
 
   url = (url as string) + init
 

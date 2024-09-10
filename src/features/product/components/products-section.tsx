@@ -1,5 +1,4 @@
 import React from 'react'
-import { getProducts } from '../data/get-products'
 import { PropsWithLang } from '@/i18n/types'
 import Section from '@/components/common/section'
 import { ServerImage } from '@/components/ui/image'
@@ -9,6 +8,7 @@ import Container from '@/components/common/container'
 import Link from '@/components/ui/link'
 import SectionHeader from '@/components/common/section-header'
 import bg from '../../../../public/images/hero-image.png'
+import { sdk } from '@/restoreplus-sdk'
 
 export default async function ProductsSection({ lang }: PropsWithLang) {
   const {
@@ -16,9 +16,9 @@ export default async function ProductsSection({ lang }: PropsWithLang) {
       listProductsSection: { title },
     },
   } = await getDictionary(lang)
-  const res = await getProducts({ lang, query: { take: 10 } })
+  const productData = await sdk.products.getAllByQuery({ take: 10 }, { lang })
 
-  if (!res?.data) return null
+  if (!productData?.data) return null
 
   return (
     <div
@@ -38,7 +38,7 @@ export default async function ProductsSection({ lang }: PropsWithLang) {
             <SectionHeader className="text-center">{title}</SectionHeader>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 auto-rows-fr">
-            {res.data.map((product, i) => (
+            {productData.data.map((product: Product, i: number) => (
               <Link
                 href={`/product/${product.id}/${product.translation.slug}`}
                 lang={lang}

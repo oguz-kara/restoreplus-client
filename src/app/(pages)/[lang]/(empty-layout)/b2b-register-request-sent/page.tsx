@@ -1,11 +1,24 @@
 import Container from '@/components/common/container'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import { CheckCircle } from 'lucide-react'
+import { Metadata } from 'next'
 import React from 'react'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale(
+    '/b2b-register-request-sent',
+    lang
+  )
+
+  return seoData
+}
 
 export default async function Page({
   params: { lang },

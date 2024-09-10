@@ -340,11 +340,9 @@ interface SectorTranslation {
   id: number
   slug: string
   name: string
-  title: string
   metaTitle: string
   metaDescription: string
   description?: string | null
-  content: string
   sectorId: number
   localeId: number
   sector: Sector

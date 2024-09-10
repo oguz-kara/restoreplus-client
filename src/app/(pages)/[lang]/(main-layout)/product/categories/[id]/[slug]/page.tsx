@@ -1,13 +1,14 @@
 import SingleCategoryPage from '@/features/product-categories/components/single-category-page'
 import { getCategoryById } from '@/features/product-categories/data/get-category-by-id'
 import { Locale } from '@/i18n/types'
+import { sdk } from '@/restoreplus-sdk'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const id = params.id
   const lang = params.lang
 
-  const category = await getCategoryById(id, lang)
+  const category = await sdk.productCategories.getById(id, { lang })
 
   return {
     title: category?.translation?.metaTitle,

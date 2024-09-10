@@ -7,7 +7,7 @@ import React from 'react'
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const lang = params.lang
 
-  const seoData = await getSeoPageByPathnameAndLocale('/register', lang)
+  const seoData = await getSeoPageByPathnameAndLocale('/partner-register', lang)
 
   return seoData
 }

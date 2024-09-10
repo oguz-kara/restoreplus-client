@@ -32,6 +32,26 @@ const icons = [
   <BaggageClaim key={5} />,
 ]
 
+const links = [
+  {
+    href: '/profile',
+  },
+  {
+    href: '/profile/company',
+  },
+  {
+    href: '/profile/addresses',
+  },
+  {
+    href: '/create-order',
+    forB2B: true,
+  },
+  {
+    href: '/profile/orders',
+    forB2B: true,
+  },
+]
+
 export default async function UserProfileLayout({
   children,
   params: { lang },
@@ -49,10 +69,11 @@ export default async function UserProfileLayout({
   const sideItems = sideNavigationItems
     .map((item, i) => ({
       ...item,
+      ...links[i],
       icon: icons[i],
     }))
-    .filter((item) =>
-      item.forB2B ? (user?.company?.b2bCustomer ? true : false) : true
+    .filter((item, i) =>
+      links[i].forB2B ? (user?.company?.b2bCustomer ? true : false) : true
     )
 
   return (

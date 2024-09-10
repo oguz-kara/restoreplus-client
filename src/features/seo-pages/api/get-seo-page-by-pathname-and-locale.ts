@@ -1,33 +1,21 @@
-import { serverFetcher } from '@/lib/server-fetcher'
+import { sdk } from '@/restoreplus-sdk'
 
 export const getSeoPageByPathnameAndLocale = async (
   pathname: string,
   locale: string
 ) => {
-  const { data } = await serverFetcher('/seo-pages/all', {
-    method: 'POST',
-    body: JSON.stringify({
-      where: {
-        path: pathname === '' ? '/' : pathname,
-        locale: {
-          locale,
-        },
-      },
-    }),
-    cache: 'no-store',
-    headers: {
-      'Content-Type': 'application/json',
+  const { data } = await sdk.seoPages.getAllByQuery({
+    where: {
+      path: pathname === '' ? '/' : pathname,
     },
   })
 
-  // consoleLog({ data })
-
-  if (data?.data && data?.data?.length > 0) {
-    const pageData = data.data[0]
+  if (data && Array.isArray(data) && data?.length > 0) {
+    const pageData = data[0]
 
     return {
-      title: pageData.title,
-      description: pageData.description,
+      title: pageData.translation.title,
+      description: pageData.translation.description,
     }
   }
 

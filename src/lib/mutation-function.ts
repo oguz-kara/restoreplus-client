@@ -1,3 +1,5 @@
+import { serverUrl } from '@/config/get-env-fields'
+
 export const mutationFunction = async ({
   path,
   method = 'POST',
@@ -7,10 +9,7 @@ export const mutationFunction = async ({
   method: string
   body: any
 }) => {
-  let url =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/api'
-      : process.env.SERVER_URL
+  let url = `${serverUrl}/api`
 
   url = (url as string) + path
 

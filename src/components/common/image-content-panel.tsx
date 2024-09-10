@@ -13,10 +13,6 @@ interface ImageContentPanelInputDataType {
   listTitle: string
   list: { text: string; href?: string }[]
   buttonText: string
-  image: {
-    src: string
-    alt: string
-  }
 }
 
 export default async function ImageContentPanel({
@@ -65,8 +61,8 @@ export default async function ImageContentPanel({
         <div className="lg:flex-1">
           <Image
             className="w-full max-w-[500px] max-h-[500px] lg:h-[500px] lg:w-[500px] object-cover"
-            src={data.image.src}
-            alt={data.image.alt}
+            src="/images/reseller.jpg"
+            alt="image placeholder"
             width={500}
             height={500}
           />

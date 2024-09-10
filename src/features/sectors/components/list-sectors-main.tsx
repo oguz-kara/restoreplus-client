@@ -3,13 +3,11 @@ import serverConfig from '@/config/server-config.json'
 import Image from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
-import { Locale, PropsWithLang } from '@/i18n/types'
-import { getSectors } from '../api/get-sectors'
-import { getProperLanguage } from '@/i18n/utils'
+import { PropsWithLang } from '@/i18n/types'
+import { sdk } from '@/restoreplus-sdk'
 
 export default async function ListSectorsMain({ lang }: PropsWithLang) {
-  const properLang = getProperLanguage(lang)
-  const res = await getSectors({ lang: properLang as Locale })
+  const res = await sdk.sectors.getAllByQuery({}, { lang })
 
   if (!res) return 'no data found!'
 
@@ -17,23 +15,20 @@ export default async function ListSectorsMain({ lang }: PropsWithLang) {
 
   return (
     <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-5">
-      {data.map((item, i) => (
+      {data.map((item: Sector, i: number) => (
         <SectorCard key={i} sector={item} lang={lang} />
       ))}
     </div>
   )
 }
 
-function SectorCard({
-  sector,
-  lang,
-}: { sector: Sector } & PropsWithLang) {
+function SectorCard({ sector, lang }: { sector: Sector } & PropsWithLang) {
   return (
     <Link href={`/sectors/${sector.id}/${sector.translation.slug}`} lang={lang}>
       <div className="flex gap-5 flex-col items-center text-center border border-gray-300 p-5 mb-5">
         <div>
           <Typography as="h5" className="font-[500] text-md">
-            {sector.translation.title}
+            {sector.translation.name}
           </Typography>
         </div>
         <div>

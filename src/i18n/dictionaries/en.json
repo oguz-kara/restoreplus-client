@@ -37,26 +37,24 @@
           "title": "about us",
           "navLinks": [
             {
-              "title": "about us",
-              "href": "/about"
+              "title": "about us"
             },
             {
-              "title": "Contact us",
-              "href": "/contact"
+              "title": "Contact us"
             }
           ]
         },
         "login": {
-          "title": "log in",
-          "href": "/login"
+          "title": "Log in"
+        },
+        "logout": {
+          "title": "Logout"
         },
         "register": {
-          "title": "Register",
-          "href": "/register"
+          "title": "Register"
         },
         "profile": {
-          "profile": "Profile",
-          "logout": "Logout"
+          "profile": "Profile"
         },
         "b2b": {
           "partnerText": "Partner with us"
@@ -93,7 +91,6 @@
   "auth": {
     "login": {
       "text": "Log In",
-      "link": "/login",
       "form": {
         "title": "Log In",
         "text": "Sign in to your account",
@@ -108,13 +105,11 @@
     },
     "register": {
       "text": "Register",
-      "link": "/register",
       "page": {
         "title": "Register",
         "text": "Create a new account",
         "signUp": {
           "text": "Sign Up",
-          "href": "/register",
           "linkText": "Already have an account? Log in"
         },
         "fields": {
@@ -191,8 +186,7 @@
       },
       "join": {
         "text": "New to Restoreplus?",
-        "linkText": "Join Free for All Access ",
-        "href": "/register"
+        "linkText": "Join Free for All Access "
       }
     },
     "section1": {
@@ -200,7 +194,6 @@
       "columns": [
         {
           "image": {
-            "src": "/images/col1.png",
             "alt": "verimlilik"
           },
           "title": "Telif Hakkı",
@@ -209,7 +202,6 @@
         },
         {
           "image": {
-            "src": "/images/col2.png",
             "alt": "verimlilik"
           },
           "title": "Yenilikçi Ar-Ge",
@@ -218,7 +210,6 @@
         },
         {
           "image": {
-            "src": "/images/col3.png",
             "alt": "verimlilik"
           },
           "title": "Yüksek Kaliteli Teknoloji",
@@ -229,7 +220,6 @@
     },
     "section2": {
       "image": {
-        "src": "/images/image-placeholder.png",
         "alt": ""
       },
       "blueText": "Simplify Your Industrial Lubrication Process",
@@ -259,7 +249,6 @@
     },
     "section3": {
       "image": {
-        "src": "/images/image-placeholder.png",
         "alt": ""
       },
       "blueText": "Industry-leading solutions for every application",
@@ -293,45 +282,7 @@
     },
     "section4": {
       "heading": "Find the perfect fit: Explore our comprehensive range of lubricants.",
-      "buttonText": "Explore the product catalog",
-      "lubricantTypes": [
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placeholder"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placeholder"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placeholder"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placeholder"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placeholder"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "image placeholder"
-          }
-        }
-      ]
+      "buttonText": "Explore the product catalog"
     },
     "section5": {
       "title": "latest insights"
@@ -375,27 +326,15 @@
       "columns": [
         {
           "title": "3000+",
-          "text": "Industrial Lubricant Products",
-          "image": {
-            "src": "/images/product.png",
-            "alt": "industrial lubricants"
-          }
+          "text": "Industrial Lubricant Products"
         },
         {
           "title": "10000+",
-          "text": "Satisfied Customers",
-          "image": {
-            "src": "/images/satisfied.png",
-            "alt": "satisfied customers"
-          }
+          "text": "Satisfied Customers"
         },
         {
           "title": "20+",
-          "text": "Years in Business",
-          "image": {
-            "src": "/images/experience.png",
-            "alt": "years of experience"
-          }
+          "text": "Years in Business"
         }
       ]
     },
@@ -420,11 +359,7 @@
           "text": "And many more"
         }
       ],
-      "buttonText": "See products",
-      "image": {
-        "src": "/images/lubricants.jpg",
-        "alt": "image placeholder"
-      }
+      "buttonText": "See products"
     },
     "section2": {
       "title": "Streamlined Online Ordering and Reseller Program",
@@ -444,11 +379,7 @@
           "text": "Track your shipments conveniently"
         }
       ],
-      "buttonText": "See products",
-      "image": {
-        "src": "/images/orders.jpg",
-        "alt": "image placeholder"
-      }
+      "buttonText": "See products"
     },
     "section3": {
       "title": "Become a Restoreplus Reseller",
@@ -465,11 +396,7 @@
           "text": "Access to marketing resources"
         }
       ],
-      "buttonText": "Register to become a reseller",
-      "image": {
-        "src": "/images/reseller.jpg",
-        "alt": "image placeholder"
-      }
+      "buttonText": "Register to become a reseller"
     }
   },
   "blog": {
@@ -622,26 +549,19 @@
     },
     "sideNavigationItems": [
       {
-        "title": "Profile",
-        "href": "/profile"
+        "title": "Profile"
       },
       {
-        "title": "Company",
-        "href": "/profile/company"
+        "title": "Company"
       },
       {
-        "title": "Addresses",
-        "href": "/profile/addresses"
+        "title": "Addresses"
       },
       {
-        "title": "Create order",
-        "href": "/create-order",
-        "forB2B": true
+        "title": "Create order"
       },
       {
-        "title": "Orders",
-        "href": "/profile/orders",
-        "forB2B": true
+        "title": "Orders"
       }
     ],
     "products": {

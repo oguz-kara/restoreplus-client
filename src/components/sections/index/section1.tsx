@@ -21,8 +21,8 @@ export default async function Section1({ lang }: PropsWithLang) {
             <div className="flex items-center justify-center flex-col">
               <div className="p-2 mb-3">
                 <Image
-                  src={item.image.src}
-                  alt={item.image.alt}
+                  src="/"
+                  alt="alt"
                   width={150}
                   height={150}
                   style={{

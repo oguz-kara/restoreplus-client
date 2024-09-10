@@ -11,7 +11,7 @@ import Container from '@/components/common/container'
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const lang = params.lang
 
-  const seoData = await getSeoPageByPathnameAndLocale('/contact', lang)
+  const seoData = await getSeoPageByPathnameAndLocale('/offer', lang)
 
   return seoData
 }

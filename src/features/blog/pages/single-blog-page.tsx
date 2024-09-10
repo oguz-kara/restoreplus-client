@@ -1,5 +1,4 @@
 import { PropsWithLang } from '@/i18n/types'
-import { getSingleBlogPostById } from '../data/get-single-blog-post'
 import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
@@ -10,6 +9,7 @@ import { Facebook, ThumbsDown, ThumbsUp, Twitter, X } from 'lucide-react'
 import MdxRenderer from '@/components/common/mdx-renderer'
 import InfoCard from '@/components/common/info-card'
 import { ServerImage } from '@/components/ui/image'
+import { sdk } from '@/restoreplus-sdk'
 
 interface SingleBlogPageProps extends PropsWithLang {
   id: string
@@ -29,7 +29,7 @@ export default async function SingleBlogPage({
       page: { rightCard },
     },
   } = await getDictionary(lang)
-  const data = await getSingleBlogPostById(id)
+  const data = await sdk.blogPosts.getById(Number(id), { lang })
   let formattedDate
 
   if (data?.createdAt) {

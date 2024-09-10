@@ -7,10 +7,9 @@ import Section1 from '@/components/sections/about/section1'
 import Section2 from '@/components/sections/about/section2'
 import Section3 from '@/components/sections/about/section3'
 import { getStaticBlogPosts } from '@/components/sections/index/section5'
-import { getBlogPostData } from '@/features/blog/data/get-blog-post-data'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'
-import { Locale, ParamsWithLang } from '@/i18n/types'
+import { ParamsWithLang } from '@/i18n/types'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {

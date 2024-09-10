@@ -6,6 +6,27 @@ import Section from '@/components/common/section'
 import Container from '@/components/common/container'
 import './style.css'
 
+const links = [
+  {
+    image: {
+      src: '/images/product.png',
+      alt: 'industrial lubricants',
+    },
+  },
+  {
+    image: {
+      src: '/images/satisfied.png',
+      alt: 'satisfied customers',
+    },
+  },
+  {
+    image: {
+      src: '/images/experience.png',
+      alt: 'years of experience',
+    },
+  },
+]
+
 export default async function HeroSection({ lang }: PropsWithLang) {
   const {
     aboutPage: { hero },
@@ -34,8 +55,8 @@ export default async function HeroSection({ lang }: PropsWithLang) {
               >
                 <div className="mb-5">
                   <Image
-                    src={item.image.src}
-                    alt={item.image.alt}
+                    src={links[i].image.src}
+                    alt={links[i].image.alt}
                     width={250}
                     height={250}
                   />

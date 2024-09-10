@@ -552,6 +552,15 @@ function SectorData({
   )
 }
 
+const links = [
+  {
+    href: '/about',
+  },
+  {
+    href: '/contact',
+  },
+]
+
 function RightNavigation({ user }: { user: ActiveUser | null }) {
   const { loading, logout } = useAuthenticatedUser()
   const router = useRouter()
@@ -587,7 +596,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
             <NavigationMenuContent>
               <ul className="p-4 min-w-[180px] capitalize">
                 {navItems?.about.navLinks?.map((item, i) => (
-                  <ListItem key={i} href={item.href} title={item.title} />
+                  <ListItem key={i} href={links[i].href} title={item.title} />
                 ))}
               </ul>
             </NavigationMenuContent>
@@ -629,7 +638,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
                           className="cursor-pointer"
                           onClick={handleLogoutButton}
                         >
-                          {navItems.profile.logout}
+                          {navItems.logout.title}
                         </span>
                       </ListItem>
                     </ul>

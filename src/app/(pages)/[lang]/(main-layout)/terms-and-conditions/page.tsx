@@ -1,6 +1,8 @@
 import Container from '@/components/common/container'
 import MdxRenderer from '@/components/common/mdx-renderer'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
+import { Metadata } from 'next'
 
 const termsText = `
 # Terms and Conditions
@@ -73,6 +75,17 @@ These terms are subject to the regulatory provisions of local laws and will be i
 
 
 `
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale(
+    '/terms-and-conditions',
+    lang
+  )
+
+  return seoData
+}
 
 export default function Page() {
   return (

@@ -1,78 +1,81 @@
 {
   "common": {
-    "contactUs": "Bize ulaşın",
-    "noDataFound": "Sonuç bulunamadı.",
-    "registerEmail": "Endüstri haberleri için kayıt ol",
+    "goTo": "gitmek",
+    "anyText": "herhangi",
+    "homepage": "ana sayfa",
+    "loginPageText": "giriş sayfası",
+    "contactUs": "Bize Ulaşın",
+    "noDataFound": "Sonuç yok.",
+    "registerEmail": "Sektör haberleri için kaydolun",
     "learnMore": "Daha fazla bilgi edin",
     "learnMoreUs": "Hakkımızda Daha Fazla Bilgi Edinin",
     "or": "veya",
     "price": "fiyat",
-    "search": "Ara",
-    "filter": "Filtreler",
-    "productFound": "ürün bulundu",
+    "search": "aramak",
+    "filter": "Filtre",
+    "productFound": "Sonuçlar",
     "categories": "Kategoriye göre ürünler",
     "sectors": "Sektöre göre ürünler",
     "productFinder": "Ürün bul",
     "getTheLatestInfo": "en son bilgileri al",
-    "wait": "Lütfen bekleyiniz...",
-    "welcome": "Hoşgeldin",
-    "keyword": "Anahtar kelime...",
-    "removeText": "Sil"
+    "wait": "Lütfen bekleyin...",
+    "welcome": "Hoş geldin",
+    "removeText": "Kaldırmak",
+    "keyword": "Anahtar kelime..."
   },
   "layout": {
     "navigation": {
       "mobile": {
-        "home": "anasayfa",
-        "about": "hakkımızda",
+        "home": "Ev",
+        "about": "Hakkımızda",
         "productFinder": "ürün bul"
       },
+      "categories": "Kategoriler",
+      "sectors": "Sektörler",
       "navItems": {
         "about": {
           "title": "Hakkımızda",
           "navLinks": [
             {
-              "title": "Hakkımızda",
-              "href": "/about"
+              "title": "Hakkımızda"
             },
             {
-              "title": "Bize ulaşın",
-              "href": "/contact"
+              "title": "Bize Ulaşın"
             }
           ]
         },
         "login": {
-          "title": "Giriş yap",
-          "href": "/login"
+          "title": "Giriş yapmak"
+        },
+        "logout": {
+          "title": "Oturumu kapat"
         },
         "register": {
-          "title": "Kayıt ol",
-          "href": "/register"
+          "title": "Kayıt olmak"
         },
         "profile": {
-          "profile": "Profil",
-          "logout": "Çıkış yap"
+          "profile": "Profil"
         },
         "b2b": {
-          "partnerText": "Bize katılın"
+          "partnerText": "Bizimle ortak olun"
         }
       },
-
       "title": "Ürünler"
     },
     "footer": {
       "title": "Bize ulaşın",
       "links": [
         {
-          "title": "Sabit tel.: +90 212 345 6789"
+          "title": "Sabit Hat: +90 212 345 6789"
         },
         {
-          "title": "Mob.: +90 551 578 54 89"
+          "title": "Cep: +90 551 578 54 89"
         },
         {
           "title": "E-posta: info@restoreplus.com"
         },
         {
-          "title": "Adres: Mersinli, 2830. Sk. No:35 D:101, 35170 Konak/İzmir Türkiye"
+          "title": "Adres: Mersinli, 2830. Sokak No:35 Apt:101, 35170 Konak/İzmir Türkiye"
         }
       ],
       "copyright": {
@@ -87,93 +90,91 @@
   },
   "auth": {
     "login": {
-      "text": "Giriş Yap",
-      "link": "/login",
-      "page": {
-        "title": "Giriş Yapın",
-        "text": "Hesabınıza giriş yapın",
-        "signUp": {
-          "text": "Hesap Oluştur",
-          "href": "/register",
-          "linkText": "Henüz hesabınız yok mu? Kaydolun"
-        },
+      "text": "Giriş yapmak",
+      "form": {
+        "title": "Giriş yapmak",
+        "text": "Hesabınızda oturum açın",
+        "forgotPasswordText": "Parolanızı mı unuttunuz?",
+        "dontHaveAccountText": "Hesabınız yok mu?",
         "fields": {
           "email": "E-posta Adresi",
           "password": "Şifre"
         },
-        "buttonText": "Giriş Yap"
+        "buttonText": "Giriş yapmak"
       }
     },
     "register": {
-      "text": "Kayıt Ol",
-      "link": "/register",
+      "text": "Kayıt olmak",
       "page": {
-        "title": "Hesap Oluşturun",
-        "text": "Yeni bir hesap oluşturun",
+        "title": "Kayıt olmak",
+        "text": "Yeni bir hesap oluştur",
         "signUp": {
-          "text": "Hesap Oluştur",
-          "href": "/login",
-          "linkText": "Zaten bir hesabınız var mı? Giriş yapın"
+          "text": "Üye olmak",
+          "linkText": "Zaten bir hesabınız var mı? "
         },
         "fields": {
           "email": "E-posta Adresi",
-          "firstName": "Ad",
-          "lastName": "Soyad",
+          "firstName": "İlk adı",
+          "lastName": "Soy isim",
           "password": "Şifre",
           "confirmPassword": "Şifreyi Onayla"
         },
         "checkboxes": {
           "acceptPromotions": "Promosyonları Kabul Et",
           "reconciliations": {
-            "text": "Kayıt olarak, şunları kabul edersiniz:",
-            "termsAndConditions": "Hizmet Şartları",
+            "text": "Kaydolarak aşağıdakileri kabul etmiş olursunuz:",
+            "termsAndConditions": "Şartlar ve koşullar",
             "privacy": "Gizlilik Politikası"
           }
         },
-        "buttonText": "Kayıt Ol"
+        "buttonText": "Kayıt olmak",
+        "success": {
+          "title": "Kayıt başarılı.",
+          "message": "Kayıt başarılı! "
+        }
       }
     }
   },
   "indexV2": {
     "hero": {
-      "title": "Endüstriyi Güçlendirin",
+      "title": "Endüstriye Güç Vermek",
       "subTitle": "Hassas Yağlar"
     },
     "sloganSection": {
-      "title": "Doğru Yağ. Her Zaman",
-      "subTitle": "İşletmenizin ihtiyaçlarına göre uyarlanmış güvenilir, yüksek performanslı çözümler. Uzman desteğimiz ve kaliteli ürünlerimizle farkı yaşayın.",
+      "title": "Doğru Yağ. ",
+      "subTitle": "İş ihtiyaçlarınıza göre tasarlanmış güvenilir, yüksek performanslı çözümler. ",
       "buttonText": "Ürünlerimizi Keşfedin"
     },
     "findProductSection": {
-      "title": "İhtiyacınız Olan Yağı Hızla Bulun.",
+      "title": "İhtiyacınız Olan Yağı Bulun. ",
       "subTitle": "Kullanıcı dostu ürün bulucumuz <br/> özel ihtiyaçlarınız için doğru endüstriyel yağı belirlemenize yardımcı olur.",
-      "buttonText": "Şimdi Ürünleri Keşfedin"
+      "buttonText": "Ürünleri Şimdi Keşfedin"
     },
     "b2bSection": {
-      "title": "İşletmenizi B2B Platformumuzla Kolaylaştırın",
-      "subTitle": "Özel indirimlerden yararlanın, sorunsuz pazar entegrasyonu ve verimli sipariş yönetimi sağlayın. Kapsamlı B2B çözümlerimizle operasyonlarınızı yükseltin.",
-      "buttonText": "B2B Erişimi İçin Başvurun"
+      "title": "B2B Platformumuzla İşinizi Kolaylaştırın",
+      "subTitle": "Özel indirimlerin, kusursuz pazar entegrasyonunun ve verimli sipariş yönetiminin keyfini çıkarın. ",
+      "buttonText": "B2B Erişimi için Başvurun"
     },
     "sections": [
       {
-        "title": "Makine Verimliliğini Optimize Edin: <br/> Premium Yağlarımızın Gücünü Keşfedin",
+        "title": "Makine Verimliliğini Optimize Edin: <br/> Premium'umuzun Gücünü Açığa Çıkarın",
         "subTitle": "Hidrolik Yağlar!"
       },
       {
-        "title": "Makine Performansını Artırın: <br/> Üstün Kesme Sıvılarımızı Keşfedin",
-        "subTitle": "Bugün!"
+        "title": "Makine Performansını Artırın: <br/> Üstünlüğümüzü Keşfedin",
+        "subTitle": "Sıvıları Bugün Kesmek!"
       },
       {
-        "title": "Makine Performansını Artırın: <br/> Üstün Isı Transfer Sıvılarımızı Keşfedin",
-        "subTitle": "Bugün!"
+        "title": "Makine Performansını Artırın: <br/> Üstünlüğümüzü Keşfedin",
+        "subTitle": "Günümüzde Isı Transfer Sıvıları!"
       }
     ],
     "section1": {
-      "title": "Makine Performansını Artırın: <br/> Üstün Kompresör Yağlarımızı Keşfedin",
-      "subTitle": "Bugün!"
+      "title": "Makine Performansını Artırın: <br/> Üstünlüğümüzü Keşfedin",
+      "subTitle": "Kompresör Yağları Bugün!"
     },
     "section2": {
-      "title": "Makine Verimliliğini Optimize Edin: <br/> Premium Yağlarımızın Gücünü Keşfedin",
+      "title": "Makine Verimliliğini Optimize Edin: <br/> Premium'umuzun Gücünü Açığa Çıkarın",
       "subTitle": "Hidrolik Yağlar!"
     }
   },
@@ -185,45 +186,40 @@
       },
       "join": {
         "text": "Restoreplus'ta yeni misiniz?",
-        "linkText": "Tam Erişim için Ücretsiz Katılın ",
-        "href": "/register"
+        "linkText": "Tam Erişim için Ücretsiz Katılın "
       }
     },
     "section1": {
-      "title": "Restoreplus Yağlayıcılarını Keşfedin",
+      "title": "Restoreplus Yağlayıcıları Keşfedin",
       "columns": [
         {
           "image": {
-            "src": "/images/col1.png",
-            "alt": "üretkenlik"
+            "alt": "verimlilik"
           },
-          "title": "TELİF HAKKI",
-          "desc": "Telif Hakkı © Dongguan Baoxing yağlama yağı Co., Ltd. Tüm Hakları Saklıdır",
-          "buttonText": "Kataloğu keşfedin"
+          "title": "Telif Hakkı",
+          "desc": "Tüm Hakları Saklıdır © Restoreplus Yağlama Yağı Co., Ltd.",
+          "buttonText": "Katalog Keşfedin"
         },
         {
           "image": {
-            "src": "/images/col2.png",
-            "alt": "üretkenlik"
+            "alt": "verimlilik"
           },
-          "title": "Yenilikçi R",
-          "desc": "Birçok marka şirkete gres sağladı Dongguan Baoxing Lubricant Co., Ltd. üretimi entegre ediyor, R",
+          "title": "Yenilikçi Ar-Ge",
+          "desc": "Restoreplus Yağlama Yağı Co., Ltd., birçok markanın yağlanmasını sağlamıştır. ",
           "buttonText": "Çözümünüzü Bulun"
         },
         {
           "image": {
-            "src": "/images/col3.png",
-            "alt": "üretkenlik"
+            "alt": "verimlilik"
           },
-          "title": "Yüksek Kaliteli Teknoloji",
-          "desc": "Bir dizi kıdemli madeni yağ teknik mühendisi ve bir grup yüksek vasıflı satış temsilcisi var",
-          "buttonText": "Maliyetleri azaltmak"
+          "title": "Kaliteli Yüksek Teknoloji",
+          "desc": "Bir dizi bölgesel yağlayıcı teknik mühendisi ve geniş kapsamlı satış portföyüne sahiptir.",
+          "buttonText": "Maliyetleri Düşürün"
         }
       ]
     },
     "section2": {
       "image": {
-        "src": "/images/image-placeholder.png",
         "alt": ""
       },
       "blueText": "Endüstriyel Yağlama Sürecinizi Basitleştirin",
@@ -242,7 +238,7 @@
           "content": "Birden fazla güvenilir tedarikçiden anında rekabetçi teklifler alın."
         },
         {
-          "title": "Mecburiyet yok:",
+          "title": "Hiçbir yükümlülük yok:",
           "content": "Seçenekleri keşfedin ve herhangi bir taahhütte bulunmadan uzman tavsiyesi alın."
         },
         {
@@ -253,7 +249,6 @@
     },
     "section3": {
       "image": {
-        "src": "/images/image-placeholder.png",
         "alt": ""
       },
       "blueText": "Her uygulama için sektör lideri çözümler",
@@ -286,49 +281,11 @@
       ]
     },
     "section4": {
-      "heading": "Mükemmel uyumu bulun: Kapsamlı yağlayıcı serimizi keşfedin.",
-      "buttonText": "Ürün kataloğunu keşfedin",
-      "lubricantTypes": [
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "resim yer tutucusu"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "resim yer tutucusu"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "resim yer tutucusu"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "resim yer tutucusu"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "resim yer tutucusu"
-          }
-        },
-        {
-          "image": {
-            "src": "/images/image-placeholder.png",
-            "alt": "resim yer tutucusu"
-          }
-        }
-      ]
+      "heading": "Mükemmel uyumu bulun: Kapsamlı yağlayıcı yelpazemizi keşfedin.",
+      "buttonText": "Ürün kataloğunu keşfedin"
     },
     "section5": {
-      "title": "latest insights"
+      "title": "en son bilgiler"
     },
     "section6": {
       "heading": "Endüstri için. ",
@@ -337,7 +294,7 @@
       "aboutButton": "Hakkımızda Daha Fazla Bilgi Edinin"
     },
     "section7": {
-      "title": "sektörler"
+      "title": "endüstriler"
     }
   },
   "contactPage": {
@@ -346,57 +303,45 @@
     "aggreeForm": "Bu formu göndererek iletişim bilgilerinizi Restoreplus ile paylaşmayı kabul etmiş olursunuz.",
     "products": "Ürünleriniz",
     "fields": {
-      "firstName": "İlk İsim",
-      "lastName": "Soyisim",
+      "firstName": "İlk adı",
+      "lastName": "Soy isim",
       "email": "E-posta",
       "jobTitle": "İş unvanı",
       "companyName": "Firma Adı",
       "city": "Şehir",
       "country": "Ülke",
-      "phoneNumber": "Telefon numarası",
+      "phoneNumber": "Telefon Numarası",
       "postalCode": "Posta Kodu",
-      "website": "İnternet sitesi",
-      "companyType": "Şirket türü",
-      "message": "Mesajın"
+      "website": "Web sitesi",
+      "companyType": "Şirket Türü",
+      "message": "Mesajınız"
     },
     "buttonText": "GÖNDERMEK"
   },
   "aboutPage": {
     "hero": {
       "topTitle": "Restoreplus Hakkında",
-      "title": "Endüstriyel Yağlama Alanında Verimliliği Artırma",
-      "description": "Restoreplus, makinalarda endüstriyel yağlayıcıların önde gelen üreticisi ve distribütörlerinden biri olmuştur. 20 yıldan fazla bir süredir müşterilerimize en yüksek kalitede ürünler ve işletmelerinin sorunsuz çalışmasını sağlamak için olağanüstü hizmet sunmaya adamışız.",
+      "title": "Endüstriyel Yağlamada Verimliliğin Güçlendirilmesi",
+      "description": "Restoreplus, 20 yılı aşkın süredir makinelerde kullanılan endüstriyel yağların lider üreticisi ve distribütörüdür. ",
       "columns": [
         {
           "title": "3000+",
-          "text": "Endüstriyel Yağlayıcı Ürünler",
-          "image": {
-            "src": "/images/product.png",
-            "alt": "endustriyel yaglar"
-          }
+          "text": "Endüstriyel Yağlayıcı Ürünler"
         },
         {
           "title": "10000+",
-          "text": "Memnun Müşteriler",
-          "image": {
-            "src": "/images/satisfied.png",
-            "alt": "mutlu musteriler"
-          }
+          "text": "Memnun Müşteriler"
         },
         {
           "title": "20+",
-          "text": "İş Yılı",
-          "image": {
-            "src": "/images/experience.png",
-            "alt": "yuksek tecrube"
-          }
+          "text": "İşletmede Yıllar"
         }
       ]
     },
     "section1": {
       "title": "Kapsamlı Endüstriyel Yağlayıcı Seçimi",
-      "description": "Restoreplus'ta modern endüstrinin çeşitli ihtiyaçlarını anlıyoruz. Bu yüzden kapsamlı bir endüstriyel yağlayıcı seçimi sunuyoruz.",
-      "listTitle": "Şunları içerir:",
+      "description": "Restoreplus olarak modern endüstrinin farklı ihtiyaçlarını anlıyoruz. ",
+      "listTitle": "İçermek:",
       "list": [
         {
           "text": "Gresler"
@@ -408,62 +353,50 @@
           "text": "Spreyler"
         },
         {
-          "text": "Pastalar"
+          "text": "Makarnalar"
         },
         {
-          "text": "Ve daha birçok ürün"
+          "text": "Ve daha fazlası"
         }
       ],
-      "buttonText": "Ürünlere bak",
-      "image": {
-        "src": "/images/lubricants.jpg",
-        "alt": "görsel yer tutucu"
-      }
+      "buttonText": "Ürünleri görün"
     },
     "section2": {
-      "title": "Düzenli Çevrimiçi Sipariş ve Bayi Programı",
-      "description": "Müşterilerimizin ihtiyaç duydukları yağlayıcıları bulup satın almalarını kolaylaştırdık.",
-      "listTitle": "Kullanıcı dostu web sitemizle şunları yapabilirsiniz:",
+      "title": "Kolaylaştırılmış Çevrimiçi Sipariş ve Bayi Programı",
+      "description": "Müşterilerimizin ihtiyaç duydukları yağlayıcıları bulmalarını ve satın almalarını kolaylaştırdık.",
+      "listTitle": "Kullanıcı dostu web sitemiz şunları yapmanızı sağlar:",
       "list": [
         {
-          "text": "Kategorilere veya uygulamalara göre ürünleri göz atın ve arayın"
+          "text": "Ürünlere kategori veya uygulamaya göre göz atın ve arayın"
         },
         {
-          "text": "Detaylı ürün bilgilerine ve özelliklerine erişim"
+          "text": "Ayrıntılı ürün bilgilerine ve özelliklerine erişin"
         },
         {
-          "text": "Siparişlerinizi çevrimiçi olarak oluşturun ve yönetin"
+          "text": "Siparişlerinizi çevrimiçi oluşturun ve yönetin"
         },
         {
-          "text": "Sevkiyatlarınızı kolayca takip edin"
+          "text": "Gönderilerinizi rahatlıkla takip edin"
         }
       ],
-      "buttonText": "Ürünlere bak",
-      "image": {
-        "src": "/images/orders.jpg",
-        "alt": "görsel yer tutucu"
-      }
+      "buttonText": "Ürünleri görün"
     },
     "section3": {
-      "title": "Bir Restoreplus Bayisi Olun",
-      "description": "Restoreplus, nitelikli işletmelere sağlayan tatmin edici bir bayi programı sunmaktadır.",
-      "listTitle": "Restoreplus Ekibine Katılarak Şunlara Sahip Olun:",
+      "title": "Restoreplus Bayisi Olun",
+      "description": "Restoreplus, nitelikli işletmeler sağlayan ödüllendirici bir bayi programı sunar.",
+      "listTitle": "Team Restoreplus'a katılarak şunları yapın:",
       "list": [
         {
-          "text": "%10'a kadar indirimlerle rekabetçi fiyatlandırma"
+          "text": "%10'a varan indirimlerle rekabetçi fiyatlandırma"
         },
         {
-          "text": "Dedike satış desteği"
+          "text": "Özel satış desteği"
         },
         {
           "text": "Pazarlama kaynaklarına erişim"
         }
       ],
-      "buttonText": "Bayi olmak için kaydolun",
-      "image": {
-        "src": "/images/reseller.jpg",
-        "alt": "görsel yer tutucu"
-      }
+      "buttonText": "Bayi olmak için kaydolun"
     }
   },
   "blog": {
@@ -473,7 +406,7 @@
     "buttonText": "Devamını oku",
     "page": {
       "rightCard": {
-        "title": "Alıcılar Tarafından Bulunsun",
+        "title": "Alıcılar ve Mühendisler Tarafından Bulunsun",
         "text": "Ürün keşfi ve tedarikçi seçimi için dünyanın önde gelen platformunda en aktif ve nitelikli B2B alıcı ağıyla bağlantı kurun.",
         "buttonText": "Listelen"
       }
@@ -487,10 +420,10 @@
   "socialPostData": {
     "platforms": {
       "twitter": {
-        "text": "paylaş"
+        "text": "postalamak"
       },
       "facebook": {
-        "text": "beğen"
+        "text": "beğenmek"
       }
     }
   },
@@ -510,13 +443,13 @@
   },
   "profile": {
     "header": {
-      "title": "Hoşgeldin",
+      "title": "Hoş geldin",
       "description": "Hesap ayarlarınızı yönetin ve siparişleri burada oluşturun."
     },
     "account": {
       "title": "Hesap",
       "description": "Profil ayarlarınızı güncelleyin. ",
-      "buttonText": "Hesabı güncelle",
+      "buttonText": "Hesabı Güncelle",
       "accountForm": {
         "firstName": {
           "label": "İlk adı",
@@ -526,12 +459,12 @@
         "lastName": {
           "label": "Soy isim",
           "description": "Bu, profilinizde ve e-postalarınızda görüntülenecek soyadıdır.",
-          "placeholder": "Soy adınız"
+          "placeholder": "Soyadınız"
         },
         "email": {
           "label": "E-posta",
           "description": "Bu, profilinizde ve e-postalarınızda görüntülenecek e-posta adresidir.",
-          "placeholder": "E-posta adresiniz"
+          "placeholder": "E-postanız"
         },
         "password": {
           "label": "Şifre",
@@ -547,10 +480,10 @@
         "name": {
           "label": "Firma Adı",
           "description": "Bu, profilinizde ve e-postalarınızda görüntülenecek şirket adıdır.",
-          "placeholder": "Şirket adın"
+          "placeholder": "Şirketinizin adı"
         },
         "description": {
-          "label": "Şirket tanımı",
+          "label": "Şirket Tanımı",
           "description": "Bu şirketinizle ilgili açıklamadır.",
           "placeholder": "Şirket tanımınız"
         },
@@ -560,7 +493,7 @@
           "placeholder": "Şirketinizin web sitesi"
         },
         "phoneNumber": {
-          "label": "Telefon numarası",
+          "label": "Telefon Numarası",
           "description": "Bu, şirketinizin sahip olduğu telefon numarasıdır.",
           "placeholder": "Şirketinizin telefon numarası"
         }
@@ -569,14 +502,15 @@
     "addressList": {
       "title": "Adres listeniz",
       "description": "Adres listenizi yönetin. ",
-      "editAddressButtonText": "Adresi düzelt",
+      "editAddressButtonText": "Adresi düzenle",
       "buttonText": "Adresi kaydet",
-      "billingAddressText": "Fatura adresi",
-      "shippingAddressText": "Teslimat adresi",
-      "newAddressButton": "yeni fatura adresi ekleyin",
+      "billingAddressText": "Fatura Adresi",
+      "shippingAddressText": "Gönderi Adresi",
+      "newBillingAddressText": "Yeni fatura adresi ekle",
+      "newShippingAddressText": "Yeni teslimat adresi ekle",
       "addressForm": {
         "address": {
-          "title": "yeni adres ekleyin",
+          "title": "Yeni adres ekle",
           "description": "Adres bilgilerinizi buraya ekleyin. "
         },
         "title": {
@@ -584,12 +518,12 @@
           "placeholder": "Adres başlığını girin"
         },
         "authorizedPerson": {
-          "label": "Yetkili kişi",
+          "label": "Yetkili Kişi",
           "placeholder": "Yetkili kişiyi girin"
         },
         "street1": {
-          "label": "Adres satırı",
-          "placeholder": "Adres satırı 1'i girin"
+          "label": "Adres",
+          "placeholder": "Adresi girin"
         },
         "country": {
           "label": "Ülke",
@@ -615,24 +549,19 @@
     },
     "sideNavigationItems": [
       {
-        "title": "Profil",
-        "href": "/profile"
+        "title": "Profil"
       },
       {
-        "title": "Şirket",
-        "href": "/profile/company"
+        "title": "Şirket"
       },
       {
-        "title": "Adresler",
-        "href": "/profile/addresses"
+        "title": "Adresler"
       },
       {
-        "title": "Sipariş oluştur",
-        "href": "/create-order"
+        "title": "Sipariş oluştur"
       },
       {
-        "title": "Emirler",
-        "href": "/profile/orders"
+        "title": "Siparişler"
       }
     ],
     "products": {
@@ -644,7 +573,9 @@
   "toastMessages": {
     "userInfo": {
       "title": "Başarıyla güncellendi!",
-      "description": "Kullanıcı bilgileri başarıyla güncellendi!"
+      "description": "Kullanıcı bilgileri başarıyla güncellendi!",
+      "errorText": "Kullanıcı bilgileri güncellenemedi",
+      "errorDescription": "Lütfen alanlarınızın doğru olduğundan emin olun!"
     }
   },
   "search": {
@@ -652,71 +583,74 @@
       "name": "isim",
       "sector": "sektör",
       "category": "kategori",
-      "equivalent": "muadil"
+      "equivalent": "eş değer"
     },
-    "placeholders": ["gıda uyumlu gres", "motor yağları", "aliminyum alaşım"]
+    "placeholders": [
+      "gıda sınıfı gresler",
+      "motor yağları",
+      "alüminyum alaşımı"
+    ]
   },
   "publicProductPageList": {
     "products": "Ürünler",
-    "available": "ürün bulundu",
+    "available": "mevcut ürünler",
     "backButtonText": "Geri"
   },
   "productCollection": {
     "meta": {
-      "title": "Restoreplus Endüstriyel Yağlayıcılar | Her Makine için Doğru Yağı Bulun ",
-      "description": "Restoreplus'ın yüksek performanslı endüstriyel yağlayıcılarının tüm ürün serisini keşfedin. İhtiyaçlarınıza mükemmel yağı bulmak için sektöre, kategoriye veya eşdeğer markaya göre kolayca filtreleyin. Güçlü arama ve filtreleme seçenekleri dahildir."
+      "title": "Restoreplus Endüstriyel Yağlar | ",
+      "description": "Restoreplus'un yüksek performanslı endüstriyel yağlayıcılardan oluşan eksiksiz serisini keşfedin. "
     }
   },
   "productFinder": {
-    "noProductsMessage": "Ürün adıyla aramayı deneyebilir veya bizimle iletişime geçebilirsiniz ->",
-    "reset": "Sıfırla",
+    "noProductsMessage": "Ürün adına göre arama yapmayı deneyebilir veya bizimle iletişime geçebilirsiniz -> ",
+    "reset": "sıfırlama",
     "category": "Kategori",
     "categories": "Kategoriler",
     "subCategories": "Alt kategoriler",
     "allCategories": "Tüm kategoriler",
     "allSubCategories": "Tüm alt kategoriler",
     "sectors": "Sektörler",
-    "applicationScopes": "Uygulama alanları",
+    "applicationScopes": "Uygulama kapsamları",
     "allSectors": "Tüm sektörler",
     "allSubSectors": "Tüm alt sektörler",
-    "equivalent": "Eşdeğer",
+    "equivalent": "Eş değer",
     "productActionButtons": {
       "addToOfferList": {
         "buttonText": "",
         "tooltip": "Teklif listesine ekle",
-        "removeFromOfferListButtonText": "İstek listesinden çıkar"
+        "removeFromOfferListButtonText": "Teklif listesinden kaldır"
       },
       "goToProductDetails": {
         "buttonText": "",
-        "tooltip": "Detayları gör"
+        "tooltip": "Ayrıntıları göster"
       }
     }
   },
   "createOrderPage": {
-    "reduction": "iskonto",
+    "reduction": "kesinti",
     "details": "Detaylar",
     "addToCart": "Sepete ekle",
     "sectorDiscount": "sektör indirimi",
     "productCard": {
-      "pickDimention": "Boyut seçin"
+      "pickDimention": "Boyut seç"
     }
   },
   "localeCurrencyMenu": {
     "title": "Dili ve para birimini ayarlayın",
-    "description": "Tercih ettiğiniz dili ve para birimini seçin. Ayarları istediğiniz zaman güncelleyebilirsiniz.",
+    "description": "Tercih ettiğiniz dili ve para birimini seçin. ",
     "language": "Dil",
     "languages": "Diller",
     "currency": "Para birimi",
     "currencies": "Para birimleri",
-    "save": "Kaydet"
+    "save": "Kaydetmek"
   },
   "applicationScope": {
-    "title": "Uygulama alanları",
+    "title": "Uygulamalar",
     "page": {
-      "productsTitle": "için Restoreplus ürünlerini keşfedin"
+      "productsTitle": "Restoreplus ürünlerini keşfedin"
     }
   },
-
   "productCategories": {
     "page": {
       "categoriesTitle": "Diğer kategoriler"
@@ -726,68 +660,68 @@
     "cart": {
       "title": "Sepetiniz",
       "addToCartButtonText": "Sepete ekle",
-      "addedToCartButtonText": "Eklendi",
-      "description": "Sepetinize eklediğiniz ürünleri buradan görüntüleyebilirsiniz",
+      "addedToCartButtonText": "Sepette",
+      "description": "Sepetinize eklediğiniz ürünleri burada görebilirsiniz.",
       "emptyCartMessage": "Sepetiniz boş",
-      "emptyCartAction": "Ürünlere gidin",
+      "emptyCartAction": "Ürünlere git",
       "actions": {
         "approveCart": "Sepeti onayla",
         "clearCart": "Sepeti temizle",
         "continue": "Alışverişe devam et",
-        "removeLine": "Sil"
+        "removeLine": "Kaldırmak"
       }
     }
   },
   "checkoutPage": {
-    "title": "Siparişi tamamla",
+    "title": "Çıkış yapmak",
     "orderSummary": "Sipariş özeti",
     "tableHeads": {
-      "image": "resim",
+      "image": "görüntü",
       "name": "isim",
       "amount": "miktar",
       "price": "fiyat"
     },
-    "totalBeforeTaxes": "Vergilerden ve indirimlerden önce toplam",
+    "totalBeforeTaxes": "Vergiler ve indirimler öncesi toplam",
     "totalTaxes": "Toplam vergiler",
     "totalDiscount": "Toplam indirim",
-    "totalAfterTaxes": "Vergilerden sonra toplam",
+    "totalAfterTaxes": "Vergi sonrası toplam",
     "total": "Toplam",
-    "pickAddress": "Adres seçiniz",
-    "createOrderButtonText": "Siparişi oluştur"
+    "pickAddress": "Adres seç",
+    "createOrderButtonText": "Sipariş oluştur"
   },
   "orderSuccessPage": {
-    "title": "Siparişiniz için teşekkür ederiz!",
-    "description": "Siparişinizi aldık, siparişiniz şuanda işleniyor. Yakında bilgilendirme e-postası tarafınıza iletilecektir.",
-    "viewOrderButtonText": "Siparişi görüntüle",
-    "continueShoppingButtonText": "Alışverişe devam et",
+    "title": "Sipariş verdiğiniz için teşekkür ederiz!",
+    "description": "Siparişinizi aldık ve işleme koyuluyor. ",
+    "viewOrderButtonText": "siparişi görüntüle",
+    "continueShoppingButtonText": "alışverişe devam et",
     "error": {
-      "title": "Sipariş Başarısız",
-      "description": "Üzgünüz, ancak siparişinizin işlenmesinde bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz. Sorun devam ederse, yardım için destek ekibimizle iletişime geçebilirsiniz.",
-      "viewOrderButtonText": "Destek ekibi",
-      "continueShoppingButtonText": "Ürünleri görüntüle"
+      "title": "Sipariş Başarısız!",
+      "description": "Üzgünüz ama siparişiniz işleme alınırken bir sorun oluştu. ",
+      "viewOrderButtonText": "Destek Ekibi",
+      "continueShoppingButtonText": "Ürünleri Görüntüle"
     }
   },
   "profileOrderHistoryPage": {
     "title": "Siparişleriniz",
-    "viewOrderButtonText": "Siparişi görüntüle",
+    "viewOrderButtonText": "Sipariş ayrıntılarını görüntüle",
     "tabs": {
-      "all": "Tüm siparişler",
-      "pending": "Bekleyen siparişler",
-      "cancelled": "İptal edilen siparişler"
+      "all": "Tüm Siparişler",
+      "pending": "Bekleyen Siparişler",
+      "cancelled": "İptal Edilen Siparişler"
     },
     "orderDetails": {
-      "orderPlaced": "Sipariş tarihi",
+      "orderPlaced": "Sipariş Verildi",
       "total": "Toplam",
       "status": "Durum",
       "shipTo": "Alıcı",
-      "order": "Sipariş"
+      "order": "Emir"
     },
     "dateFilters": {
-      "title": "Tarih filtrele",
-      "past1Months": "Son 1 ay",
-      "past3Months": "Son 3 ay",
-      "past6Months": "Son 6 ay",
-      "past12Months": "Son 12 ay",
+      "title": "Tarih Filtreleri",
+      "past1Months": "Son 1 Ay",
+      "past3Months": "Son 3 Ay",
+      "past6Months": "Son 6 Ay",
+      "past12Months": "Son 12 Ay",
       "all": "Tüm"
     },
     "status": {
@@ -796,64 +730,159 @@
       "cancelled": "Sipariş iptal edildi",
       "delivered": "Sipariş teslim edildi",
       "declined": "Sipariş reddedildi",
-      "shipped": "Sipariş kargoya verildi",
-      "refunded": "Para iadesi yapıldı",
+      "shipped": "Sipariş gönderildi",
+      "refunded": "Geri ödeme işleme konuldu",
       "unknown": "Bilinmiyor"
     }
   },
   "quoteRequest": {
     "quoteSubmittedMessage": {
       "successMessage": {
-        "message": "Mesajınız başarıyla gönderildi.",
-        "description": "Yakında size e-posta yolu ile dönüş yapılacaktır."
+        "message": "İsteğiniz başarıyla gönderildi.",
+        "description": "Teklif talebinizin ayrıntılarını içeren bir e-posta alırsınız."
       },
-      "errorMessage": "Mesaj gönderilirken bir hata oluştu. Lütfen girişlerinizi kontrol ediniz."
+      "errorMessage": "Üzgünüz, ancak isteğiniz işleme alınırken bir sorun oluştu. "
     }
   },
+  "cookieConsent": {
+    "message": "Bu web sitesi kullanıcı deneyimini geliştirmek için çerezleri kullanır.",
+    "accept": "Kabul etmek"
+  },
   "registerEmailMessages": {
-    "successfully": "Kaydınız için teşekkür ederiz. Hesabınızı doğrulamak için lütfen e-postanızı kontrol edin.",
+    "successfully": "Kayıt olduğunuz için teşekkür ederiz. ",
     "uniqueError": "Daha önce kayıt oldunuz.",
-    "errorMessage": "Üzgünüz, isteğiniz işlenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyin. Sorun devam ederse, yardım için destek ekibimizle iletişime geçmekten çekinmeyin.",
-    "placeholder": "E-posta adresiniz"
+    "errorMessage": "Üzgünüz, ancak isteğiniz işleme alınırken bir sorun oluştu. ",
+    "placeholder": "E-postanız"
+  },
+  "shoulLoginModal": {
+    "title": "Dokümanı indirmek için giriş yapmalısınız!",
+    "login": "Giriş yapmak",
+    "close": "Kapalı"
   },
   "offerProducts": {
     "offerProductSuccessfullyAdded": {
       "modalTitle": "Ürün başarıyla eklendi",
-      "modalDescription": "Sepetinize eklediğiniz ürünleri burada görüntüleyebilirsiniz.",
+      "modalDescription": "Sepetinize eklediğiniz ürünleri burada görebilirsiniz.",
       "viewButtonText": "Ürünleri görüntüle",
-      "closeButtonText": "Kapat"
+      "closeButtonText": "Kapalı"
     },
-    "requestOfferText": "Teklif iste",
-    "emptyList": "Henüz ürün eklemediniz"
+    "requestOfferText": "Teklif isteyin",
+    "emptyList": "Ürün yok"
   },
   "orderAddressPickers": {
     "shippingAddress": {
-      "shippingAddressText": "Teslimat adresi",
+      "shippingAddressText": "Gönderi Adresi",
       "newShippingAddressText": "Yeni teslimat adresi ekle",
-      "sameWithShippingAddressText": "Fatura adresi, teslimat adresi ile aynı olabilir."
+      "sameWithShippingAddressText": "Fatura adresi teslimat adresiyle aynı olabilir."
     },
     "billingAddress": {
-      "billingAddressText": "Fatura adresi",
+      "billingAddressText": "Fatura Adresi",
       "newBillingAddressText": "Yeni fatura adresi ekle"
     }
   },
   "b2bRegisterPage": {
     "formFields": {
       "nameText": "İsim",
-      "surnameText": "Soyisim",
-      "companyNameText": "Şirket Adı",
+      "surnameText": "Soyadı",
+      "companyNameText": "Firma Adı",
       "cityText": "Şehir",
       "countryText": "Ülke",
       "emailText": "E-posta",
-      "phoneNumberText": "Telefon Numarası",
+      "phoneNumberText": "Telefon numarası",
       "postalCodeText": "Posta Kodu",
       "passwordText": "Şifre",
       "confirmPasswordText": "Şifreyi onayla"
     },
-
-    "title": "Bizimle İş Ortağı Olun",
-    "description": "Şirketinizi kaydedin ve özel teklifler, entegre pazarlama ve indirimler kazanın.",
-    "submitButtonText": "B2B için kayıt ol",
+    "title": "Bizimle ortak olun",
+    "description": "Şirketinizi bize kaydedin ve özel teklifler, entegre pazarlama ve indirimlerden yararlanın.",
+    "submitButtonText": "B2B'ye kaydolun",
     "passwordNotMatchedErrorText": "Şifreler eşleşmiyor!"
+  },
+  "b2bRegisterRequestSuccessPage": {
+    "titleText": "Kayıt isteği başarıyla gönderildi.",
+    "descriptionText": "Kaydınızı ve başvurunuzun sonucunu onaylamak için e-postanızı kontrol edin.",
+    "gotoText": "Git",
+    "homepageText": "Ana sayfa"
+  },
+  "b2bCompleteRegistrationPage": {
+    "pageTitle": "Kaydınızı tamamlayın",
+    "nextStepText": "Sonraki adım",
+    "previousStepText": "Önceki adım",
+    "completeText": "Tamamlamak",
+    "b2bRegistrationCompleted": {
+      "title": "Tebrikler!",
+      "description": "B2B hesabınız başarıyla oluşturuldu. ",
+      "gotoText": "Git",
+      "homepageText": "Ana sayfa"
+    },
+    "isSameWithShippingAddressText": "Fatura adresi teslimat adresiyle aynı olabilir",
+    "step1": {
+      "title": "Kullanıcı bilgileri",
+      "formFields": {
+        "nameText": "İsim",
+        "emailText": "E-posta",
+        "passwordText": "Şifre",
+        "confirmPasswordText": "Şifreyi onayla"
+      }
+    },
+    "step2": {
+      "title": "Şirket bilgileri",
+      "formFields": {
+        "nameText": "Firma Adı",
+        "descriptionText": "Şirket açıklaması",
+        "websiteText": "Web sitesi",
+        "phoneNumberText": "Telefon numarası",
+        "fixedLineText": "Sabit hat",
+        "taxNumberText": "Vergi numarası"
+      }
+    },
+    "step3": {
+      "title": "Adres bilgileri",
+      "shippinAddressTitle": "Gönderi Adresi",
+      "billingAddressTitle": "Fatura Adresi",
+      "formFields": {
+        "titleText": "Adres başlığı",
+        "authorizedPersonText": "Yetkili kişi",
+        "addressDescriptionText": "Adres açıklaması",
+        "countryText": "Ülke",
+        "cityText": "Şehir",
+        "districtText": "Semt",
+        "zipCodeText": "Posta Kodu",
+        "stateText": "Durum"
+      }
+    }
+  },
+  "zodMessages": {
+    "invalid_type_string": "Geçersiz veri türü. ",
+    "invalid_type": "Geçersiz veri türü.",
+    "unrecognized_keys": "Tanınmayan alanlar bulundu.",
+    "invalid_union": "Geçersiz birleşim türü.",
+    "invalid_enum_value": "Geçersiz değer.",
+    "invalid_arguments": "Geçersiz argümanlar.",
+    "invalid_return_type": "Geçersiz dönüş türü.",
+    "invalid_date": "Geçersiz tarih.",
+    "invalid_string_email": "Geçersiz e-posta adresi.",
+    "invalid_string_url": "Geçersiz URL.",
+    "invalid_string_uuid": "Geçersiz UUID.",
+    "invalid_string": "Geçersiz dize.",
+    "too_small_required": "Gerekli alan.",
+    "too_small_string_2": "En az iki karakter olmalıdır.",
+    "too_small_string": "En az {minimum} karakter olmalıdır.",
+    "too_small_number_inclusive": "Değer en az {minimum} olmalıdır.",
+    "too_small_number": "Değer {minimum} değerinden büyük olmalıdır.",
+    "too_small": "Değer çok küçük.",
+    "too_big_string_1": "En fazla bir karakter olmalıdır.",
+    "too_big_string_2": "En fazla iki karakter olmalıdır.",
+    "too_big_string": "En fazla {maximum} karakter olmalıdır.",
+    "too_big_number_inclusive": "Değer en fazla {maximum} olmalıdır.",
+    "too_big_number": "Değer {maximum} değerinden küçük olmalıdır.",
+    "too_big": "Değer çok büyük.",
+    "not_multiple_of": "Değer, {multipleOf}'un katı olmalıdır.",
+    "custom_rule": "Özel kurala uymuyor.",
+    "default_error": "Geçersiz giriş."
+  },
+  "emailVerificationSuccessfullPage": {
+    "titleText": "E-posta başarıyla doğrulandı!",
+    "descriptionText": "E-postanız başarıyla doğrulandı! "
   }
 }

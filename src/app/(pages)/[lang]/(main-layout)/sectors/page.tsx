@@ -38,7 +38,7 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
         <Section>
           <ListSectorsMain lang={lang} />
         </Section>
-        <InfoCard className="lg:hidden" data={page.rightCard} />
+        <InfoCard className="lg:hidden" data={page.rightCard} lang={lang} />
       </Container>
     </div>
   )

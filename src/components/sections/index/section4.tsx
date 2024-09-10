@@ -8,6 +8,33 @@ import { getDictionary } from '@/i18n/get-dictionary'
 import { PropsWithLang } from '@/i18n/types'
 import { ArrowRight } from 'lucide-react'
 
+const lubricantLinks = [
+  {
+    src: '/images/image-placeholder.png',
+    alt: 'resim yer tutucusu',
+  },
+  {
+    src: '/images/image-placeholder.png',
+    alt: 'resim yer tutucusu',
+  },
+  {
+    src: '/images/image-placeholder.png',
+    alt: 'resim yer tutucusu',
+  },
+  {
+    src: '/images/image-placeholder.png',
+    alt: 'resim yer tutucusu',
+  },
+  {
+    src: '/images/image-placeholder.png',
+    alt: 'resim yer tutucusu',
+  },
+  {
+    src: '/images/image-placeholder.png',
+    alt: 'resim yer tutucusu',
+  },
+]
+
 export default async function Section4({ lang }: PropsWithLang) {
   const {
     index: { section4 },
@@ -21,14 +48,9 @@ export default async function Section4({ lang }: PropsWithLang) {
           </SectionHeader>
           <div className="flex flex-col items-center">
             <div className="flex flex-wrap gap-5 mb-3">
-              {section4.lubricantTypes.map((item, i) => (
+              {lubricantLinks.map((item, i) => (
                 <div key={i} className="bg-black">
-                  <Image
-                    src={item.image.src}
-                    alt={item.image.alt}
-                    width={60}
-                    height={60}
-                  />
+                  <Image src={item.src} alt={item.alt} width={60} height={60} />
                 </div>
               ))}
             </div>

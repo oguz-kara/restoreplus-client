@@ -21,7 +21,10 @@ import { Metadata } from 'next'
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const lang = params.lang
 
-  const seoData = await getSeoPageByPathnameAndLocale('/profile/orders', lang)
+  const seoData = await getSeoPageByPathnameAndLocale(
+    '/profile/orders/not-shipped',
+    lang
+  )
 
   return seoData
 }

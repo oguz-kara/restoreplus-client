@@ -102,9 +102,7 @@ export default function ProductFinderFilters({
   }, [searchParams])
 
   return (
-    <div
-      className="px-5 py-10 border border-gray-100"
-    >
+    <div className="px-5 py-10 border border-gray-100">
       <div className="mb-5 flex border border-gray-200 rounded-md">
         <div className="w-full flex items-center justify-between">
           <div>
@@ -270,7 +268,6 @@ export default function ProductFinderFilters({
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>{productFinder.subSectors}</SelectLabel>
                         {subSectorData?.map((item: any, i: number) => (
                           <SelectItem
                             key={i}
@@ -412,7 +409,6 @@ export default function ProductFinderFilters({
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>{productFinder.subSectors}</SelectLabel>
                   {subSectorData?.map((item: any, i: number) => (
                     <SelectItem
                       key={i}
