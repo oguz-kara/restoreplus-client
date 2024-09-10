@@ -45,7 +45,6 @@ export default function PickLocaleAndCurrencyMenu() {
   const { data: localeData, isPending: isLocalesPending } = useQuery([
     '/supported-locales',
   ])
-  console.log({ localeData })
   const [currentLang, setCurrentLang] = useState<string>(lang)
   const [currentCurrency, setCurrentCurrency] = useState<string>('USD')
 
@@ -87,7 +86,11 @@ export default function PickLocaleAndCurrencyMenu() {
     console.log({ currencyData, localeData })
   }, [currencyData, localeData])
 
-  if ((currencyData as any)?.data || (localeData as any)?.data) return null
+  if (
+    !(((currencyData as any)?.data?.length || 0) > 0) ||
+    !(((localeData as any)?.data?.length || 0) > 0)
+  )
+    return null
 
   return (
     <NavigationMenu>
