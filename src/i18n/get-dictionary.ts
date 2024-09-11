@@ -6,7 +6,8 @@ const dictionaries = {
   tr: () => import('./dictionaries/tr.json').then((module) => module.default),
 }
 
-export const getDictionary: (
+export const getDictionary: (locale: Locale) => Promise<Dictionary> = async (
   locale: Locale
-) => Promise<Dictionary> = async (locale: Locale) =>
+) =>
+  // @ts-ignore
   dictionaries[locale]()
