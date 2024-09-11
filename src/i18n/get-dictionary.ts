@@ -10,4 +10,5 @@ export const getDictionary: (locale: Locale) => Promise<Dictionary> = async (
   locale: Locale
 ) =>
   // @ts-ignore
+  // @ts-ignore
   dictionaries[locale]()
