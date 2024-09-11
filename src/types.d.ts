@@ -62,8 +62,7 @@ interface BlogPostCategory {
   parentCategory?: BlogPostCategory | null
   posts: BlogPost[]
   subCategories: BlogPostCategory[]
-  translations: BlogPostCategoryTranslation[]
-  blogPostCategoryInformationTranslations: BlogPostCategoryInformationTranslation[]
+  translation: BlogPostCategoryTranslation
   featuredImage: Image | null
   createdAt: Date
   updatedAt: Date

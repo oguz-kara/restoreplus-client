@@ -1,3 +1,4 @@
+import { serverUrl } from '@/config/get-env-fields'
 import { sdk } from '@/restoreplus-sdk'
 
 export const getSeoPageByPathnameAndLocale = async (
@@ -19,6 +20,10 @@ export const getSeoPageByPathnameAndLocale = async (
     return {
       title: pageData.translation.title,
       description: pageData.translation.description,
+      keywords: pageData.translation.keywords,
+      alternates: {
+        canonical: `${serverUrl}/${locale}${pathname}`,
+      },
     }
   }
 

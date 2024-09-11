@@ -15,6 +15,7 @@ import { Metadata } from 'next'
 import { sdk } from '@/restoreplus-sdk'
 import { getWithApplicationScopesQuery } from '@/features/sectors/queries/get-with-application-scopes.query'
 import { consoleLog } from '@/utils/log-to-console'
+import { serverUrl } from '@/config/get-env-fields'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const id = params.id
@@ -22,9 +23,15 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
   const sector = await sdk.sectors.getById(id, { lang })
 
+  const canonicalUrl = `${serverUrl}/${lang}/sectors/${id}/${sector?.translation?.slug}`
+
   return {
     title: sector?.translation?.metaTitle,
     description: sector?.translation?.metaDescription,
+    keywords: sector?.translation?.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
   }
 }
 

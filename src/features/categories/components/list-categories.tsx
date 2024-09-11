@@ -1,11 +1,18 @@
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
-import { getCategoriesWithSubCategories } from '@/features/categories/data/get-categories-with-sub-categories'
 import { PropsWithLang } from '@/i18n/types'
+import { sdk } from '@/restoreplus-sdk'
+import { consoleLog } from '@/utils/log-to-console'
+import { blogPostCategoryQuery } from '../query'
 
 export default async function ListCategories({ lang }: PropsWithLang) {
-  const result = await getCategoriesWithSubCategories()
+  const result = await sdk.blogPostCategories.getAllByQuery(
+    blogPostCategoryQuery,
+    { lang }
+  )
+
+  consoleLog({ result })
 
   if (!result) return 'no category found!'
 
@@ -13,7 +20,7 @@ export default async function ListCategories({ lang }: PropsWithLang) {
 
   return (
     <div className="max-w-[1024px] mx-auto px-10 pb-20">
-      {data.map((topCategory, i) => (
+      {data.map((topCategory: BlogPostCategory, i: number) => (
         <div key={i}>
           <div>
             <Typography

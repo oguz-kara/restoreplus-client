@@ -1,17 +1,25 @@
-import { getSingleCategoryById } from '@/features/categories/data/get-single-category-with-id'
+import { serverUrl } from '@/config/get-env-fields'
 import SingleCategoryPage from '@/features/categories/pages/single-category-page'
 import { Locale } from '@/i18n/types'
+import { sdk } from '@/restoreplus-sdk'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const id = params.id
   const lang = params.lang
 
-  const category = await getSingleCategoryById(id, lang)
+  const category = await sdk.blogPostCategories.getById(Number(id), { lang })
+  const canonicalUrl = `${serverUrl}/${lang}/categories/${id}/${category?.translation?.slug}`
+
+  console.log({ canonicalUrl })
 
   return {
     title: category?.translation?.metaTitle,
     description: category?.translation?.metaDescription,
+    keywords: category?.translation?.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
   }
 }
 

@@ -1,3 +1,4 @@
+import { serverUrl } from '@/config/get-env-fields'
 import SingleBlogPage from '@/features/blog/pages/single-blog-page'
 import { ParamsWithLang } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
@@ -9,9 +10,15 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
   const blog = await sdk.blogPosts.getById(id, { lang })
 
+  const canonicalUrl = `${serverUrl}/${lang}/blog/${id}/${blog?.translation?.slug}`
+
   return {
     title: blog?.translation?.metaTitle,
     description: blog?.translation?.metaDescription,
+    keywords: blog?.translation?.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
   }
 }
 

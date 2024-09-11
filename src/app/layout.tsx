@@ -6,10 +6,11 @@ import ReactQueryProvider from '@/providers/react-query-provider'
 import './globals.css'
 import { CartContextProvider } from '@/features/active-order/context/use-cart-view'
 import { ActiveOrderContextProvider } from '@/features/active-order/context/use-active-order'
+import { Metadata } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Restoreplus High Tech Lubricants',
   description: 'Restoreplus High Tech Lubricants',
 }
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <meta name="robots" content="index, follow" />
       </head>
       <body className={inter.className}>
         <NextTopLoader

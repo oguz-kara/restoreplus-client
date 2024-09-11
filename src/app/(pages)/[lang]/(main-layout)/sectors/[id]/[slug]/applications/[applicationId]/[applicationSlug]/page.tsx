@@ -11,6 +11,8 @@ import ListProductCards from '@/features/product/components/list-product-cards'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Metadata } from 'next'
 import { sdk } from '@/restoreplus-sdk'
+import { serverUrl } from '@/config/get-env-fields'
+import { consoleLog } from '@/utils/log-to-console'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &
@@ -22,14 +24,30 @@ type PageProps = ParamsWithId &
   }
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const id = params.id
+  const sectorId = params.id
+  const applicationId = params.applicationId
   const lang = params.lang
 
-  const applicationScope = await sdk.applicationScopes.getById(id, { lang })
+  const applicationScope = await sdk.applicationScopes.getById(
+    Number(applicationId),
+    {
+      lang,
+    }
+  )
+
+  const sector = await sdk.sectors.getById(Number(sectorId), {
+    lang,
+  })
+
+  const canonicalUrl = `${serverUrl}/${lang}/sectors/${sectorId}/${sector.translation.slug}/applications/${applicationId}/${applicationScope?.translation?.slug}`
 
   return {
     title: applicationScope?.translation?.metaTitle,
     description: applicationScope?.translation?.metaDescription,
+    keywords: applicationScope?.translation?.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
   }
 }
 

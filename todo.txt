@@ -1,0 +1,4 @@
+ok - find changed and newly added items. 
+ok - translate changed and newly added items.
+- properly merge translated items with super json file.
+- combine all the functions inside translate ui json file.

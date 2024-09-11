@@ -1,5 +1,5 @@
+import { serverUrl } from '@/config/get-env-fields'
 import SingleCategoryPage from '@/features/product-categories/components/single-category-page'
-import { getCategoryById } from '@/features/product-categories/data/get-category-by-id'
 import { Locale } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
 import { Metadata } from 'next'
@@ -10,9 +10,15 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
   const category = await sdk.productCategories.getById(id, { lang })
 
+  const canonicalUrl = `${serverUrl}/${lang}/product/categories/${id}/${category?.translation?.slug}`
+
   return {
     title: category?.translation?.metaTitle,
     description: category?.translation?.metaDescription,
+    keywords: category?.translation?.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
   }
 }
 
