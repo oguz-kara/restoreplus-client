@@ -11,7 +11,7 @@ const DictionaryContext = createContext({
   isPending: false,
 })
 
-const DictionaryV2Provider = ({
+const DictionaryProvider = ({
   children,
   lang,
   dictionary,
@@ -54,6 +54,6 @@ const DictionaryV2Provider = ({
   )
 }
 
-export const useDictionaryV2 = () => useContext(DictionaryContext)
+export const useDictionary = () => useContext(DictionaryContext)
 
-export default DictionaryV2Provider
+export default DictionaryProvider

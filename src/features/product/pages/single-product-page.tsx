@@ -3,7 +3,7 @@ import { PropsWithLang } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
 import { initialQuery } from '../queries/initial-query'
 import { getSingleProductQueryByLang } from '../queries/get-single-product-query'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
@@ -28,7 +28,7 @@ export default async function SingleProductPage({
   lang,
   redirectBackSearchParam,
 }: SingleProductPageProps) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
   const result = await sdk.products.getSingleByQuery(
     Number(id),
     getSingleProductQueryByLang(lang),

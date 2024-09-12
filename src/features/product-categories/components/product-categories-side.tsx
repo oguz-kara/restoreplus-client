@@ -1,6 +1,6 @@
 'use client'
 import Typography from '@/components/ui/typography'
-import { useDictionary } from '@/context/use-dictionary'
+import { useDictionary } from '@/context/use-dictionary-v2'
 import { cn } from '@/lib/utils'
 import { getSearchParam } from '@/utils/get-search-param'
 import { ChevronRight } from 'lucide-react'

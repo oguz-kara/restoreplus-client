@@ -2,7 +2,7 @@ import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 
 interface DarkGradientPanelProps {
   theme?: 'normal' | 'gradient'
@@ -13,7 +13,7 @@ export default async function DarkGradientPanel({
   theme = 'normal',
   lang,
 }: DarkGradientPanelProps) {
-  const dict = await getDictionaryV2(lang as any)
+  const dict = await getDictionary(lang as any)
   const classNames =
     theme === 'normal'
       ? 'bg-white text-black'

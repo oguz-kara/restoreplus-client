@@ -19,7 +19,7 @@ import b2bRegisterUserAddressSchema, {
 import Typography from '@/components/ui/typography'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export interface B2BRegisterUserAddressInputData {
   shippingAddress?: B2BRegisterUserAddressDataType
@@ -48,7 +48,7 @@ function B2BRegisterUserShippingAddressForm({
   onChange,
   value,
 }: B2BRegisterUserAddressProps & PropsWithLang) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const form = useForm<B2BRegisterUserAddressDataType>({
     resolver: zodResolver(b2bRegisterUserAddressSchema),
     defaultValues,
@@ -205,7 +205,7 @@ function B2BRegisterUserBillingAddressForm({
     resolver: zodResolver(b2bRegisterUserAddressSchema),
     defaultValues,
   })
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
 
   const values = form.watch()
 
@@ -367,7 +367,7 @@ export default function B2BRegisterUserAddressForm({
   const [billingAddress, setBillingAddress] = useState<
     B2BRegisterUserAddressDataType | undefined
   >(undefined)
-  const { dictionary } = useDictionaryV2()
+  const { dictionary } = useDictionary()
 
   useEffect(() => {
     const values = { shippingAddress, billingAddress, isSame }

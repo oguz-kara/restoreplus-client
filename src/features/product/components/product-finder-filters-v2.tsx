@@ -17,7 +17,7 @@ import { useManageSearchParams } from '@/hooks/use-manage-search-params'
 import { cn } from '@/lib/utils'
 import { Folder } from 'lucide-react'
 import { useMutation } from '@/hooks/use-mutation'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface ProductFinderFiltersProps {
   categoryData: ProductCategory[]
@@ -43,7 +43,7 @@ export default function ProductFinderFiltersV2({
   const { setSearchParam, searchParams, deleteSearchParam } =
     useManageSearchParams()
   const [q, setQ] = useState<string>(searchParams.get('term') || '')
-  const { dictionary: dict, lang } = useDictionaryV2()
+  const { dictionary: dict, lang } = useDictionary()
 
   const [listCategoryData, setListCategoryData] = useState<CategoryStateType[]>(
     [

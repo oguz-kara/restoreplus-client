@@ -12,10 +12,10 @@ import Paginate from '@/components/common/pagination'
 import { useOfferProducts } from '@/context/use-offer-products'
 import { cn } from '@/lib/utils'
 import { X } from 'lucide-react'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 function ProductCard({ product, lang }: { product: Product; lang: Locale }) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const { offerProducts, addNewOfferProduct, deleteOfferProductById } =
     useOfferProducts()
   const [productsAddedModalOpen, setProductsAddedModalOpen] =
@@ -125,7 +125,7 @@ export default function ListProductsCardsV2() {
   const categoryId = searchParams.get('categoryId')
   const applicationScopeId = searchParams.get('applicationScopeId')
   const term = searchParams.get('term')
-  const { dictionary: dict, lang } = useDictionaryV2()
+  const { dictionary: dict, lang } = useDictionary()
 
   useEffect(() => {
     const facetValues = searchParams.get('facetValues')

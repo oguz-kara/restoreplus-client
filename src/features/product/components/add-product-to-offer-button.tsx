@@ -6,22 +6,14 @@ import { useDictionary } from '@/context/use-dictionary'
 import { useOfferProducts } from '@/context/use-offer-products'
 import OfferProductsSuccessfullyAddedModal from '@/features/offer-products/components/offer-products-successfully-added-modal'
 import OfferProductsDrawer from '@/features/offer-products/components/offer-products-drawer'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface Props {
   productData: Product
 }
 
 export default function AddProductToOfferButton({ productData }: Props) {
-  const {
-    dictionary: {
-      productFinder: {
-        productActionButtons: {
-          addToOfferList: { removeFromOfferListButtonText },
-        },
-      },
-      offerProducts: { requestOfferText },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionary()
   const [productsAddedModalOpen, setProductsAddedModalOpen] =
     useState<boolean>(false)
   const { addNewOfferProduct, deleteOfferProductById, offerProducts } =
@@ -50,7 +42,7 @@ export default function AddProductToOfferButton({ productData }: Props) {
             onClick={() => handleAddProductToOfferList()}
           >
             <X className="mr-2" />
-            {removeFromOfferListButtonText}
+            {dict.product_finder.remove_from_offer_list_button_text}
           </Button>
         ) : (
           <Button
@@ -58,7 +50,7 @@ export default function AddProductToOfferButton({ productData }: Props) {
             onClick={() => handleAddProductToOfferList()}
           >
             <ClipboardList className="mr-2" />
-            {requestOfferText}
+            {dict.product.single_product_request_offer_button_text}
           </Button>
         )}
         <OfferProductsSuccessfullyAddedModal

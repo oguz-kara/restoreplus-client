@@ -7,12 +7,11 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { useDictionary } from '@/context/use-dictionary'
 import Link from '../ui/link'
 import { Button } from '../ui/button'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function ShouldLoginModal({
   children,
@@ -22,22 +21,23 @@ export default function ShouldLoginModal({
   onOpenChange?: (val: boolean) => void
   open?: boolean
 } & PropsWithChildren) {
-  const {
-    lang,
-    dictionary: { shoulLoginModal },
-  } = useDictionary()
+  const { dictionary: dict, lang } = useDictionary()
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px] p-5">
         <DialogHeader className="p-4">
-          <DialogDescription>{shoulLoginModal.title}</DialogDescription>
+          <DialogDescription>
+            {dict.product.should_login_to_dowload_login_text}
+          </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose className="text-sm">{shoulLoginModal.close}</DialogClose>
+          <DialogClose className="text-sm">
+            {dict.common.close_text}
+          </DialogClose>
           <Link href="/login" lang={lang}>
-            <Button>{shoulLoginModal.login}</Button>
+            <Button>{dict.common.login_text}</Button>
           </Link>
         </DialogFooter>
       </DialogContent>

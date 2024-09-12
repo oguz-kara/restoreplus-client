@@ -17,7 +17,7 @@ import b2bRegisterUserSchema, {
 } from '../schema/b2b-register-user.shema'
 import { useEffect, useState } from 'react'
 import { NormalizedUserInputData } from '../types'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface RegisterFormProps {
   onChange?: (values: B2BRegisterUserDataType) => void
@@ -38,7 +38,7 @@ export default function B2BRegisterUserForm({
   userData,
   value,
 }: RegisterFormProps & PropsWithLang) {
-  const { dictionary } = useDictionaryV2()
+  const { dictionary } = useDictionary()
   const [initialValueSetted, setInitialValueSetted] = useState<boolean>(false)
   const form = useForm<B2BRegisterUserDataType>({
     resolver: zodResolver(b2bRegisterUserSchema),

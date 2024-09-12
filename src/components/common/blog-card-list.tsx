@@ -1,6 +1,6 @@
 import Typography from '../ui/typography'
 import { PropsWithLang } from '@/i18n/types'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { BlogPostCard } from './blog-post-card'
 
 interface BlogCardListProps extends PropsWithLang {
@@ -11,7 +11,7 @@ export default async function BlogCardList({
   blogPostList,
   lang,
 }: BlogCardListProps) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <div>

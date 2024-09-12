@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card'
 import Typography from '@/components/ui/typography'
 import { AddressFormModal } from './address-form-modal'
 import { cn } from '@/lib/utils'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export interface AddressType {
   title: string
@@ -29,7 +29,7 @@ export default function AddressCard({
   type = 'shipping',
   ...rest
 }: AddressCardProps & { onClick?: () => void; selected?: boolean }) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
 
   return (
     <Card

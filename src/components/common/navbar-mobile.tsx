@@ -19,7 +19,7 @@ import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { usePathname } from 'next/navigation'
 import { ScrollArea } from '../ui/scroll-area'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function NavbarMobile({
   lang,
@@ -34,7 +34,7 @@ export default function NavbarMobile({
   const pathname = usePathname()
   const [isOpen, setOpen] = useState<boolean>(false)
   const { user, logout } = useAuthenticatedUser()
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
 
   useEffect(() => {
     setOpen(false)

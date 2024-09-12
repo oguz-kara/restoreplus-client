@@ -17,7 +17,7 @@ import b2bRegisterUserCompanySchema, {
   B2BRegisterUserCompanyDataType,
 } from '../schema/b2b-register-user-company.schema'
 import { PhoneInput } from '@/components/ui/phone-input'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface RegisterFormProps {
   onChange?: (values: B2BRegisterUserCompanyDataType) => void
@@ -36,7 +36,7 @@ export default function B2BRegisterUserCompanyForm({
   value,
   onChange,
 }: RegisterFormProps & PropsWithLang) {
-  const { dictionary } = useDictionaryV2()
+  const { dictionary } = useDictionary()
   const form = useForm<B2BRegisterUserCompanyDataType>({
     resolver: zodResolver(b2bRegisterUserCompanySchema),
     defaultValues,

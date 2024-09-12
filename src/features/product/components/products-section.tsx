@@ -11,11 +11,7 @@ import bg from '../../../../public/images/hero-image.png'
 import { sdk } from '@/restoreplus-sdk'
 
 export default async function ProductsSection({ lang }: PropsWithLang) {
-  const {
-    product: {
-      listProductsSection: { title },
-    },
-  } = await getDictionary(lang)
+  const dict = await getDictionary(lang)
   const productData = await sdk.products.getAllByQuery({ take: 10 }, { lang })
 
   if (!productData?.data) return null
@@ -35,7 +31,7 @@ export default async function ProductsSection({ lang }: PropsWithLang) {
       <Container className="max-w-[1024px]">
         <Section>
           <div className="pb-3">
-            <SectionHeader className="text-center">{title}</SectionHeader>
+            <SectionHeader className="text-center">{dict.common.our_products_text}</SectionHeader>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 auto-rows-fr">
             {productData.data.map((product: Product, i: number) => (

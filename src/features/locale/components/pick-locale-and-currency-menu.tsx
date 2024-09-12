@@ -26,13 +26,13 @@ import { usePathname, useRouter } from 'next/navigation'
 import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useQuery } from '@/hooks/use-query'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function PickLocaleAndCurrencyMenu() {
   const router = useRouter()
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
-  const { dictionary, lang } = useDictionaryV2()
+  const { dictionary, lang } = useDictionary()
   const { data: currencyData, isPending: isCurrenciesPending } = useQuery([
     '/currency',
   ])

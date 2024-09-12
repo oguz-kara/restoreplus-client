@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import Typography from '../ui/typography'
 import { useDictionary } from '@/context/use-dictionary'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function LoadingPortal({
   isOpen,
@@ -13,11 +14,7 @@ export default function LoadingPortal({
   isOpen: boolean
   hideScrollBar?: boolean
 }) {
-  const {
-    dictionary: {
-      common: { wait },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionary()
 
   useEffect(() => {
     if (hideScrollBar) {
@@ -61,7 +58,7 @@ export default function LoadingPortal({
           />
         </div>
         <Typography className="text-white" as="h4">
-          {wait}
+          {dict.common.wait_text}
         </Typography>
       </div>
     </div>,

@@ -21,12 +21,12 @@ import { formatPrice } from '@/utils/format-price'
 import { usePathname } from 'next/navigation'
 import { useActiveOrder } from '../context/use-active-order'
 import { useCart } from '../context/use-cart-view'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function CartDrawer({ lang }: PropsWithLang) {
   const pathname = usePathname()
 
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
 
   const { isOpen, setOpen } = useCart()
   const { activeOrder, removeOrderLineData, updateOrderLineQuantityData } =

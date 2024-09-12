@@ -22,7 +22,7 @@ import { Check } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface RegisterFormProps {}
 
@@ -40,7 +40,7 @@ const defaultValues = {
 export default function B2BApplicationForm({
   lang,
 }: RegisterFormProps & PropsWithLang) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const { user } = useAuthenticatedUser()
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
   const { mutateAsync, isPending } = useMutation()

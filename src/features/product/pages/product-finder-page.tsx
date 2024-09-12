@@ -41,7 +41,7 @@ export default async function ProductFinderPage({
   term,
 }: ProductFinderPageProps) {
   const properLang = getProperLanguage(lang)
-  const { productFinder, common } = await getDictionary(properLang as Locale)
+  const dict = await getDictionary(lang)
 
   const { data: categoryData } = await sdk.productCategories.getAll({ lang })
 
@@ -126,7 +126,7 @@ export default async function ProductFinderPage({
         <div className="flex-[3] px-5 py-10  bg-gray-100">
           <div>
             <Typography as="h5" className="mb-5">
-              {productData.data.length} {common.productFound}
+              {productData.data.length} {dict.common.product_found_text}
             </Typography>
           </div>
           {productData.data.length < 1 ? (
@@ -186,7 +186,7 @@ export default async function ProductFinderPage({
                             product.translation.equivalents?.includes(term) ? (
                               <Badge>
                                 <Typography>
-                                  {productFinder.equivalent}
+                                  {dict.product_finder.equivalent_text}
                                 </Typography>
                               </Badge>
                             ) : null}

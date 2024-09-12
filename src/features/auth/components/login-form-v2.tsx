@@ -21,7 +21,7 @@ import { PropsWithLang } from '@/i18n/types'
 import Typography from '@/components/ui/typography'
 import { AlertMessage } from '@/components/common/alert-message'
 import { useEffect } from 'react'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 const defaultValues: LoginType = {
   email: '',
@@ -29,7 +29,7 @@ const defaultValues: LoginType = {
 }
 
 export default function LoginForm({ lang }: PropsWithLang) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const router = useRouter()
   const { login } = useAuthenticatedUser()
   const { showErrorMessage } = useMessages()

@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
 import { getOrdersOfActiveUser } from '@/utils/get-server-side-active-user'
@@ -33,7 +33,7 @@ export default async function Page({
   params: { lang },
   searchParams: { page, take },
 }: ParamsWithLang & SearchParamsWithPagination) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
   const response = await getOrdersOfActiveUser({
     page: page as any,
     take: take as any,

@@ -11,7 +11,7 @@ import { AddressForm } from './address-form'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { PropsWithChildren } from 'react'
 import { AddressType } from './address-card'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface AddressFormModalProps {
   address?: AddressType
@@ -23,7 +23,7 @@ export function AddressFormModal({
   type,
   address: companyAddress,
 }: PropsWithChildren & AddressFormModalProps) {
-  const {dictionary:dict} = useDictionaryV2()
+  const {dictionary:dict} = useDictionary()
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>

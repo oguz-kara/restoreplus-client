@@ -3,14 +3,14 @@ import MainBlogList from '../components/main-blog-list'
 import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import Paginate from '@/components/common/pagination'
 import InfoCard from '@/components/common/info-card'
 import { sdk } from '@/restoreplus-sdk'
 
 export default async function BlogPage({ lang }: PropsWithLang) {
   const { data, pagination } = await sdk.blogPosts.getAllByQuery({}, { lang })
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <div>

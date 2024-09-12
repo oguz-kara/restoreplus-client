@@ -20,7 +20,7 @@ import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import useMessages from '@/hooks/use-messages'
 import SecondaryMessage from '@/components/common/secondary-message'
 import { useEffect } from 'react'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface RegisterFormProps {}
 
@@ -37,7 +37,7 @@ export default function RegisterForm({
 }: RegisterFormProps & PropsWithLang) {
   const { showErrorMessage } = useMessages()
   const { register } = useAuthenticatedUser()
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const form = useForm<RegisterFormDataType>({
     resolver: zodResolver(registerSchema),
     defaultValues,

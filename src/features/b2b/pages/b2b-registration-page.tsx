@@ -2,7 +2,7 @@ import Container from '@/components/common/container'
 import Typography from '@/components/ui/typography'
 import B2BRegistrationStepper from '../components/b2b-registration-stepper'
 import Logo from '@/components/common/logo'
-import { getDictionary, getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary, getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
 import { ApplicantRegistrationResponseData } from '../types'
@@ -14,7 +14,7 @@ export default async function B2bRegistrationPage({
   lang: Locale
   token?: string
 }) {
-  const dictionary = await getDictionaryV2(lang)
+  const dictionary = await getDictionary(lang)
   const userInfo = (await sdk.b2b.getAcceptedRegisterRequestByToken(
     token
   )) as ApplicantRegistrationResponseData | null

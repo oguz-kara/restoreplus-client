@@ -37,7 +37,7 @@ import { Badge } from '../ui/badge'
 import { useQuery } from '@/hooks/use-query'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
 import { useCart } from '@/features/active-order/context/use-cart-view'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export function NavigationBar({
   categoryData,
@@ -56,7 +56,7 @@ export function NavigationBar({
   lang: Locale
   activeUser: ActiveUser | null
 }) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const {
     open: openCategories,
     onClose: onCloseCategories,
@@ -269,7 +269,7 @@ function ProductCategoryData({
   categoryData: ProductCategory[]
   lang: Locale
 }) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const [isSetInitialValue, setInitialValue] = React.useState<boolean>(false)
   const [selectedSubCategory, setSelectedSubCategory] =
     React.useState<ProductCategory | null>(null)
@@ -423,7 +423,7 @@ function SectorData({
   sectorData: Sector[] | undefined
   lang: Locale
 }) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const [selectedSector, setSelectedSector] = React.useState<
     Sector | undefined
   >(undefined)
@@ -542,17 +542,8 @@ function SectorData({
   )
 }
 
-const links = [
-  {
-    href: '/about',
-  },
-  {
-    href: '/contact',
-  },
-]
-
 function RightNavigation({ user }: { user: ActiveUser | null }) {
-  const { dictionary: dict, lang } = useDictionaryV2()
+  const { dictionary: dict, lang } = useDictionary()
   const { loading, logout } = useAuthenticatedUser()
   const router = useRouter()
   const { activeOrder } = useActiveOrder()
@@ -579,10 +570,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
             <NavigationMenuContent>
               <ul className="p-4 min-w-[180px] capitalize">
                 <ListItem href="/about" title={dict.navbar.about_us_text} />
-                <ListItem
-                  href="/contact-us"
-                  title={dict.common.contact_us_text}
-                />
+                <ListItem href="/contact" title={dict.common.contact_us_text} />
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>

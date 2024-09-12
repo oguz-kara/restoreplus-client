@@ -7,7 +7,7 @@ import Typography from '@/components/ui/typography'
 import serverConfig from '@/config/server-config.json'
 import MdxRenderer from '@/components/common/mdx-renderer'
 import ListProductCards from '@/features/product/components/list-product-cards'
-import { getDictionary, getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary, getDictionary } from '@/i18n/get-dictionary'
 import { getCategoryById } from '../data/get-category-by-id'
 import { getProductsByCategoryId } from '@/features/product/data/get-products-by-category-id'
 import { getAllCategories } from '../data/get-all-categories'
@@ -32,7 +32,7 @@ export default async function SingleCategoryPage({ id, lang }: PageProps) {
   })
   const categoryData = await getAllCategories(lang)
 
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <div>

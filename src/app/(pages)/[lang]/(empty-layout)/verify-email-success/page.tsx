@@ -3,7 +3,7 @@ import SecondaryMessage from '@/components/common/secondary-message'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { Metadata } from 'next'
 
@@ -23,7 +23,7 @@ export default async function Page({
 }: {
   searchParams: { email: string }
 } & ParamsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <Container className="my-10 text-center">

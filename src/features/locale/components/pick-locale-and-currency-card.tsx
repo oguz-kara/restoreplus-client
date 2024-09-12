@@ -18,13 +18,13 @@ import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function PickLocaleAndCurrencyCard() {
   const router = useRouter()
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
-  const { dictionary: dict, lang } = useDictionaryV2()
+  const { dictionary: dict, lang } = useDictionary()
   const [locales, setLocales] = useState<SupportedLocale[]>([])
   const [currencies, setCurrencies] = useState<Currency[]>([])
   const [currentLang, setCurrentLang] = useState<string>(lang)

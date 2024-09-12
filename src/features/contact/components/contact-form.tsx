@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
-import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
 import contactSchema, { ContactFormDataType } from '../schema/contact.schema'
 import { cn } from '@/lib/utils'
@@ -20,6 +19,7 @@ import { useRouter } from 'next/navigation'
 import { Textarea } from '@/components/ui/textarea'
 import { useOfferProducts } from '@/context/use-offer-products'
 import { useMutation } from '@/hooks/use-mutation'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface ContactFormProps {
   path: string
@@ -59,14 +59,7 @@ export default function ContactForm({
         bg: 'bg-transparent',
         text: 'text-black',
       }
-  const {
-    dictionary: {
-      contactPage,
-      quoteRequest: {
-        quoteSubmittedMessage: { errorMessage, successMessage },
-      },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionary()
   const form = useForm<ContactFormDataType>({
     resolver: zodResolver(contactSchema),
     defaultValues,
@@ -90,15 +83,15 @@ export default function ContactForm({
 
         if (!result.message) {
           toast({
-            title: successMessage.message,
-            description: successMessage.description,
+            title: dict.messages.successfully_submit_description,
+            description: dict.messages.quote_request_email_description,
           })
           router.push('/')
           return
         } else
           return toast({
             variant: 'destructive',
-            title: errorMessage,
+            title: dict.messages.quote_request_error_message,
             description: result.message,
           })
       } else {
@@ -112,15 +105,15 @@ export default function ContactForm({
 
         if ((result as any).id) {
           toast({
-            title: successMessage.message,
-            description: successMessage.description,
+            title: dict.messages.successfully_submit_description,
+            description: dict.messages.quote_request_email_description,
           })
           router.push('/')
           return
         } else
           return toast({
             variant: 'destructive',
-            title: errorMessage,
+            title: dict.messages.quote_request_error_message,
             description: result.message,
           })
       }
@@ -143,7 +136,7 @@ export default function ContactForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm text-gray-700">
-                    {contactPage.fields.firstName}
+                    {dict.common.first_name_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -166,7 +159,7 @@ export default function ContactForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm text-gray-700">
-                    {contactPage.fields.lastName}
+                    {dict.common.last_name_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -189,7 +182,7 @@ export default function ContactForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm text-gray-700">
-                    {contactPage.fields.companyName}
+                    {dict.common.company_name_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -212,7 +205,7 @@ export default function ContactForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm text-gray-700">
-                    {contactPage.fields.city}
+                    {dict.common.city_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -235,7 +228,7 @@ export default function ContactForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm text-gray-700">
-                    {contactPage.fields.country}
+                    {dict.common.country_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -258,7 +251,7 @@ export default function ContactForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm text-gray-700">
-                    {contactPage.fields.email}
+                    {dict.common.email_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -281,7 +274,7 @@ export default function ContactForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm text-gray-700">
-                    {contactPage.fields.phoneNumber}
+                    {dict.common.phone_number_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -304,7 +297,7 @@ export default function ContactForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm text-gray-700">
-                    {contactPage.fields.postalCode}
+                    {dict.common.postal_code_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -328,7 +321,7 @@ export default function ContactForm({
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel className="text-sm text-gray-700">
-                      {contactPage.fields.message}
+                      {dict.common.message_text}
                     </FormLabel>
                     <FormControl>
                       <Textarea
@@ -351,9 +344,9 @@ export default function ContactForm({
           <div className="mb-5">
             <Button
               loading={isPending}
-              className="w-full py-3 rounded-sm text-sm"
+              className="w-full py-3 rounded-sm text-sm uppercase"
             >
-              {contactPage.buttonText}
+              {dict.common.submit_button_text}
             </Button>
           </div>
         </form>

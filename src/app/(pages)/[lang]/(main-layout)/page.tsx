@@ -1,6 +1,4 @@
 import DownloadDocument from '@/components/common/download-document'
-import Section5 from '@/components/sections/index/section5'
-import Section7 from '@/components/sections/index/section7'
 import { Button } from '@/components/ui/button'
 import Image, { ServerImage } from '@/components/ui/image'
 import Link from '@/components/ui/link'
@@ -8,7 +6,7 @@ import Typography from '@/components/ui/typography'
 import { getCategoryWithDocumentsQuery } from '@/features/product-categories/queries/get-category-with-documents-query'
 import SimpleProductCard from '@/features/product/components/simple-product-card'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
 import { Metadata } from 'next'
@@ -57,7 +55,7 @@ export default async function Page({
 }: {
   params: { lang: Locale }
 }) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   const { data } = await sdk.productCategories.getAllByQuery(
     {
@@ -101,9 +99,7 @@ export default async function Page({
         <div className="z-20">
           <Typography className="text-white text-6xl leading-[80px]" as="h1">
             {dict.index.hero_title} <br />
-            <span className="float-right">
-              {dict.index.hero_subtitle}
-            </span>
+            <span className="float-right">{dict.index.hero_subtitle}</span>
           </Typography>
         </div>
         <div className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.8)] z-10"></div>
@@ -308,12 +304,6 @@ export default async function Page({
             </div>
           </div>
         ))}
-      </div>
-      <div>
-        <Section5 lang={lang} />
-      </div>
-      <div>
-        <Section7 lang={lang} sectorData={sectorData.data} />
       </div>
     </div>
   )

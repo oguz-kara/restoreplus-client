@@ -3,9 +3,8 @@ import InfoCard from '@/components/common/info-card'
 import Section from '@/components/common/section'
 import Typography from '@/components/ui/typography'
 import ListSectorsMain from '@/features/sectors/components/list-sectors-main'
-import HeroSection from '@/features/sectors/components/sections/hero-section'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { Metadata } from 'next'
 
@@ -18,11 +17,10 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default async function Page({ params: { lang } }: ParamsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <div>
-      <HeroSection />
       <Container>
         <Section>
           <Typography

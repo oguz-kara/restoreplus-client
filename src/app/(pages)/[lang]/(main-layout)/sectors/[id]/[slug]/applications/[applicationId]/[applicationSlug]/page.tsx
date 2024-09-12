@@ -8,7 +8,7 @@ import { getApplicationScopeById } from '@/features/application-scope/data/get-a
 import MdxRenderer from '@/components/common/mdx-renderer'
 import { getProductsByApplicationScopeId } from '@/features/product/data/get-products-by-application-scope-id'
 import ListProductCards from '@/features/product/components/list-product-cards'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { Metadata } from 'next'
 import { sdk } from '@/restoreplus-sdk'
 import { serverUrl } from '@/config/get-env-fields'
@@ -59,7 +59,7 @@ export default async function Page({
     id: Number(applicationId),
   })
 
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <div>

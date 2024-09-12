@@ -3,7 +3,7 @@ import { PropsWithLang } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import Typography from '@/components/ui/typography'
 import Image from '@/components/ui/image'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import ProductFinderFilters from '@/features/product/components/product-finder-filters'
 import CalculatedProductForActiveUserCard from '@/features/product/components/calculated-product-for-active-user-card'
 import { sdk } from '@/restoreplus-sdk'
@@ -22,7 +22,7 @@ export default async function CreateOrderPage({
   term,
 }: ProductFinderPageProps) {
   const properLang = getProperLanguage(lang)
-  const dict = await getDictionaryV2(properLang as any)
+  const dict = await getDictionary(properLang as any)
 
 
   const calculatedProducts = !term

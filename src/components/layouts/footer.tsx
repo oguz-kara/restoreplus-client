@@ -2,7 +2,7 @@ import { PropsWithLang } from '@/i18n/types'
 import Typography from '../ui/typography'
 import Link from '../ui/link'
 import Container from '../common/container'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import TermsConditionsPrivacyText from '../common/term-conditions-privacy'
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react'
 import RegisterEmail from '../common/register-email'
@@ -31,7 +31,7 @@ const socials = [
 ]
 
 export default async function Footer({ lang }: PropsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <footer className="px-5 bg-foreground text-white bg-gradient-to-r from-[#1e1e27] to-[#313140]">

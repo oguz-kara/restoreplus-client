@@ -2,7 +2,7 @@ import Container from '@/components/common/container'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import { CheckCircle } from 'lucide-react'
@@ -26,7 +26,7 @@ export default async function Page({
   params: { lang: string }
 }) {
   const properLang = getProperLanguage(lang as Locale)
-  const dict = await getDictionaryV2(lang as Locale)
+  const dict = await getDictionary(lang as Locale)
 
   return (
     <Container className="min-h-screen">

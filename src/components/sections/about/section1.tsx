@@ -1,7 +1,7 @@
 import Container from '@/components/common/container'
 import ImageContentPanel from '@/components/common/image-content-panel'
 import Section from '@/components/common/section'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { PropsWithLang } from '@/i18n/types'
 import React from 'react'
 
@@ -14,7 +14,7 @@ interface ImageContentPanelInputDataType {
 }
 
 export default async function Section1({ lang }: PropsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   const data = {
     title: dict.about.section_one_title,

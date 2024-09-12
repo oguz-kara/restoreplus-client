@@ -9,7 +9,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination'
 import paginationConfig from '@/config/pagination-config.json'
-import { useDictionary } from '@/context/use-dictionary'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface PaginationProps {
   url: string

@@ -18,6 +18,7 @@ import { useDictionary } from '@/context/use-dictionary'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 const defaultValues: Partial<ProfileFormData> = {
   name: '',
@@ -32,15 +33,8 @@ export function ProfileForm({
 }) {
   const router = useRouter()
   const { toast } = useToast()
-  const { user, userInfo } = useAuthenticatedUser()
-  const {
-    dictionary: {
-      profile: {
-        account: { accountForm, buttonText },
-      },
-      toastMessages: { userInfo: userInfoDict },
-    },
-  } = useDictionary()
+  const { userInfo } = useAuthenticatedUser()
+  const { dictionary: dict } = useDictionary()
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(ProfileFormSchema),
     defaultValues,
@@ -55,13 +49,13 @@ export function ProfileForm({
 
     if (!result || result.message)
       toast({
-        title: userInfoDict.errorText,
-        description: userInfoDict.errorDescription,
+        title: dict.messages.failed_to_update_user_info_text,
+        description: dict.messages.make_sure_correct_error_text,
       })
     else
       toast({
-        title: userInfoDict.title,
-        description: userInfoDict.description,
+        title: dict.messages.updated_successfully_text,
+        description: dict.messages.user_info_updated_successfully_text,
       })
 
     router.refresh()
@@ -90,16 +84,10 @@ export function ProfileForm({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{accountForm.firstName.label}</FormLabel>
+              <FormLabel>{dict.common.first_name_text}</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={accountForm.firstName.placeholder}
-                  {...field}
-                />
+                <Input {...field} />
               </FormControl>
-              <FormDescription>
-                {accountForm.firstName.description}
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -109,16 +97,10 @@ export function ProfileForm({
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{accountForm.email.label}</FormLabel>
+              <FormLabel>{dict.common.email_text}</FormLabel>
               <FormControl>
-                <Input
-                  type="email"
-                  disabled={true}
-                  placeholder={accountForm.email.placeholder}
-                  {...field}
-                />
+                <Input type="email" disabled={true} {...field} />
               </FormControl>
-              <FormDescription>{accountForm.email.description}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -129,13 +111,9 @@ export function ProfileForm({
           disabled
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{accountForm.password.label}</FormLabel>
+              <FormLabel>{dict.common.password_text}</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
-                  placeholder={accountForm.password.placeholder}
-                  {...field}
-                />
+                <Input type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -145,8 +123,9 @@ export function ProfileForm({
           type="submit"
           disabled={!form.formState.isDirty}
           loading={userInfo?.isPending}
+          className="uppercase"
         >
-          {buttonText}
+          {dict.common.submit_button_text}
         </Button>
       </form>
     </Form>

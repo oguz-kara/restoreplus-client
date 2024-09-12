@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import Link from '@/components/ui/link'
 import { Separator } from '@/components/ui/separator'
 import UserProfileSideNavigation from '@/features/user/components/user-profile-side-navigation'
-import { getDictionary, getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary, getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 import {
@@ -57,7 +57,7 @@ export default async function UserProfileLayout({
   params: { lang },
 }: SettingsLayoutProps & ParamsWithLang) {
   const user = await getServerSideActiveUser()
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   const sideNavigationItems = [
     dict.common.profile_text,

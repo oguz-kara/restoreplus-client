@@ -20,7 +20,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from '@/components/ui/link'
 import { useOfferProducts } from '@/context/use-offer-products'
 import OfferProductsSuccessfullyAddedModal from '@/features/offer-products/components/offer-products-successfully-added-modal'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function ListCategoryProductAccordionItem({
   category,
@@ -35,7 +35,7 @@ export default function ListCategoryProductAccordionItem({
   const { addNewOfferProduct, offerProducts } = useOfferProducts()
   const [productsAddedModalOpen, setProductsAddedModalOpen] =
     useState<boolean>(false)
-  const { dictionary: dict, lang } = useDictionaryV2()
+  const { dictionary: dict, lang } = useDictionary()
   const {
     mutateAsync,
     data: productData,

@@ -1,6 +1,6 @@
 import Typography from '@/components/ui/typography'
 import { ParamsWithLang } from '@/i18n/types'
-import { getDictionary, getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary, getDictionary } from '@/i18n/get-dictionary'
 import ContactForm from '@/features/contact/components/contact-form'
 import TermsConditionsPrivacyText from '@/components/common/term-conditions-privacy'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default async function Page({ params: { lang } }: ParamsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <Container>

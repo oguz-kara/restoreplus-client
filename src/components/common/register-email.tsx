@@ -7,14 +7,14 @@ import { useDictionary } from '@/context/use-dictionary'
 import { useLoading } from '@/hooks/use-loading'
 import { useToast } from '../ui/use-toast'
 import { clientFetcher } from '@/lib/client-fetcher'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function RegisterEmail() {
   const [email, setEmail] = React.useState<string>('')
   const { loading, startLoading, stopLoading } = useLoading()
   const { toast } = useToast()
 
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()

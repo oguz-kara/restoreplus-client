@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button'
 import { useOfferProducts } from '@/context/use-offer-products'
 import { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function OfferProductsSuccessfullyAddedModal({
   onOpenChange,
@@ -25,7 +25,7 @@ export default function OfferProductsSuccessfullyAddedModal({
   open?: boolean
   product?: any
 } & PropsWithChildren) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
 
   const { setDrawerOpen } = useOfferProducts()
 

@@ -15,11 +15,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import { CompanyFormData, CompanySchema } from '../schema/company.schema'
-import { useDictionary } from '@/context/use-dictionary'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { Textarea } from '@/components/ui/textarea'
 import { Loader } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 const defaultValues: Partial<CompanyFormData> = {}
 
@@ -29,15 +29,8 @@ export function CompanyForm({
   initialUserCompanyInfo: CompanyFormData | null
 }) {
   const router = useRouter()
-  const { user, company } = useAuthenticatedUser()
-  const {
-    dictionary: {
-      profile: {
-        company: { companyForm, buttonText },
-      },
-      toastMessages: { userInfo },
-    },
-  } = useDictionary()
+  const { company } = useAuthenticatedUser()
+  const { dictionary: dict } = useDictionary()
   const form = useForm<CompanyFormData>({
     resolver: zodResolver(CompanySchema),
     defaultValues,
@@ -55,13 +48,13 @@ export function CompanyForm({
 
     if (!result || result.message)
       toast({
-        title: userInfo.errorText,
-        description: userInfo.errorDescription,
+        title: dict.messages.failed_to_update_user_info_text,
+        description: dict.messages.make_sure_correct_error_text,
       })
     else
       toast({
-        title: userInfo.title,
-        description: userInfo.description,
+        title: dict.messages.updated_successfully_text,
+        description: dict.messages.user_info_updated_successfully_text,
       })
 
     router.refresh()
@@ -86,11 +79,10 @@ export function CompanyForm({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{companyForm.name.label}</FormLabel>
+              <FormLabel>{dict.common.name_text}</FormLabel>
               <FormControl>
-                <Input placeholder={companyForm.name.placeholder} {...field} />
+                <Input {...field} />
               </FormControl>
-              <FormDescription>{companyForm.name.description}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -100,16 +92,10 @@ export function CompanyForm({
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{companyForm.description.label}</FormLabel>
+              <FormLabel>{dict.common.description_text}</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder={companyForm.description.placeholder}
-                  {...field}
-                />
+                <Textarea {...field} />
               </FormControl>
-              <FormDescription>
-                {companyForm.description.description}
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -119,16 +105,10 @@ export function CompanyForm({
           name="website"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{companyForm.website.label}</FormLabel>
+              <FormLabel>{dict.common.website_text}</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={companyForm.website.placeholder}
-                  {...field}
-                />
+                <Input {...field} />
               </FormControl>
-              <FormDescription>
-                {companyForm.website.description}
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -138,22 +118,16 @@ export function CompanyForm({
           name="phoneNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{companyForm.phoneNumber.label}</FormLabel>
+              <FormLabel>{dict.common.phone_number_text}</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={companyForm.phoneNumber.placeholder}
-                  {...field}
-                />
+                <Input {...field} />
               </FormControl>
-              <FormDescription>
-                {companyForm.phoneNumber.description}
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button type="submit" loading={company?.isPending}>
-          {buttonText}
+          {dict.common.submit_button_text}
         </Button>
       </form>
     </Form>

@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/select'
 import Typography from '@/components/ui/typography'
 import OrderFilterLinks from '@/features/order/components/order-filter-links'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 import { redirect } from 'next/navigation'
@@ -18,7 +18,7 @@ export default async function Layout({
   children,
   params: { lang },
 }: PropsWithChildren & ParamsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   const user = await getServerSideActiveUser()
 

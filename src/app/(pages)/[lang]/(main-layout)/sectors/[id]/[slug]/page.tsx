@@ -3,7 +3,7 @@ import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import MdxRenderer from '@/components/common/mdx-renderer'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import Link from '@/components/ui/link'
 import { cn } from '@/lib/utils'
@@ -45,7 +45,7 @@ export default async function Page({
   )
   const productData = await getProductsBySectorId({ lang, id: Number(id) })
   if (!result) return 'no sector data found!'
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <div>

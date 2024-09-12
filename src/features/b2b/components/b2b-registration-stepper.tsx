@@ -21,7 +21,7 @@ import b2bRegisterUserAddressSchema, {
 } from '../schema/b2b-register-address.shema'
 import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface UserFields {
   email: string
@@ -45,7 +45,7 @@ export default function B2BRegistrationStepper({
   lang: Locale
   registrationInfo: ApplicantRegistrationResponseData | null
 }) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const searchParams = useSearchParams()
   const [userFields, setUserFields] = useState<UserFields | null>(null)
   const [userCompanyFields, setUserCompanyFields] =
@@ -291,7 +291,7 @@ const Footer = ({
   userInputData: NormalizedApplicantData
   lang: string
 }) => {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
 
   const {
     nextStep,

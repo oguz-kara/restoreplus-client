@@ -4,7 +4,7 @@ import Image from '@/components/ui/image'
 import Section from '@/components/common/section'
 import Container from '@/components/common/container'
 import './style.css'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 
 const links = [
   {
@@ -28,7 +28,7 @@ const links = [
 ]
 
 export default async function HeroSection({ lang }: PropsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   const columns = [
     {

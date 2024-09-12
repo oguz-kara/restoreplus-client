@@ -4,6 +4,7 @@ import { ServerImage } from '@/components/ui/image'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { useDictionary } from '@/context/use-dictionary'
+import { useDictionary } from '@/context/use-dictionary-v2'
 import { useOfferProducts } from '@/context/use-offer-products'
 import { Trash2 } from 'lucide-react'
 import React, { useEffect } from 'react'
@@ -11,10 +12,7 @@ import React, { useEffect } from 'react'
 export default function ListProducts() {
   const { offerProducts, deleteOfferProductById } = useOfferProducts()
 
-  const {
-    dictionary: { common },
-    lang,
-  } = useDictionary()
+  const { lang } = useDictionary()
 
   useEffect(() => {
     console.log({ offerProducts })
@@ -47,7 +45,9 @@ export default function ListProducts() {
               />
             </div>
             <div>
-              <Typography className="leading-6 mb-1">{item.product.name}</Typography>
+              <Typography className="leading-6 mb-1">
+                {item.product.name}
+              </Typography>
               <Typography className="text-xs">
                 {item.product.translation.productType}
               </Typography>

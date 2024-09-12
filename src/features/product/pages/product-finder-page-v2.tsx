@@ -2,7 +2,7 @@ import Container from '@/components/common/container'
 import { Locale, PropsWithLang } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import Typography from '@/components/ui/typography'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import ProductFinderFiltersV2 from '../components/product-finder-filters-v2'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import Link from '@/components/ui/link'
@@ -33,7 +33,7 @@ export default async function ProductFinderPageV2({
   facetValueIds,
 }: ProductFinderPageProps) {
   const properLang = getProperLanguage(lang)
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   const { data: categoryData } = await sdk.productCategories.getAllByQuery(
     { where: { parentCategory: null } },

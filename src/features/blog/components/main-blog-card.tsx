@@ -3,7 +3,7 @@ import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { ArrowRight } from 'lucide-react'
 
 export default async function MainBlogCard({
@@ -12,7 +12,7 @@ export default async function MainBlogCard({
 }: {
   data: BlogPost
 } & PropsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <Link href={`/blog/${data.id}/${data.translation.slug}`} lang={lang}>

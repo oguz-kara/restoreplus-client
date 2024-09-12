@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { formatPrice } from '@/utils/format-price'
 import { CalculatedProduct } from '../types'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function CalculatedProductForActiveUserCard({
   product,
@@ -23,7 +23,7 @@ export default function CalculatedProductForActiveUserCard({
   lang: Locale
   term: string | undefined
 }) {
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const [selectedSize, setSelectedSize] = useState<number | null>(null)
   const { activeOrder, adjustOrderLineData } = useActiveOrder()
 

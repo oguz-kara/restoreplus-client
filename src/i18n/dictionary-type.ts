@@ -94,12 +94,19 @@ export type DictionaryType = {
     read_more_button_text: string
   }
   messages: {
+    quote_request_error_message: string
+    successfully_submit_description: string
+    quote_request_email_description: string
     register_email_error_message: string
     register_email_success_message: string
     register_email_unique_email_error_message: string
     passwords_not_matched_message: string
     user_registration_successfull_message: string
     user_registration_successfull_check_email_message: string
+    updated_successfully_text: string
+    make_sure_correct_error_text: string
+    user_info_updated_successfully_text: string
+    failed_to_update_user_info_text: string
   }
   product_finder: {
     all_sectors_text: string
@@ -211,8 +218,16 @@ export type DictionaryType = {
     no_products_text: string
     product_category_other_categories_text: string
     product_category_discover_restoreplus_products_for_text: string
+    should_login_to_dowload_login_text: string
   }
   common: {
+    address_text: string
+    title_text: string
+    message_text: string
+    close_text: string
+    wait_text: string
+    description_text: string
+    our_products_text: string
     addresses_text: string
     orders_text: string
     yes_text: string

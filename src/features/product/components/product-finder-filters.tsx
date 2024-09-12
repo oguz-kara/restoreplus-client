@@ -29,7 +29,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { getSearchParam } from '@/utils/get-search-param'
 import { useEffect, useState } from 'react'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface ProductFinderFiltersProps {
   categoryData: TranslatedProductCategory[]
@@ -45,7 +45,7 @@ export default function ProductFinderFilters({
   subSectorData,
 }: ProductFinderFiltersProps) {
   const searchParams = useSearchParams()
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const [categorySlug, setCategorySlug] = useState<string | undefined>(
     undefined
   )

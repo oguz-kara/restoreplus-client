@@ -13,7 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import Typography from '@/components/ui/typography'
-import { useDictionaryV2 } from '@/context/use-dictionary-v2'
+import { useDictionary } from '@/context/use-dictionary-v2'
 import BillingAddress from '@/features/active-order/components/billing-address'
 import ShippingAddress from '@/features/active-order/components/shipping-address'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
@@ -25,7 +25,7 @@ import { useState } from 'react'
 
 export default function CheckoutPage({ lang }: PropsWithLang) {
   const router = useRouter()
-  const { dictionary: dict } = useDictionaryV2()
+  const { dictionary: dict } = useDictionary()
   const [selectedAddress] = useState<Address | null>(null)
   const { activeOrder } = useActiveOrder()
 

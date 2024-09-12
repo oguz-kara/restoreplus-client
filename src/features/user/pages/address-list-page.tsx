@@ -1,5 +1,5 @@
 import { Separator } from '@/components/ui/separator'
-import { getDictionary, getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary, getDictionary } from '@/i18n/get-dictionary'
 import { PropsWithLang } from '@/i18n/types'
 import { AddressFormModal } from '../components/address-form-modal'
 import { Button } from '@/components/ui/button'
@@ -8,7 +8,7 @@ import AddressCard from '../components/address-card'
 import Typography from '@/components/ui/typography'
 
 export default async function AddressListPage({ lang }: PropsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
   const user = await getServerSideActiveUser()
 
   return (

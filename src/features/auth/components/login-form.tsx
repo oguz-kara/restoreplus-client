@@ -11,11 +11,11 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
-import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useRouter } from 'next/navigation'
 import { LoginSchema, LoginType } from '../schema/login.schema'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 interface LoginFormProps {}
 
@@ -30,16 +30,11 @@ const defaultValues = {
 export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
   const { login } = useAuthenticatedUser()
   const router = useRouter()
-
-  const {
-    dictionary: {
-      auth: { login: loginTexts },
-    },
-  } = useDictionary()
   const form = useForm<LoginType>({
     resolver: zodResolver(LoginSchema),
     defaultValues,
   })
+  const { dictionary: dict } = useDictionary()
 
   async function onSubmit(values: LoginType) {
     try {
@@ -66,7 +61,7 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{loginTexts.form.fields.email}</FormLabel>
+                <FormLabel>{dict.common.email_text}</FormLabel>
                 <FormControl>
                   <Input
                     className="bg-transparent text-white py-7 rounded-sm"
@@ -82,7 +77,7 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{loginTexts.form.fields.password}</FormLabel>
+                <FormLabel>{dict.common.password_text}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
@@ -96,7 +91,7 @@ export default function LoginForm({ lang }: LoginFormProps & PropsWithLang) {
           />
           <div className="mb-5">
             <Button className="w-full py-7 rounded-sm text-lg">
-              {loginTexts.form.buttonText}
+              {dict.common.login_text}
             </Button>
           </div>
         </form>

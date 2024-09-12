@@ -18,6 +18,7 @@ import { useEffect } from 'react'
 import { AddressType } from './address-card'
 import { useToast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
+import { useDictionary } from '@/context/use-dictionary-v2'
 
 const defaultValues: Partial<AddressFormData> = {
   title: '',
@@ -39,14 +40,7 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
   const { address } = useAuthenticatedUser()
   const { toast } = useToast()
   const router = useRouter()
-  const {
-    dictionary: {
-      profile: {
-        addressList: { addressForm, buttonText },
-      },
-      toastMessages: { userInfo },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionary()
 
   const form = useForm<AddressFormData>({
     resolver: zodResolver(AddressSchema),
@@ -90,13 +84,13 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
 
     if (!result || result.message)
       toast({
-        title: userInfo.errorText,
-        description: userInfo.errorDescription,
+        title: dict.messages.failed_to_update_user_info_text,
+        description: dict.messages.make_sure_correct_error_text,
       })
     else
       toast({
-        title: userInfo.title,
-        description: userInfo.description,
+        title: dict.messages.updated_successfully_text,
+        description: dict.messages.user_info_updated_successfully_text,
       })
 
     router.refresh()
@@ -117,9 +111,9 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{addressForm.title.label}</FormLabel>
+              <FormLabel>{dict.common.title_text}</FormLabel>
               <FormControl>
-                <Input placeholder={addressForm.title.placeholder} {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -130,12 +124,9 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
           name="authorizedPerson"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{addressForm.authorizedPerson.label}</FormLabel>
+              <FormLabel>{dict.common.authorized_person_text}</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={addressForm.authorizedPerson.placeholder}
-                  {...field}
-                />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -146,12 +137,9 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
           name="address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{addressForm.street1.label}</FormLabel>
+              <FormLabel>{dict.common.address_text}</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={addressForm.street1.placeholder}
-                  {...field}
-                />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -162,12 +150,9 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
           name="country"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{addressForm.country.label}</FormLabel>
+              <FormLabel>{dict.common.country_text}</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={addressForm.country.placeholder}
-                  {...field}
-                />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -178,9 +163,9 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
           name="city"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{addressForm.city.label}</FormLabel>
+              <FormLabel>{dict.common.city_text}</FormLabel>
               <FormControl>
-                <Input placeholder={addressForm.city.placeholder} {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -191,12 +176,9 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
           name="district"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{addressForm.district.label}</FormLabel>
+              <FormLabel>{dict.common.district_text}</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={addressForm.district.placeholder}
-                  {...field}
-                />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -207,12 +189,9 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
           name="zipCode"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{addressForm.postalCode.label}</FormLabel>
+              <FormLabel>{dict.common.postal_code_text}</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={addressForm.postalCode.placeholder}
-                  {...field}
-                />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -225,8 +204,9 @@ export function AddressForm({ addressObj, type }: AddressFormProps) {
               ? address?.shipping.isPending
               : address?.billing.isPending
           }
+          className="uppercase"
         >
-          {buttonText}
+          {dict.common.submit_button_text}
         </Button>
       </form>
     </Form>

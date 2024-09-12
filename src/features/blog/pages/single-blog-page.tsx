@@ -4,7 +4,7 @@ import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import Link from '@/components/ui/link'
 import { Button } from '@/components/ui/button'
-import { getDictionaryV2 } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { Facebook, ThumbsDown, ThumbsUp, Twitter, X } from 'lucide-react'
 import MdxRenderer from '@/components/common/mdx-renderer'
 import InfoCard from '@/components/common/info-card'
@@ -23,7 +23,7 @@ export default async function SingleBlogPage({
   lang,
   id,
 }: SingleBlogPageProps) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
   const data = await sdk.blogPosts.getById(Number(id), { lang })
   let formattedDate
 
@@ -97,7 +97,7 @@ export default async function SingleBlogPage({
 }
 
 async function SocialPostButtons({ lang }: PropsWithLang) {
-  const dict = await getDictionaryV2(lang)
+  const dict = await getDictionary(lang)
 
   return (
     <div className="flex gap-2">
