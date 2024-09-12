@@ -41,7 +41,8 @@ export default async function Page({
 }) {
   const result = await sdk.sectors.getSingleByQuery(
     Number(id),
-    getWithApplicationScopesQuery
+    getWithApplicationScopesQuery,
+    { lang }
   )
   const productData = await getProductsBySectorId({ lang, id: Number(id) })
   if (!result) return 'no sector data found!'
@@ -63,7 +64,7 @@ export default async function Page({
                 (applicationScope: ApplicationScope) => (
                   <div key={applicationScope.id}>
                     <Link
-                      href={`/sectors/${id}/${slug}/applications/${applicationScope.id}/${applicationScope.translation.slug}`}
+                      href={`/application-scope/${applicationScope.id}/${applicationScope.translation.slug}`}
                       lang={lang}
                     >
                       <li

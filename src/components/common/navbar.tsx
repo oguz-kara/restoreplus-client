@@ -502,7 +502,7 @@ function SectorData({
                   <Link
                     key={scope.id}
                     lang={lang}
-                    href={`/sectors/${selectedSector.id}/${selectedSector.translation.slug}/applications/${scope.id}/${scope.translation.slug}`}
+                    href={`/application-scope/${scope.id}/${scope.translation.slug}`}
                   >
                     <div
                       className="hover:bg-gray-100 uppercase flex gap-5 justify-between text-lg p-3 border-b border-gray-300 px-3"

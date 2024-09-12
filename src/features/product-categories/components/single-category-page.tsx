@@ -15,6 +15,7 @@ import Link from '@/components/ui/link'
 import HighligtedHeader from '@/components/common/highligted-header'
 import { ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { sdk } from '@/restoreplus-sdk'
 
 type PageProps = {
   lang: Locale
@@ -25,7 +26,7 @@ type PageProps = {
 export default async function SingleCategoryPage({ id, lang }: PageProps) {
   const heads = headers()
   const pathname = heads.get('next-url')
-  const category = await getCategoryById(id, lang)
+  const category = await sdk.productCategories.getById(Number(id), { lang })
   const productData = await getProductsByCategoryId({
     lang,
     id: Number(id),

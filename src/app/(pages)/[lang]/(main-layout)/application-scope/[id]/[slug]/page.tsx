@@ -17,14 +17,13 @@ type PageProps = ParamsWithId &
   ParamsWithSlug &
   ParamsWithLang & {
     params: {
-      applicationId: string
-      applicationSlug: string
+      id: string
+      slug: string
     }
   }
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const sectorId = params.id
-  const applicationId = params.applicationId
+  const applicationId = params.id
   const lang = params.lang
 
   const applicationScope = await sdk.applicationScopes.getById(
@@ -34,11 +33,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     }
   )
 
-  const sector = await sdk.sectors.getById(Number(sectorId), {
-    lang,
-  })
-
-  const canonicalUrl = `${serverUrl}/${lang}/sectors/${sectorId}/${sector.translation.slug}/applications/${applicationId}/${applicationScope?.translation?.slug}`
+  const canonicalUrl = `${serverUrl}/${lang}/application-scope/${applicationId}/${applicationScope?.translation?.slug}`
 
   return {
     title: applicationScope?.translation?.metaTitle,
@@ -50,13 +45,11 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   }
 }
 
-export default async function Page({
-  params: { lang, applicationId },
-}: PageProps) {
-  const applicationScope = await getApplicationScopeById(applicationId, lang)
+export default async function Page({ params: { lang, id } }: PageProps) {
+  const applicationScope = await getApplicationScopeById(id, lang)
   const productData = await getProductsByApplicationScopeId({
     lang,
-    id: Number(applicationId),
+    id: Number(id),
   })
 
   const dict = await getDictionary(lang)

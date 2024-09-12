@@ -9,6 +9,7 @@ import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
+import { consoleLog } from '@/utils/log-to-console'
 import { Metadata } from 'next'
 
 const bgImages = [
@@ -55,6 +56,7 @@ export default async function Page({
 }: {
   params: { lang: Locale }
 }) {
+  const sitemap = await sdk.sitemap.getSitemap()
   const dict = await getDictionary(lang)
 
   const { data } = await sdk.productCategories.getAllByQuery(
@@ -74,10 +76,6 @@ export default async function Page({
     { lang }
   )
 
-  const sectorData = await sdk.sectors.getAllByQuery({
-    take: 6,
-  })
-
   const sections = [
     {
       title: dict.index.section_category_one_title,
@@ -92,6 +90,8 @@ export default async function Page({
       subtitle: dict.index.section_category_three_subtitle,
     },
   ]
+
+  consoleLog({ sitemap })
 
   return (
     <div>

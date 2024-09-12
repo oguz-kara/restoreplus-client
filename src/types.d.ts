@@ -675,3 +675,23 @@ interface ProductFacet {
   product?: Product
   facetValue?: FacetValue
 }
+
+interface SeoPages {
+  id: number
+  path: string
+  translation: SeoPagesTranslation
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface SeoPagesTranslation {
+  id: number
+  supportedLocaleId: number
+  title: string
+  description: string
+  keywords: string
+  locale: SupportedLocale
+  activateAutoTranslate: boolean
+  createdAt: Date
+  updatedAt: Date
+}
