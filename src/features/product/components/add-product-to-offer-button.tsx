@@ -1,10 +1,8 @@
 'use client'
 import React, { useState } from 'react'
-
 import { Button } from '@/components/ui/button'
 import { ClipboardList, X } from 'lucide-react'
 import { useDictionary } from '@/context/use-dictionary'
-import { Locale } from '@/i18n/types'
 import { useOfferProducts } from '@/context/use-offer-products'
 import OfferProductsSuccessfullyAddedModal from '@/features/offer-products/components/offer-products-successfully-added-modal'
 import OfferProductsDrawer from '@/features/offer-products/components/offer-products-drawer'
@@ -18,7 +16,7 @@ export default function AddProductToOfferButton({ productData }: Props) {
     dictionary: {
       productFinder: {
         productActionButtons: {
-          addToOfferList: { removeFromOfferListButtonText, tooltip },
+          addToOfferList: { removeFromOfferListButtonText },
         },
       },
       offerProducts: { requestOfferText },

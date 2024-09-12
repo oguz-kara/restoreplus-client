@@ -1,6 +1,5 @@
 import BlogCardList from '@/components/common/blog-card-list'
 import Container from '@/components/common/container'
-import DarkGradientPanel from '@/components/common/dark-gradient-panel'
 import Section from '@/components/common/section'
 import HeroSection from '@/components/sections/about/hero-section'
 import Section1 from '@/components/sections/about/section1'
@@ -39,7 +38,8 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
           </Container>
         </Section>
       </div>
-      <DarkGradientPanel theme="gradient" dictionary={section6} />
+      {/* <DarkGradientPanel theme="gradient" dictionary={section6} /> */}
+      <div>dark gradient panel here needs to translate</div>
     </div>
   )
 }

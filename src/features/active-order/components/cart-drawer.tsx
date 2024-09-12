@@ -10,7 +10,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer'
-import { useDictionary } from '@/context/use-dictionary'
 import { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
 import { ArrowRight, Minus, Plus, ShoppingCart } from 'lucide-react'
@@ -22,14 +21,12 @@ import { formatPrice } from '@/utils/format-price'
 import { usePathname } from 'next/navigation'
 import { useActiveOrder } from '../context/use-active-order'
 import { useCart } from '../context/use-cart-view'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export default function CartDrawer({ lang }: PropsWithLang) {
   const pathname = usePathname()
-  const {
-    dictionary: {
-      activeOrder: { cart },
-    },
-  } = useDictionary()
+
+  const { dictionary: dict } = useDictionaryV2()
 
   const { isOpen, setOpen } = useCart()
   const { activeOrder, removeOrderLineData, updateOrderLineQuantityData } =
@@ -51,9 +48,11 @@ export default function CartDrawer({ lang }: PropsWithLang) {
               <DrawerHeader>
                 <DrawerTitle className="flex gap-2 items-center mb-2">
                   <ShoppingCart />
-                  {cart.title}
+                  {dict.create_order.add_to_cart_text}
                 </DrawerTitle>
-                <DrawerDescription>{cart.description}</DrawerDescription>
+                <DrawerDescription>
+                  {dict.create_order.cart_description}
+                </DrawerDescription>
               </DrawerHeader>
               <div className="p-4 pb-0">
                 <div>
@@ -157,7 +156,7 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                               }
                             >
                               <Typography className="text-sm text-red-500 underline">
-                                {cart.actions.removeLine}
+                                {dict.create_order.cart_remove_text}
                               </Typography>
                             </Button>
                           </div>
@@ -167,11 +166,13 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                   ) : (
                     <div>
                       <Typography className="mb-2">
-                        {cart.emptyCartMessage}
+                        {dict.create_order.cart_your_cart_is_empty_text}
                       </Typography>
                       <Link href="/create-order" lang={lang}>
                         <Button className="flex items-center justify-center gap-2">
-                          <Typography>{cart.emptyCartAction}</Typography>
+                          <Typography>
+                            {dict.create_order.cart_clear_cart}
+                          </Typography>
                           <div>
                             <ArrowRight />
                           </div>
@@ -207,10 +208,14 @@ export default function CartDrawer({ lang }: PropsWithLang) {
                 className="flex-1"
                 onClick={() => setOpen(false)}
               >
-                <Button variant="outline">{cart.actions.continue}</Button>
+                <Button variant="outline">
+                  {dict.create_order.cart_continue_shopping}
+                </Button>
               </DrawerClose>
               <Link className="flex-1" lang={lang} href="/checkout">
-                <Button className="w-full">{cart.actions.approveCart}</Button>
+                <Button className="w-full">
+                  {dict.create_order.cart_confirm_cart}
+                </Button>
               </Link>
             </div>
           </DrawerFooter>

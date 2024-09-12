@@ -19,7 +19,7 @@ import b2bRegisterUserAddressSchema, {
 import Typography from '@/components/ui/typography'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
-import { Address } from '../types'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export interface B2BRegisterUserAddressInputData {
   shippingAddress?: B2BRegisterUserAddressDataType
@@ -48,15 +48,11 @@ function B2BRegisterUserShippingAddressForm({
   onChange,
   value,
 }: B2BRegisterUserAddressProps & PropsWithLang) {
-  const {
-    dictionary: { b2bCompleteRegistrationPage },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const form = useForm<B2BRegisterUserAddressDataType>({
     resolver: zodResolver(b2bRegisterUserAddressSchema),
     defaultValues,
   })
-
-  const { step3 } = b2bCompleteRegistrationPage
 
   const values = form.watch()
 
@@ -68,7 +64,7 @@ function B2BRegisterUserShippingAddressForm({
   return (
     <div className="mb-10 lg:mb-0">
       <Typography className="text-gray-800 mb-5" as="h4">
-        {step3.shippinAddressTitle}
+        {dict.b2b_registration.steps_three_title}
       </Typography>
       <Form {...form}>
         <form className="flex flex-col gap-5">
@@ -79,7 +75,7 @@ function B2BRegisterUserShippingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.titleText}
+                    {dict.common.address_title_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -94,7 +90,7 @@ function B2BRegisterUserShippingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.authorizedPersonText}
+                    {dict.common.authorized_person_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -109,7 +105,7 @@ function B2BRegisterUserShippingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.addressDescriptionText}
+                    {dict.common.address_description_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -124,7 +120,7 @@ function B2BRegisterUserShippingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.countryText}
+                    {dict.common.country_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -139,7 +135,7 @@ function B2BRegisterUserShippingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.cityText}
+                    {dict.common.city_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -154,7 +150,7 @@ function B2BRegisterUserShippingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.districtText}
+                    {dict.common.district_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -169,7 +165,7 @@ function B2BRegisterUserShippingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.zipCodeText}
+                    {dict.common.zip_code_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -184,7 +180,7 @@ function B2BRegisterUserShippingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.stateText}
+                    {dict.common.state_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -203,17 +199,13 @@ function B2BRegisterUserShippingAddressForm({
 function B2BRegisterUserBillingAddressForm({
   lang,
   onChange,
-  value
+  value,
 }: B2BRegisterUserAddressProps & PropsWithLang) {
-  const {
-    dictionary: { b2bCompleteRegistrationPage },
-  } = useDictionary()
   const form = useForm<B2BRegisterUserAddressDataType>({
     resolver: zodResolver(b2bRegisterUserAddressSchema),
     defaultValues,
   })
-
-  const { step3 } = b2bCompleteRegistrationPage
+  const { dictionary: dict } = useDictionaryV2()
 
   const values = form.watch()
 
@@ -225,7 +217,7 @@ function B2BRegisterUserBillingAddressForm({
   return (
     <div>
       <Typography className="text-gray-800 mb-5" as="h4">
-        {step3.billingAddressTitle}
+        {}
       </Typography>
       <Form {...form}>
         <form className="flex flex-col gap-5">
@@ -236,7 +228,7 @@ function B2BRegisterUserBillingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.titleText}
+                    {dict.common.address_title_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -251,7 +243,7 @@ function B2BRegisterUserBillingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.authorizedPersonText}
+                    {dict.common.authorized_person_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -266,7 +258,7 @@ function B2BRegisterUserBillingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.addressDescriptionText}
+                    {dict.common.address_description_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -281,7 +273,7 @@ function B2BRegisterUserBillingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.countryText}
+                    {dict.common.country_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -296,7 +288,7 @@ function B2BRegisterUserBillingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.cityText}
+                    {dict.common.city_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -311,7 +303,7 @@ function B2BRegisterUserBillingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.districtText}
+                    {dict.common.district_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -326,7 +318,7 @@ function B2BRegisterUserBillingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.zipCodeText}
+                    {dict.common.zip_code_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -341,7 +333,7 @@ function B2BRegisterUserBillingAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step3.formFields.stateText}
+                    {dict.common.state_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -375,9 +367,7 @@ export default function B2BRegisterUserAddressForm({
   const [billingAddress, setBillingAddress] = useState<
     B2BRegisterUserAddressDataType | undefined
   >(undefined)
-  const {
-    dictionary: { b2bCompleteRegistrationPage },
-  } = useDictionary()
+  const { dictionary } = useDictionaryV2()
 
   useEffect(() => {
     const values = { shippingAddress, billingAddress, isSame }
@@ -394,7 +384,7 @@ export default function B2BRegisterUserAddressForm({
       />
       <div className="flex items-center gap-5 py-5">
         <Label htmlFor="is-same" className="text-gray-700">
-          {b2bCompleteRegistrationPage.isSameWithShippingAddressText}
+          {dictionary.b2b_registration.is_same_with_shipping_address_text}
         </Label>
         <Switch
           checked={isSame}

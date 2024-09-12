@@ -3,7 +3,6 @@ import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
 import { PropsWithLang } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
-import { consoleLog } from '@/utils/log-to-console'
 import { blogPostCategoryQuery } from '../query'
 
 export default async function ListCategories({ lang }: PropsWithLang) {
@@ -11,8 +10,6 @@ export default async function ListCategories({ lang }: PropsWithLang) {
     blogPostCategoryQuery,
     { lang }
   )
-
-  consoleLog({ result })
 
   if (!result) return 'no category found!'
 

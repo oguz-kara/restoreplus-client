@@ -27,6 +27,7 @@ const DictionaryProvider = ({
     useState<Dictionary>(dictionary)
 
   const getDictionary = useCallback(async (lang: Locale) => {
+    if (lang !== 'en' && lang !== 'tr') lang = 'en'
     const dictionary = await import(`@/i18n/dictionaries/${lang}.json`)
     return dictionary
   }, [])

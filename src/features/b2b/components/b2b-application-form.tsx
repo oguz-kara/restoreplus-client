@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
-import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
 import b2bApplicationSchema, {
   B2BApplicationFormDataType,
@@ -23,6 +22,7 @@ import { Check } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 interface RegisterFormProps {}
 
@@ -40,20 +40,10 @@ const defaultValues = {
 export default function B2BApplicationForm({
   lang,
 }: RegisterFormProps & PropsWithLang) {
+  const { dictionary: dict } = useDictionaryV2()
   const { user } = useAuthenticatedUser()
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
   const { mutateAsync, isPending } = useMutation()
-  const {
-    dictionary: {
-      b2bRegisterPage: { formFields, submitButtonText, title, description },
-      b2bRegisterRequestSuccessPage: {
-        titleText,
-        descriptionText,
-        gotoText,
-        homepageText,
-      },
-    },
-  } = useDictionary()
   const form = useForm<B2BApplicationFormDataType>({
     resolver: zodResolver(b2bApplicationSchema),
     defaultValues,
@@ -96,10 +86,10 @@ export default function B2BApplicationForm({
           className="text-3xl font-semibold mb-2 text-gray-600"
           as="h1"
         >
-          {title}
+          {dict.common.partner_with_us_text}
         </Typography>
         <Typography as="p" className="text-center text-gray-500">
-          {description}
+          {dict.partner_register.description}
         </Typography>
       </div>
       <Form {...form}>
@@ -110,7 +100,7 @@ export default function B2BApplicationForm({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formFields.emailText}</FormLabel>
+                  <FormLabel>{dict.common.email_text}</FormLabel>
                   <FormControl>
                     <Input
                       className="bg-transparent  py-7 rounded-sm"
@@ -127,7 +117,7 @@ export default function B2BApplicationForm({
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formFields.nameText}</FormLabel>
+                  <FormLabel>{dict.common.first_name_text}</FormLabel>
                   <FormControl>
                     <Input
                       className="bg-transparent  py-7 rounded-sm"
@@ -143,7 +133,7 @@ export default function B2BApplicationForm({
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formFields.surnameText}</FormLabel>
+                  <FormLabel>{dict.common.last_name_text}</FormLabel>
                   <FormControl>
                     <Input
                       className="bg-transparent  py-7 rounded-sm"
@@ -159,7 +149,7 @@ export default function B2BApplicationForm({
               name="companyName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formFields.companyNameText}</FormLabel>
+                  <FormLabel>{dict.common.company_name_text}</FormLabel>
                   <FormControl>
                     <Input
                       className="bg-transparent  py-7 rounded-sm"
@@ -175,7 +165,7 @@ export default function B2BApplicationForm({
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formFields.cityText}</FormLabel>
+                  <FormLabel>{dict.common.city_text}</FormLabel>
                   <FormControl>
                     <Input
                       className="bg-transparent  py-7 rounded-sm"
@@ -191,7 +181,7 @@ export default function B2BApplicationForm({
               name="country"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formFields.countryText}</FormLabel>
+                  <FormLabel>{dict.common.country_text}</FormLabel>
                   <FormControl>
                     <Input
                       className="bg-transparent  py-7 rounded-sm"
@@ -208,7 +198,7 @@ export default function B2BApplicationForm({
               render={({ field }) => (
                 <FormItem className="flex flex-col items-start">
                   <FormLabel className="text-left mb-2">
-                    {formFields.phoneNumberText}
+                    {dict.common.phone_number_text}
                   </FormLabel>
                   <FormControl className="w-full">
                     <PhoneInput className="rounded-sm" {...field} />
@@ -222,7 +212,7 @@ export default function B2BApplicationForm({
               name="postalCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{formFields.postalCodeText}</FormLabel>
+                  <FormLabel>{dict.common.postal_code_text}</FormLabel>
                   <FormControl>
                     <Input
                       className="bg-transparent  py-7 rounded-sm"
@@ -238,19 +228,23 @@ export default function B2BApplicationForm({
             {isSuccess && (
               <Alert variant="default">
                 <Check className="h-4 w-4" color="green" />
-                <AlertTitle className="text-green-700">{titleText}</AlertTitle>
-                <AlertDescription>{descriptionText}</AlertDescription>
+                <AlertTitle className="text-green-700">
+                  {dict.b2b_register_request_sent.title}
+                </AlertTitle>
+                <AlertDescription>
+                  {dict.b2b_register_request_sent.description}
+                </AlertDescription>
               </Alert>
             )}
           </div>
           <div className="mb-5">
             <Button
               type="button"
-              className="w-full py-7 rounded-sm text-lg"
+              className="w-full py-7 rounded-sm text-lg uppercase"
               onClick={async () => onSubmit(values)}
               loading={isPending}
             >
-              {submitButtonText}
+              {dict.common.submit_button_text}
             </Button>
           </div>
         </form>

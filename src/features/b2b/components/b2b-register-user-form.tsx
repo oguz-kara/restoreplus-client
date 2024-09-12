@@ -17,6 +17,7 @@ import b2bRegisterUserSchema, {
 } from '../schema/b2b-register-user.shema'
 import { useEffect, useState } from 'react'
 import { NormalizedUserInputData } from '../types'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 interface RegisterFormProps {
   onChange?: (values: B2BRegisterUserDataType) => void
@@ -37,17 +38,13 @@ export default function B2BRegisterUserForm({
   userData,
   value,
 }: RegisterFormProps & PropsWithLang) {
+  const { dictionary } = useDictionaryV2()
   const [initialValueSetted, setInitialValueSetted] = useState<boolean>(false)
-  const {
-    dictionary: { b2bCompleteRegistrationPage },
-  } = useDictionary()
   const form = useForm<B2BRegisterUserDataType>({
     resolver: zodResolver(b2bRegisterUserSchema),
     defaultValues,
   })
   const formValues = form.watch()
-
-  const { step1 } = b2bCompleteRegistrationPage
 
   useEffect(() => {
     if (userData && !initialValueSetted) {
@@ -78,7 +75,7 @@ export default function B2BRegisterUserForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step1.formFields.emailText}
+                    {dictionary.common.email_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -98,7 +95,7 @@ export default function B2BRegisterUserForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step1.formFields.nameText}
+                    {dictionary.common.name_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -113,7 +110,7 @@ export default function B2BRegisterUserForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step1.formFields.passwordText}
+                    {dictionary.common.password_text}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -135,7 +132,7 @@ export default function B2BRegisterUserForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step1.formFields.confirmPasswordText}
+                    {dictionary.common.confirm_password_text}
                   </FormLabel>
                   <FormControl>
                     <Input

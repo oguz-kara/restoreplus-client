@@ -2,13 +2,9 @@ import { PropsWithLang } from '@/i18n/types'
 import Typography from '../ui/typography'
 import Link from '../ui/link'
 import Container from '../common/container'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import TermsConditionsPrivacyText from '../common/term-conditions-privacy'
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react'
-import ContactForm from '@/features/contact/components/contact-form'
-import { Input } from '../ui/input'
-import { cn } from '@/lib/utils'
-import { Button } from '../ui/button'
 import RegisterEmail from '../common/register-email'
 
 const socials = [
@@ -35,10 +31,7 @@ const socials = [
 ]
 
 export default async function Footer({ lang }: PropsWithLang) {
-  const {
-    common,
-    layout: { footer },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   return (
     <footer className="px-5 bg-foreground text-white bg-gradient-to-r from-[#1e1e27] to-[#313140]">
@@ -48,23 +41,36 @@ export default async function Footer({ lang }: PropsWithLang) {
             <div>
               <Link lang={lang} href={`/contact`}>
                 <Typography as="h6" className="text-xl pb-5 uppercase">
-                  {footer.title}
+                  {dict.common.contact_us_text}
                 </Typography>
               </Link>
               <ul className="mb-5">
-                {footer.links.map((item, i) => (
-                  <li key={i} className="pb-3">
-                    <Typography as="p" className="text-sm text-gray-500">
-                      {item.title}
-                    </Typography>
-                  </li>
-                ))}
+                <li className="pb-3">
+                  <Typography as="p" className="text-sm text-gray-500">
+                    {dict.footer.fixed_line_text}
+                  </Typography>
+                </li>
+                <li className="pb-3">
+                  <Typography as="p" className="text-sm text-gray-500">
+                    {dict.footer.mobile_phone_text}
+                  </Typography>
+                </li>
+                <li className="pb-3">
+                  <Typography as="p" className="text-sm text-gray-500">
+                    {dict.footer.email_address_text}
+                  </Typography>
+                </li>
+                <li className="pb-3">
+                  <Typography as="p" className="text-sm text-gray-500">
+                    {dict.footer.address_text}
+                  </Typography>
+                </li>
               </ul>
             </div>
             <div>
               <Link lang={lang} href={`/`}>
                 <Typography as="h6" className="text-xl pb-5 uppercase">
-                  {footer.followUsTitle}
+                  {dict.footer.follow_us_text}
                 </Typography>
               </Link>
               <ul className="flex gap-5 mb-5">
@@ -81,7 +87,7 @@ export default async function Footer({ lang }: PropsWithLang) {
           </div>
           <div className="hidden lg:block py-10">
             <Typography as="h6" className="text-xl pb-5 uppercase">
-              {common.getTheLatestInfo}
+              {dict.footer.get_the_latest_information_text}
             </Typography>
             <RegisterEmail />
           </div>

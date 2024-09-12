@@ -11,7 +11,7 @@ import { ServerImage } from '@/components/ui/image'
 import Link from '@/components/ui/link'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Typography from '@/components/ui/typography'
-import { useDictionary } from '@/context/use-dictionary'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 import { useOfferProducts } from '@/context/use-offer-products'
 import { Trash2, X } from 'lucide-react'
 
@@ -22,10 +22,7 @@ export default function OfferProductsDrawer() {
     offerProducts: offerProductsList,
     deleteOfferProductById,
   } = useOfferProducts()
-  const {
-    lang,
-    dictionary: { offerProducts },
-  } = useDictionary()
+  const { dictionary: dict, lang } = useDictionaryV2()
 
   return (
     <div>
@@ -79,7 +76,7 @@ export default function OfferProductsDrawer() {
                 ))
               ) : (
                 <Typography className="p-5">
-                  {offerProducts.emptyList}
+                  {dict.product.no_products_text}
                 </Typography>
               )}
             </div>
@@ -88,7 +85,7 @@ export default function OfferProductsDrawer() {
             <Link href="/offer" lang={lang} className="w-full">
               <Button type="button" className="p-7 w-full">
                 <Typography className="text-lg font-semibold uppercase">
-                  {offerProducts.requestOfferText}
+                  {dict.product.single_product_request_offer_button_text}
                 </Typography>
               </Button>
             </Link>

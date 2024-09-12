@@ -14,7 +14,6 @@ import {
 import Logo from './logo'
 import Link from '../ui/link'
 import { Locale } from '@/i18n/types'
-import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '../ui/button'
 import {
   ArrowRight,
@@ -38,7 +37,7 @@ import { Badge } from '../ui/badge'
 import { useQuery } from '@/hooks/use-query'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
 import { useCart } from '@/features/active-order/context/use-cart-view'
-import { Skeleton } from '../ui/skeleton'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export function NavigationBar({
   categoryData,
@@ -57,9 +56,7 @@ export function NavigationBar({
   lang: Locale
   activeUser: ActiveUser | null
 }) {
-  const {
-    dictionary: { common },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const {
     open: openCategories,
     onClose: onCloseCategories,
@@ -110,7 +107,7 @@ export function NavigationBar({
                       'text-sm'
                     )}
                   >
-                    {common.productFinder}
+                    {dict.navbar.find_product_text}
                   </Typography>
                 </Link>
               </div>
@@ -133,7 +130,7 @@ export function NavigationBar({
                           'leading-0 mr-1'
                         )}
                       >
-                        {common.categories}
+                        {dict.navbar.products_by_category_text}
                       </Typography>
                       <ChevronDown
                         color={
@@ -177,7 +174,7 @@ export function NavigationBar({
                           'leading-0 mr-1'
                         )}
                       >
-                        {common.sectors}
+                        {dict.navbar.products_by_sector_text}
                       </Typography>
                       <ChevronDown
                         color={
@@ -272,9 +269,7 @@ function ProductCategoryData({
   categoryData: ProductCategory[]
   lang: Locale
 }) {
-  const {
-    dictionary: { product },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const [isSetInitialValue, setInitialValue] = React.useState<boolean>(false)
   const [selectedSubCategory, setSelectedSubCategory] =
     React.useState<ProductCategory | null>(null)
@@ -387,7 +382,7 @@ function ProductCategoryData({
         <div className="flex-[2]">
           <div className="flex items-center gap-2 mb-5">
             <Typography as="h6" className="font-[600] pl-6 capitalize">
-              {product.productsText}
+              {dict.common.products_text}
             </Typography>
             <ChevronRight size={15} />
           </div>
@@ -428,12 +423,7 @@ function SectorData({
   sectorData: Sector[] | undefined
   lang: Locale
 }) {
-  const {
-    dictionary: {
-      common,
-      applicationScope: { title },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const [selectedSector, setSelectedSector] = React.useState<
     Sector | undefined
   >(undefined)
@@ -452,7 +442,7 @@ function SectorData({
         <div className="flex-1 h-[max-content]">
           <div className="p-3 rounded-sm mb-3">
             <Typography as="h6" className="uppercase">
-              {common.sectors}
+              {dict.navbar.products_by_sector_text}
             </Typography>
           </div>
           <ul>
@@ -495,7 +485,7 @@ function SectorData({
           <div className="flex-1">
             <div className="p-3 rounded-sm mb-3">
               <Typography as="h6" className="uppercase">
-                {title}
+                {dict.navbar.application_scopes_text}
               </Typography>
             </div>
             <motion.div
@@ -562,16 +552,9 @@ const links = [
 ]
 
 function RightNavigation({ user }: { user: ActiveUser | null }) {
+  const { dictionary: dict, lang } = useDictionaryV2()
   const { loading, logout } = useAuthenticatedUser()
   const router = useRouter()
-  const {
-    dictionary: {
-      layout: {
-        navigation: { navItems },
-      },
-    },
-    lang,
-  } = useDictionary()
   const { activeOrder } = useActiveOrder()
   const { setOpen } = useCart()
 
@@ -591,13 +574,15 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-transparent capitalize mr-1">
-              {navItems.about.title}
+              {dict.navbar.about_us_text}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="p-4 min-w-[180px] capitalize">
-                {navItems?.about.navLinks?.map((item, i) => (
-                  <ListItem key={i} href={links[i].href} title={item.title} />
-                ))}
+                <ListItem href="/about" title={dict.navbar.about_us_text} />
+                <ListItem
+                  href="/contact-us"
+                  title={dict.common.contact_us_text}
+                />
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -629,7 +614,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
                     <ul className="p-4 min-w-[180px]">
                       <ListItem>
                         <Link href="/profile" lang={lang}>
-                          {navItems.profile.profile}
+                          {dict.common.profile_text}
                         </Link>
                       </ListItem>
                       <ListItem>
@@ -638,7 +623,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
                           className="cursor-pointer"
                           onClick={handleLogoutButton}
                         >
-                          {navItems.logout.title}
+                          {dict.navbar.logout_text}
                         </span>
                       </ListItem>
                     </ul>
@@ -651,7 +636,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
               <NavigationMenuItem>
                 <Button variant="ghost">
                   <Link href="/login" lang={lang}>
-                    <span className="text-sm">{navItems.login.title}</span>
+                    <span className="text-sm">{dict.common.login_text}</span>
                   </Link>
                 </Button>
               </NavigationMenuItem>
@@ -664,7 +649,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
                     className="hover:text-white font-semibold"
                   >
                     <span className="text-sm pr-3">
-                      {navItems.b2b.partnerText}
+                      {dict.common.partner_with_us_text}
                     </span>
                   </Link>
                 </Button>

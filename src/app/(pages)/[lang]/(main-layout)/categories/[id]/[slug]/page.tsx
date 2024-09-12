@@ -11,8 +11,6 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   const category = await sdk.blogPostCategories.getById(Number(id), { lang })
   const canonicalUrl = `${serverUrl}/${lang}/categories/${id}/${category?.translation?.slug}`
 
-  console.log({ canonicalUrl })
-
   return {
     title: category?.translation?.metaTitle,
     description: category?.translation?.metaDescription,

@@ -1,4 +1,4 @@
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { PropsWithLang } from '@/i18n/types'
 import Typography from '../ui/typography'
 import Link from '../ui/link'
@@ -7,31 +7,26 @@ export default async function TermConditionsPrivacy({
   lang,
   className,
 }: PropsWithLang & PropsWithClassName) {
-  const {
-    common,
-    layout: {
-      footer: { copyright },
-    },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   return (
     <div>
       <Typography as="p" className={className}>
         <span>
-          {copyright.reconciliations.text}
+          {dict.footer.all_rights_reserver_text}
           {` `}
         </span>
         <span className="underline text-blue-500">
           <Link href="/terms-and-conditions" lang={lang}>
-            {copyright.reconciliations.termsAndConditions}
+            {dict.footer.terms_and_conditions_text}
           </Link>
         </span>
         {` `}
-        <span>{common.or}</span>
+        <span>{'or (not translated)'}</span>
         {` `}
         <span className="underline text-blue-500">
           <Link href="/privacy" lang={lang}>
-            {copyright.reconciliations.privacy}
+            {dict.footer.privacy_statement_text}
           </Link>
         </span>
       </Typography>

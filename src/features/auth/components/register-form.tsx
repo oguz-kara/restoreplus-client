@@ -12,7 +12,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
-import { useDictionary } from '@/context/use-dictionary'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import Link from '@/components/ui/link'
@@ -21,6 +20,7 @@ import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import useMessages from '@/hooks/use-messages'
 import SecondaryMessage from '@/components/common/secondary-message'
 import { useEffect } from 'react'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 interface RegisterFormProps {}
 
@@ -37,13 +37,7 @@ export default function RegisterForm({
 }: RegisterFormProps & PropsWithLang) {
   const { showErrorMessage } = useMessages()
   const { register } = useAuthenticatedUser()
-  const {
-    dictionary: {
-      auth: {
-        register: { page },
-      },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const form = useForm<RegisterFormDataType>({
     resolver: zodResolver(registerSchema),
     defaultValues,
@@ -72,8 +66,10 @@ export default function RegisterForm({
       {register.isSuccess && (
         <div className="pb-5">
           <SecondaryMessage
-            title={page.success.title}
-            description={page.success.message}
+            title={dict.messages.user_registration_successfull_message}
+            description={
+              dict.messages.user_registration_successfull_check_email_message
+            }
           />
         </div>
       )}
@@ -87,7 +83,7 @@ export default function RegisterForm({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{page.fields.email}</FormLabel>
+                <FormLabel>{dict.common.email_text}</FormLabel>
                 <FormControl>
                   <Input
                     className="bg-transparent  py-7 rounded-sm"
@@ -104,7 +100,7 @@ export default function RegisterForm({
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{page.fields.firstName}</FormLabel>
+                <FormLabel>{dict.common.first_name_text}</FormLabel>
                 <FormControl>
                   <Input
                     className="bg-transparent  py-7 rounded-sm"
@@ -120,7 +116,7 @@ export default function RegisterForm({
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{page.fields.lastName}</FormLabel>
+                <FormLabel>{dict.common.last_name_text}</FormLabel>
                 <FormControl>
                   <Input
                     className="bg-transparent  py-7 rounded-sm"
@@ -136,7 +132,7 @@ export default function RegisterForm({
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{page.fields.password}</FormLabel>
+                <FormLabel>{dict.common.password_text}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
@@ -154,7 +150,7 @@ export default function RegisterForm({
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{page.fields.confirmPassword}</FormLabel>
+                <FormLabel>{dict.common.confirm_password_text}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
@@ -183,7 +179,7 @@ export default function RegisterForm({
                 </FormControl>
                 <FormLabel className="mt-0">
                   <Typography as="p" className="leading-6">
-                    {page.checkboxes.acceptPromotions}
+                    {dict.register.accept_promotions_text}
                   </Typography>
                 </FormLabel>
                 <FormMessage />
@@ -207,21 +203,20 @@ export default function RegisterForm({
                 </FormControl>
                 <FormLabel className="mt-0">
                   <Typography as="p" className="leading-6">
-                    <span>{page.checkboxes.reconciliations.text}</span>{' '}
+                    <span>{dict.register.aggreeing_following_text}</span>{' '}
                     <span className="text-blue-500 underline">
                       <Link
                         href="/terms-and-conditions"
                         lang={lang}
                         target="_blank"
                       >
-                        {page.checkboxes.reconciliations.termsAndConditions}{' '}
-                        {` `}
+                        {dict.footer.terms_and_conditions_text} {` `}
                       </Link>
                     </span>
                     <span>and {` `} </span>
                     <span className="text-blue-500 underline">
                       <Link href="/privacy" lang={lang} target="_blank">
-                        {page.checkboxes.reconciliations.privacy}
+                        {dict.footer.privacy_statement_text}
                       </Link>
                     </span>
                   </Typography>
@@ -236,7 +231,7 @@ export default function RegisterForm({
               loading={register.isPending}
               className="w-full py-7 rounded-sm text-lg"
             >
-              {page.buttonText}
+              {dict.register.title}
             </Button>
           </div>
         </form>

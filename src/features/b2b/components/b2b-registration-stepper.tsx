@@ -1,7 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Step, Stepper, useStepper } from '@/components/ui/stepper'
-import { useDictionary } from '@/context/use-dictionary'
 import B2BRegisterUserForm from './b2b-register-user-form'
 import { Locale } from '@/i18n/types'
 import B2BRegisterUserCompanyForm from './b2b-register-user-company-form'
@@ -16,12 +15,13 @@ import { useMutation } from '@/hooks/use-mutation'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import b2bRegisterUserCompanySchema from '../schema/b2b-register-user-company.schema'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import b2bRegisterUserAddressSchema, {
   B2BRegisterUserAddressDataType,
 } from '../schema/b2b-register-address.shema'
 import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 interface UserFields {
   email: string
@@ -45,6 +45,7 @@ export default function B2BRegistrationStepper({
   lang: Locale
   registrationInfo: ApplicantRegistrationResponseData | null
 }) {
+  const { dictionary: dict } = useDictionaryV2()
   const searchParams = useSearchParams()
   const [userFields, setUserFields] = useState<UserFields | null>(null)
   const [userCompanyFields, setUserCompanyFields] =
@@ -68,14 +69,10 @@ export default function B2BRegistrationStepper({
     normalizeApplicantRegistrationResponseData(registrationInfo)
   const { user } = normalizedUserInputData
 
-  const {
-    dictionary: { b2bCompleteRegistrationPage },
-  } = useDictionary()
-
   const steps = [
-    { label: b2bCompleteRegistrationPage.step1.title, id: '1' },
-    { label: b2bCompleteRegistrationPage.step2.title, id: '2' },
-    { label: b2bCompleteRegistrationPage.step3.title, id: '3' },
+    { label: dict.b2b_registration.steps_one_title, id: '1' },
+    { label: dict.b2b_registration.steps_two_title, id: '2' },
+    { label: dict.b2b_registration.steps_three_title, id: '3' },
   ]
 
   const handleUserRegistrationFormSubmit = async ({
@@ -233,7 +230,7 @@ export default function B2BRegistrationStepper({
             error ? 'error' : isRegisterUserPending ? 'loading' : undefined
           }
         >
-          <Step key={1} label={b2bCompleteRegistrationPage.step1.title}>
+          <Step key={1} label={dict.b2b_registration.steps_one_title}>
             <div className="flex items-center justify-center my-4 border bg-secondary rounded-md p-5">
               <B2BRegisterUserForm
                 userData={user}
@@ -243,7 +240,7 @@ export default function B2BRegistrationStepper({
               />
             </div>
           </Step>
-          <Step key={2} label={b2bCompleteRegistrationPage.step2.title}>
+          <Step key={2} label={dict.b2b_registration.steps_two_title}>
             <div className="flex items-center justify-center my-4 border bg-secondary rounded-md p-5">
               <B2BRegisterUserCompanyForm
                 onChange={(values) => setUserCompanyFields(values)}
@@ -252,7 +249,7 @@ export default function B2BRegistrationStepper({
               />
             </div>
           </Step>
-          <Step key={3} label={b2bCompleteRegistrationPage.step3.title}>
+          <Step key={3} label={dict.b2b_registration.steps_three_title}>
             <div className="flex items-center justify-center my-4 border bg-secondary rounded-md p-5">
               <B2BRegisterUserAddressForm
                 lang={lang}
@@ -294,15 +291,11 @@ const Footer = ({
   userInputData: NormalizedApplicantData
   lang: string
 }) => {
-  const {
-    dictionary: {
-      b2bCompleteRegistrationPage: { b2bRegistrationCompleted },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
+
   const {
     nextStep,
     prevStep,
-    resetSteps,
     isDisabledStep,
     hasCompletedAllSteps,
     isLastStep,
@@ -345,17 +338,19 @@ const Footer = ({
       {hasCompletedAllSteps && (
         <div className="h-40 p-5 border bg-secondary rounded-md">
           <Typography as="h4" className="text-xl mb-2">
-            {b2bRegistrationCompleted.title}
+            {dict.b2b_registration.stepper_completed_title}
           </Typography>
-          <Typography>{b2bRegistrationCompleted.description}</Typography>
           <Typography>
-            {b2bRegistrationCompleted.gotoText} {` `}
+            {dict.b2b_registration.stepper_completed_description}
+          </Typography>
+          <Typography>
+            {dict.common.go_to_text} {` `}
             <Link
               href="/"
               className="text-blue-500 hover:underline"
               lang={lang as Locale}
             >
-              {b2bRegistrationCompleted.homepageText}
+              {dict.common.homepage_text}
             </Link>
           </Typography>
         </div>

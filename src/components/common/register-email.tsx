@@ -7,18 +7,14 @@ import { useDictionary } from '@/context/use-dictionary'
 import { useLoading } from '@/hooks/use-loading'
 import { useToast } from '../ui/use-toast'
 import { clientFetcher } from '@/lib/client-fetcher'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export default function RegisterEmail() {
   const [email, setEmail] = React.useState<string>('')
   const { loading, startLoading, stopLoading } = useLoading()
   const { toast } = useToast()
 
-  const {
-    dictionary: {
-      common: { registerEmail },
-      registerEmailMessages,
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
@@ -36,7 +32,7 @@ export default function RegisterEmail() {
 
       if (data.success) {
         toast({
-          title: registerEmailMessages.successfully,
+          title: dict.messages.register_email_success_message,
         })
 
         return
@@ -45,8 +41,8 @@ export default function RegisterEmail() {
       toast({
         variant: 'destructive',
         title: data?.message?.includes('Unique')
-          ? registerEmailMessages.uniqueError
-          : registerEmailMessages.errorMessage,
+          ? dict.messages.register_email_unique_email_error_message
+          : dict.messages.register_email_error_message,
       })
 
       return
@@ -66,7 +62,7 @@ export default function RegisterEmail() {
         className={cn(
           'bg-transparent py-3 rounded-sm border border-gray-400 text-black mb-2 bg-white'
         )}
-        placeholder={registerEmailMessages.placeholder}
+        placeholder={dict.footer.your_email_text}
       />
       <Button
         loading={loading}
@@ -77,7 +73,7 @@ export default function RegisterEmail() {
         }}
         onClick={handleSubmit}
       >
-        {registerEmail}
+        {dict.footer.register_for_industry_news_button_text}
       </Button>
     </div>
   )

@@ -22,14 +22,6 @@ export default async function SingleCategoryPage({
           <Typography as="h1" className="mb-5">
             {data?.translation.name}
           </Typography>
-          <MdxRenderer mdxText={informationTranslation?.info} />
-          <MdxRenderer mdxText={informationTranslation?.whatAre} />
-          <MdxRenderer mdxText={informationTranslation?.useCases} />
-          <MdxRenderer mdxText={informationTranslation?.functions} />
-          <MdxRenderer
-            mdxText={informationTranslation?.maintenanceandStorageConditions}
-          />
-          <MdxRenderer mdxText={informationTranslation?.footerInfo} />
         </Section>
       </Container>
     </div>

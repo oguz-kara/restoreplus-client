@@ -18,10 +18,10 @@ import Link from '@/components/ui/link'
 import { Button } from '@/components/ui/button'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { PropsWithLang } from '@/i18n/types'
-import { useDictionary } from '@/context/use-dictionary'
 import Typography from '@/components/ui/typography'
 import { AlertMessage } from '@/components/common/alert-message'
 import { useEffect } from 'react'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 const defaultValues: LoginType = {
   email: '',
@@ -29,9 +29,7 @@ const defaultValues: LoginType = {
 }
 
 export default function LoginForm({ lang }: PropsWithLang) {
-  const {
-    dictionary: { auth },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const router = useRouter()
   const { login } = useAuthenticatedUser()
   const { showErrorMessage } = useMessages()
@@ -83,7 +81,7 @@ export default function LoginForm({ lang }: PropsWithLang) {
                       name="email"
                       render={({ field, fieldState }) => (
                         <FormItem className="mb-5">
-                          <FormLabel>{auth.login.form.fields.email}</FormLabel>
+                          <FormLabel>{dict.common.email_text}</FormLabel>
                           <Input type="text" {...field} />
                           <FormControl>
                             {fieldState.error ? (
@@ -102,9 +100,7 @@ export default function LoginForm({ lang }: PropsWithLang) {
                       name="password"
                       render={({ field, fieldState }) => (
                         <FormItem className="mb-5">
-                          <FormLabel>
-                            {auth.login.form.fields.password}
-                          </FormLabel>
+                          <FormLabel>{dict.common.password_text}</FormLabel>
                           <Input type="password" {...field} />
                           <FormControl>
                             {fieldState.error ? (
@@ -122,13 +118,13 @@ export default function LoginForm({ lang }: PropsWithLang) {
               <div>
                 <FormItem className="mb-5">
                   <Typography>
-                    {auth.login.form.dontHaveAccountText} {` `}
+                    {dict.login.dont_have_an_account_text}
                     <Link
                       href="/register"
                       lang={lang}
                       className="text-blue-500 text-md"
                     >
-                      {auth.register.page.signUp.text} {` `}
+                      {dict.common.sign_up_text}
                     </Link>
                   </Typography>
                   <Link
@@ -136,7 +132,7 @@ export default function LoginForm({ lang }: PropsWithLang) {
                     className="text-blue-500 text-md"
                     lang={lang}
                   >
-                    {auth.login.form.forgotPasswordText}
+                    {dict.login.forgot_password_text}
                   </Link>
                 </FormItem>
               </div>
@@ -149,7 +145,7 @@ export default function LoginForm({ lang }: PropsWithLang) {
                     loading={login.isPending}
                     onClick={handleSubmit}
                   >
-                    {auth.login.form.buttonText}
+                    {dict.common.login_text}
                   </Button>
                 </FormItem>
               </div>

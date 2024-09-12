@@ -12,7 +12,6 @@ import { getDictionary } from '@/i18n/get-dictionary'
 import { Metadata } from 'next'
 import { sdk } from '@/restoreplus-sdk'
 import { serverUrl } from '@/config/get-env-fields'
-import { consoleLog } from '@/utils/log-to-console'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &

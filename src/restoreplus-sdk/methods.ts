@@ -8,6 +8,7 @@ import { getCalculatedProductsMethods } from './v2/products/calculated-products-
 import { orderManagementMethods } from './v2/order-management/methods'
 import { activeUserMethods } from './v2/active-user/methods'
 import { b2bMethods } from './v2/b2b/methods'
+import { dictionaryMethods } from './v2/dictionaries/methods'
 
 export const restorePlusSdk = {
   applicationScopes: getBaseMethods('application-scopes'),
@@ -33,4 +34,5 @@ export const restorePlusSdk = {
   activeUser: activeUserMethods,
   b2b: b2bMethods,
   facets: getBaseMethods('facets'),
+  dictionaries: dictionaryMethods,
 }

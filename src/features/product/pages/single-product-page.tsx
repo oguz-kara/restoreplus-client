@@ -30,12 +30,6 @@ export default async function SingleProductPage({
 }: SingleProductPageProps) {
   const {
     product,
-    productFinder: {
-      productActionButtons: {
-        addToOfferList: { removeFromOfferListButtonText, tooltip },
-      },
-    },
-    offerProducts: { requestOfferText },
     publicProductPageList: { backButtonText },
   } = await getDictionary(lang)
   const result = await sdk.products.getSingleByQuery(

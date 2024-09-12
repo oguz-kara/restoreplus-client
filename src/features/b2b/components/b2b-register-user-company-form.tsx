@@ -17,6 +17,7 @@ import b2bRegisterUserCompanySchema, {
   B2BRegisterUserCompanyDataType,
 } from '../schema/b2b-register-user-company.schema'
 import { PhoneInput } from '@/components/ui/phone-input'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 interface RegisterFormProps {
   onChange?: (values: B2BRegisterUserCompanyDataType) => void
@@ -35,15 +36,11 @@ export default function B2BRegisterUserCompanyForm({
   value,
   onChange,
 }: RegisterFormProps & PropsWithLang) {
-  const {
-    dictionary: { b2bCompleteRegistrationPage },
-  } = useDictionary()
+  const { dictionary } = useDictionaryV2()
   const form = useForm<B2BRegisterUserCompanyDataType>({
     resolver: zodResolver(b2bRegisterUserCompanySchema),
     defaultValues,
   })
-
-  const { step2 } = b2bCompleteRegistrationPage
 
   const values = form.watch()
 
@@ -63,7 +60,7 @@ export default function B2BRegisterUserCompanyForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step2.formFields.nameText}
+                    {dictionary.common.company_name_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -78,7 +75,7 @@ export default function B2BRegisterUserCompanyForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step2.formFields.descriptionText}
+                    {dictionary.common.company_description_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -93,13 +90,10 @@ export default function B2BRegisterUserCompanyForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step2.formFields.phoneNumberText}
+                    {dictionary.common.phone_number_text}
                   </FormLabel>
                   <FormControl>
-                    <PhoneInput
-                      className="rounded-sm"
-                      {...field}
-                    />
+                    <PhoneInput className="rounded-sm" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,7 +105,7 @@ export default function B2BRegisterUserCompanyForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step2.formFields.fixedLineText}
+                    {dictionary.common.fixed_line_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -126,7 +120,7 @@ export default function B2BRegisterUserCompanyForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step2.formFields.taxNumberText}
+                    {dictionary.common.tax_number_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />
@@ -141,7 +135,7 @@ export default function B2BRegisterUserCompanyForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-gray-700">
-                    {step2.formFields.websiteText}
+                    {dictionary.common.website_text}
                   </FormLabel>
                   <FormControl>
                     <Input className="py-7 rounded-sm" {...field} />

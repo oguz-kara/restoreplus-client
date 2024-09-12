@@ -7,12 +7,10 @@ import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { getCategoryWithDocumentsQuery } from '@/features/product-categories/queries/get-category-with-documents-query'
 import SimpleProductCard from '@/features/product/components/simple-product-card'
-import { getSectors } from '@/features/sectors/api/get-sectors'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
-import { consoleLog } from '@/utils/log-to-console'
 import { Metadata } from 'next'
 
 const bgImages = [
@@ -59,9 +57,7 @@ export default async function Page({
 }: {
   params: { lang: Locale }
 }) {
-  const {
-    indexV2: { hero, sections, sloganSection, findProductSection, b2bSection },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   const { data } = await sdk.productCategories.getAllByQuery(
     {
@@ -84,13 +80,30 @@ export default async function Page({
     take: 6,
   })
 
+  const sections = [
+    {
+      title: dict.index.section_category_one_title,
+      subtitle: dict.index.section_category_one_subtitle,
+    },
+    {
+      title: dict.index.section_category_two_title,
+      subtitle: dict.index.section_category_two_subtitle,
+    },
+    {
+      title: dict.index.section_category_three_title,
+      subtitle: dict.index.section_category_three_subtitle,
+    },
+  ]
+
   return (
     <div>
       <div className="relative flex items-center justify-center w-screen h-screen p-5">
         <div className="z-20">
           <Typography className="text-white text-6xl leading-[80px]" as="h1">
-            {hero.title} <br />
-            <span className="float-right">{hero.subTitle}</span>
+            {dict.index.hero_title} <br />
+            <span className="float-right">
+              {dict.index.hero_subtitle}
+            </span>
           </Typography>
         </div>
         <div className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.8)] z-10"></div>
@@ -114,20 +127,24 @@ export default async function Page({
             <div className="z-30 flex flex-col py-5 px-5 lg:px-20">
               <div className="py-10">
                 <Typography
-                  dangerouslySetInnerHTML={{ __html: sloganSection.title }}
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_one_title,
+                  }}
                   className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
                 <Typography
                   className="text-white text-2xl leading-8"
                   as="h3"
-                  dangerouslySetInnerHTML={{ __html: sloganSection.subTitle }}
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_one_description,
+                  }}
                 />
               </div>
               <div>
                 <Link href="/product/finder" lang={lang}>
                   <Button className="text-xl px-10 py-7 font-bold uppercase">
-                    {sloganSection.buttonText}
+                    {dict.index.section_one_button_text}
                   </Button>
                 </Link>
               </div>
@@ -158,7 +175,9 @@ export default async function Page({
             <div className="z-30 flex flex-col py-5 px-5 lg:px-20">
               <div className="py-10">
                 <Typography
-                  dangerouslySetInnerHTML={{ __html: findProductSection.title }}
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_two_title,
+                  }}
                   className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
@@ -166,14 +185,14 @@ export default async function Page({
                   className="text-white text-2xl lg:text-3xl lg:leading-10"
                   as="h3"
                   dangerouslySetInnerHTML={{
-                    __html: findProductSection.subTitle,
+                    __html: dict.index.section_two_description,
                   }}
                 />
               </div>
               <div>
                 <Link href="/product/finder" lang={lang}>
                   <Button className="text-xl px-10 py-7 font-bold uppercase">
-                    {sloganSection.buttonText}
+                    {dict.index.section_two_button_text}
                   </Button>
                 </Link>
               </div>
@@ -207,7 +226,9 @@ export default async function Page({
             <div className="z-30 flex flex-col p-5 lg:p-20">
               <div className="pb-5">
                 <Typography
-                  dangerouslySetInnerHTML={{ __html: b2bSection.title }}
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_three_title,
+                  }}
                   className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
@@ -215,14 +236,14 @@ export default async function Page({
                   className="text-white text-2xl lg:text-3xl lg:leading-10"
                   as="h3"
                   dangerouslySetInnerHTML={{
-                    __html: b2bSection.subTitle,
+                    __html: dict.index.section_three_description,
                   }}
                 />
               </div>
               <div>
                 <Link href="/partner-register" lang={lang}>
                   <Button className="text-lg lg:text-xl px-10 py-7 font-bold uppercase">
-                    {b2bSection.buttonText}
+                    {dict.index.section_three_button_text}
                   </Button>
                 </Link>
               </div>
@@ -249,7 +270,7 @@ export default async function Page({
                   as="h2"
                 ></Typography>
                 <Typography className="text-white text-4xl" as="h3">
-                  {sections[i].subTitle}
+                  {sections[i].subtitle}
                 </Typography>
               </div>
               <div className="flex gap-5">

@@ -19,7 +19,6 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import Typography from '@/components/ui/typography'
-import { useDictionary } from '@/context/use-dictionary'
 import { Locale } from '@/i18n/types'
 import { Globe } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -27,18 +26,13 @@ import { usePathname, useRouter } from 'next/navigation'
 import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useQuery } from '@/hooks/use-query'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export default function PickLocaleAndCurrencyMenu() {
   const router = useRouter()
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
-  const {
-    dictionary: { localeCurrencyMenu },
-    lang,
-  } = useDictionary()
-  const [loading, setLoading] = useState<boolean>(false)
-  // const [locales, setLocales] = useState<SupportedLocale[]>([])
-  // const [currencies, setCurrencies] = useState<Currency[]>([])
+  const { dictionary, lang } = useDictionaryV2()
   const { data: currencyData, isPending: isCurrenciesPending } = useQuery([
     '/currency',
   ])
@@ -103,16 +97,16 @@ export default function PickLocaleAndCurrencyMenu() {
             <Card className="w-[300px]">
               <CardHeader>
                 <Typography as="h6" className="font-[500]">
-                  {localeCurrencyMenu.title}
+                  {dictionary.navbar.set_language_and_currency_title}
                 </Typography>
                 <Typography className="text-xs">
-                  {localeCurrencyMenu.description}
+                  {dictionary.navbar.set_language_and_currency_description}
                 </Typography>
               </CardHeader>
               <CardContent>
                 <div className="mb-2">
                   <Typography className="text-sm mb-1">
-                    {localeCurrencyMenu.language}
+                    {dictionary.common.language_text}
                   </Typography>
                   {!isLocalesPending ? (
                     <Select onValueChange={(val) => setCurrentLang(val)}>
@@ -128,7 +122,7 @@ export default function PickLocaleAndCurrencyMenu() {
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>
-                            {localeCurrencyMenu.languages}
+                            {dictionary.common.languages_text}
                           </SelectLabel>
                           {(localeData as any)?.data?.map(
                             (item: SupportedLocale, i: number) => (
@@ -146,7 +140,7 @@ export default function PickLocaleAndCurrencyMenu() {
                 </div>
                 <div>
                   <Typography className="text-sm mb-1">
-                    {localeCurrencyMenu.currency}
+                    {dictionary.common.currency_text}
                   </Typography>
                   {!isCurrenciesPending ? (
                     <Select onValueChange={(val) => setCurrentCurrency(val)}>
@@ -162,7 +156,7 @@ export default function PickLocaleAndCurrencyMenu() {
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>
-                            {localeCurrencyMenu.currencies}
+                            {dictionary.common.currencies_text}
                           </SelectLabel>
                           {(currencyData as any)?.data?.map(
                             (item: Currency, i: number) => (
@@ -181,7 +175,7 @@ export default function PickLocaleAndCurrencyMenu() {
               </CardContent>
               <CardFooter>
                 <Button className="w-full" onClick={() => handleSaveButton()}>
-                  {localeCurrencyMenu.save}
+                  {dictionary.common.save_text}
                 </Button>
               </CardFooter>
             </Card>

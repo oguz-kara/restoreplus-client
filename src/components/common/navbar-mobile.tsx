@@ -7,7 +7,6 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-
 import { Locale } from '@/i18n/types'
 import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
@@ -16,14 +15,13 @@ import { LogIn, LogOut, Menu, Search, User, X } from 'lucide-react'
 import Link from '../ui/link'
 import Logo from './logo'
 import Typography from '../ui/typography'
-import { useDictionary } from '@/context/use-dictionary'
 import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-and-currency-card'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { usePathname } from 'next/navigation'
 import { ScrollArea } from '../ui/scroll-area'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export default function NavbarMobile({
-  categoryData,
   lang,
   className,
 }: {
@@ -35,15 +33,8 @@ export default function NavbarMobile({
 } & PropsWithClassName) {
   const pathname = usePathname()
   const [isOpen, setOpen] = useState<boolean>(false)
-  const {
-    dictionary: {
-      common: { welcome },
-      layout: {
-        navigation: { mobile, navItems },
-      },
-    },
-  } = useDictionary()
   const { user, logout } = useAuthenticatedUser()
+  const { dictionary: dict } = useDictionaryV2()
 
   useEffect(() => {
     setOpen(false)
@@ -79,7 +70,9 @@ export default function NavbarMobile({
               </div>
               {user && (
                 <Typography className="text-lg py-3" as="h3">
-                  <span className="font-normal italic">{welcome}</span>{' '}
+                  <span className="font-normal italic">
+                    {'Welcome no translate'}
+                  </span>{' '}
                   {user.name}
                 </Typography>
               )}
@@ -93,7 +86,7 @@ export default function NavbarMobile({
                         as="p"
                         className="text-black px-5 py-2 uppercase font-semibold"
                       >
-                        {mobile.productFinder}
+                        {'product finder no translate'}
                       </Typography>
                     </Link>
                   </li>
@@ -103,7 +96,7 @@ export default function NavbarMobile({
                         as="p"
                         className="text-black px-5 py-2 uppercase font-semibold"
                       >
-                        {mobile.home}
+                        {'home no translate'}
                       </Typography>
                     </Link>
                   </li>
@@ -113,7 +106,7 @@ export default function NavbarMobile({
                         as="p"
                         className="text-black px-5 py-2 uppercase font-semibold"
                       >
-                        {mobile.about}
+                        {dict.about.hero_title}
                       </Typography>
                     </Link>
                   </li>
@@ -130,7 +123,7 @@ export default function NavbarMobile({
                             as="p"
                             className="text-black uppercase font-bold px-2"
                           >
-                            {navItems.login.title}
+                            {dict.common.login_text}
                           </Typography>
                         </Link>
                       </li>
@@ -145,7 +138,7 @@ export default function NavbarMobile({
                             as="p"
                             className="text-black uppercase font-bold px-2"
                           >
-                            {navItems.register.title}
+                            {dict.register.title}
                           </Typography>
                         </Link>
                       </li>
@@ -163,7 +156,7 @@ export default function NavbarMobile({
                             as="p"
                             className="text-black uppercase font-bold px-2"
                           >
-                            {navItems.profile.profile}
+                            {dict.common.profile_text}
                           </Typography>
                         </Link>
                       </li>
@@ -177,7 +170,7 @@ export default function NavbarMobile({
                             as="p"
                             className="text-black uppercase font-bold px-2"
                           >
-                            {navItems.logout.title}
+                            {dict.navbar.logout_text}
                           </Typography>
                         </span>
                       </li>

@@ -5,7 +5,6 @@ import ContactForm from '@/features/contact/components/contact-form'
 import TermsConditionsPrivacyText from '@/components/common/term-conditions-privacy'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { Metadata } from 'next'
-import ListProducts from '@/features/offer-products/components/list-products'
 import Container from '@/components/common/container'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {

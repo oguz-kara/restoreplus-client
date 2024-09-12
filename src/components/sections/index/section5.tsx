@@ -4,18 +4,14 @@ import SectionHeader from '@/components/common/section-header'
 import { ServerImage } from '@/components/ui/image'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { Locale, PropsWithLang } from '@/i18n/types'
 import bg from '../../../../public/images/hero-image.png'
 import { BlogPostCard } from '@/components/common/blog-post-card'
 import { sdk } from '@/restoreplus-sdk'
 
 export default async function Section5({ lang }: PropsWithLang) {
-  const {
-    index: {
-      section5: { title },
-    },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   const blogPosts = await getStaticBlogPosts({
     lang,
@@ -39,7 +35,7 @@ export default async function Section5({ lang }: PropsWithLang) {
         <Section className="relative">
           <div>
             <SectionHeader className="text-center text-white py-10">
-              {title}
+              {dict.blog.title}
             </SectionHeader>
           </div>
           <div className="grid md:grid-cols-2 gap-10">

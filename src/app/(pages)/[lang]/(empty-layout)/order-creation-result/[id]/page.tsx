@@ -4,7 +4,7 @@ import Image from '@/components/ui/image'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { Metadata } from 'next'
 
@@ -21,11 +21,25 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
 export default async function Page({
   params: { lang, id },
-  searchParams: { success },
 }: ParamsWithLang & { searchParams: { success: string } } & ParamsWithId) {
-  const { orderSuccessPage } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
-  const translation = id === '0' ? orderSuccessPage.error : orderSuccessPage
+  const translation =
+    id === '0'
+      ? {
+          title: dict.order_creation_result.error_title,
+          description: dict.order_creation_result.error_description,
+          viewButtonText: dict.order_creation_result.view_order_button_text,
+          continueButtonText:
+            dict.order_creation_result.continues_shopping_button_text,
+        }
+      : {
+          title: dict.order_creation_result.success_title,
+          description: dict.order_creation_result.success_description,
+          viewButtonText: dict.order_creation_result.view_order_button_text,
+          continueButtonText:
+            dict.order_creation_result.continues_shopping_button_text,
+        }
 
   return (
     <div className="flex items-center justify-center bg-gray-100 h-[100vh]">
@@ -76,7 +90,7 @@ export default async function Page({
                   className="w-full uppercase font-semibold lg:text-xl lg:p-7"
                   variant="outline"
                 >
-                  {translation.viewOrderButtonText}
+                  {translation.viewButtonText}
                 </Button>
               </Link>
               <Link className="flex-1" href="/create-order" lang={lang}>
@@ -84,7 +98,7 @@ export default async function Page({
                   className="w-full uppercase font-semibold lg:text-xl lg:p-7"
                   variant="default"
                 >
-                  {translation.continueShoppingButtonText}
+                  {translation.continueButtonText}
                 </Button>
               </Link>
             </div>
