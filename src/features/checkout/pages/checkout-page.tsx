@@ -13,7 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import Typography from '@/components/ui/typography'
-import { useDictionary } from '@/context/use-dictionary'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 import BillingAddress from '@/features/active-order/components/billing-address'
 import ShippingAddress from '@/features/active-order/components/shipping-address'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
@@ -25,20 +25,7 @@ import { useState } from 'react'
 
 export default function CheckoutPage({ lang }: PropsWithLang) {
   const router = useRouter()
-  const {
-    dictionary: {
-      checkoutPage: {
-        orderSummary,
-        tableHeads,
-        title,
-        total,
-        createOrderButtonText,
-        totalBeforeTaxes,
-        totalDiscount,
-        totalTaxes,
-      },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const [selectedAddress] = useState<Address | null>(null)
   const { activeOrder } = useActiveOrder()
 
@@ -54,30 +41,32 @@ export default function CheckoutPage({ lang }: PropsWithLang) {
           <div>
             <div className="mb-5">
               <Typography as="h2" className="pb-5">
-                {title}
+                {dict.checkout.title}
               </Typography>
               <hr />
             </div>
             <div className="flex gap-10 mb-2 flex-col-reverse lg:flex-row">
               <div className="flex-1">
-                <Typography as="h2">{orderSummary}</Typography>
+                <Typography as="h2">
+                  {dict.checkout.order_summary_text}
+                </Typography>
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead className="w-[100px] capitalize">
-                        {tableHeads.image}
+                        {dict.common.image_text}
                       </TableHead>
                       <TableHead className="capitalize">
-                        {tableHeads.name}
+                        {dict.common.name_text}
                       </TableHead>
                       <TableHead className="capitalize">
-                        {tableHeads.amount}
+                        {dict.common.amount_text}
                       </TableHead>
                       <TableHead className="text-right capitalize">
-                        {tableHeads.price}
+                        {dict.common.price_text}
                       </TableHead>
                       <TableHead className="text-right capitalize">
-                        {total}
+                        {dict.common.price_text}
                       </TableHead>
                     </TableRow>
                   </TableHeader>
@@ -111,7 +100,9 @@ export default function CheckoutPage({ lang }: PropsWithLang) {
                   </TableBody>
                   <TableFooter>
                     <TableRow>
-                      <TableCell colSpan={4}>{totalBeforeTaxes}</TableCell>
+                      <TableCell colSpan={4}>
+                        {dict.checkout.total_before_taxes_and_discounts_text}
+                      </TableCell>
                       <TableCell className="text-right">
                         {formatPrice(
                           activeOrder?.priceSummary.totalPrice -
@@ -121,7 +112,9 @@ export default function CheckoutPage({ lang }: PropsWithLang) {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell colSpan={4}>{totalTaxes}</TableCell>
+                      <TableCell colSpan={4}>
+                        {dict.checkout.total_taxes_text}
+                      </TableCell>
                       <TableCell className="text-right">
                         {formatPrice(
                           activeOrder?.priceSummary?.totalTaxes || 0,
@@ -130,7 +123,9 @@ export default function CheckoutPage({ lang }: PropsWithLang) {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell colSpan={4}>{totalDiscount}</TableCell>
+                      <TableCell colSpan={4}>
+                        {dict.checkout.total_discount_text}
+                      </TableCell>
                       <TableCell className="text-right">
                         {formatPrice(
                           activeOrder.priceSummary?.totalDiscount || 0,
@@ -141,7 +136,7 @@ export default function CheckoutPage({ lang }: PropsWithLang) {
                     <TableRow>
                       <TableCell colSpan={4}>
                         <Typography className="font-semibold" as="h5">
-                          {total}
+                          {dict.checkout.total_text}
                         </Typography>
                       </TableCell>
                       <TableCell className="text-right font-bold">
@@ -167,7 +162,9 @@ export default function CheckoutPage({ lang }: PropsWithLang) {
                 </div>
                 <div className="flex justify-end bg-muted p-2 rounded-sm mt-10">
                   <Button disabled={!selectedAddress}>
-                    <span className="mr-2">{createOrderButtonText}</span>
+                    <span className="mr-2">
+                      {dict.checkout.create_order_button_text}
+                    </span>
                     <span>
                       <ArrowRight size="18px" />
                     </span>

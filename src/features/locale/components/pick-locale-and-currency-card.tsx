@@ -3,13 +3,6 @@ import { useCookies } from 'react-cookie'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
-import {
   Select,
   SelectContent,
   SelectGroup,
@@ -19,23 +12,19 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import Typography from '@/components/ui/typography'
-import { useDictionary } from '@/context/use-dictionary'
 import { Locale } from '@/i18n/types'
 import { clientFetcher } from '@/lib/client-fetcher'
-import { Globe } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export default function PickLocaleAndCurrencyCard() {
   const router = useRouter()
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
-  const {
-    dictionary: { localeCurrencyMenu },
-    lang,
-  } = useDictionary()
+  const { dictionary: dict, lang } = useDictionaryV2()
   const [locales, setLocales] = useState<SupportedLocale[]>([])
   const [currencies, setCurrencies] = useState<Currency[]>([])
   const [currentLang, setCurrentLang] = useState<string>(lang)
@@ -107,16 +96,16 @@ export default function PickLocaleAndCurrencyCard() {
     <Card className="w-full border-none shadow-none ">
       <CardHeader className="p-0 pb-3">
         <Typography as="h6" className="font-semibold">
-          {localeCurrencyMenu.title}
+          {dict.navbar.set_language_and_currency_title}
         </Typography>
         <Typography className="text-xs">
-          {localeCurrencyMenu.description}
+          {dict.navbar.set_language_and_currency_description}
         </Typography>
       </CardHeader>
       <CardContent className="p-0 pb-3">
         <div className="mb-2">
           <Typography className="text-sm mb-1 font-semibold">
-            {localeCurrencyMenu.language}
+            {dict.common.language_text}
           </Typography>
           {!loading ? (
             <Select onValueChange={(val) => setCurrentLang(val)}>
@@ -129,7 +118,7 @@ export default function PickLocaleAndCurrencyCard() {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>{localeCurrencyMenu.languages}</SelectLabel>
+                  <SelectLabel>{dict.common.languages_text}</SelectLabel>
                   {locales.map((item: SupportedLocale, i: number) => (
                     <SelectItem key={i} value={item.locale}>
                       {item.name}
@@ -144,7 +133,7 @@ export default function PickLocaleAndCurrencyCard() {
         </div>
         <div>
           <Typography className="text-sm mb-1 font-semibold">
-            {localeCurrencyMenu.currency}
+            {dict.common.currency_text}
           </Typography>
           {!loading ? (
             <Select onValueChange={(val) => setCurrentCurrency(val)}>
@@ -158,7 +147,7 @@ export default function PickLocaleAndCurrencyCard() {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>{localeCurrencyMenu.currencies}</SelectLabel>
+                  <SelectLabel>{dict.common.currencies_text}</SelectLabel>
                   {currencies.map((item: Currency, i: number) => (
                     <SelectItem key={i} value={item.currencyCode}>
                       {item.currencyCode}
@@ -174,7 +163,7 @@ export default function PickLocaleAndCurrencyCard() {
       </CardContent>
       <CardFooter className="p-0">
         <Button className="w-full" onClick={() => handleSaveButton()}>
-          {localeCurrencyMenu.save}
+          {dict.common.save_text}
         </Button>
       </CardFooter>
     </Card>

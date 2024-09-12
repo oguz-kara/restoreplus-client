@@ -3,7 +3,7 @@ import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
 import Link from '@/components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { ArrowRight } from 'lucide-react'
 
 export default async function MainBlogCard({
@@ -12,9 +12,8 @@ export default async function MainBlogCard({
 }: {
   data: BlogPost
 } & PropsWithLang) {
-  const {
-    blog: { buttonText },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
+
   return (
     <Link href={`/blog/${data.id}/${data.translation.slug}`} lang={lang}>
       <div className="flex flex-col-reverse gap-5 lg:flex-row lg:justify-between lg:gap-10  py-10 border-b border-dashed border-gray-200">
@@ -24,7 +23,7 @@ export default async function MainBlogCard({
           </Typography>
           <Typography as="p">{data.translation.description}</Typography>
           <div className="inline-flex bg-foreground text-white p-3 rounded-md hover:bg-primary hover:text-foreground transition-all my-5">
-            <span className="mr-3">{buttonText}</span>
+            <span className="mr-3">{dict.blog.read_more_button_text}</span>
             <ArrowRight />
           </div>
         </div>

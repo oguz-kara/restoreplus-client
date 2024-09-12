@@ -1,20 +1,15 @@
 import Container from '@/components/common/container'
-import { Locale, PropsWithLang } from '@/i18n/types'
+import { PropsWithLang } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import Typography from '@/components/ui/typography'
 import Image from '@/components/ui/image'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import ProductFinderFilters from '@/features/product/components/product-finder-filters'
 import CalculatedProductForActiveUserCard from '@/features/product/components/calculated-product-for-active-user-card'
 import { sdk } from '@/restoreplus-sdk'
 import { CalculatedProduct } from '@/features/product/types'
 
-interface CalculatedAndGetProductFinderSectorAndCategoryIdArguments {
-  categorySlug?: string
-  sectorSlug?: string
-  subCategorySlug?: string
-  subSectorSlug?: string
-}
+
 
 interface ProductFinderPageProps extends Pagination, PropsWithLang {
   term?: string
@@ -27,7 +22,8 @@ export default async function CreateOrderPage({
   term,
 }: ProductFinderPageProps) {
   const properLang = getProperLanguage(lang)
-  const { common } = await getDictionary(properLang as Locale)
+  const dict = await getDictionaryV2(properLang as any)
+
 
   const calculatedProducts = !term
     ? await sdk.calculatedProducts.getAll()
@@ -48,7 +44,7 @@ export default async function CreateOrderPage({
         <div className="flex-[3] p-5 bg-gray-100">
           <div>
             <Typography as="h5" className="mb-5">
-              {calculatedProducts?.length} {common.productFound}
+              {calculatedProducts?.length} {dict.common.product_found_text}
             </Typography>
           </div>
           {(calculatedProducts?.length || 0) < 1 ? (

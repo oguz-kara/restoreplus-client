@@ -4,7 +4,7 @@ import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import Link from '@/components/ui/link'
 import { Button } from '@/components/ui/button'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { Facebook, ThumbsDown, ThumbsUp, Twitter, X } from 'lucide-react'
 import MdxRenderer from '@/components/common/mdx-renderer'
 import InfoCard from '@/components/common/info-card'
@@ -23,12 +23,7 @@ export default async function SingleBlogPage({
   lang,
   id,
 }: SingleBlogPageProps) {
-  const {
-    blog: {
-      singlePage,
-      page: { rightCard },
-    },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
   const data = await sdk.blogPosts.getById(Number(id), { lang })
   let formattedDate
 
@@ -71,15 +66,15 @@ export default async function SingleBlogPage({
         </div>
         <div>
           <Typography as="p" className="mb-3">
-            {singlePage.useful}
+            {dict.blog.single_did_find_useful_text}
           </Typography>
           <div className="flex gap-2">
             <Button variant="outline" className="gap-1">
-              {singlePage.yes}
+              {dict.common.yes_text}
               <ThumbsUp size="15px" />
             </Button>
             <Button variant="outline" className="gap-1">
-              {singlePage.no}
+              {dict.common.no_text}
               <ThumbsDown size="15px" />
             </Button>
           </div>
@@ -87,7 +82,14 @@ export default async function SingleBlogPage({
       </Section>
       <Section className="lg:flex-[1]">
         <div className="pb-5 pt-10">
-          <InfoCard data={rightCard} lang={lang} />
+          <InfoCard
+            data={{
+              title: dict.blog.found_by_users_title,
+              buttonText: dict.blog.get_listed_button_text,
+              text: dict.blog.found_by_users_description,
+            }}
+            lang={lang}
+          />
         </div>
       </Section>
     </Container>
@@ -95,22 +97,20 @@ export default async function SingleBlogPage({
 }
 
 async function SocialPostButtons({ lang }: PropsWithLang) {
-  const {
-    socialPostData: { platforms },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   return (
     <div className="flex gap-2">
       <div>
         <Button className="bg-foreground text-white w-24 capitalize">
           <Twitter className="pr-1" />
-          {platforms.twitter.text}
+          {dict.common.twitter_text}
         </Button>
       </div>
       <div>
         <Button className="bg-[#4267B2] text-white w-24 capitalize">
           <Facebook className="pr-1" />
-          {platforms.facebook.text}
+          {dict.common.facebook_text}
         </Button>
       </div>
     </div>

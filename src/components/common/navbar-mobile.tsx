@@ -71,7 +71,7 @@ export default function NavbarMobile({
               {user && (
                 <Typography className="text-lg py-3" as="h3">
                   <span className="font-normal italic">
-                    {'Welcome no translate'}
+                    {dict.common.welcome_text}
                   </span>{' '}
                   {user.name}
                 </Typography>
@@ -86,7 +86,7 @@ export default function NavbarMobile({
                         as="p"
                         className="text-black px-5 py-2 uppercase font-semibold"
                       >
-                        {'product finder no translate'}
+                        {dict.product_finder.product_finder_text}
                       </Typography>
                     </Link>
                   </li>
@@ -96,7 +96,7 @@ export default function NavbarMobile({
                         as="p"
                         className="text-black px-5 py-2 uppercase font-semibold"
                       >
-                        {'home no translate'}
+                        {dict.common.home_text}
                       </Typography>
                     </Link>
                   </li>

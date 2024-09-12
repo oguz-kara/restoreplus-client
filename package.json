@@ -10,6 +10,7 @@
     "translate": "npx ts-node src/lib/translate.ts"
   },
   "devDependencies": {
+    "@types/js-beautify": "^1.14.3",
     "@types/js-cookie": "^3.0.6",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
@@ -60,6 +61,7 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.3.1",
     "framer-motion": "^11.1.7",
+    "js-beautify": "^1.15.1",
     "js-cookie": "^3.0.5",
     "lodash.debounce": "^4.0.8",
     "negotiator": "^0.6.3",

@@ -1,10 +1,10 @@
 import { PropsWithLang } from '@/i18n/types'
-import { getDictionary } from '@/i18n/get-dictionary'
 import Typography from '@/components/ui/typography'
 import Image from '@/components/ui/image'
 import Section from '@/components/common/section'
 import Container from '@/components/common/container'
 import './style.css'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 
 const links = [
   {
@@ -28,9 +28,22 @@ const links = [
 ]
 
 export default async function HeroSection({ lang }: PropsWithLang) {
-  const {
-    aboutPage: { hero },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
+
+  const columns = [
+    {
+      title: dict.about.column_one_title,
+      text: dict.about.column_one_description,
+    },
+    {
+      title: dict.about.column_two_title,
+      text: dict.about.column_two_description,
+    },
+    {
+      title: dict.about.column_three_title,
+      text: dict.about.column_three_description,
+    },
+  ]
 
   return (
     <div className="about-page-hero-container min-h-[500px] lg:min-h-[700px]">
@@ -38,17 +51,17 @@ export default async function HeroSection({ lang }: PropsWithLang) {
         <Container>
           <div className="text-center lg:p-10">
             <Typography as="h5" className="text-2xl font-semibold mb-2">
-              {hero.topTitle}
+              {dict.about.hero_title}
             </Typography>
             <Typography as="h3" className="text-4xl font-semibold mb-5">
-              {hero.title}
+              {dict.about.hero_subtitle}
             </Typography>
             <Typography as="p" className="text-lg lg:text-2xl lg:leading-10">
-              {hero.description}
+              {dict.about.hero_description}
             </Typography>
           </div>
           <div className="grid lg:grid-cols-3">
-            {hero.columns.map((item, i) => (
+            {columns.map((item, i) => (
               <div
                 key={i}
                 className="flex flex-col items-center text-center py-5 lg:py-0"

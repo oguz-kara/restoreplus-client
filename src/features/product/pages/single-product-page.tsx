@@ -3,7 +3,7 @@ import { PropsWithLang } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
 import { initialQuery } from '../queries/initial-query'
 import { getSingleProductQueryByLang } from '../queries/get-single-product-query'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import serverConfig from '@/config/server-config.json'
 import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
@@ -28,10 +28,7 @@ export default async function SingleProductPage({
   lang,
   redirectBackSearchParam,
 }: SingleProductPageProps) {
-  const {
-    product,
-    publicProductPageList: { backButtonText },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
   const result = await sdk.products.getSingleByQuery(
     Number(id),
     getSingleProductQueryByLang(lang),
@@ -64,7 +61,7 @@ export default async function SingleProductPage({
             className="p-0 hover:bg-transparent hover:text-gray-500"
           >
             <ArrowLeft className="mr-1" />
-            {backButtonText}
+            {dict.product.single_product_back_button_text}
           </Button>
         </Link>
       </div>
@@ -117,7 +114,7 @@ export default async function SingleProductPage({
             {data?.length && data?.length > 0 && (
               <Section>
                 <Typography className="py-5 pb-10" as="h3">
-                  {product?.similarProductsText}
+                  {dict.product.similar_products_text}
                 </Typography>
                 <ListProductCards lang={lang as any} products={data} />
               </Section>

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import Link from '@/components/ui/link'
 import { Separator } from '@/components/ui/separator'
 import UserProfileSideNavigation from '@/features/user/components/user-profile-side-navigation'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionary, getDictionaryV2 } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 import {
@@ -57,18 +57,19 @@ export default async function UserProfileLayout({
   params: { lang },
 }: SettingsLayoutProps & ParamsWithLang) {
   const user = await getServerSideActiveUser()
-  const {
-    layout: {
-      navigation: {
-        navItems: { b2b },
-      },
-    },
-    profile: { sideNavigationItems, header },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
+
+  const sideNavigationItems = [
+    dict.common.profile_text,
+    dict.profile.company_text,
+    dict.common.addresses_text,
+    dict.checkout.create_order_button_text,
+    dict.common.orders_text,
+  ]
 
   const sideItems = sideNavigationItems
     .map((item, i) => ({
-      ...item,
+      title: item,
       ...links[i],
       icon: icons[i],
     }))
@@ -82,14 +83,16 @@ export default async function UserProfileLayout({
         <div className="flex justify-between">
           <div className="space-y-0.5">
             <h2 className="text-2xl font-bold tracking-tight">
-              {header.title}, {user?.name}
+              {dict.common.welcome_text}, {user?.name}
             </h2>
-            <p className="text-muted-foreground">{header.description}</p>
+            <p className="text-muted-foreground">
+              {dict.profile.manage_your_account_description}
+            </p>
           </div>
           {!user?.company?.b2bCustomer && (
             <div>
               <Link href="/partner-register" lang={lang}>
-                <Button>{b2b.partnerText}</Button>
+                <Button>{dict.common.partner_with_us_text}</Button>
               </Link>
             </div>
           )}

@@ -22,7 +22,7 @@ export default function InfoCard({
   return (
     <div
       className={cn(
-        'border-b border-dashed border-gray-400 lg:border-none h-full w-full lg:w-64 lg:h-[400px] flex-1 bg-foreground text-white p-5 lg:rounded-sm',
+        'border-b border-dashed border-gray-400 lg:border-none h-full w-full lg:w-64 flex-1 bg-foreground text-white p-5 lg:rounded-sm',
         className
       )}
     >

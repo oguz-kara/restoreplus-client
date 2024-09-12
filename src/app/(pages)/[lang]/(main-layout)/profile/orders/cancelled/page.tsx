@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { formatPrice } from '@/utils/format-price'
 import { getOrdersOfActiveUser } from '@/utils/get-server-side-active-user'
@@ -33,14 +33,23 @@ export default async function Page({
   params: { lang },
   searchParams: { page, take },
 }: ParamsWithLang & SearchParamsWithPagination) {
-  const {
-    profileOrderHistoryPage: { orderDetails, status },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
   const response = await getOrdersOfActiveUser({
     page: page as any,
     take: take as any,
     filter: 'cancelled',
   })
+
+  const status = {
+    created: dict.profile.order_history_status_created_text,
+    approved: dict.profile.order_history_status_approved_text,
+    cancelled: dict.profile.order_history_status_cancelled_text,
+    delivered: dict.profile.order_history_status_delivered_text,
+    declined: dict.profile.order_history_status_declined_text,
+    shipped: dict.profile.order_history_status_shipped_text,
+    refunded: dict.profile.order_history_status_refunded_text,
+    unknown: dict.profile.order_history_status_unknown_text,
+  }
 
   if (!response || !response.data) return <NoDataFound />
 
@@ -67,16 +76,20 @@ export default async function Page({
                       <thead>
                         <tr>
                           <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
-                            {orderDetails.orderPlaced}
+                            {
+                              dict.profile
+                                .order_history_details_order_placed_text
+                            }
                           </th>
                           <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
-                            {orderDetails.total}
+                            {dict.profile.order_history_details_total_text}
                           </th>
                           <th className="pb-2 text-left text-gray-400 font-semibold w-1/5 text-sm pr-5">
-                            {orderDetails.shipTo}
+                            {dict.profile.order_history_details_ship_to_text}
                           </th>
                           <th className="pb-2 text-left w-2/5 text-sm pr-5">
-                            {orderDetails.order} {` `} # {` `} {order.orderCode}
+                            {dict.profile.order_history_details_order_text}{' '}
+                            {` `} # {` `} {order.orderCode}
                           </th>
                         </tr>
                       </thead>

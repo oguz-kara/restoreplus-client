@@ -4,7 +4,7 @@ import { Button } from '../ui/button'
 import Image from '../ui/image'
 import Link from '../ui/link'
 import { Locale } from '@/i18n/types'
-import { CheckCheck } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface ImageContentPanelInputDataType {
@@ -42,7 +42,7 @@ export default async function ImageContentPanel({
             {data.list.map((item, i) => (
               <li key={i} className="mb-4 flex items-center gap-3">
                 <span>
-                  <CheckCheck className="text-[#6DB042]" />
+                  <Check className="text-[#6DB042]" />
                 </span>
                 {item.href ? (
                   <span className="underline text-blue-500">

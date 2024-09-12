@@ -2,9 +2,9 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Typography from '@/components/ui/typography'
-import { useDictionary } from '@/context/use-dictionary'
 import { AddressFormModal } from './address-form-modal'
 import { cn } from '@/lib/utils'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export interface AddressType {
   title: string
@@ -29,11 +29,7 @@ export default function AddressCard({
   type = 'shipping',
   ...rest
 }: AddressCardProps & { onClick?: () => void; selected?: boolean }) {
-  const {
-    dictionary: {
-      profile: { addressList },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
 
   return (
     <Card
@@ -64,7 +60,7 @@ export default function AddressCard({
             variant="outline"
             className="border-primary text-primary hover:bg-primary hover:text-black"
           >
-            {addressList.editAddressButtonText}
+            {dict.common.edit_address_button_text}
           </Button>
         </AddressFormModal>
       </div>

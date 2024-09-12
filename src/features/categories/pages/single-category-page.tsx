@@ -13,8 +13,6 @@ export default async function SingleCategoryPage({
 
   if (!data) return 'no data found!'
 
-  const { informationTranslation } = data
-
   return (
     <div>
       <Container>

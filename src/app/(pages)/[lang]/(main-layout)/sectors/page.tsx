@@ -5,7 +5,7 @@ import Typography from '@/components/ui/typography'
 import ListSectorsMain from '@/features/sectors/components/list-sectors-main'
 import HeroSection from '@/features/sectors/components/sections/hero-section'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { Metadata } from 'next'
 
@@ -18,10 +18,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default async function Page({ params: { lang } }: ParamsWithLang) {
-  const {
-    sectorPage,
-    blog: { page },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   return (
     <div>
@@ -32,13 +29,21 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
             as="h2"
             className="font-normal leading-10 border-b border-dashed border-gray-300 py-5 text-center text-2xl"
           >
-            {sectorPage.title}
+            {dict.sector.title}
           </Typography>
         </Section>
         <Section>
           <ListSectorsMain lang={lang} />
         </Section>
-        <InfoCard className="lg:hidden" data={page.rightCard} lang={lang} />
+        <InfoCard
+          className="lg:hidden"
+          data={{
+            title: dict.blog.found_by_users_title,
+            buttonText: dict.blog.get_listed_button_text,
+            text: dict.blog.found_by_users_description,
+          }}
+          lang={lang}
+        />
       </Container>
     </div>
   )

@@ -2,21 +2,18 @@ import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 
 interface DarkGradientPanelProps {
   theme?: 'normal' | 'gradient'
-  dictionary: {
-    heading: string
-    aboutBold: string
-    about: string
-    aboutButton: string
-  }
+  lang?: string
 }
 
 export default async function DarkGradientPanel({
-  dictionary,
   theme = 'normal',
+  lang,
 }: DarkGradientPanelProps) {
+  const dict = await getDictionaryV2(lang as any)
   const classNames =
     theme === 'normal'
       ? 'bg-white text-black'
@@ -29,15 +26,19 @@ export default async function DarkGradientPanel({
           <div className="lg:flex lg:items-center lg:gap-20">
             <div>
               <Typography as="h3" className="mb-5 text-inherit">
-                {dictionary.heading}
+                {dict.about.for_industry_text}
               </Typography>
               <Typography as="p" className="mb-5">
-                <span className="font-bold">{dictionary.aboutBold}</span>
-                <span>{dictionary.about}</span>
+                <span className="font-bold">
+                  {dict.about.restoreplus_lubricants_text}
+                </span>
+                <span>{dict.about.short_about_text}</span>
               </Typography>
             </div>
             <div className="flex justify-center">
-              <Button className="text-lg">{dictionary.aboutButton}</Button>
+              <Button className="text-lg">
+                {dict.about.learn_more_about_us_button_text}
+              </Button>
             </div>
           </div>
         </Section>

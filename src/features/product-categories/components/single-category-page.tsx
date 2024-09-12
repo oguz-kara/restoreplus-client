@@ -7,7 +7,7 @@ import Typography from '@/components/ui/typography'
 import serverConfig from '@/config/server-config.json'
 import MdxRenderer from '@/components/common/mdx-renderer'
 import ListProductCards from '@/features/product/components/list-product-cards'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionary, getDictionaryV2 } from '@/i18n/get-dictionary'
 import { getCategoryById } from '../data/get-category-by-id'
 import { getProductsByCategoryId } from '@/features/product/data/get-products-by-category-id'
 import { getAllCategories } from '../data/get-all-categories'
@@ -22,11 +22,7 @@ type PageProps = {
   slug: string
 }
 
-export default async function SingleCategoryPage({
-  id,
-  slug,
-  lang,
-}: PageProps) {
+export default async function SingleCategoryPage({ id, lang }: PageProps) {
   const heads = headers()
   const pathname = heads.get('next-url')
   const category = await getCategoryById(id, lang)
@@ -36,14 +32,7 @@ export default async function SingleCategoryPage({
   })
   const categoryData = await getAllCategories(lang)
 
-  const {
-    applicationScope: {
-      page: { productsTitle },
-    },
-    productCategories: {
-      page: { categoriesTitle },
-    },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   return (
     <div>
@@ -53,7 +42,9 @@ export default async function SingleCategoryPage({
           <div className="flex gap-10">
             <div className="hidden flex-1 lg:block">
               <div>
-                <HighligtedHeader>{categoriesTitle}</HighligtedHeader>
+                <HighligtedHeader>
+                  {dict.product.product_category_other_categories_text}
+                </HighligtedHeader>
               </div>
               <ul>
                 {categoryData.data.map((item) => (
@@ -97,7 +88,10 @@ export default async function SingleCategoryPage({
                             {` `}
                           </span>
                         )}
-                        {productsTitle}
+                        {
+                          dict.product
+                            .product_category_discover_restoreplus_products_for_text
+                        }
                         {(!lang || lang === 'en') && (
                           <span className="capitalize">
                             {` `}

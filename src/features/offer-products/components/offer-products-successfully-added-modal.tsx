@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { useOfferProducts } from '@/context/use-offer-products'
 import { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export default function OfferProductsSuccessfullyAddedModal({
   onOpenChange,
@@ -24,11 +25,7 @@ export default function OfferProductsSuccessfullyAddedModal({
   open?: boolean
   product?: any
 } & PropsWithChildren) {
-  const {
-    dictionary: {
-      offerProducts: { offerProductSuccessfullyAdded },
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
 
   const { setDrawerOpen } = useOfferProducts()
 
@@ -41,9 +38,9 @@ export default function OfferProductsSuccessfullyAddedModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[410px] p-5">
         <DialogHeader className="p-4 text-left">
-          <DialogTitle>{offerProductSuccessfullyAdded.modalTitle}</DialogTitle>
+          <DialogTitle>{dict.product.offer_products_success_title}</DialogTitle>
           <DialogDescription>
-            {offerProductSuccessfullyAdded.modalDescription}
+            {dict.product.offer_product_success_description}
           </DialogDescription>
           {product?.product && (
             <div className="flex gap-5 items-center justify-between mb-3 py-3">
@@ -69,10 +66,10 @@ export default function OfferProductsSuccessfullyAddedModal({
         </DialogHeader>
         <DialogFooter className="flex gap-5">
           <DialogClose className="text-sm" type="button">
-            {offerProductSuccessfullyAdded.closeButtonText}
+            {dict.product.close_button_text}
           </DialogClose>
           <Button type="button" onClick={() => handleOpenDrawer()}>
-            {offerProductSuccessfullyAdded.viewButtonText}
+            {dict.product.view_products_button_text}
           </Button>
         </DialogFooter>
       </DialogContent>

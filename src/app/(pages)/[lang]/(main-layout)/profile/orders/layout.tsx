@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/select'
 import Typography from '@/components/ui/typography'
 import OrderFilterLinks from '@/features/order/components/order-filter-links'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 import { redirect } from 'next/navigation'
@@ -18,9 +18,7 @@ export default async function Layout({
   children,
   params: { lang },
 }: PropsWithChildren & ParamsWithLang) {
-  const {
-    profileOrderHistoryPage: { title, dateFilters },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   const user = await getServerSideActiveUser()
 
@@ -30,7 +28,7 @@ export default async function Layout({
     <div>
       <div className="flex items-center gap-2 mb-5">
         <Typography as="h4" className="font-semibold">
-          {title}
+          {dict.profile.order_history_title}
         </Typography>
       </div>
       <div className="flex justify-between">
@@ -48,12 +46,18 @@ export default async function Layout({
             </SelectTrigger>
             <SelectContent defaultValue="tes2">
               <SelectGroup defaultValue={'tes2'}>
-                <SelectItem defaultValue="tes2" value="tes2">
-                  {dateFilters.past1Months}
+                <SelectItem value="tes1">
+                  {dict.profile.order_history_date_filters_past_one_text}
                 </SelectItem>
-                <SelectItem value="tes3">{dateFilters.past3Months}</SelectItem>
-                <SelectItem value="tes4">{dateFilters.past6Months}</SelectItem>
-                <SelectItem value="tes5">{dateFilters.past12Months}</SelectItem>
+                <SelectItem value="tes2">
+                  {dict.profile.order_history_date_filters_past_three_text}
+                </SelectItem>
+                <SelectItem value="tes3">
+                  {dict.profile.order_history_date_filters_past_six_text}
+                </SelectItem>
+                <SelectItem value="tes4">
+                  {dict.profile.order_history_date_filters_past_twelve_text}
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

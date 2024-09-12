@@ -6,30 +6,22 @@ import { useMutation } from '@/hooks/use-mutation'
 import Typography from '@/components/ui/typography'
 import { ServerImage } from '@/components/ui/image'
 import Link from '@/components/ui/link'
-import { useDictionary } from '@/context/use-dictionary'
 import { Locale } from '@/i18n/types'
 import { Button } from '@/components/ui/button'
 import Paginate from '@/components/common/pagination'
 import { useOfferProducts } from '@/context/use-offer-products'
 import { cn } from '@/lib/utils'
 import { X } from 'lucide-react'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
-function ProductCard({
-  product,
-  lang,
-  translation,
-}: {
-  product: Product
-  lang: Locale
-  translation: any
-}) {
+function ProductCard({ product, lang }: { product: Product; lang: Locale }) {
+  const { dictionary: dict } = useDictionaryV2()
   const { offerProducts, addNewOfferProduct, deleteOfferProductById } =
     useOfferProducts()
   const [productsAddedModalOpen, setProductsAddedModalOpen] =
     useState<boolean>(false)
 
   const hasProductInList = (productId: number) => {
-    console.log({ offerProducts })
     return offerProducts.find((product) => product?.product?.id === productId)
   }
 
@@ -106,10 +98,10 @@ function ProductCard({
           {hasProductInList(product.id) ? (
             <span className="flex items-center gap-1">
               <X size="15px" />
-              {translation.addToOfferList.removeFromOfferListButtonText}
+              {dict.product_finder.remove_from_offer_list_button_text}
             </span>
           ) : (
-            translation.addToOfferList.tooltip
+            dict.product_finder.add_to_offer_list_tooltip
           )}
         </Button>
       </div>
@@ -133,10 +125,7 @@ export default function ListProductsCardsV2() {
   const categoryId = searchParams.get('categoryId')
   const applicationScopeId = searchParams.get('applicationScopeId')
   const term = searchParams.get('term')
-  const {
-    lang,
-    dictionary: { productFinder },
-  } = useDictionary()
+  const { dictionary: dict, lang } = useDictionaryV2()
 
   useEffect(() => {
     const facetValues = searchParams.get('facetValues')
@@ -163,12 +152,7 @@ export default function ListProductsCardsV2() {
         <div className="grid lg:grid-cols-3 gap-5">
           {(data && Array.isArray(data?.data) ? data.data : []).map(
             (product: Product) => (
-              <ProductCard
-                key={product.id}
-                lang={lang}
-                product={product}
-                translation={productFinder.productActionButtons}
-              />
+              <ProductCard key={product.id} lang={lang} product={product} />
             )
           )}
         </div>

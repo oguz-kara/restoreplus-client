@@ -15,6 +15,7 @@ export type DictionaryType = {
   }
   sector: {
     products_used_in_the_sector_text: string
+    title: string
   }
   application_scope: {
     discover_restoreplus_products_for_text: string
@@ -101,6 +102,9 @@ export type DictionaryType = {
     user_registration_successfull_check_email_message: string
   }
   product_finder: {
+    all_sectors_text: string
+    all_sub_sectors_text: string
+    product_finder_text: string
     no_products_message: string
     reset_text: string
     sub_categories_text: string
@@ -159,6 +163,10 @@ export type DictionaryType = {
     content: string
   }
   about: {
+    for_industry_text: string
+    restoreplus_lubricants_text: string
+    short_about_text: string
+    learn_more_about_us_button_text: string
     hero_title: string
     hero_subtitle: string
     hero_description: string
@@ -190,8 +198,10 @@ export type DictionaryType = {
     section_three_allows_second: string
     section_three_allows_third: string
     section_three_register_to_become_reseller_button_text: string
+    keep_up_to_date_text: string
   }
   product: {
+    similar_products_text: string
     single_product_back_button_text: string
     single_product_request_offer_button_text: string
     offer_products_success_title: string
@@ -203,6 +213,11 @@ export type DictionaryType = {
     product_category_discover_restoreplus_products_for_text: string
   }
   common: {
+    addresses_text: string
+    orders_text: string
+    yes_text: string
+    home_text: string
+    welcome_text: string
     contact_us_text: string
     profile_text: string
     products_text: string
@@ -210,6 +225,8 @@ export type DictionaryType = {
     currency_text: string
     languages_text: string
     currencies_text: string
+    category_text: string
+    categories_text: string
     save_text: string
     go_to_text: string
     homepage_text: string
@@ -244,7 +261,6 @@ export type DictionaryType = {
     last_name_text: string
     login_page_text: string
     see_products_text: string
-    yes_text: string
     no_text: string
     twitter_text: string
     facebook_text: string
@@ -267,6 +283,7 @@ export type DictionaryType = {
     any_text: string
   }
   profile: {
+    manage_your_account_description: string
     address_form_title: string
     address_form_description: string
     address_form_field_title: string

@@ -20,6 +20,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from '@/components/ui/link'
 import { useOfferProducts } from '@/context/use-offer-products'
 import OfferProductsSuccessfullyAddedModal from '@/features/offer-products/components/offer-products-successfully-added-modal'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export default function ListCategoryProductAccordionItem({
   category,
@@ -34,12 +35,7 @@ export default function ListCategoryProductAccordionItem({
   const { addNewOfferProduct, offerProducts } = useOfferProducts()
   const [productsAddedModalOpen, setProductsAddedModalOpen] =
     useState<boolean>(false)
-  const {
-    lang,
-    dictionary: {
-      productFinder: { productActionButtons },
-    },
-  } = useDictionary()
+  const { dictionary: dict, lang } = useDictionaryV2()
   const {
     mutateAsync,
     data: productData,
@@ -169,7 +165,7 @@ export default function ListCategoryProductAccordionItem({
                     <div>
                       <div>
                         <ToolTipStyled
-                          text={productActionButtons.addToOfferList.tooltip}
+                          text={dict.product_finder.add_to_offer_list_tooltip}
                         >
                           <Button
                             variant="outline"
@@ -186,7 +182,7 @@ export default function ListCategoryProductAccordionItem({
                           </Button>
                         </ToolTipStyled>
                         <ToolTipStyled
-                          text={productActionButtons.goToProductDetails.tooltip}
+                          text={dict.product_finder.see_details_tooltip}
                         >
                           <Link
                             href={`/product/${product.id}/${product.translation.slug}?redirectBack=product.finder`}

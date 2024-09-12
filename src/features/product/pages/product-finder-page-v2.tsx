@@ -2,7 +2,7 @@ import Container from '@/components/common/container'
 import { Locale, PropsWithLang } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import Typography from '@/components/ui/typography'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import ProductFinderFiltersV2 from '../components/product-finder-filters-v2'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import Link from '@/components/ui/link'
@@ -33,7 +33,7 @@ export default async function ProductFinderPageV2({
   facetValueIds,
 }: ProductFinderPageProps) {
   const properLang = getProperLanguage(lang)
-  const { common, productFinder } = await getDictionary(properLang as Locale)
+  const dict = await getDictionaryV2(lang)
 
   const { data: categoryData } = await sdk.productCategories.getAllByQuery(
     { where: { parentCategory: null } },
@@ -71,7 +71,7 @@ export default async function ProductFinderPageV2({
               >
                 <div className="flex items-center gap-1">
                   <Filter size="20px" />
-                  {common.filter}
+                  {dict.common.filter_text}
                 </div>
               </AccordionTrigger>
               <AccordionContent>
@@ -103,7 +103,7 @@ export default async function ProductFinderPageV2({
                   0
                 )}{' '}
                 {` `}
-                {common.productFound}
+                {dict.common.product_found_text}
               </Typography>
             </div>
           </ListProductTabs>
@@ -112,13 +112,13 @@ export default async function ProductFinderPageV2({
               <AlertTitle>
                 <div className="flex items-center gap-2">
                   <Search size="20px" />
-                  {common.noDataFound}
+                  {dict.common.no_data_found_text}
                 </div>
               </AlertTitle>
               <AlertDescription>
-                {productFinder.noProductsMessage}{' '}
+                {dict.product.no_products_text}{' '}
                 <Link href="/offer" lang={lang} className="text-blue-500">
-                  {common.contactUs}
+                  {dict.common.contact_us_text}
                 </Link>
               </AlertDescription>
             </Alert>

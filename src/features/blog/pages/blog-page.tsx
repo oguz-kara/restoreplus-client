@@ -3,16 +3,14 @@ import MainBlogList from '../components/main-blog-list'
 import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import Paginate from '@/components/common/pagination'
 import InfoCard from '@/components/common/info-card'
 import { sdk } from '@/restoreplus-sdk'
 
 export default async function BlogPage({ lang }: PropsWithLang) {
   const { data, pagination } = await sdk.blogPosts.getAllByQuery({}, { lang })
-  const {
-    blog: { page },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   return (
     <div>
@@ -20,7 +18,7 @@ export default async function BlogPage({ lang }: PropsWithLang) {
         <Container>
           <Section>
             <Typography className="p-0 m-0" as="h1">
-              The Restoreplus Blog
+              {dict.blog.title}
             </Typography>
           </Section>
         </Container>
@@ -29,7 +27,14 @@ export default async function BlogPage({ lang }: PropsWithLang) {
         <Section>
           <div className="flex gap-20">
             <MainBlogList lang={lang} data={data} />
-            <InfoCard data={page.rightCard} lang={lang} />
+            <InfoCard
+              data={{
+                title: dict.blog.found_by_users_title,
+                buttonText: dict.blog.get_listed_button_text,
+                text: dict.blog.found_by_users_description,
+              }}
+              lang={lang}
+            />
           </div>
           <div>
             <Paginate

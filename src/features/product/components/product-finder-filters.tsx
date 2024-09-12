@@ -29,7 +29,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { getSearchParam } from '@/utils/get-search-param'
 import { useEffect, useState } from 'react'
-import { useDictionary } from '@/context/use-dictionary'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 interface ProductFinderFiltersProps {
   categoryData: TranslatedProductCategory[]
@@ -45,9 +45,7 @@ export default function ProductFinderFilters({
   subSectorData,
 }: ProductFinderFiltersProps) {
   const searchParams = useSearchParams()
-  const {
-    dictionary: { productFinder, common },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const [categorySlug, setCategorySlug] = useState<string | undefined>(
     undefined
   )
@@ -109,7 +107,7 @@ export default function ProductFinderFilters({
             <Input
               className="block !w-full border-none outline-none focus:ring-primary focus-visible:ring-primary"
               type="text"
-              placeholder={common.keyword}
+              placeholder={dict.common.keyword_text}
               value={q}
               onChange={(e) => setQ(e.target.value)}
             />
@@ -127,14 +125,14 @@ export default function ProductFinderFilters({
             <AccordionTrigger>
               <div className="flex gap-1 items-center">
                 <Typography className="text-sm font-semibold">
-                  {common.filter}
+                  {dict.common.filter_text}
                 </Typography>
                 <Filter size="20px" />
               </div>
             </AccordionTrigger>
             <AccordionContent>
               <div className="flex items-center justify-between mb-5">
-                <Typography as="h5">{common.filter}</Typography>
+                <Typography as="h5">{dict.common.filter_text}</Typography>
                 <Button
                   variant="ghost"
                   className="text-black gap-1 p-0"
@@ -143,12 +141,12 @@ export default function ProductFinderFilters({
                   <span>
                     <ArrowUpCircle />
                   </span>
-                  <span>{productFinder.reset}</span>
+                  <span>{dict.product_finder.reset_text}</span>
                 </Button>
               </div>
               <div className="mb-5">
                 <Typography className="font-semibold text-sm mb-1">
-                  {productFinder.category}
+                  {dict.common.category_text}
                 </Typography>
                 <div>
                   <Select
@@ -163,11 +161,13 @@ export default function ProductFinderFilters({
                   >
                     <SelectTrigger className="w-full justify-start gap-3 rounded-none">
                       <List />
-                      <SelectValue placeholder={productFinder.allCategories} />
+                      <SelectValue
+                        placeholder={dict.product_finder.all_categories_text}
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>{productFinder.categories}</SelectLabel>
+                        <SelectLabel>{dict.common.categories_text}</SelectLabel>
                         {categoryData?.map((item: any, i: number) => (
                           <SelectItem
                             key={i}
@@ -197,12 +197,16 @@ export default function ProductFinderFilters({
                     >
                       <ListTree />
                       <SelectValue
-                        placeholder={productFinder.allSubCategories}
+                        placeholder={
+                          dict.product_finder.all_sub_categories_text
+                        }
                       />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>{productFinder.subCategories}</SelectLabel>
+                        <SelectLabel>
+                          {dict.product_finder.sub_categories_text}
+                        </SelectLabel>
                         {subCategoryData?.map((item: any, i: number) =>
                           item.translation.slug ? (
                             <SelectItem
@@ -220,7 +224,7 @@ export default function ProductFinderFilters({
               </div>
               <div>
                 <Typography className="font-semibold text-sm mb-1">
-                  {productFinder.sectors}
+                  {dict.common.sectors_text}
                 </Typography>
                 <div>
                   <Select
@@ -231,11 +235,13 @@ export default function ProductFinderFilters({
                   >
                     <SelectTrigger className="w-full justify-start gap-3 rounded-none">
                       <Factory />
-                      <SelectValue placeholder={productFinder.allSectors} />
+                      <SelectValue
+                        placeholder={dict.product_finder.all_sectors_text}
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>{productFinder.sectors}</SelectLabel>
+                        <SelectLabel>{dict.common.sectors_text}</SelectLabel>
                         {sectorData?.map((item: any, i: number) => (
                           <SelectItem
                             key={i}
@@ -264,7 +270,9 @@ export default function ProductFinderFilters({
                       className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
                     >
                       <Drill />
-                      <SelectValue placeholder={productFinder.allSubSectors} />
+                      <SelectValue
+                        placeholder={dict.product_finder.all_sub_sectors_text}
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
@@ -287,7 +295,7 @@ export default function ProductFinderFilters({
       </div>
       <div className="hidden lg:block">
         <div className="flex items-center justify-between mb-5">
-          <Typography as="h5">{common.filter}</Typography>
+          <Typography as="h5">{dict.common.filter_text}</Typography>
           <Button
             variant="ghost"
             className="text-black gap-1 p-0"
@@ -296,12 +304,12 @@ export default function ProductFinderFilters({
             <span>
               <ArrowUpCircle />
             </span>
-            <span>{productFinder.reset}</span>
+            <span>{dict.product_finder.reset_text}</span>
           </Button>
         </div>
         <div className="mb-5">
           <Typography className="font-semibold text-sm mb-1">
-            {productFinder.category}
+            {dict.common.category_text}
           </Typography>
           <div>
             <Select
@@ -312,11 +320,13 @@ export default function ProductFinderFilters({
             >
               <SelectTrigger className="w-full justify-start gap-3 rounded-none">
                 <List />
-                <SelectValue placeholder={productFinder.allCategories} />
+                <SelectValue
+                  placeholder={dict.product_finder.all_categories_text}
+                />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>{productFinder.categories}</SelectLabel>
+                  <SelectLabel>{dict.common.categories_text}</SelectLabel>
                   {categoryData?.map((item: any, i: number) => (
                     <SelectItem
                       key={i}
@@ -345,11 +355,15 @@ export default function ProductFinderFilters({
                 className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
               >
                 <ListTree />
-                <SelectValue placeholder={productFinder.allSubCategories} />
+                <SelectValue
+                  placeholder={dict.product_finder.all_sub_categories_text}
+                />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>{productFinder.subCategories}</SelectLabel>
+                  <SelectLabel>
+                    {dict.product_finder.sub_categories_text}
+                  </SelectLabel>
                   {subCategoryData?.map((item: any, i: number) =>
                     item.translation.slug ? (
                       <SelectItem
@@ -367,7 +381,7 @@ export default function ProductFinderFilters({
         </div>
         <div>
           <Typography className="font-semibold text-sm mb-1">
-            {productFinder.sectors}
+            {dict.common.sectors_text}
           </Typography>
           <div>
             <Select
@@ -378,11 +392,13 @@ export default function ProductFinderFilters({
             >
               <SelectTrigger className="w-full justify-start gap-3 rounded-none">
                 <Factory />
-                <SelectValue placeholder={productFinder.allSectors} />
+                <SelectValue
+                  placeholder={dict.product_finder.all_sectors_text}
+                />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>{productFinder.sectors}</SelectLabel>
+                  <SelectLabel>{dict.common.sectors_text}</SelectLabel>
                   {sectorData?.map((item: any, i: number) => (
                     <SelectItem
                       key={i}
@@ -405,7 +421,9 @@ export default function ProductFinderFilters({
                 className="w-full justify-start gap-3 rounded-none border-t-0 bg-gray-200"
               >
                 <Drill />
-                <SelectValue placeholder={productFinder.allSubSectors} />
+                <SelectValue
+                  placeholder={dict.product_finder.all_sub_sectors_text}
+                />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>

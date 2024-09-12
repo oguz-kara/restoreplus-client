@@ -1,6 +1,6 @@
 import Typography from '@/components/ui/typography'
 import { ParamsWithLang } from '@/i18n/types'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionary, getDictionaryV2 } from '@/i18n/get-dictionary'
 import ContactForm from '@/features/contact/components/contact-form'
 import TermsConditionsPrivacyText from '@/components/common/term-conditions-privacy'
 import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default async function Page({ params: { lang } }: ParamsWithLang) {
-  const { contactPage } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   return (
     <Container>
@@ -29,10 +29,10 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
                 className="text-center font-normal text-xl lg:text-4xl text-[#ccae00] mb-3 lg:mb-10"
                 as="h2"
               >
-                {contactPage.title}
+                {dict.contact.title}
               </Typography>
               <Typography className="text-center text-sm lg:text-lg" as="p">
-                {contactPage.text}
+                {dict.contact.text}
               </Typography>
             </div>
             <div className="py-5">
@@ -41,7 +41,7 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
             <div className="p-5">
               <div className="mb-5">
                 <Typography as="p" className="text-xs text-center">
-                  {contactPage.aggreeForm}
+                  {dict.contact.aggree_description}
                 </Typography>
               </div>
               <div className="text-center">
@@ -52,7 +52,7 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
         </div>
         <div className="flex-1">
           <Typography as="h3" className="text-xl font-bold text-gray-700 pb-5">
-            {contactPage.products}
+            {dict.contact.your_products_text}
           </Typography>
           <ListProducts />
         </div>

@@ -3,7 +3,7 @@ import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import MdxRenderer from '@/components/common/mdx-renderer'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { getDictionaryV2 } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import Link from '@/components/ui/link'
 import { cn } from '@/lib/utils'
@@ -14,7 +14,6 @@ import InfoCard from '@/components/common/info-card'
 import { Metadata } from 'next'
 import { sdk } from '@/restoreplus-sdk'
 import { getWithApplicationScopesQuery } from '@/features/sectors/queries/get-with-application-scopes.query'
-import { consoleLog } from '@/utils/log-to-console'
 import { serverUrl } from '@/config/get-env-fields'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
@@ -44,14 +43,9 @@ export default async function Page({
     Number(id),
     getWithApplicationScopesQuery
   )
-  consoleLog({ result })
   const productData = await getProductsBySectorId({ lang, id: Number(id) })
   if (!result) return 'no sector data found!'
-  const {
-    applicationScope: { title },
-    sectorPage: { productsTitle },
-    blog: { page },
-  } = await getDictionary(lang)
+  const dict = await getDictionaryV2(lang)
 
   return (
     <div>
@@ -62,7 +56,7 @@ export default async function Page({
             <div className="flex-1">
               <div className="p-3 bg-primary rounded-sm mb-3">
                 <Typography as="h6" className="font-normal">
-                  {title}
+                  {dict.common.application_scopes_text}
                 </Typography>
               </div>
               {result.applicationScopes?.map(
@@ -94,7 +88,7 @@ export default async function Page({
                 <>
                   <div className="py-10">
                     <Typography as="h6" className="text-xl font-[500]">
-                      {productsTitle}
+                      {dict.sector.products_used_in_the_sector_text}
                     </Typography>
                   </div>
                   <ListProductCards lang={lang} products={productData.data} />
@@ -105,7 +99,14 @@ export default async function Page({
         </Section>
       </Container>
       <div className="lg:hidden">
-        <InfoCard data={page.rightCard} lang={lang} />
+        <InfoCard
+          data={{
+            title: dict.blog.found_by_users_title,
+            buttonText: dict.blog.get_listed_button_text,
+            text: dict.blog.found_by_users_description,
+          }}
+          lang={lang}
+        />
       </div>
     </div>
   )

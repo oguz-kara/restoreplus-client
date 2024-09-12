@@ -17,6 +17,7 @@ import { useManageSearchParams } from '@/hooks/use-manage-search-params'
 import { cn } from '@/lib/utils'
 import { Folder } from 'lucide-react'
 import { useMutation } from '@/hooks/use-mutation'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 interface ProductFinderFiltersProps {
   categoryData: ProductCategory[]
@@ -42,10 +43,7 @@ export default function ProductFinderFiltersV2({
   const { setSearchParam, searchParams, deleteSearchParam } =
     useManageSearchParams()
   const [q, setQ] = useState<string>(searchParams.get('term') || '')
-  const {
-    lang,
-    dictionary: { productFinder, common },
-  } = useDictionary()
+  const { dictionary: dict, lang } = useDictionaryV2()
 
   const [listCategoryData, setListCategoryData] = useState<CategoryStateType[]>(
     [
@@ -198,7 +196,7 @@ export default function ProductFinderFiltersV2({
             <Input
               className="block !w-full border-none focus-visible:ring-0 rounded-none bg-transparent focus-visible:outline-0 focus-visible:border-0 placeholder:text-lg"
               type="text"
-              placeholder={common.keyword}
+              placeholder={dict.common.keyword_text}
               value={q}
               onChange={(e) => setQ(e.target.value)}
             />
@@ -216,7 +214,7 @@ export default function ProductFinderFiltersV2({
             className="capitalize text-2xl font-semibold text-gray-700"
             as="h5"
           >
-            {common.filter}
+            {dict.common.filter_text}
           </Typography>
           <Button
             variant="ghost"
@@ -227,14 +225,14 @@ export default function ProductFinderFiltersV2({
               <Undo />
             </span>
             <span className="text-gray-700 capitalize text-lg font-[600]">
-              {productFinder.reset}
+              {dict.product_finder.reset_text}
             </span>
           </Button>
         </div>
         <div className="mb-10">
           <div>
             <Typography className="font-semibold text-sm mb-1">
-              {productFinder.category}
+              {dict.common.category_text}
             </Typography>
             {listCategoryData?.map((item: any, i: number) => (
               <div key={i}>
@@ -269,8 +267,8 @@ export default function ProductFinderFiltersV2({
                         placeholder={
                           <Typography className="px-5 text-[16px] text-gray-400 capitalize">
                             {i === 0
-                              ? productFinder.allCategories
-                              : productFinder.subCategories}
+                              ? dict.product_finder.all_categories_text
+                              : dict.product_finder.sub_categories_text}
                           </Typography>
                         }
                       />
@@ -305,7 +303,7 @@ export default function ProductFinderFiltersV2({
                     <SelectValue
                       placeholder={
                         <Typography className="px-5 text-[16px] text-gray-600 capitalize">
-                          {productFinder.subCategories}
+                          {dict.product_finder.sub_categories_text}
                         </Typography>
                       }
                     />
@@ -320,7 +318,7 @@ export default function ProductFinderFiltersV2({
         </div>
         <div className="mb-10">
           <Typography className="font-semibold text-sm mb-1">
-            {productFinder.sectors}
+            {dict.common.sectors_text}
           </Typography>
           <div>
             <div>
@@ -345,7 +343,7 @@ export default function ProductFinderFiltersV2({
                     <SelectValue
                       placeholder={
                         <Typography className="px-5 text-[16px] text-gray-400 capitalize">
-                          {productFinder.allSectors}
+                          {dict.product_finder.all_sectors_text}
                         </Typography>
                       }
                     />
@@ -384,7 +382,7 @@ export default function ProductFinderFiltersV2({
                     <SelectValue
                       placeholder={
                         <Typography className="px-5 text-[16px] text-gray-600 capitalize">
-                          {productFinder.applicationScopes}
+                          {dict.common.application_scopes_text}
                         </Typography>
                       }
                     />
@@ -432,7 +430,7 @@ export default function ProductFinderFiltersV2({
                     <SelectValue
                       placeholder={
                         <Typography className="text-[16px] text-gray-400 capitalize">
-                          {common.anyText}
+                          {dict.common.any_text}
                         </Typography>
                       }
                     />

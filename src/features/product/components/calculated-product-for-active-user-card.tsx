@@ -7,11 +7,11 @@ import Link from '@/components/ui/link'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Locale } from '@/i18n/types'
-import { useDictionary } from '@/context/use-dictionary'
 import { useEffect, useState } from 'react'
 import { formatPrice } from '@/utils/format-price'
 import { CalculatedProduct } from '../types'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
+import { useDictionaryV2 } from '@/context/use-dictionary-v2'
 
 export default function CalculatedProductForActiveUserCard({
   product,
@@ -23,13 +23,7 @@ export default function CalculatedProductForActiveUserCard({
   lang: Locale
   term: string | undefined
 }) {
-  const {
-    dictionary: {
-      createOrderPage,
-      activeOrder: { cart },
-      common,
-    },
-  } = useDictionary()
+  const { dictionary: dict } = useDictionaryV2()
   const [selectedSize, setSelectedSize] = useState<number | null>(null)
   const { activeOrder, adjustOrderLineData } = useActiveOrder()
 
@@ -71,7 +65,7 @@ export default function CalculatedProductForActiveUserCard({
                 <div className="flex ">
                   <Badge className="bg-primary text-xs rounded-none rounded-l-sm hover:bg-primary">
                     {product.reductionValue
-                      ? `%${product.reductionValue} ${createOrderPage.reduction}`
+                      ? `%${product.reductionValue} ${dict.create_order.reduction_text}`
                       : null}
                   </Badge>
                 </div>
@@ -104,7 +98,7 @@ export default function CalculatedProductForActiveUserCard({
             </Typography>
             <div className="mb-2">
               <Typography as="h6" className="font-semibold text-xs mb-2">
-                {createOrderPage?.productCard?.pickDimention}
+                {dict.create_order.product_card_pick_dimention_text}
               </Typography>
               <div className="flex gap-2">
                 {product?.variants?.map((item) => (
@@ -130,7 +124,7 @@ export default function CalculatedProductForActiveUserCard({
                 as="h6"
                 className="font-semibold text-xs mb-2 capitalize"
               >
-                {common.price}
+                {dict.common.price_text}
               </Typography>
               <div className="flex gap-2 items-center">
                 {getSelectedVariant(selectedSize)?.discount.reductionAmount &&
@@ -161,7 +155,7 @@ export default function CalculatedProductForActiveUserCard({
                 lang={lang}
               >
                 <Button className="mb-1" variant="secondary">
-                  {createOrderPage.details}
+                  {dict.create_order.details_text}
                 </Button>
               </Link>
             </div>
@@ -177,8 +171,8 @@ export default function CalculatedProductForActiveUserCard({
                 }
               >
                 {isAddedToCart
-                  ? cart.addedToCartButtonText
-                  : createOrderPage.addToCart}
+                  ? dict.create_order.cart_added_to_cart_button_text
+                  : dict.create_order.add_to_cart_text}
               </Button>
             </div>
           </div>
