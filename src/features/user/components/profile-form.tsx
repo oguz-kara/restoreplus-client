@@ -14,7 +14,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 import { ProfileFormData, ProfileFormSchema } from '../schema/profile.schema'
-import { useDictionary } from '@/context/use-dictionary'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'

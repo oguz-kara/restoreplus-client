@@ -1,5 +1,5 @@
 import { Separator } from '@/components/ui/separator'
-import { getDictionary, getDictionary } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { PropsWithLang } from '@/i18n/types'
 import { AddressFormModal } from '../components/address-form-modal'
 import { Button } from '@/components/ui/button'

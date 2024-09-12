@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
-import { useDictionary } from '@/context/use-dictionary'
 import { useEffect } from 'react'
 import b2bRegisterUserCompanySchema, {
   B2BRegisterUserCompanyDataType,

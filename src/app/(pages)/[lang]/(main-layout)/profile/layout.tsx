@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import Link from '@/components/ui/link'
 import { Separator } from '@/components/ui/separator'
 import UserProfileSideNavigation from '@/features/user/components/user-profile-side-navigation'
-import { getDictionary, getDictionary } from '@/i18n/get-dictionary'
+import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 import {

@@ -8,7 +8,6 @@ import {
   DialogFooter,
   DialogHeader,
 } from '@/components/ui/dialog'
-import { useDictionary } from '@/context/use-dictionary'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { Button } from '@/components/ui/button'
 import { useOfferProducts } from '@/context/use-offer-products'

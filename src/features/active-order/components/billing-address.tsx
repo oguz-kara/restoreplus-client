@@ -2,7 +2,6 @@
 import { Button } from '@/components/ui/button'
 import Typography from '@/components/ui/typography'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
-import { useDictionary } from '@/context/use-dictionary'
 import { useDictionary } from '@/context/use-dictionary-v2'
 import AddressCard from '@/features/user/components/address-card'
 import { AddressFormModal } from '@/features/user/components/address-form-modal'

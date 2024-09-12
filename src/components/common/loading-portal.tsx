@@ -4,7 +4,6 @@ import { Loader2 } from 'lucide-react'
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import Typography from '../ui/typography'
-import { useDictionary } from '@/context/use-dictionary'
 import { useDictionary } from '@/context/use-dictionary-v2'
 
 export default function LoadingPortal({
