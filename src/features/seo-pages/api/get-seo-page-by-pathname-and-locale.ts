@@ -22,7 +22,7 @@ export const getSeoPageByPathnameAndLocale = async (
       description: pageData.translation.description,
       keywords: pageData.translation.keywords,
       alternates: {
-        canonical: `${serverUrl}/${locale}${pathname}`,
+        canonical: `${serverUrl}${pathname}`,
       },
     }
   }

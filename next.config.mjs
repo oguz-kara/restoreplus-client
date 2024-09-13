@@ -27,6 +27,14 @@ const nextConfig = {
         hostname: 'localhost',
       },
       {
+        protocol: 'http',
+        hostname: 'localhost:3000',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost:3001',
+      },
+      {
         protocol: 'https',
         hostname: '1b34-31-142-82-40.ngrok-free.app',
       },

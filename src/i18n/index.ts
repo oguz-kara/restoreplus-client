@@ -6,7 +6,6 @@ const i18n = {
     'fr',
     'es',
     'bg',
-    'zh-CN',
     'hr',
     'cs',
     'da',
@@ -28,7 +27,6 @@ const i18n = {
     'sk',
     'sl',
     'sv',
-    'th',
   ] as const,
 
   defaultLocale: 'en',
