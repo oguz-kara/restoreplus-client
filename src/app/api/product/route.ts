@@ -4,7 +4,7 @@ import { sdk } from '@/restoreplus-sdk'
 import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json()
     const { data } = await serverFetcher('/products', {

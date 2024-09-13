@@ -34,14 +34,16 @@ import { usePathname, useRouter } from 'next/navigation'
 import PickLocaleAndCurrencyMenu from '@/features/locale/components/pick-locale-and-currency-menu'
 import Typography from '../ui/typography'
 import { Badge } from '../ui/badge'
-import { useQuery } from '@/hooks/use-query'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
 import { useCart } from '@/features/active-order/context/use-cart-view'
 import { useDictionary } from '@/context/use-dictionary-v2'
+import { ScrollArea } from '../ui/scroll-area'
+import { useMutation } from '@/hooks/use-mutation'
 
 export function NavigationBar({
   categoryData,
   sectorData,
+  applicationScopeData,
   lang,
   activeUser,
 }: {
@@ -50,6 +52,10 @@ export function NavigationBar({
     pagination: Pagination
   } | null
   sectorData: {
+    data: any
+    pagination: Pagination
+  } | null
+  applicationScopeData: {
     data: any
     pagination: Pagination
   } | null
@@ -191,7 +197,10 @@ export function NavigationBar({
                     </div>
                   }
                   content={
-                    <SectorData sectorData={sectorData?.data} lang={lang} />
+                    <ApplicationScopeData
+                      applicationScopeData={applicationScopeData?.data}
+                      lang={lang}
+                    />
                   }
                   top={navbarHeight}
                 />
@@ -271,78 +280,58 @@ function ProductCategoryData({
 }) {
   const { dictionary: dict } = useDictionary()
   const [isSetInitialValue, setInitialValue] = React.useState<boolean>(false)
-  const [selectedSubCategory, setSelectedSubCategory] =
+  const [selectedCategory, setSelectedCategory] =
     React.useState<ProductCategory | null>(null)
-  const [selectedParentCategory, setSelectedParentCategory] =
-    React.useState<ProductCategory | null>(null)
-  const [subCategories, setSubCategories] = React.useState<ProductCategory[]>(
-    []
-  )
-  const [parentCategories, setParentCategories] = React.useState<
-    ProductCategory[]
-  >([])
-
-  const { refetch, data } = useQuery([
-    `/product?categoryId=${selectedSubCategory?.id}`,
-  ])
+  const [categories, setCategories] = React.useState<ProductCategory[]>([])
+  const { data, mutate, isPending } = useMutation()
 
   const handleSelectedParentCategory = (category: any) => {
-    setSelectedParentCategory(category)
-    if (category.subCategories && category.subCategories.length > 0) {
-      setSubCategories(category.subCategories)
-      const subCategory = category.subCategories[0]
-      setSelectedSubCategory(subCategory)
-    } else {
-      setSubCategories([])
-      setSelectedSubCategory(null)
-    }
+    setSelectedCategory(category)
   }
 
   const getActiveClass = (category: any, type: 'sub' | 'top' | 'bottom') => {
     if (
-      type === 'sub' &&
-      selectedSubCategory &&
-      Object.keys(selectedSubCategory)?.length > 0
-    ) {
-      // @ts-ignore
-      return category.id === selectedSubCategory?.id ? 'bg-gray-100' : ''
-    } else if (
       type === 'top' &&
-      selectedParentCategory &&
-      Object.keys(selectedParentCategory)?.length > 0
+      selectedCategory &&
+      Object.keys(selectedCategory)?.length > 0
     ) {
       // @ts-ignore
-      return category.id === selectedParentCategory?.id ? 'bg-gray-100' : ''
+      return category.id === selectedCategory?.id ? 'bg-gray-100' : ''
     }
 
     return ''
   }
 
   React.useEffect(() => {
-    if (parentCategories && parentCategories.length > 0) {
-      handleSelectedParentCategory(parentCategories[0])
+    if (categories && categories.length > 0) {
+      handleSelectedParentCategory(categories[0])
     }
-  }, [parentCategories])
+  }, [categories])
 
   React.useEffect(() => {
     if (categoryData && !isSetInitialValue) {
       setInitialValue(true)
-      setParentCategories(
+      setCategories(
         categoryData.filter(({ parentCategory }) => !parentCategory)
       )
     }
   }, [categoryData, isSetInitialValue])
 
   React.useEffect(() => {
-    refetch()
-  }, [selectedSubCategory, refetch])
+    if (selectedCategory) {
+      mutate({
+        method: 'GET',
+        path: `/product?categoryId=${selectedCategory?.id}&lang=${lang}`,
+      })
+    }
+  }, [selectedCategory])
 
   return (
     <Container>
       <div className="flex p-5 min-h-[50vh]">
-        <div className="flex-1">
+        <ScrollArea className="flex-1 max-h-[50vh]">
           <ul>
-            {parentCategories
+            {categories
               .filter(({ parentCategory }) => !parentCategory)
               .map((category: ProductCategory, i) => (
                 <Link
@@ -362,31 +351,15 @@ function ProductCategoryData({
                 </Link>
               ))}
           </ul>
-        </div>
-        <div className="flex-1 border-r border-l border-gray-300">
-          <ul>
-            {subCategories.map((category: ProductCategory, i) => (
-              <li
-                key={i}
-                className={cn(
-                  'p-3 cursor-pointer hover:bg-gray-100 capitalize',
-                  getActiveClass(category, 'sub')
-                )}
-                onMouseOver={() => setSelectedSubCategory(category)}
-              >
-                {category?.translation?.name}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex-[2]">
+        </ScrollArea>
+        <ScrollArea className="flex-[2] max-h-[50vh]">
           <div className="flex items-center gap-2 mb-5">
             <Typography as="h6" className="font-[600] pl-6 capitalize">
               {dict.common.products_text}
             </Typography>
             <ChevronRight size={15} />
           </div>
-          <ul className="grid grid-cols-4 p-5">
+          <ul className="grid grid-cols-5 p-5">
             {(data as any)?.data?.map((product: Product, i: number) => (
               <Link
                 lang={lang}
@@ -410,7 +383,130 @@ function ProductCategoryData({
               </Link>
             ))}
           </ul>
-        </div>
+        </ScrollArea>
+      </div>
+    </Container>
+  )
+}
+
+function ApplicationScopeData({
+  applicationScopeData,
+  lang,
+}: {
+  applicationScopeData: ApplicationScope[]
+  lang: Locale
+}) {
+  const { dictionary: dict } = useDictionary()
+  const [isSetInitialValue, setInitialValue] = React.useState<boolean>(false)
+  const [selectedApplicationScope, setSelectedApplicationScope] =
+    React.useState<ApplicationScope | null>(null)
+  const [applicationScopes, setApplicationScopes] = React.useState<
+    ApplicationScope[]
+  >([])
+  const { data, mutate, isPending } = useMutation()
+
+  const handleSelectedParentApplicationScope = (applicationScope: any) => {
+    setSelectedApplicationScope(applicationScope)
+  }
+
+  const getActiveClass = (
+    applicationScope: any,
+    type: 'sub' | 'top' | 'bottom'
+  ) => {
+    if (
+      type === 'top' &&
+      selectedApplicationScope &&
+      Object.keys(selectedApplicationScope)?.length > 0
+    ) {
+      // @ts-ignore
+      return applicationScope.id === selectedApplicationScope?.id
+        ? 'bg-gray-100'
+        : ''
+    }
+
+    return ''
+  }
+
+  React.useEffect(() => {
+    if (applicationScopes && applicationScopes.length > 0) {
+      handleSelectedParentApplicationScope(applicationScopes[0])
+    }
+  }, [applicationScopes])
+
+  React.useEffect(() => {
+    if (applicationScopeData && !isSetInitialValue) {
+      setInitialValue(true)
+      setApplicationScopes(applicationScopeData)
+    }
+  }, [applicationScopeData, isSetInitialValue])
+
+  React.useEffect(() => {
+    if (selectedApplicationScope) {
+      mutate({
+        method: 'GET',
+        path: `/product?categoryId=${selectedApplicationScope?.id}&lang=${lang}`,
+      })
+    }
+  }, [selectedApplicationScope])
+
+  return (
+    <Container>
+      <div className="flex p-5 min-h-[50vh]">
+        <ScrollArea className="flex-1 max-h-[50vh]">
+          <ul>
+            {applicationScopes.map((category: ApplicationScope, i) => (
+              <Link
+                lang={lang}
+                key={i}
+                href={`/product/categories/${category.id}/${category?.translation?.slug}`}
+              >
+                <li
+                  className={cn(
+                    'p-3 cursor-pointer hover:bg-gray-100 capitalize',
+                    getActiveClass(category, 'top')
+                  )}
+                  onMouseOver={() =>
+                    handleSelectedParentApplicationScope(category)
+                  }
+                >
+                  {category?.translation?.name}
+                </li>
+              </Link>
+            ))}
+          </ul>
+        </ScrollArea>
+        <ScrollArea className="flex-[2] max-h-[50vh]">
+          <div className="flex items-center gap-2 mb-5">
+            <Typography as="h6" className="font-[600] pl-6 capitalize">
+              {dict.common.products_text}
+            </Typography>
+            <ChevronRight size={15} />
+          </div>
+          <ul className="grid grid-cols-5 p-5">
+            {(data as any)?.data?.map((product: Product, i: number) => (
+              <Link
+                lang={lang}
+                key={i}
+                href={`/product/${product.id}/${product.translation.slug}`}
+              >
+                <li className="flex flex-col items-center gap-2 justify-center p-3 cursor-pointer hover:bg-gray-200 capitalize">
+                  <div>
+                    <Image
+                      className="rounded-full w-[50px] h-[50px]"
+                      src={`${serverConfig.remoteUrl}/${product.featuredImage?.path}`}
+                      alt={product.name}
+                      width={50}
+                      height={50}
+                    />
+                  </div>
+                  <Typography className="text-sm text-center">
+                    {product.name}
+                  </Typography>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        </ScrollArea>
       </div>
     </Container>
   )

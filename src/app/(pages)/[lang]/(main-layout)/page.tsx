@@ -91,8 +91,6 @@ export default async function Page({
     },
   ]
 
-  consoleLog({ sitemap })
-
   return (
     <div>
       <div className="relative flex items-center justify-center w-screen h-screen p-5">

@@ -16,6 +16,10 @@ export default async function MainLayout({
     categoryTreeQuery,
     { lang, isAdmin: true, page: '1', take: '100' }
   )
+  const applicationScopeData = await sdk.applicationScopes.getAllByQuery(
+    {},
+    { lang, isAdmin: true, page: '1', take: '100' }
+  )
   const sectorData = await sdk.sectors.getAllByQuery(
     getWithApplicationScopesQuery,
     { lang, isAdmin: true }
@@ -30,6 +34,7 @@ export default async function MainLayout({
         <NavigationBar
           lang={lang}
           categoryData={categoryData}
+          applicationScopeData={applicationScopeData}
           sectorData={sectorData}
           activeUser={user}
         />

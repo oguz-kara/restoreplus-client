@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { ServerImage } from '@/components/ui/image'
+import Image, { ServerImage } from '@/components/ui/image'
 import Typography from '@/components/ui/typography'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
@@ -83,13 +83,23 @@ export default function ListCategoryProductAccordionItem({
       <AccordionTrigger className="bg-white rounded-sm p-7 w-full hover:no-underline">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center">
-            <ServerImage
-              className="w-[30px] h-[30px] mr-5"
-              src={category?.icon?.path || '/'}
-              width={30}
-              height={30}
-              alt={category?.icon?.path || 'image'}
-            />
+            {category.icon ? (
+              <ServerImage
+                className="w-[30px] h-[30px] mr-5"
+                src={category?.icon?.path || '/'}
+                width={30}
+                height={30}
+                alt={category?.icon?.path || 'image'}
+              />
+            ) : (
+              <Image
+                className="w-[30px] h-[30px] mr-5"
+                src={'/images/category-icon-placeholder.svg'}
+                width={30}
+                height={30}
+                alt={'category image placeholder'}
+              />
+            )}
             <div>
               <Typography className="text-left text-xl font-bold w-full">
                 <span>{category.name}</span>
