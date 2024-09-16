@@ -19,6 +19,7 @@ import {
   ArrowRight,
   ChevronDown,
   ChevronRight,
+  Globe,
   PlusSquare,
   ShoppingCart,
   User,
@@ -31,7 +32,6 @@ import { useDisclosure } from '@/hooks/use-disclosure'
 import useScrollPosition from '@/hooks/use-scroll-position'
 import Image from '../ui/image'
 import { usePathname, useRouter } from 'next/navigation'
-import PickLocaleAndCurrencyMenu from '@/features/locale/components/pick-locale-and-currency-menu'
 import Typography from '../ui/typography'
 import { Badge } from '../ui/badge'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
@@ -39,6 +39,7 @@ import { useCart } from '@/features/active-order/context/use-cart-view'
 import { useDictionary } from '@/context/use-dictionary-v2'
 import { ScrollArea } from '../ui/scroll-area'
 import { useMutation } from '@/hooks/use-mutation'
+import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-and-currency-card'
 
 export function NavigationBar({
   categoryData,
@@ -640,7 +641,7 @@ function SectorData({
 
 function RightNavigation({ user }: { user: ActiveUser | null }) {
   const { dictionary: dict, lang } = useDictionary()
-  const { loading, logout } = useAuthenticatedUser()
+  const { logout } = useAuthenticatedUser()
   const router = useRouter()
   const { activeOrder } = useActiveOrder()
   const { setOpen } = useCart()
@@ -657,7 +658,12 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <PickLocaleAndCurrencyMenu />
+            <NavigationMenuTrigger className="bg-transparent">
+              <Globe />
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <PickLocaleAndCurrencyCard />
+            </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-transparent capitalize mr-1">

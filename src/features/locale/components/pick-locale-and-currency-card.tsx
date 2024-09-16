@@ -2,6 +2,7 @@
 import { useCookies } from 'react-cookie'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+
 import {
   Select,
   SelectContent,
@@ -13,47 +14,27 @@ import {
 } from '@/components/ui/select'
 import Typography from '@/components/ui/typography'
 import { Locale } from '@/i18n/types'
-import { clientFetcher } from '@/lib/client-fetcher'
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useQuery } from '@/hooks/use-query'
 import { useDictionary } from '@/context/use-dictionary-v2'
+import { Combobox } from '@/components/ui/combobox'
 
 export default function PickLocaleAndCurrencyCard() {
   const router = useRouter()
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
-  const { dictionary: dict, lang } = useDictionary()
-  const [locales, setLocales] = useState<SupportedLocale[]>([])
-  const [currencies, setCurrencies] = useState<Currency[]>([])
+  const { dictionary, lang } = useDictionary()
+  const { data: currencyData, isPending: isCurrenciesPending } = useQuery([
+    '/currency',
+  ])
+  const { data: localeData, isPending: isLocalesPending } = useQuery([
+    '/supported-locales',
+  ])
   const [currentLang, setCurrentLang] = useState<string>(lang)
   const [currentCurrency, setCurrentCurrency] = useState<string>('USD')
-  const [loading, setLoading] = useState<boolean>(false)
-
-  const getAndSetLocales = async () => {
-    try {
-      setLoading(true)
-      const { data } = await clientFetcher('/currency')
-      if (data && Array.isArray(data)) setCurrencies(data)
-    } catch (err: any) {
-      console.log(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const getAndSetCurrencies = async () => {
-    try {
-      setLoading(true)
-      const { data } = await clientFetcher('/supported-locales')
-      if (data && Array.isArray(data)) setLocales(data)
-    } catch (err: any) {
-      console.log(err)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const getCurrencyByLang = (lang: Locale) => {
     if (lang === 'tr') return 'TRY'
@@ -87,43 +68,61 @@ export default function PickLocaleAndCurrencyCard() {
     }
 
     if (cookies.lang) setCurrentLang(cookies.lang)
-
-    getAndSetLocales()
-    getAndSetCurrencies()
   }, [])
 
+  useEffect(() => {
+    console.log({ currencyData, localeData })
+  }, [currencyData, localeData])
+
+  if (
+    !(((currencyData as any)?.data?.length || 0) > 0) ||
+    !(((localeData as any)?.data?.length || 0) > 0)
+  )
+    return null
+
   return (
-    <Card className="w-full border-none shadow-none ">
-      <CardHeader className="p-0 pb-3">
-        <Typography as="h6" className="font-semibold">
-          {dict.navbar.set_language_and_currency_title}
+    <Card className="lg:w-[300px]">
+      <CardHeader>
+        <Typography as="h6" className="font-[500]">
+          {dictionary.navbar.set_language_and_currency_title}
         </Typography>
         <Typography className="text-xs">
-          {dict.navbar.set_language_and_currency_description}
+          {dictionary.navbar.set_language_and_currency_description}
         </Typography>
       </CardHeader>
-      <CardContent className="p-0 pb-3">
+      <CardContent>
         <div className="mb-2">
-          <Typography className="text-sm mb-1 font-semibold">
-            {dict.common.language_text}
+          <Typography className="text-sm mb-1">
+            {dictionary.common.language_text}
           </Typography>
-          {!loading ? (
+          {!isLocalesPending ? (
             <Select onValueChange={(val) => setCurrentLang(val)}>
-              <SelectTrigger className="w-full justify-start gap-3 rounded-none">
+              <SelectTrigger
+                className="w-full justify-start gap-3 rounded-none z-[9999]"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <SelectValue
                   placeholder={
-                    locales?.find((l) => l.locale === currentLang)?.name
+                    (localeData as any)?.data?.find(
+                      (l: any) => l.locale === currentLang
+                    )?.name
                   }
                 />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-[9999]">
                 <SelectGroup>
-                  <SelectLabel>{dict.common.languages_text}</SelectLabel>
-                  {locales.map((item: SupportedLocale, i: number) => (
-                    <SelectItem key={i} value={item.locale}>
-                      {item.name}
-                    </SelectItem>
-                  ))}
+                  <SelectLabel>{dictionary.common.languages_text}</SelectLabel>
+                  {(localeData as any)?.data?.map(
+                    (item: SupportedLocale, i: number) => (
+                      <SelectItem
+                        key={i}
+                        value={item.locale}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {item.name}
+                      </SelectItem>
+                    )
+                  )}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -132,27 +131,30 @@ export default function PickLocaleAndCurrencyCard() {
           )}
         </div>
         <div>
-          <Typography className="text-sm mb-1 font-semibold">
-            {dict.common.currency_text}
+          <Typography className="text-sm mb-1">
+            {dictionary.common.currency_text}
           </Typography>
-          {!loading ? (
+          {!isCurrenciesPending ? (
             <Select onValueChange={(val) => setCurrentCurrency(val)}>
               <SelectTrigger className="w-full justify-start gap-3 rounded-none">
                 <SelectValue
                   placeholder={
-                    currencies.find((l) => l.currencyCode === currentCurrency)
-                      ?.currencyCode
+                    (currencyData as any)?.data?.find(
+                      (l: any) => l.currencyCode === currentCurrency
+                    )?.currencyCode
                   }
                 />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>{dict.common.currencies_text}</SelectLabel>
-                  {currencies.map((item: Currency, i: number) => (
-                    <SelectItem key={i} value={item.currencyCode}>
-                      {item.currencyCode}
-                    </SelectItem>
-                  ))}
+                  <SelectLabel>{dictionary.common.currencies_text}</SelectLabel>
+                  {(currencyData as any)?.data?.map(
+                    (item: Currency, i: number) => (
+                      <SelectItem key={i} value={item.currencyCode}>
+                        {item.currencyCode}
+                      </SelectItem>
+                    )
+                  )}
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -161,9 +163,9 @@ export default function PickLocaleAndCurrencyCard() {
           )}
         </div>
       </CardContent>
-      <CardFooter className="p-0">
+      <CardFooter>
         <Button className="w-full" onClick={() => handleSaveButton()}>
-          {dict.common.save_text}
+          {dictionary.common.save_text}
         </Button>
       </CardFooter>
     </Card>

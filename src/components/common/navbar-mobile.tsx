@@ -15,11 +15,11 @@ import { LogIn, LogOut, Menu, Search, User, X } from 'lucide-react'
 import Link from '../ui/link'
 import Logo from './logo'
 import Typography from '../ui/typography'
-import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-and-currency-card'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { usePathname } from 'next/navigation'
 import { ScrollArea } from '../ui/scroll-area'
 import { useDictionary } from '@/context/use-dictionary-v2'
+import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-and-currency-card'
 
 export default function NavbarMobile({
   lang,
@@ -77,108 +77,106 @@ export default function NavbarMobile({
                 </Typography>
               )}
             </DrawerHeader>
-            <div className="mx-auto w-full h-full max-w-sm">
-              <DrawerDescription>
-                <ul>
-                  <li className="border-b  border-t border-gray-200">
-                    <Link href="/product/finder" lang={lang}>
-                      <Typography
-                        as="p"
-                        className="text-black px-5 py-2 uppercase font-semibold"
+            <div className="mx-auto w-full h-full px-5">
+              <ul>
+                <li className="border-b border-gray-200">
+                  <Link href="/" lang={lang}>
+                    <Typography
+                      as="p"
+                      className="text-black py-2 uppercase font-semibold"
+                    >
+                      {dict.common.home_text}
+                    </Typography>
+                  </Link>
+                </li>
+                <li className="border-b border-gray-200">
+                  <Link href="/product/finder" lang={lang}>
+                    <Typography
+                      as="p"
+                      className="text-black  py-2 uppercase font-semibold"
+                    >
+                      {dict.navbar.find_product_text}
+                    </Typography>
+                  </Link>
+                </li>
+                <li className="border-b border-gray-200">
+                  <Link href="/about" lang={lang}>
+                    <Typography
+                      as="p"
+                      className="text-black  py-2 uppercase font-semibold"
+                    >
+                      {dict.about.hero_title}
+                    </Typography>
+                  </Link>
+                </li>
+                {!user ? (
+                  <>
+                    <li className="border-b border-gray-200">
+                      <Link
+                        href="/login"
+                        lang={lang}
+                        className="flex items-center py-2"
                       >
-                        {dict.product_finder.product_finder_text}
-                      </Typography>
-                    </Link>
-                  </li>
-                  <li className="border-b border-gray-200">
-                    <Link href="/" lang={lang}>
-                      <Typography
-                        as="p"
-                        className="text-black px-5 py-2 uppercase font-semibold"
+                        <LogIn color="black" size="24px" />
+                        <Typography
+                          as="p"
+                          className="text-black uppercase font-bold px-2"
+                        >
+                          {dict.common.login_text}
+                        </Typography>
+                      </Link>
+                    </li>
+                    <li className="border-b border-gray-200">
+                      <Link
+                        href="/register"
+                        lang={lang}
+                        className="flex items-center py-2"
                       >
-                        {dict.common.home_text}
-                      </Typography>
-                    </Link>
-                  </li>
-                  <li className="border-b border-gray-200">
-                    <Link href="/about" lang={lang}>
-                      <Typography
-                        as="p"
-                        className="text-black px-5 py-2 uppercase font-semibold"
+                        <User color="black" size="24px" />
+                        <Typography
+                          as="p"
+                          className="text-black uppercase font-bold px-2"
+                        >
+                          {dict.register.title}
+                        </Typography>
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="border-b border-gray-200">
+                      <Link
+                        href="/profile"
+                        lang={lang}
+                        className="flex items-center py-2"
                       >
-                        {dict.about.hero_title}
-                      </Typography>
-                    </Link>
-                  </li>
-                  {!user ? (
-                    <>
-                      <li className="border-b border-gray-200">
-                        <Link
-                          href="/login"
-                          lang={lang}
-                          className="flex items-center px-5 py-2"
+                        <User color="black" size="24px" />
+                        <Typography
+                          as="p"
+                          className="text-black uppercase font-bold px-2"
                         >
-                          <LogIn color="black" size="24px" />
-                          <Typography
-                            as="p"
-                            className="text-black uppercase font-bold px-2"
-                          >
-                            {dict.common.login_text}
-                          </Typography>
-                        </Link>
-                      </li>
-                      <li className="border-b border-gray-200">
-                        <Link
-                          href="/register"
-                          lang={lang}
-                          className="flex items-center px-5 py-2"
+                          {dict.common.profile_text}
+                        </Typography>
+                      </Link>
+                    </li>
+                    <li className="border-b border-gray-200">
+                      <span
+                        className="flex items-center py-2 cursor-pointer"
+                        onClick={logout}
+                      >
+                        <LogOut color="black" size="24px" />
+                        <Typography
+                          as="p"
+                          className="text-black uppercase font-bold px-2"
                         >
-                          <User color="black" size="24px" />
-                          <Typography
-                            as="p"
-                            className="text-black uppercase font-bold px-2"
-                          >
-                            {dict.register.title}
-                          </Typography>
-                        </Link>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="border-b border-gray-200">
-                        <Link
-                          href="/profile"
-                          lang={lang}
-                          className="flex items-center px-5 py-2"
-                        >
-                          <User color="black" size="24px" />
-                          <Typography
-                            as="p"
-                            className="text-black uppercase font-bold px-2"
-                          >
-                            {dict.common.profile_text}
-                          </Typography>
-                        </Link>
-                      </li>
-                      <li className="border-b border-gray-200">
-                        <span
-                          className="flex items-center px-5 py-2 cursor-pointer"
-                          onClick={logout}
-                        >
-                          <LogOut color="black" size="24px" />
-                          <Typography
-                            as="p"
-                            className="text-black uppercase font-bold px-2"
-                          >
-                            {dict.navbar.logout_text}
-                          </Typography>
-                        </span>
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </DrawerDescription>
-              <DrawerFooter>
+                          {dict.navbar.logout_text}
+                        </Typography>
+                      </span>
+                    </li>
+                  </>
+                )}
+              </ul>
+              <DrawerFooter className="px-0">
                 <PickLocaleAndCurrencyCard />
               </DrawerFooter>
             </div>
