@@ -137,7 +137,7 @@ export default function LanguageCurrencyDrawer({
               <Typography as="h4" className="text-gray-700 mb-5">
                 {dict.navbar.languages_and_currencies_text}
               </Typography>
-              <div className="grid grid-cols-4 gap-x-3 gap-y-5">
+              <div className="grid grid-cols-3 md:grid-cols-5 gap-x-3 gap-y-5">
                 {locales && locales?.length > 0 ? (
                   locales.map((item) => (
                     <div
@@ -155,6 +155,7 @@ export default function LanguageCurrencyDrawer({
                           alt="country flag"
                           width={24}
                           height={24}
+                          className="w-[24px] h-[24px] object-contain"
                         />
                       </div>
                       <div>
@@ -171,7 +172,7 @@ export default function LanguageCurrencyDrawer({
             <div className="flex gap-3">
               {currencies &&
                 currencies.length > 0 &&
-                currencies.map((item, i) => (
+                currencies.map((item) => (
                   <div
                     key={item.id}
                     onClick={() => setCurrentCurrency(item.currencyCode)}

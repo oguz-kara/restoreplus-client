@@ -18,7 +18,7 @@ export const flags = {
     path: '/images/flags/estonian.png',
   },
   de: {
-    path: '/images/flags/german.png',
+    path: '/images/flags/germany.png',
   },
   fi: {
     path: '/images/flags/finland.png',
