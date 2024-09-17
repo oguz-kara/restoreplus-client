@@ -230,6 +230,8 @@ export type DictionaryType = {
     our_products_text: string
     addresses_text: string
     orders_text: string
+    browse_our_categories_text: string
+    browse_our_application_scopes_text: string
     yes_text: string
     home_text: string
     welcome_text: string

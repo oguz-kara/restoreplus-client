@@ -1,10 +1,15 @@
 export const categoryTreeQuery = {
- 
   select: {
     id: true,
     translations: {
       include: {
         locale: true,
+      },
+    },
+    featuredImage: {
+      select: {
+        path: true,
+        alt: true,
       },
     },
     parentCategory: {

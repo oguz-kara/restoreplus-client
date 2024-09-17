@@ -2,7 +2,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTrigger,
@@ -11,7 +10,21 @@ import { Locale } from '@/i18n/types'
 import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
-import { LogIn, LogOut, Menu, Search, User, X } from 'lucide-react'
+import {
+  Building2,
+  Group,
+  Handshake,
+  Home,
+  List,
+  LogIn,
+  LogOut,
+  Menu,
+  Search,
+  SearchCheck,
+  User,
+  Wrench,
+  X,
+} from 'lucide-react'
 import Link from '../ui/link'
 import Logo from './logo'
 import Typography from '../ui/typography'
@@ -20,13 +33,21 @@ import { usePathname } from 'next/navigation'
 import { ScrollArea } from '../ui/scroll-area'
 import { useDictionary } from '@/context/use-dictionary-v2'
 import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-and-currency-card'
+import CategoriesDrawer from './categories-drawer'
+import ApplicationScopesDrawer from './application-scopes-drawer'
 
 export default function NavbarMobile({
   lang,
   className,
+  categoryData,
+  applicationScopeData,
 }: {
   categoryData: {
-    data: BlogPostCategoryWithOneTranslation[]
+    data: ProductCategory[]
+    pagination: Pagination
+  } | null
+  applicationScopeData: {
+    data: ApplicationScope[]
     pagination: Pagination
   } | null
   lang: Locale
@@ -35,6 +56,9 @@ export default function NavbarMobile({
   const [isOpen, setOpen] = useState<boolean>(false)
   const { user, logout } = useAuthenticatedUser()
   const { dictionary: dict } = useDictionary()
+  const [categoriesOpen, setCategoriesOpen] = useState<boolean>(false)
+  const [applicationScopesOpen, setApplicationScopesOpen] =
+    useState<boolean>(false)
 
   useEffect(() => {
     setOpen(false)
@@ -79,31 +103,70 @@ export default function NavbarMobile({
             </DrawerHeader>
             <div className="mx-auto w-full h-full px-5">
               <ul>
-                <li className="border-b border-gray-200">
-                  <Link href="/" lang={lang}>
+                <li className="border-b border-gray-200 py-3">
+                  <Link
+                    href="/"
+                    lang={lang}
+                    className="flex items-center gap-5"
+                  >
+                    <Home size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-black py-2 uppercase font-semibold"
+                      className="text-gray-700 py-2 uppercase font-semibold"
                     >
                       {dict.common.home_text}
                     </Typography>
                   </Link>
                 </li>
-                <li className="border-b border-gray-200">
-                  <Link href="/product/finder" lang={lang}>
+                <li className="border-b border-gray-200 py-3">
+                  <Link
+                    href="/product/finder"
+                    lang={lang}
+                    className="flex items-center gap-5"
+                  >
+                    <SearchCheck size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-black  py-2 uppercase font-semibold"
+                      className="text-gray-700  py-2 uppercase font-semibold"
                     >
                       {dict.navbar.find_product_text}
                     </Typography>
                   </Link>
                 </li>
-                <li className="border-b border-gray-200">
-                  <Link href="/about" lang={lang}>
+                <li
+                  className="border-b border-gray-200 py-3 cursor-pointer flex items-center gap-5"
+                  onClick={() => setCategoriesOpen(true)}
+                >
+                  <List size="24px" color="#606060" />
+                  <Typography
+                    as="p"
+                    className="text-gray-700  py-2 uppercase font-semibold"
+                  >
+                    {dict.common.categories_text}
+                  </Typography>
+                </li>
+                <li
+                  className="border-b border-gray-200 py-3 flex items-center gap-5 cursor-pointer"
+                  onClick={() => setApplicationScopesOpen(true)}
+                >
+                  <Wrench size="24px" color="#606060" />
+                  <Typography
+                    as="p"
+                    className="text-gray-700  py-2 uppercase font-semibold"
+                  >
+                    {dict.common.application_scopes_text}
+                  </Typography>
+                </li>
+                <li className="border-b border-gray-200 py-3">
+                  <Link
+                    href="/about"
+                    lang={lang}
+                    className="flex items-center gap-5"
+                  >
+                    <Building2 size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-black  py-2 uppercase font-semibold"
+                      className="text-gray-700  py-2 uppercase font-semibold"
                     >
                       {dict.about.hero_title}
                     </Typography>
@@ -111,55 +174,70 @@ export default function NavbarMobile({
                 </li>
                 {!user ? (
                   <>
-                    <li className="border-b border-gray-200">
+                    <li className="border-b border-gray-200 py-3">
                       <Link
                         href="/login"
                         lang={lang}
-                        className="flex items-center py-2"
+                        className="flex items-center py-3 gap-5"
                       >
-                        <LogIn color="black" size="24px" />
+                        <LogIn size="24px" color="#606060" />
                         <Typography
                           as="p"
-                          className="text-black uppercase font-bold px-2"
+                          className="text-gray-700 uppercase font-bold"
                         >
                           {dict.common.login_text}
                         </Typography>
                       </Link>
                     </li>
-                    <li className="border-b border-gray-200">
+                    <li className="border-b border-gray-200 py-3">
                       <Link
                         href="/register"
                         lang={lang}
-                        className="flex items-center py-2"
+                        className="flex items-center py-3 gap-5"
                       >
-                        <User color="black" size="24px" />
+                        <User size="24px" color="#606060" />
                         <Typography
                           as="p"
-                          className="text-black uppercase font-bold px-2"
+                          className="text-gray-700 uppercase font-bold"
                         >
                           {dict.register.title}
+                        </Typography>
+                      </Link>
+                    </li>
+                    <li className="border-b border-gray-200 py-3">
+                      <Link
+                        href="/partner-register"
+                        lang={lang}
+                        className="flex items-center py-3 gap-5"
+                      >
+                        <Handshake size="24px" color="#606060" />
+                        <Typography
+                          as="p"
+                          className="text-gray-700 uppercase font-bold"
+                        >
+                          {dict.common.partner_with_us_text}
                         </Typography>
                       </Link>
                     </li>
                   </>
                 ) : (
                   <>
-                    <li className="border-b border-gray-200">
+                    <li className="border-b border-gray-200 py-3">
                       <Link
                         href="/profile"
                         lang={lang}
                         className="flex items-center py-2"
                       >
-                        <User color="black" size="24px" />
+                        <User size="24px" color="#606060" />
                         <Typography
                           as="p"
-                          className="text-black uppercase font-bold px-2"
+                          className="text-gray-700 uppercase font-bold px-2"
                         >
                           {dict.common.profile_text}
                         </Typography>
                       </Link>
                     </li>
-                    <li className="border-b border-gray-200">
+                    <li className="border-b border-gray-200 py-3">
                       <span
                         className="flex items-center py-2 cursor-pointer"
                         onClick={logout}
@@ -167,7 +245,7 @@ export default function NavbarMobile({
                         <LogOut color="black" size="24px" />
                         <Typography
                           as="p"
-                          className="text-black uppercase font-bold px-2"
+                          className="text-gray-700 uppercase font-bold px-2"
                         >
                           {dict.navbar.logout_text}
                         </Typography>
@@ -177,12 +255,22 @@ export default function NavbarMobile({
                 )}
               </ul>
               <DrawerFooter className="px-0">
-                <PickLocaleAndCurrencyCard />
+                <PickLocaleAndCurrencyCard className="shadow-none border-none p-0" />
               </DrawerFooter>
             </div>
           </ScrollArea>
         </DrawerContent>
       </Drawer>
+      <CategoriesDrawer
+        categories={categoryData?.data}
+        open={categoriesOpen}
+        setOpen={setCategoriesOpen}
+      />
+      <ApplicationScopesDrawer
+        applicationScopes={applicationScopeData?.data}
+        open={applicationScopesOpen}
+        setOpen={setApplicationScopesOpen}
+      />
     </div>
   )
 }

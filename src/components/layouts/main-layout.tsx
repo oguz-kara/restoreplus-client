@@ -14,11 +14,11 @@ export default async function MainLayout({
 }: PropsWithLang & PropsWithChildren) {
   const categoryData = await sdk.productCategories.getAllByQuery(
     categoryTreeQuery,
-    { lang, isAdmin: true, page: '1', take: '100' }
+    { lang, isAdmin: true, take: 'all' }
   )
   const applicationScopeData = await sdk.applicationScopes.getAllByQuery(
     {},
-    { lang, isAdmin: true, page: '1', take: '100' }
+    { lang, isAdmin: true, take: 'all' }
   )
   const sectorData = await sdk.sectors.getAllByQuery(
     getWithApplicationScopesQuery,

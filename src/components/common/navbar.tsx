@@ -234,6 +234,7 @@ export function NavigationBar({
               <NavbarMobile
                 className="lg:hidden"
                 categoryData={categoryData}
+                applicationScopeData={applicationScopeData}
                 lang={lang}
               />
             </div>

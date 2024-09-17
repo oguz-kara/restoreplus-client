@@ -11,8 +11,11 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useQuery } from '@/hooks/use-query'
 import { useDictionary } from '@/context/use-dictionary-v2'
 import { ReactSelect } from '@/components/ui/react-select'
+import { cn } from '@/lib/utils'
 
-export default function PickLocaleAndCurrencyCard() {
+export default function PickLocaleAndCurrencyCard({
+  className,
+}: PropsWithClassName) {
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
   const [setInitialValue, setIsInitialValue] = useState(false)
@@ -75,7 +78,6 @@ export default function PickLocaleAndCurrencyCard() {
   }
 
   useEffect(() => {
-    console.log({ href: location.href })
     if (localeData && currencyData && !setInitialValue) {
       const defaultLang = (localeData as any)?.data.find(
         (item: any) => item.locale === lang
@@ -123,18 +125,18 @@ export default function PickLocaleAndCurrencyCard() {
     return null
 
   return (
-    <Card className="lg:w-[300px]">
+    <Card className={cn('lg:w-[300px]', className)}>
       <CardHeader>
-        <Typography as="h6" className="font-[500]">
+        <Typography as="h6" className="font-[500] text-gray-700">
           {dictionary.navbar.set_language_and_currency_title}
         </Typography>
-        <Typography className="text-xs">
+        <Typography className="text-xs text-gray-700">
           {dictionary.navbar.set_language_and_currency_description}
         </Typography>
       </CardHeader>
       <CardContent>
         <div className="mb-2">
-          <Typography className="text-sm mb-1">
+          <Typography className="text-sm mb-1 text-gray-700">
             {dictionary.common.language_text}
           </Typography>
           {!isLocalesPending ? (
@@ -155,7 +157,7 @@ export default function PickLocaleAndCurrencyCard() {
           )}
         </div>
         <div>
-          <Typography className="text-sm mb-1">
+          <Typography className="text-sm mb-1 text-gray-700">
             {dictionary.common.currency_text}
           </Typography>
           {!isCurrenciesPending ? (
