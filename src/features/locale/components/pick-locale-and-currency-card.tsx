@@ -2,20 +2,10 @@
 import { useCookies } from 'react-cookie'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import Typography from '@/components/ui/typography'
 import { Locale } from '@/i18n/types'
 import { useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useQuery } from '@/hooks/use-query'
@@ -23,7 +13,6 @@ import { useDictionary } from '@/context/use-dictionary-v2'
 import { ReactSelect } from '@/components/ui/react-select'
 
 export default function PickLocaleAndCurrencyCard() {
-  const router = useRouter()
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
   const [setInitialValue, setIsInitialValue] = useState(false)
@@ -48,6 +37,23 @@ export default function PickLocaleAndCurrencyCard() {
     else return 'USD'
   }
 
+  const getUrlWithNewLocale = (newLocale: string) => {
+    const url = new URL(location.href)
+    const pathSegments = url.pathname.split('/').filter(Boolean)
+
+    const isLocalePresent = /^[a-z]{2}$/.test(pathSegments[0])
+
+    if (isLocalePresent) {
+      pathSegments[0] = newLocale
+    } else {
+      pathSegments.unshift(newLocale)
+    }
+
+    url.pathname = '/' + pathSegments.join('/')
+
+    return url.href
+  }
+
   const handleSaveButton = (e: any) => {
     e.preventDefault()
     setCookie('lang', currentLang?.value, {
@@ -61,27 +67,24 @@ export default function PickLocaleAndCurrencyCard() {
     const hasLocale = i18n.locales.find((locale) =>
       pathname.startsWith(`/${locale}`)
     )
-    if (hasLocale)
-      router.push(pathname.replace(`/${hasLocale}`, `/${currentLang?.value}`))
 
-    location.href = location.href
+    if (hasLocale) {
+      const href = getUrlWithNewLocale(currentLang?.value as string)
+      location.href = href
+    }
   }
 
   useEffect(() => {
-    console.log({ localeData, currencyData, setInitialValue })
+    console.log({ href: location.href })
     if (localeData && currencyData && !setInitialValue) {
-      console.log({ currency: cookies.currency })
       const defaultLang = (localeData as any)?.data.find(
         (item: any) => item.locale === lang
       )
 
       if (cookies.currency) {
-        console.log({ currency: cookies.currency })
         const currency = (currencyData as any)?.data.find(
           (item: Currency) => item.currencyCode === cookies.currency
         )
-
-        console.log({ currency })
 
         if (currency)
           setCurrentCurrency({
@@ -93,7 +96,6 @@ export default function PickLocaleAndCurrencyCard() {
         const currency = (currencyData as any)?.data.find(
           (item: Currency) => item.currencyCode === currencyByLang
         )
-        console.log({ currencyByLang, currency })
         setCookie('currency', currency.currencyCode, {
           expires: new Date('2030'),
           path: '/',
