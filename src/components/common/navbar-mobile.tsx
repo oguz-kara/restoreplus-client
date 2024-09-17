@@ -15,6 +15,7 @@ import {
   Group,
   Handshake,
   Home,
+  Languages,
   List,
   LogIn,
   LogOut,
@@ -35,15 +36,26 @@ import { useDictionary } from '@/context/use-dictionary-v2'
 import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-and-currency-card'
 import CategoriesDrawer from './categories-drawer'
 import ApplicationScopesDrawer from './application-scopes-drawer'
+import LanguageCurrencyDrawer from './language-currency-drawer'
 
 export default function NavbarMobile({
   lang,
   className,
   categoryData,
   applicationScopeData,
+  localesData,
+  currenciesData,
 }: {
   categoryData: {
     data: ProductCategory[]
+    pagination: Pagination
+  } | null
+  localesData: {
+    data: SupportedLocale[]
+    pagination: Pagination
+  } | null
+  currenciesData: {
+    data: Currency[]
     pagination: Pagination
   } | null
   applicationScopeData: {
@@ -59,6 +71,8 @@ export default function NavbarMobile({
   const [categoriesOpen, setCategoriesOpen] = useState<boolean>(false)
   const [applicationScopesOpen, setApplicationScopesOpen] =
     useState<boolean>(false)
+  const [localesAndCurrenciesOpen, setLocalesAndCurrenciesOpen] =
+    useState<boolean>(false)
 
   useEffect(() => {
     setOpen(false)
@@ -70,7 +84,7 @@ export default function NavbarMobile({
         <DrawerTrigger>
           <Menu size="30px" />
         </DrawerTrigger>
-        <DrawerContent className="top-0 mt-0 h-screen rounded-none">
+        <DrawerContent className="top-0 mt-0 h-screen rounded-none pb-10">
           <ScrollArea>
             <DrawerHeader className="text-left">
               <div className="flex justify-between items-center">
@@ -112,7 +126,7 @@ export default function NavbarMobile({
                     <Home size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700 py-2 uppercase font-semibold"
+                      className="text-gray-700 py-2 font-semibold"
                     >
                       {dict.common.home_text}
                     </Typography>
@@ -127,7 +141,7 @@ export default function NavbarMobile({
                     <SearchCheck size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700  py-2 uppercase font-semibold"
+                      className="text-gray-700  py-2 font-semibold"
                     >
                       {dict.navbar.find_product_text}
                     </Typography>
@@ -140,7 +154,7 @@ export default function NavbarMobile({
                   <List size="24px" color="#606060" />
                   <Typography
                     as="p"
-                    className="text-gray-700  py-2 uppercase font-semibold"
+                    className="text-gray-700  py-2 font-semibold"
                   >
                     {dict.common.categories_text}
                   </Typography>
@@ -152,7 +166,7 @@ export default function NavbarMobile({
                   <Wrench size="24px" color="#606060" />
                   <Typography
                     as="p"
-                    className="text-gray-700  py-2 uppercase font-semibold"
+                    className="text-gray-700  py-2 font-semibold"
                   >
                     {dict.common.application_scopes_text}
                   </Typography>
@@ -166,7 +180,7 @@ export default function NavbarMobile({
                     <Building2 size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700  py-2 uppercase font-semibold"
+                      className="text-gray-700  py-2 font-semibold"
                     >
                       {dict.about.hero_title}
                     </Typography>
@@ -181,10 +195,7 @@ export default function NavbarMobile({
                         className="flex items-center py-3 gap-5"
                       >
                         <LogIn size="24px" color="#606060" />
-                        <Typography
-                          as="p"
-                          className="text-gray-700 uppercase font-bold"
-                        >
+                        <Typography as="p" className="text-gray-700 font-bold">
                           {dict.common.login_text}
                         </Typography>
                       </Link>
@@ -196,26 +207,8 @@ export default function NavbarMobile({
                         className="flex items-center py-3 gap-5"
                       >
                         <User size="24px" color="#606060" />
-                        <Typography
-                          as="p"
-                          className="text-gray-700 uppercase font-bold"
-                        >
+                        <Typography as="p" className="text-gray-700 font-bold">
                           {dict.register.title}
-                        </Typography>
-                      </Link>
-                    </li>
-                    <li className="border-b border-gray-200 py-3">
-                      <Link
-                        href="/partner-register"
-                        lang={lang}
-                        className="flex items-center py-3 gap-5"
-                      >
-                        <Handshake size="24px" color="#606060" />
-                        <Typography
-                          as="p"
-                          className="text-gray-700 uppercase font-bold"
-                        >
-                          {dict.common.partner_with_us_text}
                         </Typography>
                       </Link>
                     </li>
@@ -231,7 +224,7 @@ export default function NavbarMobile({
                         <User size="24px" color="#606060" />
                         <Typography
                           as="p"
-                          className="text-gray-700 uppercase font-bold px-2"
+                          className="text-gray-700 font-bold px-2"
                         >
                           {dict.common.profile_text}
                         </Typography>
@@ -245,7 +238,7 @@ export default function NavbarMobile({
                         <LogOut color="black" size="24px" />
                         <Typography
                           as="p"
-                          className="text-gray-700 uppercase font-bold px-2"
+                          className="text-gray-700 font-bold px-2"
                         >
                           {dict.navbar.logout_text}
                         </Typography>
@@ -253,10 +246,31 @@ export default function NavbarMobile({
                     </li>
                   </>
                 )}
+                <li className="border-b border-gray-200 py-3">
+                  <Link
+                    href="/partner-register"
+                    lang={lang}
+                    className="flex items-center py-3 gap-5"
+                  >
+                    <Handshake size="24px" color="#606060" />
+                    <Typography as="p" className="text-gray-700 font-bold">
+                      {dict.common.partner_with_us_text}
+                    </Typography>
+                  </Link>
+                </li>
+                <li
+                  className="border-b border-gray-200 py-3 flex items-center gap-5 cursor-pointer"
+                  onClick={() => setLocalesAndCurrenciesOpen(true)}
+                >
+                  <Languages size="24px" color="#606060" />
+                  <Typography
+                    as="p"
+                    className="text-gray-700  py-2 font-semibold"
+                  >
+                    {dict.navbar.languages_and_currencies_text}
+                  </Typography>
+                </li>
               </ul>
-              <DrawerFooter className="px-0">
-                <PickLocaleAndCurrencyCard className="shadow-none border-none p-0" />
-              </DrawerFooter>
             </div>
           </ScrollArea>
         </DrawerContent>
@@ -270,6 +284,12 @@ export default function NavbarMobile({
         applicationScopes={applicationScopeData?.data}
         open={applicationScopesOpen}
         setOpen={setApplicationScopesOpen}
+      />
+      <LanguageCurrencyDrawer
+        locales={localesData?.data || []}
+        currencies={currenciesData?.data || []}
+        open={localesAndCurrenciesOpen}
+        setOpen={setLocalesAndCurrenciesOpen}
       />
     </div>
   )

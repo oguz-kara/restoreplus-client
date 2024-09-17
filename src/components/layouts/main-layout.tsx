@@ -16,13 +16,25 @@ export default async function MainLayout({
     categoryTreeQuery,
     { lang, isAdmin: true, take: 'all' }
   )
+
   const applicationScopeData = await sdk.applicationScopes.getAllByQuery(
     {},
     { lang, isAdmin: true, take: 'all' }
   )
+
   const sectorData = await sdk.sectors.getAllByQuery(
     getWithApplicationScopesQuery,
     { lang, isAdmin: true }
+  )
+
+  const localesData = await sdk.supportedLocales.getAllByQuery(
+    { orderBy: [{ name: 'asc' }], take: 'all' },
+    { lang }
+  )
+
+  const currencyData = await sdk.currencies.getAllByQuery(
+    { take: 'all' },
+    { lang }
   )
 
   const user = await getServerSideActiveUser()
@@ -35,7 +47,8 @@ export default async function MainLayout({
           lang={lang}
           categoryData={categoryData}
           applicationScopeData={applicationScopeData}
-          sectorData={sectorData}
+          currenciesData={currencyData}
+          localesData={localesData}
           activeUser={user}
         />
       </header>

@@ -43,21 +43,26 @@ import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-
 
 export function NavigationBar({
   categoryData,
-  sectorData,
   applicationScopeData,
+  localesData,
+  currenciesData,
   lang,
   activeUser,
 }: {
   categoryData: {
-    data: any
+    data: ProductCategory[]
     pagination: Pagination
   } | null
-  sectorData: {
-    data: any
+  localesData: {
+    data: SupportedLocale[]
+    pagination: Pagination
+  } | null
+  currenciesData: {
+    data: Currency[]
     pagination: Pagination
   } | null
   applicationScopeData: {
-    data: any
+    data: ApplicationScope[]
     pagination: Pagination
   } | null
   lang: Locale
@@ -155,7 +160,7 @@ export function NavigationBar({
                   }
                   content={
                     <ProductCategoryData
-                      categoryData={categoryData?.data}
+                      categoryData={categoryData?.data || []}
                       lang={lang}
                     />
                   }
@@ -199,7 +204,7 @@ export function NavigationBar({
                   }
                   content={
                     <ApplicationScopeData
-                      applicationScopeData={applicationScopeData?.data}
+                      applicationScopeData={applicationScopeData?.data || []}
                       lang={lang}
                     />
                   }
@@ -235,6 +240,8 @@ export function NavigationBar({
                 className="lg:hidden"
                 categoryData={categoryData}
                 applicationScopeData={applicationScopeData}
+                localesData={localesData}
+                currenciesData={currenciesData}
                 lang={lang}
               />
             </div>

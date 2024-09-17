@@ -233,6 +233,7 @@ interface File {
 
 interface SupportedLocale {
   id: number
+  locale: string
   createdAt: Date
   updatedAt: Date
 }

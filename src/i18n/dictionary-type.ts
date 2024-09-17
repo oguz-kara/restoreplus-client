@@ -1,5 +1,6 @@
 export type DictionaryType = {
   navbar: {
+    languages_and_currencies_text: string
     find_product_text: string
     products_by_category_text: string
     products_by_sector_text: string
