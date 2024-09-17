@@ -85,7 +85,7 @@ export default function NavbarMobile({
           <Menu size="30px" />
         </DrawerTrigger>
         <DrawerContent className="top-0 mt-0 h-screen rounded-none pb-10">
-          <ScrollArea>
+          <ScrollArea className="pb-16">
             <DrawerHeader className="text-left">
               <div className="flex justify-between items-center">
                 <div>
@@ -235,7 +235,7 @@ export default function NavbarMobile({
                         className="flex items-center py-2 cursor-pointer"
                         onClick={logout}
                       >
-                        <LogOut color="black" size="24px" />
+                        <LogOut color="#606060" size="24px" />
                         <Typography
                           as="p"
                           className="text-gray-700 font-bold px-2"

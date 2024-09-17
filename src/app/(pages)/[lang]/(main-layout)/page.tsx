@@ -137,7 +137,7 @@ export default async function Page({
               </div>
               <div>
                 <Link href="/product/finder" lang={lang}>
-                  <Button className="text-xl px-10 py-7 font-bold uppercase">
+                  <Button className="md:text-xl px-10 py-7 font-bold uppercase">
                     {dict.index.section_one_button_text}
                   </Button>
                 </Link>
@@ -185,7 +185,7 @@ export default async function Page({
               </div>
               <div>
                 <Link href="/product/finder" lang={lang}>
-                  <Button className="text-xl px-10 py-7 font-bold uppercase">
+                  <Button className="md:text-xl px-10 py-7 font-bold uppercase">
                     {dict.index.section_two_button_text}
                   </Button>
                 </Link>
@@ -236,7 +236,7 @@ export default async function Page({
               </div>
               <div>
                 <Link href="/partner-register" lang={lang}>
-                  <Button className="text-lg lg:text-xl px-10 py-7 font-bold uppercase">
+                  <Button className="md:text-xl px-10 py-7 font-bold uppercase">
                     {dict.index.section_three_button_text}
                   </Button>
                 </Link>
@@ -260,10 +260,10 @@ export default async function Page({
               <div className="py-10">
                 <Typography
                   dangerouslySetInnerHTML={{ __html: sections[i].title }}
-                  className="text-white text-6xl leading-[80px] font-bold"
+                  className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
-                <Typography className="text-white text-4xl" as="h3">
+                <Typography className="text-white text-2xl lg:text-3xl lg:leading-10" as="h3">
                   {sections[i].subtitle}
                 </Typography>
               </div>

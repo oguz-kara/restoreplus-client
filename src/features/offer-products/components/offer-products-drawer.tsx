@@ -84,7 +84,7 @@ export default function OfferProductsDrawer() {
           <DrawerFooter className="pb-14">
             <Link href="/offer" lang={lang} className="w-full">
               <Button type="button" className="p-7 w-full">
-                <Typography className="text-lg font-semibold uppercase">
+                <Typography className="md:text-lg font-semibold uppercase">
                   {dict.product.single_product_request_offer_button_text}
                 </Typography>
               </Button>

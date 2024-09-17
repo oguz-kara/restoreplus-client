@@ -198,7 +198,7 @@ export default function LanguageCurrencyDrawer({
               className="p-7 w-full"
               onClick={(e) => handleSaveButton(e)}
             >
-              <Typography className="text-lg font-semibold uppercase">
+              <Typography className="md:text-lg font-semibold uppercase">
                 {dict.common.save_text}
               </Typography>
             </Button>

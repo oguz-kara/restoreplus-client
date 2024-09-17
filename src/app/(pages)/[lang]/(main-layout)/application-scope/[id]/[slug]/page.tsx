@@ -12,6 +12,8 @@ import { getDictionary } from '@/i18n/get-dictionary'
 import { Metadata } from 'next'
 import { sdk } from '@/restoreplus-sdk'
 import { serverUrl } from '@/config/get-env-fields'
+import { consoleLog } from '@/utils/log-to-console'
+import { ServerImage } from '@/components/ui/image'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &
@@ -46,10 +48,16 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default async function Page({ params: { lang, id } }: PageProps) {
-  const applicationScope = await getApplicationScopeById(id, lang)
-  const productData = await getProductsByApplicationScopeId({
+  const { data: products } = (await sdk.products.getAllByQuery(
+    {},
+    { lang }
+  )) as {
+    data: Product[]
+    pagination: Pagination
+  }
+
+  const applicationScope = await sdk.applicationScopes.getById(Number(id), {
     lang,
-    id: Number(id),
   })
 
   const dict = await getDictionary(lang)
@@ -81,9 +89,11 @@ export default async function Page({ params: { lang, id } }: PageProps) {
               )}
             </Typography>
           </div>
-          {productData && productData.data.length > 0 ? (
-            <ListProductCards lang={lang} products={productData.data} />
-          ) : null}
+          <div className="pb-10">
+            {products && products.length > 0 ? (
+              <ListProductCards lang={lang} products={products} />
+            ) : null}
+          </div>
         </Section>
       </Container>
     </div>
@@ -91,13 +101,18 @@ export default async function Page({ params: { lang, id } }: PageProps) {
 }
 
 function HeroSection({ data }: { data: ApplicationScope }) {
+  consoleLog({
+    imagePath: `url(${serverConfig.remoteUrl}${data.featuredImage?.path})`,
+  })
   return (
-    <div
-      className="flex items-center justify-center relative lg:h-[500px] bg-no-repeat bg-cover text-white text-center py-10"
-      style={{
-        backgroundImage: `url(${serverConfig.remoteUrl}/${data.featuredImage?.path})`,
-      }}
-    >
+    <div className="overflow-hidden flex items-center justify-center relative lg:h-[500px] bg-no-repeat bg-cover text-white text-center py-10">
+      <ServerImage
+        className="block absolute top-0 bottom-0 left-0 right-0 object-cover h-full w-full"
+        src={data?.featuredImage?.path || '/'}
+        width={500}
+        height={500}
+        alt="product category image"
+      />
       <Container>
         <Section>
           <div className="flex items-center justify-center flex-col">

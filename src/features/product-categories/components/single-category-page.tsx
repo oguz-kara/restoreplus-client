@@ -16,6 +16,7 @@ import HighligtedHeader from '@/components/common/highligted-header'
 import { ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { sdk } from '@/restoreplus-sdk'
+import { ServerImage } from '@/components/ui/image'
 
 type PageProps = {
   lang: Locale
@@ -32,6 +33,7 @@ export default async function SingleCategoryPage({ id, lang }: PageProps) {
     id: Number(id),
   })
   const categoryData = await getAllCategories(lang)
+  console.log({ category })
 
   const dict = await getDictionary(lang)
 
@@ -43,15 +45,15 @@ export default async function SingleCategoryPage({ id, lang }: PageProps) {
           <div className="flex gap-10">
             <div className="hidden flex-1 lg:block">
               <div>
-                <HighligtedHeader>
+                <Typography className="p-2 text-2xl mb-5">
                   {dict.product.product_category_other_categories_text}
-                </HighligtedHeader>
+                </Typography>
               </div>
               <ul>
                 {categoryData.data.map((item) => (
                   <li
                     className={cn(
-                      'p-2 hover:bg-secondary',
+                      'hover:bg-secondary border-b-gray-100 border-solid border-b p-3 rounded-sm',
                       pathname?.includes(`/${item.id}/`) ? 'bg-secondary' : ''
                     )}
                     key={item?.id}
@@ -66,9 +68,6 @@ export default async function SingleCategoryPage({ id, lang }: PageProps) {
                           {item.translation.name}
                         </Typography>
                       </div>
-                      <div>
-                        <ArrowRight />
-                      </div>
                     </Link>
                   </li>
                 ))}
@@ -78,7 +77,7 @@ export default async function SingleCategoryPage({ id, lang }: PageProps) {
               <MdxRenderer
                 mdxText={category?.translation?.description as string}
               />
-              <div>
+              <div className="pb-10">
                 {productData && productData.data.length > 0 ? (
                   <>
                     <div className="py-10">
@@ -116,12 +115,14 @@ export default async function SingleCategoryPage({ id, lang }: PageProps) {
 
 function HeroSection({ data }: { data: ProductCategoryWithTranslation }) {
   return (
-    <div
-      className="flex items-center justify-center relative lg:h-[500px] bg-no-repeat bg-cover text-white text-center py-10"
-      style={{
-        backgroundImage: `url(${serverConfig.remoteUrl}/${data.featuredImage?.path})`,
-      }}
-    >
+    <div className="flex items-center justify-center relative lg:h-[500px] bg-no-repeat bg-cover text-white text-center py-10 overflow-hidden">
+      <ServerImage
+        className="block absolute top-0 bottom-0 left-0 right-0 object-cover h-full w-full"
+        src={data?.featuredImage?.path || '/'}
+        width={500}
+        height={500}
+        alt="product category image"
+      />
       <Container>
         <Section>
           <div className="flex items-center justify-center flex-col">

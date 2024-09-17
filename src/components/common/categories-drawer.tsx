@@ -80,7 +80,7 @@ export default function CategoriesDrawer({
           <DrawerFooter className="pb-14">
             <Link href="/product/categories" lang={lang} className="w-full">
               <Button type="button" className="p-7 w-full">
-                <Typography className="text-lg font-semibold uppercase">
+                <Typography className="md:text-lg font-semibold uppercase">
                   {dict.common.browse_our_categories_text}
                 </Typography>
               </Button>

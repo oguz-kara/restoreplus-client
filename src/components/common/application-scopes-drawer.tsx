@@ -51,7 +51,7 @@ export default function ApplicationScopesDrawer({
             {applicationScopes && applicationScopes?.length > 0 ? (
               applicationScopes.map((item) => (
                 <Link
-                  href={`/application-scopes/${item.id}/${item.translation.slug}`}
+                  href={`/application-scope/${item.id}/${item.translation.slug}`}
                   key={item.id}
                   lang={lang}
                 >
@@ -78,9 +78,9 @@ export default function ApplicationScopesDrawer({
             )}
           </ScrollArea>
           <DrawerFooter className="pb-14">
-            <Link href="/application-scope" lang={lang} className="w-full">
+            <Link href="/application-scopes" lang={lang} className="w-full">
               <Button type="button" className="p-7 w-full">
-                <Typography className="text-lg font-semibold uppercase">
+                <Typography className="md:text-lg font-semibold uppercase">
                   {dict.common.browse_our_application_scopes_text}
                 </Typography>
               </Button>
