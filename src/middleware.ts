@@ -7,6 +7,11 @@ import { generateProtectedRoutesForLocales } from './utils/generate-protected-ro
 const protectedRoutes = generateProtectedRoutesForLocales([
   '/profile',
   '/create-order',
+  '/profile/orders',
+  '/profile/orders/cancelled',
+  '/profile/orders/not-shipped',
+  '/profile/addresses',
+  '/profile/company',
 ])
 
 function getLocale(request: NextRequest) {

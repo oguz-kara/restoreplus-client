@@ -20,12 +20,13 @@ import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useQuery } from '@/hooks/use-query'
 import { useDictionary } from '@/context/use-dictionary-v2'
-import { Combobox } from '@/components/ui/combobox'
+import { ReactSelect } from '@/components/ui/react-select'
 
 export default function PickLocaleAndCurrencyCard() {
   const router = useRouter()
   const pathname = usePathname()
   const [cookies, setCookie] = useCookies(['currency', 'lang'])
+  const [setInitialValue, setIsInitialValue] = useState(false)
   const { dictionary, lang } = useDictionary()
   const { data: currencyData, isPending: isCurrenciesPending } = useQuery([
     '/currency',
@@ -33,8 +34,14 @@ export default function PickLocaleAndCurrencyCard() {
   const { data: localeData, isPending: isLocalesPending } = useQuery([
     '/supported-locales',
   ])
-  const [currentLang, setCurrentLang] = useState<string>(lang)
-  const [currentCurrency, setCurrentCurrency] = useState<string>('USD')
+  const [currentLang, setCurrentLang] = useState<{
+    label: string
+    value: string | number
+  } | null>(null)
+  const [currentCurrency, setCurrentCurrency] = useState<{
+    label: string
+    value: string | number
+  } | null>(null)
 
   const getCurrencyByLang = (lang: Locale) => {
     if (lang === 'tr') return 'TRY'
@@ -42,8 +49,11 @@ export default function PickLocaleAndCurrencyCard() {
   }
 
   const handleSaveButton = () => {
-    setCookie('lang', currentLang, { expires: new Date('2030'), path: '/' })
-    setCookie('currency', currentCurrency, {
+    setCookie('lang', currentLang?.value, {
+      expires: new Date('2030'),
+      path: '/',
+    })
+    setCookie('currency', currentCurrency?.value, {
       expires: new Date('2030'),
       path: '/',
     })
@@ -51,28 +61,57 @@ export default function PickLocaleAndCurrencyCard() {
       pathname.startsWith(`/${locale}`)
     )
     if (hasLocale)
-      router.push(pathname.replace(`/${hasLocale}`, `/${currentLang}`))
+      router.push(pathname.replace(`/${hasLocale}`, `/${currentLang?.value}`))
 
     location.reload()
   }
 
   useEffect(() => {
-    if (cookies.currency) setCurrentCurrency(cookies.currency)
-    else {
-      const currency = getCurrencyByLang(lang)
-      setCookie('currency', currency, {
-        expires: new Date('2030'),
-        path: '/',
-      })
-      setCurrentCurrency(currency)
+    console.log({ localeData, currencyData, setInitialValue })
+    if (localeData && currencyData && !setInitialValue) {
+      console.log({ currency: cookies.currency })
+      const defaultLang = (localeData as any)?.data.find(
+        (item: any) => item.locale === lang
+      )
+
+      if (cookies.currency) {
+        console.log({ currency: cookies.currency })
+        const currency = (currencyData as any)?.data.find(
+          (item: Currency) => item.currencyCode === cookies.currency
+        )
+
+        console.log({ currency })
+
+        if (currency)
+          setCurrentCurrency({
+            label: currency.currencyName,
+            value: currency.currencyCode,
+          })
+      } else {
+        const currencyByLang = getCurrencyByLang(lang)
+        const currency = (currencyData as any)?.data.find(
+          (item: Currency) => item.currencyCode === currencyByLang
+        )
+        console.log({ currencyByLang, currency })
+        setCookie('currency', currency.currencyCode, {
+          expires: new Date('2030'),
+          path: '/',
+        })
+        setCurrentCurrency(currency)
+      }
+
+      setCurrentLang({ label: defaultLang?.name, value: defaultLang?.locale })
+
+      setIsInitialValue(true)
     }
-
-    if (cookies.lang) setCurrentLang(cookies.lang)
-  }, [])
-
-  useEffect(() => {
-    console.log({ currencyData, localeData })
-  }, [currencyData, localeData])
+  }, [
+    localeData,
+    currencyData,
+    setInitialValue,
+    cookies.currency,
+    lang,
+    setCookie,
+  ])
 
   if (
     !(((currencyData as any)?.data?.length || 0) > 0) ||
@@ -96,36 +135,18 @@ export default function PickLocaleAndCurrencyCard() {
             {dictionary.common.language_text}
           </Typography>
           {!isLocalesPending ? (
-            <Select onValueChange={(val) => setCurrentLang(val)}>
-              <SelectTrigger
-                className="w-full justify-start gap-3 rounded-none z-[9999]"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <SelectValue
-                  placeholder={
-                    (localeData as any)?.data?.find(
-                      (l: any) => l.locale === currentLang
-                    )?.name
-                  }
-                />
-              </SelectTrigger>
-              <SelectContent className="z-[9999]">
-                <SelectGroup>
-                  <SelectLabel>{dictionary.common.languages_text}</SelectLabel>
-                  {(localeData as any)?.data?.map(
-                    (item: SupportedLocale, i: number) => (
-                      <SelectItem
-                        key={i}
-                        value={item.locale}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {item.name}
-                      </SelectItem>
-                    )
-                  )}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <ReactSelect
+              isMulti={false}
+              createAble={false}
+              value={currentLang}
+              onChange={(val) => setCurrentLang(val)}
+              options={(localeData as any)?.data?.map(
+                (item: SupportedLocale) => ({
+                  label: item.name,
+                  value: item.locale,
+                })
+              )}
+            />
           ) : (
             <Skeleton className="h-[40px] w-full" />
           )}
@@ -135,29 +156,16 @@ export default function PickLocaleAndCurrencyCard() {
             {dictionary.common.currency_text}
           </Typography>
           {!isCurrenciesPending ? (
-            <Select onValueChange={(val) => setCurrentCurrency(val)}>
-              <SelectTrigger className="w-full justify-start gap-3 rounded-none">
-                <SelectValue
-                  placeholder={
-                    (currencyData as any)?.data?.find(
-                      (l: any) => l.currencyCode === currentCurrency
-                    )?.currencyCode
-                  }
-                />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>{dictionary.common.currencies_text}</SelectLabel>
-                  {(currencyData as any)?.data?.map(
-                    (item: Currency, i: number) => (
-                      <SelectItem key={i} value={item.currencyCode}>
-                        {item.currencyCode}
-                      </SelectItem>
-                    )
-                  )}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <ReactSelect
+              isMulti={false}
+              createAble={false}
+              value={currentCurrency}
+              onChange={(val) => setCurrentCurrency(val)}
+              options={(currencyData as any)?.data?.map((item: Currency) => ({
+                label: item.currencyName,
+                value: item.currencyCode,
+              }))}
+            />
           ) : (
             <Skeleton className="h-[40px] w-full" />
           )}
