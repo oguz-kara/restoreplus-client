@@ -15,7 +15,10 @@ export const flags = {
     path: '/images/flags/denmark.png',
   },
   et: {
-    path: '/images/flags/denmark.png',
+    path: '/images/flags/estonian.png',
+  },
+  de: {
+    path: '/images/flags/german.png',
   },
   fi: {
     path: '/images/flags/finland.png',
@@ -23,13 +26,13 @@ export const flags = {
   fr: {
     path: '/images/flags/france.png',
   },
-  de: {
-    path: '/images/flags/germany.png',
-  },
   el: {
     path: '/images/flags/greece.png',
   },
   he: {
+    path: '/images/flags/israel.png',
+  },
+  hu: {
     path: '/images/flags/hungary.png',
   },
   id: {
@@ -69,10 +72,10 @@ export const flags = {
     path: '/images/flags/slovenian.png',
   },
   es: {
-    path: '/images/flags/spain.png',
+    path: '/images/flags/estonian.png',
   },
   sv: {
-    path: '/images/flags/spain.png',
+    path: '/images/flags/swedish.png',
   },
   tr: {
     path: '/images/flags/turkey.png',
