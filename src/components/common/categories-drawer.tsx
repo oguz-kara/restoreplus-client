@@ -77,7 +77,7 @@ export default function CategoriesDrawer({
               <Typography className="p-5">Nothing to show!</Typography>
             )}
           </ScrollArea>
-          <DrawerFooter>
+          <DrawerFooter className="pb-14">
             <Link href="/product/categories" lang={lang} className="w-full">
               <Button type="button" className="p-7 w-full">
                 <Typography className="text-lg font-semibold uppercase">

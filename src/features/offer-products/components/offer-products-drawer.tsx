@@ -81,7 +81,7 @@ export default function OfferProductsDrawer() {
               )}
             </div>
           </ScrollArea>
-          <DrawerFooter>
+          <DrawerFooter className="pb-14">
             <Link href="/offer" lang={lang} className="w-full">
               <Button type="button" className="p-7 w-full">
                 <Typography className="text-lg font-semibold uppercase">

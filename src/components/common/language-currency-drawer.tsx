@@ -192,7 +192,7 @@ export default function LanguageCurrencyDrawer({
                 ))}
             </div>
           </ScrollArea>
-          <DrawerFooter className="pb-10">
+          <DrawerFooter className="pb-14">
             <Button
               type="button"
               className="p-7 w-full"
