@@ -48,7 +48,8 @@ export default function PickLocaleAndCurrencyCard() {
     else return 'USD'
   }
 
-  const handleSaveButton = () => {
+  const handleSaveButton = (e: any) => {
+    e.preventDefault()
     setCookie('lang', currentLang?.value, {
       expires: new Date('2030'),
       path: '/',
@@ -63,7 +64,7 @@ export default function PickLocaleAndCurrencyCard() {
     if (hasLocale)
       router.push(pathname.replace(`/${hasLocale}`, `/${currentLang?.value}`))
 
-    location.reload()
+    location.href = location.href
   }
 
   useEffect(() => {
@@ -172,7 +173,7 @@ export default function PickLocaleAndCurrencyCard() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" onClick={() => handleSaveButton()}>
+        <Button className="w-full" onClick={(e) => handleSaveButton(e)}>
           {dictionary.common.save_text}
         </Button>
       </CardFooter>
