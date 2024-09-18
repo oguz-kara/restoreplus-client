@@ -9,7 +9,6 @@ import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
-import { consoleLog } from '@/utils/log-to-console'
 import { Metadata } from 'next'
 
 const bgImages = [
