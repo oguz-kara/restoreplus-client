@@ -3,11 +3,11 @@ import NextTopLoader from 'nextjs-toploader'
 import { Inter } from 'next/font/google'
 import { AuthContextProvider } from '@/context/auth/auth-context'
 import ReactQueryProvider from '@/providers/react-query-provider'
-import './globals.css'
 import { CartContextProvider } from '@/features/active-order/context/use-cart-view'
 import { ActiveOrderContextProvider } from '@/features/active-order/context/use-active-order'
 import { Metadata } from 'next'
-import Script from 'next/script'
+import { GoogleAnalytics } from '@next/third-parties/google'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,16 +24,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-GKBPFRZMRT`}
-        />
-        <Script id="google-analytics" strategy="afterInteractive">{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-GKBPFRZMRT');
-        `}</Script>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="robots" content="index, follow" />
       </head>
@@ -60,6 +50,7 @@ export default function RootLayout({
         </ReactQueryProvider>
         <Toaster />
       </body>
+      <GoogleAnalytics gaId="G-GKBPFRZMRT" />
     </html>
   )
 }
