@@ -17,7 +17,7 @@ export default function PickLocaleAndCurrencyCard({
   className,
 }: PropsWithClassName) {
   const pathname = usePathname()
-  const [cookies, setCookie] = useCookies(['currency', 'lang'])
+  const [cookies, setCookie, removeCookie] = useCookies(['currency', 'lang'])
   const [setInitialValue, setIsInitialValue] = useState(false)
   const { dictionary, lang } = useDictionary()
   const { data: currencyData, isPending: isCurrenciesPending } = useQuery([
@@ -43,38 +43,47 @@ export default function PickLocaleAndCurrencyCard({
   const getUrlWithNewLocale = (newLocale: string) => {
     const url = new URL(location.href)
     const pathSegments = url.pathname.split('/').filter(Boolean)
+    console.log({ pathSegments })
 
     const isLocalePresent = /^[a-z]{2}$/.test(pathSegments[0])
 
-    if (isLocalePresent) {
+    if (newLocale === i18n.defaultLocale) {
+      pathSegments[0] = ''
+    } else if (isLocalePresent) {
       pathSegments[0] = newLocale
     } else {
       pathSegments.unshift(newLocale)
     }
 
     url.pathname = '/' + pathSegments.join('/')
+    console.log({ href: url.href })
 
     return url.href
   }
 
   const handleSaveButton = (e: any) => {
     e.preventDefault()
-    setCookie('lang', currentLang?.value, {
-      expires: new Date('2030'),
-      path: '/',
-    })
+    if (currentLang?.value === i18n.defaultLocale) {
+      removeCookie('lang', {
+        path: '/',
+        domain:
+          process.env.NEXT_PUBLIC_NODE_ENV === 'development'
+            ? 'localhost'
+            : 'restoreplus.store',
+      })
+    } else {
+      setCookie('lang', currentLang?.value, {
+        expires: new Date('2030'),
+        path: '/',
+      })
+    }
     setCookie('currency', currentCurrency?.value, {
       expires: new Date('2030'),
       path: '/',
     })
-    const hasLocale = i18n.locales.find((locale) =>
-      pathname.startsWith(`/${locale}`)
-    )
 
-    if (hasLocale) {
-      const href = getUrlWithNewLocale(currentLang?.value as string)
-      location.href = href
-    }
+    const href = getUrlWithNewLocale(currentLang?.value as string)
+    location.href = href
   }
 
   useEffect(() => {

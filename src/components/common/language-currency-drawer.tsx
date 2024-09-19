@@ -33,7 +33,7 @@ export default function LanguageCurrencyDrawer({
   open: boolean
 }) {
   const pathname = usePathname()
-  const [cookies, setCookie] = useCookies(['currency', 'lang'])
+  const [cookies, setCookie, removeCookie] = useCookies(['currency', 'lang'])
   const { dictionary, lang } = useDictionary()
   const [currentLang, setCurrentLang] = useState<string | null>(null)
   const [currentCurrency, setCurrentCurrency] = useState<string | null>(null)
@@ -51,34 +51,48 @@ export default function LanguageCurrencyDrawer({
   const getUrlWithNewLocale = (newLocale: string) => {
     const url = new URL(location.href)
     const pathSegments = url.pathname.split('/').filter(Boolean)
+    console.log({ pathSegments })
 
     const isLocalePresent = /^[a-z]{2}$/.test(pathSegments[0])
 
-    if (isLocalePresent) {
+    console.log({ isLocalePresent })
+
+    console.log({ newLocale })
+
+    if (newLocale === i18n.defaultLocale) {
+      pathSegments[0] = ''
+    } else if (isLocalePresent) {
       pathSegments[0] = newLocale
     } else {
       pathSegments.unshift(newLocale)
     }
 
     url.pathname = '/' + pathSegments.join('/')
-    console.log({ href: url.href })
 
     return url.href
   }
 
   const handleSaveButton = (e: any) => {
     e.preventDefault()
-    setCookie('lang', currentLang, {
-      expires: new Date('2030'),
-      path: '/',
-    })
+    if (currentLang === i18n.defaultLocale) {
+      removeCookie('lang', {
+        path: '/',
+        domain:
+          process.env.NEXT_PUBLIC_NODE_ENV === 'development'
+            ? 'localhost'
+            : 'restoreplus.store',
+      })
+    } else {
+      setCookie('lang', currentLang, {
+        expires: new Date('2030'),
+        path: '/',
+      })
+    }
+
     setCookie('currency', currentCurrency, {
       expires: new Date('2030'),
       path: '/',
     })
-    const hasLocale = i18n.locales.find((locale) =>
-      pathname.startsWith(`/${locale}`)
-    )
 
     const href = getUrlWithNewLocale(currentLang as string)
     location.href = href
