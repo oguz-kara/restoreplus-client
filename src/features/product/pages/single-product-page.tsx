@@ -29,6 +29,7 @@ export default async function SingleProductPage({
   redirectBackSearchParam,
   slug,
 }: SingleProductPageProps) {
+  console.log({ slug })
   const dict = await getDictionary(lang)
   const result = await sdk.products.getSingleByQuery(
     {
@@ -46,11 +47,17 @@ export default async function SingleProductPage({
 
   console.log({ result })
 
-  const ids = result.categories.map((category: any) => category.id)
-  const data = await sdk.products.getAllByQuery(
-    { where: { categories: { some: { id: { in: ids } } } }, ...initialQuery },
-    { lang }
-  )
+  const ids = result.categories?.map((category: any) => category.id)
+
+  const data = ids
+    ? await sdk.products.getAllByQuery(
+        {
+          where: { categories: { some: { id: { in: ids } } } },
+          ...initialQuery,
+        },
+        { lang }
+      )
+    : null
 
   const getRedirectPath = (searchParam?: string) => {
     if (searchParam) {

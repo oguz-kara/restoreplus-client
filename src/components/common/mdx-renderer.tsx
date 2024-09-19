@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import '@/styles/github-markdown.css'
+import '@/styles/sakura.css'
 
 interface MdxRendererAsyncProps extends PropsWithClassName {
   mdxText: string | undefined
@@ -13,10 +13,7 @@ export default function MdxRenderer({
   if (!mdxText) return null
 
   return (
-    <div
-      className={cn('markdown-body', className)}
-      style={{ backgroundColor: 'white', color: 'black' }}
-    >
+    <div className={cn('sakura', className)}>
       <MDXRemote source={mdxText} />
     </div>
   )

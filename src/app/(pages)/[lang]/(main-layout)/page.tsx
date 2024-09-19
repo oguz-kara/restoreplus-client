@@ -95,6 +95,8 @@ export default async function Page({
         className="flex flex-col relative bg-[#212121]"
         style={{
           height: 'calc(100vh - 75px)',
+          background:
+            'linear-gradient(90deg, rgba(33,33,33,1) 0%, rgba(33,33,33,0.95) 50%, rgba(33,33,33,0.9) 100%)',
         }}
       >
         <div className="flex justify-center items-center flex-1 z-20 p-5">

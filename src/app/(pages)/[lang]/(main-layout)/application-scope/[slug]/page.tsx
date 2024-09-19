@@ -1,17 +1,12 @@
 import Container from '@/components/common/container'
-import Section from '@/components/common/section'
 import { ParamsWithLang } from '@/i18n/types'
 import React from 'react'
-import Typography from '@/components/ui/typography'
-import serverConfig from '@/config/server-config.json'
-import MdxRenderer from '@/components/common/mdx-renderer'
-import ListProductCards from '@/features/product/components/list-product-cards'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Metadata } from 'next'
 import { sdk } from '@/restoreplus-sdk'
 import { serverUrl } from '@/config/get-env-fields'
-import { consoleLog } from '@/utils/log-to-console'
-import { ServerImage } from '@/components/ui/image'
+import DocumentContentSection from '@/components/common/document-content-section'
+import { ListersHeroSection } from '@/components/common/listers-hero-section'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &
@@ -89,79 +84,38 @@ export default async function Page({ params: { lang, slug } }: PageProps) {
     }
   )
 
+  const { data: otherApplicationScopes } =
+    await sdk.applicationScopes.getAllByQuery(
+      {
+        where: {
+          id: {
+            not: applicationScope.id,
+          },
+        },
+      },
+      {
+        lang,
+      }
+    )
+
   const dict = await getDictionary(lang)
+  const content = {
+    sidebarTitle: dict.product.product_category_other_categories_text,
+    discoverProductsText:
+      dict.product.product_category_discover_restoreplus_products_for_text,
+  }
 
   return (
     <div>
-      <HeroSection data={applicationScope as ApplicationScope} />
+      <ListersHeroSection data={applicationScope} />
       <Container>
-        <Section>
-          <MdxRenderer
-            mdxText={applicationScope?.translation?.description as string}
-          />
-        </Section>
-        <Section>
-          <div className="py-10">
-            <Typography as="h6" className="text-xl font-semibold">
-              {lang === 'tr' && (
-                <span className="capitalize">
-                  {applicationScope?.translation.name}
-                  {` `}
-                </span>
-              )}
-              {dict.common.application_scopes_text}
-              {(!lang || lang === 'en') && (
-                <span className="capitalize">
-                  {` `}
-                  {applicationScope?.translation.name}
-                </span>
-              )}
-            </Typography>
-          </div>
-          <div className="pb-10">
-            {products && products.length > 0 ? (
-              <ListProductCards lang={lang} products={products} />
-            ) : null}
-          </div>
-        </Section>
-      </Container>
-    </div>
-  )
-}
-
-function HeroSection({ data }: { data: ApplicationScope }) {
-  consoleLog({
-    imagePath: `url(${serverConfig.remoteUrl}${data.featuredImage?.path})`,
-  })
-  return (
-    <div className="overflow-hidden flex items-center justify-center relative lg:h-[500px] bg-no-repeat bg-cover text-white text-center py-10">
-      <ServerImage
-        className="block absolute top-0 bottom-0 left-0 right-0 object-cover h-full w-full"
-        src={data?.featuredImage?.path || '/'}
-        width={500}
-        height={500}
-        alt="product category image"
-      />
-      <Container>
-        <Section>
-          <div className="flex items-center justify-center flex-col">
-            <div className="bg-[rgba(0,0,0,0.7)] absolute top-0 left-0 right-0 bottom-0"></div>
-            <div className="relative flex flex-col gap-5 items-center pb-5">
-              <Typography
-                as="h1"
-                className="lg:text-3xl font-bold text-white capitalize text-primary"
-              >
-                {data.translation.name}
-              </Typography>
-            </div>
-            <Typography
-              className="relative font-normal text-sm lg:max-w-[764px]"
-              as="p"
-            >
-              {data.translation.metaDescription}
-            </Typography>
-          </div>
-        </Section>
+        <DocumentContentSection
+          content={content}
+          lang={lang}
+          listOfOtherContent={otherApplicationScopes || []}
+          mainContent={applicationScope}
+          products={products || []}
+        />
       </Container>
     </div>
   )
