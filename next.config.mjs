@@ -17,6 +17,16 @@ const nextConfig = {
     X_API_KEY_NAME: process.env.X_API_KEY_NAME,
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 768, 828, 1024, 1280, 1536],
+    imageSizes: [16, 32, 48, 64, 96],
+    domains: [
+      'localhost',
+      'localhost:5000',
+      'localhost:3000',
+      'localhost:3001',
+      'restoreplus.store',
+    ],
     remotePatterns: [
       {
         protocol: 'http',
@@ -36,7 +46,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '1b34-31-142-82-40.ngrok-free.app',
+        hostname: 'data.restoreplus.store',
       },
     ],
   },

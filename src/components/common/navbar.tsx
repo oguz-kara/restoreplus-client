@@ -99,7 +99,7 @@ export function NavigationBar({
         'fixed top-0 left-0 right-0',
         whiteState
           ? 'bg-white text-black  border-b border-gray-200'
-          : 'bg-foreground text-white border-b border-foreground'
+          : 'bg-foreground text-white border-b border-gray-400'
       )}
       style={{
         zIndex: 50,

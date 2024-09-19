@@ -110,6 +110,7 @@ export default async function Page({
             width={1920}
             height={1080}
             alt="restoreplus products image"
+            priority={true}
           />
         </div>
       </div>

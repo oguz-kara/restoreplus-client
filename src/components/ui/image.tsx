@@ -3,9 +3,15 @@ import NextImage from 'next/image'
 import { ImageProps } from 'next/image'
 
 export default function Image({ ...props }: ImageProps) {
-  return <NextImage {...props} />
+  return <NextImage blurDataURL="/images/product-placeholder.png" {...props} />
 }
 
 export function ServerImage({ ...props }: ImageProps) {
-  return <NextImage {...props} src={`${serverConfig.remoteUrl}${props.src}`} />
+  return (
+    <NextImage
+      blurDataURL="/images/product-placeholder.png"
+      {...props}
+      src={`${serverConfig.remoteUrl}${props.src}`}
+    />
+  )
 }
