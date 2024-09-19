@@ -2,7 +2,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerTrigger,
 } from '@/components/ui/drawer'
@@ -33,7 +32,6 @@ import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { usePathname } from 'next/navigation'
 import { ScrollArea } from '../ui/scroll-area'
 import { useDictionary } from '@/context/use-dictionary-v2'
-import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-and-currency-card'
 import CategoriesDrawer from './categories-drawer'
 import ApplicationScopesDrawer from './application-scopes-drawer'
 import LanguageCurrencyDrawer from './language-currency-drawer'

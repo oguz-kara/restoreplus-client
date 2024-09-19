@@ -51,7 +51,7 @@ export default function ApplicationScopesDrawer({
             {applicationScopes && applicationScopes?.length > 0 ? (
               applicationScopes.map((item) => (
                 <Link
-                  href={`/application-scope/${item.id}/${item.translation.slug}`}
+                  href={`/application-scope/${item.translation.slug}`}
                   key={item.id}
                   lang={lang}
                 >
