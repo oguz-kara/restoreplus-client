@@ -5,10 +5,21 @@ import { sdk } from '@/restoreplus-sdk'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const id = params.id
+  const slug = params.slug
   const lang = params.lang
 
-  const blog = await sdk.blogPosts.getById(id, { lang })
+  const blog = await sdk.blogPosts.getSingleByQuery(
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+          },
+        },
+      },
+    },
+    { lang }
+  )
 
   const canonicalUrl = `${serverUrl}/${lang}/blog/${blog?.translation?.slug}`
 
@@ -24,6 +35,6 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
 export default function Page({
   params: { lang, slug },
-}: ParamsWithLang & { params: { slug:string } }) {
+}: ParamsWithLang & { params: { slug: string } }) {
   return <SingleBlogPage lang={lang} slug={slug} />
 }

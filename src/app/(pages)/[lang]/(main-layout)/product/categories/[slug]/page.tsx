@@ -5,10 +5,21 @@ import { sdk } from '@/restoreplus-sdk'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const id = params.id
+  const slug = params.slug
   const lang = params.lang
 
-  const category = await sdk.productCategories.getById(id, { lang })
+  const category = await sdk.productCategories.getSingleByQuery(
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+          },
+        },
+      },
+    },
+    { lang }
+  )
 
   const canonicalUrl = `${serverUrl}/${lang}/product/categories/${category?.translation?.slug}`
 
@@ -23,9 +34,9 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default function Page({
-  params: {  slug, lang },
+  params: { slug, lang },
 }: {
-  params: {  slug: string; lang: Locale }
+  params: { slug: string; lang: Locale }
 }) {
-  return <SingleCategoryPage lang={lang}  slug={slug} />
+  return <SingleCategoryPage lang={lang} slug={slug} />
 }

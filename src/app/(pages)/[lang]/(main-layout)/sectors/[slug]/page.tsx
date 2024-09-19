@@ -1,16 +1,6 @@
-import serverConfig from '@/config/server-config.json'
-import Typography from '@/components/ui/typography'
 import Container from '@/components/common/container'
-import Section from '@/components/common/section'
-import MdxRenderer from '@/components/common/mdx-renderer'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Locale } from '@/i18n/types'
-import Link from '@/components/ui/link'
-import { cn } from '@/lib/utils'
-import { ArrowRight } from 'lucide-react'
-import { getProductsBySectorId } from '@/features/product/data/get-products-by-sector-id'
-import ListProductCards from '@/features/product/components/list-product-cards'
-import InfoCard from '@/components/common/info-card'
 import { Metadata } from 'next'
 import { sdk } from '@/restoreplus-sdk'
 import { getWithApplicationScopesQuery } from '@/features/sectors/queries/get-with-application-scopes.query'
@@ -20,12 +10,23 @@ import DocumentContentSection from '@/components/common/document-content-section
 import { consoleLog } from '@/utils/log-to-console'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const id = params.id
+  const slug = params.slug
   const lang = params.lang
 
-  const sector = await sdk.sectors.getById(id, { lang })
+  const sector = await sdk.sectors.getSingleByQuery(
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+          },
+        },
+      },
+    },
+    { lang }
+  )
 
-  const canonicalUrl = `${serverUrl}/${lang}/sectors/${id}/${sector?.translation?.slug}`
+  const canonicalUrl = `${serverUrl}/${lang}/sectors/${sector?.translation?.slug}`
 
   return {
     title: sector?.translation?.metaTitle,
