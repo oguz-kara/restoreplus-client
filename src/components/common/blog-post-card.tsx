@@ -11,7 +11,7 @@ export function BlogPostCard({
   lang,
 }: BlogPost & PropsWithLang) {
   return (
-    <Link href={`/blog/${id}/${slug}`} lang={lang}>
+    <Link href={`/blog/${slug}`} lang={lang}>
       <div className="text-white mb-5">
         <div>
           <ServerImage

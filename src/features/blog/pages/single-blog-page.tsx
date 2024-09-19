@@ -12,7 +12,7 @@ import { ServerImage } from '@/components/ui/image'
 import { sdk } from '@/restoreplus-sdk'
 
 interface SingleBlogPageProps extends PropsWithLang {
-  id: string
+  slug: string
 }
 
 const options: Intl.DateTimeFormatOptions = {
@@ -21,10 +21,14 @@ const options: Intl.DateTimeFormatOptions = {
 
 export default async function SingleBlogPage({
   lang,
-  id,
+  slug,
 }: SingleBlogPageProps) {
   const dict = await getDictionary(lang)
-  const data = await sdk.blogPosts.getById(Number(id), { lang })
+  const data = await sdk.blogPosts.getSingleByQuery(
+    { where: { translations: { some: { slug } } } },
+    { lang }
+  )
+  console.log({ data })
   let formattedDate
 
   if (data?.createdAt) {
@@ -61,7 +65,6 @@ export default async function SingleBlogPage({
         <div className="py-5">
           <MdxRenderer
             mdxText={data?.translation.content}
-            className="!bg-white !text-black"
           />
         </div>
         <div>

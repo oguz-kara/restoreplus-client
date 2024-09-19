@@ -15,7 +15,7 @@ export default async function MainBlogCard({
   const dict = await getDictionary(lang)
 
   return (
-    <Link href={`/blog/${data.id}/${data.translation.slug}`} lang={lang}>
+    <Link href={`/blog/${data.translation.slug}`} lang={lang}>
       <div className="flex flex-col-reverse gap-5 lg:flex-row lg:justify-between lg:gap-10  py-10 border-b border-dashed border-gray-200">
         <div className="flex-[2]">
           <Typography as="h3" className="mb-5">

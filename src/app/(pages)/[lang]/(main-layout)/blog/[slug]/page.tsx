@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
   const blog = await sdk.blogPosts.getById(id, { lang })
 
-  const canonicalUrl = `${serverUrl}/${lang}/blog/${id}/${blog?.translation?.slug}`
+  const canonicalUrl = `${serverUrl}/${lang}/blog/${blog?.translation?.slug}`
 
   return {
     title: blog?.translation?.metaTitle,
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default function Page({
-  params: { lang, id },
-}: ParamsWithLang & { params: { id: string } }) {
-  return <SingleBlogPage id={id} lang={lang} />
+  params: { lang, slug },
+}: ParamsWithLang & { params: { slug:string } }) {
+  return <SingleBlogPage lang={lang} slug={slug} />
 }

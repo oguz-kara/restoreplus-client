@@ -11,10 +11,10 @@ export const getLocalizedBlogPostSitemapData = async (
   return data.map((blogPost: BlogPost) => {
     const getUrl = (lang?: string) => {
       if (lang) {
-        return `${serverUrl}/${lang}/blog/${blogPost.id}/${blogPost.translation.slug}`
+        return `${serverUrl}/${lang}/blog/${blogPost.translation.slug}`
       }
 
-      return `${serverUrl}/blog/${blogPost.id}/${blogPost.translation.slug}`
+      return `${serverUrl}/blog/${blogPost.translation.slug}`
     }
 
     const generatedLangUrls = locales.map((locale) => getUrl(locale))

@@ -29,64 +29,64 @@ export default function DocumentContentSection({
     <Section>
       <div className="flex gap-10 ">
         <div className="hidden flex-1 lg:block rounded-sm">
-          <div className="bg-gray-50 md:p-5">
-            <div>
-              <Typography className="p-2 text-2xl mb-5">
-                {content.sidebarTitle}
-              </Typography>
-            </div>
-            <ul>
-              {listOfOtherContent?.map((scope) => (
-                <li
-                  className={cn(
-                    'hover:bg-secondary border-b-gray-300 border-solid border-b p-3'
-                  )}
-                  key={scope?.id}
-                >
-                  <Link
-                    className="flex items-center justify-between"
-                    lang={lang}
-                    href={`/product/categories/${scope.translation.slug}`}
+          {listOfOtherContent && listOfOtherContent.length > 0 && (
+            <div className="bg-gray-50 md:p-5">
+              <div>
+                <Typography className="p-2 text-2xl mb-5">
+                  {content.sidebarTitle}
+                </Typography>
+              </div>
+              <ul>
+                {listOfOtherContent?.map((scope) => (
+                  <li
+                    className={cn(
+                      'hover:bg-secondary border-b-gray-300 border-solid border-b p-3'
+                    )}
+                    key={scope?.id}
                   >
-                    <div>
-                      <Typography className="capitalize">
-                        {scope.translation.name}
-                      </Typography>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+                    <Link
+                      className="flex items-center justify-between"
+                      lang={lang}
+                      href={`/product/categories/${scope.translation.slug}`}
+                    >
+                      <div>
+                        <Typography className="capitalize">
+                          {scope.translation.name}
+                        </Typography>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         <div className="flex-[3]">
           <MdxRenderer
             mdxText={mainContent?.translation?.description as string}
           />
-          <div className="pb-10">
-            {products && products.length > 0 ? (
-              <>
-                <div className="py-10">
-                  <Typography as="h6" className="text-xl font-semibold">
-                    {lang === 'tr' && (
-                      <span className="capitalize">
-                        {mainContent?.translation.name}
-                        {` `}
-                      </span>
-                    )}
-                    {content.discoverProductsText}
-                    {(!lang || lang === 'en') && (
-                      <span className="capitalize">
-                        {` `}
-                        {mainContent?.translation.name}
-                      </span>
-                    )}
-                  </Typography>
-                </div>
-                <ListProductCards lang={lang} products={products} />
-              </>
-            ) : null}
-          </div>
+          {products && products.length > 0 ? (
+            <div className="pb-10">
+              <div className="py-10">
+                <Typography as="h6" className="text-xl font-semibold">
+                  {lang === 'tr' && (
+                    <span className="capitalize">
+                      {mainContent?.translation.name}
+                      {` `}
+                    </span>
+                  )}
+                  {content.discoverProductsText}
+                  {(!lang || lang === 'en') && (
+                    <span className="capitalize">
+                      {` `}
+                      {mainContent?.translation.name}
+                    </span>
+                  )}
+                </Typography>
+              </div>
+              <ListProductCards lang={lang} products={products} />
+            </div>
+          ) : null}
         </div>
       </div>
     </Section>

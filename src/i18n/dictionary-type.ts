@@ -218,6 +218,8 @@ export type DictionaryType = {
     close_button_text: string
     no_products_text: string
     product_category_other_categories_text: string
+    application_scope_other_scopes_text: string
+    sector_for_scopes_text: string
     product_category_discover_restoreplus_products_for_text: string
     should_login_to_dowload_login_text: string
   }

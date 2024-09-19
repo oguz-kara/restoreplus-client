@@ -100,7 +100,7 @@ export default async function Page({ params: { lang, slug } }: PageProps) {
 
   const dict = await getDictionary(lang)
   const content = {
-    sidebarTitle: dict.product.product_category_other_categories_text,
+    sidebarTitle: dict.product.application_scope_other_scopes_text || '',
     discoverProductsText:
       dict.product.product_category_discover_restoreplus_products_for_text,
   }
