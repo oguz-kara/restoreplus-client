@@ -50,6 +50,7 @@ export default async function SingleBlogPage({
               width={500}
               height={500}
               alt={data?.featuredImage?.alt || ''}
+              priority={true}
             />
           </div>
           <div className="mb-2">
@@ -63,9 +64,7 @@ export default async function SingleBlogPage({
           <SocialPostButtons lang={lang} />
         </div>
         <div className="py-5">
-          <MdxRenderer
-            mdxText={data?.translation.content}
-          />
+          <MdxRenderer mdxText={data?.translation.content} />
         </div>
         <div>
           <Typography as="p" className="mb-3">
