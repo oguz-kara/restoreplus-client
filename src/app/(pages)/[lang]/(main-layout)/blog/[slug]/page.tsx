@@ -21,6 +21,15 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     { lang }
   )
 
+  const localesData = await sdk.supportedLocales.getAll()
+  const languages = localesData.data.map((locale: any) => locale.locale)
+  const alternateLangs = Object.fromEntries(
+    languages.map((lang: SupportedLocale) => [
+      lang,
+      `${serverUrl}/${lang}/blog/${blog?.translation?.slug}`,
+    ])
+  )
+
   const canonicalUrl = `${serverUrl}/${lang}/blog/${blog?.translation?.slug}`
 
   return {
@@ -29,6 +38,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     keywords: blog?.translation?.keywords,
     alternates: {
       canonical: canonicalUrl,
+      languages: alternateLangs,
     },
   }
 }

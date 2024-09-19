@@ -1,5 +1,6 @@
 import { serverUrl } from '@/config/get-env-fields'
 import SingleCategoryPage from '@/features/product-categories/components/single-category-page'
+import { SupportedLocale } from '@/i18n'
 import { Locale } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
 import { Metadata } from 'next'
@@ -21,6 +22,15 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     { lang }
   )
 
+  const localesData = await sdk.supportedLocales.getAll()
+  const languages = localesData.data.map((locale: any) => locale.locale)
+  const alternateLangs = Object.fromEntries(
+    languages.map((lang: SupportedLocale) => [
+      lang,
+      `${serverUrl}/${lang}/product/categories/${category?.translation?.slug}`,
+    ])
+  )
+
   const canonicalUrl = `${serverUrl}/${lang}/product/categories/${category?.translation?.slug}`
 
   return {
@@ -29,6 +39,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     keywords: category?.translation?.keywords,
     alternates: {
       canonical: canonicalUrl,
+      languages: alternateLangs,
     },
   }
 }

@@ -36,6 +36,15 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     }
   )
 
+  const localesData = await sdk.supportedLocales.getAll()
+  const languages = localesData.data.map((locale: any) => locale.locale)
+  const alternateLangs = Object.fromEntries(
+    languages.map((lang: SupportedLocale) => [
+      lang,
+      `${serverUrl}/${lang}/application-scope/${applicationScope?.translation?.slug}`,
+    ])
+  )
+
   const canonicalUrl = `${serverUrl}/${lang}/application-scope/${applicationScope?.translation?.slug}`
 
   return {
@@ -44,6 +53,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     keywords: applicationScope?.translation?.keywords,
     alternates: {
       canonical: canonicalUrl,
+      languages: alternateLangs,
     },
   }
 }
