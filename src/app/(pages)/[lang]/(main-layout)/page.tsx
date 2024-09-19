@@ -94,13 +94,16 @@ export default async function Page({
       <div
         className="flex flex-col relative bg-[#212121]"
         style={{
-          height: 'calc(100vh - 75px)',
+          height: 'calc(100vh - 88px)',
           background:
             'linear-gradient(90deg, rgba(33,33,33,1) 0%, rgba(33,33,33,0.95) 50%, rgba(33,33,33,0.9) 100%)',
         }}
       >
         <div className="flex justify-center items-center flex-1 z-20 p-5">
-          <Typography className="text-white text-6xl leading-[80px]" as="h1">
+          <Typography
+            className="text-white text-2xl lg:text-6xl lg:leading-[80px]"
+            as="h1"
+          >
             {dict.index.hero_title} <br />
             <span>{dict.index.hero_subtitle}</span>
           </Typography>
@@ -126,11 +129,11 @@ export default async function Page({
                   dangerouslySetInnerHTML={{
                     __html: dict.index.section_one_title,
                   }}
-                  className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
+                  className="text-white text-2xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
                 <Typography
-                  className="text-white text-2xl leading-8"
+                  className="text-white text-xl lg:2xl leading-8"
                   as="h3"
                   dangerouslySetInnerHTML={{
                     __html: dict.index.section_one_description,
@@ -174,11 +177,11 @@ export default async function Page({
                   dangerouslySetInnerHTML={{
                     __html: dict.index.section_two_title,
                   }}
-                  className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
+                  className="text-white text-2xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
                 <Typography
-                  className="text-white text-2xl lg:text-3xl lg:leading-10"
+                  className="text-white text-xl lg:text-2xl lg:leading-10"
                   as="h3"
                   dangerouslySetInnerHTML={{
                     __html: dict.index.section_two_description,
@@ -225,11 +228,11 @@ export default async function Page({
                   dangerouslySetInnerHTML={{
                     __html: dict.index.section_three_title,
                   }}
-                  className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
+                  className="text-white text-2xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
                 <Typography
-                  className="text-white text-2xl lg:text-3xl lg:leading-10"
+                  className="text-white text-xl lg:text-2xl lg:leading-10"
                   as="h3"
                   dangerouslySetInnerHTML={{
                     __html: dict.index.section_three_description,
@@ -258,15 +261,15 @@ export default async function Page({
         </div>
         {data?.map((item: ProductCategory, i: number) => (
           <div className="relative flex w-screen overflow-hidden py-20" key={i}>
-            <div className="z-30 flex flex-col py-5 px-20">
+            <div className="z-30 flex flex-col p-5 lg:px-20">
               <div className="py-10">
                 <Typography
                   dangerouslySetInnerHTML={{ __html: sections[i].title }}
-                  className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
+                  className="text-white text-2xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
                 <Typography
-                  className="text-white text-2xl lg:text-3xl lg:leading-10"
+                  className="text-white text-xl lg:text-2xl lg:leading-10"
                   as="h3"
                 >
                   {sections[i].subtitle}
