@@ -194,7 +194,7 @@ export default function ListCategoryProductAccordionItem({
                           text={dict.product_finder.see_details_tooltip}
                         >
                           <Link
-                            href={`/product/${product.id}/${product.translation.slug}?redirectBack=product.finder`}
+                            href={`/product/${product.translation.slug}?redirectBack=product.finder`}
                             lang={lang}
                           >
                             <Button className="block px-3" type="button">

@@ -150,7 +150,7 @@ export default async function ProductFinderPage({
                     <div key={i} className="h-full">
                       <Link
                         className="h-full"
-                        href={`/product/${product.id}/${product?.translation?.slug}`}
+                        href={`/product/${product?.translation?.slug}`}
                         lang={lang}
                       >
                         <Card className="h-full">

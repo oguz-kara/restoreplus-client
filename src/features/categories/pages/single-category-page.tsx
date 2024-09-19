@@ -1,6 +1,5 @@
 import { PropsWithLang } from '@/i18n/types'
 import Typography from '@/components/ui/typography'
-import MdxRenderer from '@/components/common/mdx-renderer'
 import Container from '@/components/common/container'
 import Section from '@/components/common/section'
 import { sdk } from '@/restoreplus-sdk'

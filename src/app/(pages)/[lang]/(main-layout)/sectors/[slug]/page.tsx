@@ -39,13 +39,23 @@ export default async function Page({
 }: {
   params: { slug: string; id: string; lang: Locale }
 }) {
+  console.log({ slug })
   const result = await sdk.sectors.getSingleByQuery(
-    Number(id),
-    getWithApplicationScopesQuery,
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+          },
+        },
+      },
+      ...getWithApplicationScopesQuery,
+    },
     { lang }
   )
+  console.log({ result })
   const productData = await getProductsBySectorId({ lang, id: Number(id) })
-  if (!result) return 'no sector data found!'
+  if (result.message) return 'no sector data found!'
   const dict = await getDictionary(lang)
 
   return (

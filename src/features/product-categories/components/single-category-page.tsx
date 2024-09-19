@@ -16,20 +16,40 @@ import { ServerImage } from '@/components/ui/image'
 
 type PageProps = {
   lang: Locale
-  id: string
   slug: string
 }
 
-export default async function SingleCategoryPage({ id, lang }: PageProps) {
+export default async function SingleCategoryPage({ slug, lang }: PageProps) {
   const heads = headers()
   const pathname = heads.get('next-url')
-  const category = await sdk.productCategories.getById(Number(id), { lang })
-  const productData = await getProductsByCategoryId({
-    lang,
-    id: Number(id),
-  })
-  const categoryData = await getAllCategories(lang)
+  const category = await sdk.productCategories.getSingleByQuery(
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+          },
+        },
+      },
+    },
+    { lang }
+  )
+
   console.log({ category })
+
+  const productData = await sdk.products.getAllByQuery(
+    {
+      where: {
+        categories: {
+          some: {
+            id: category?.id,
+          },
+        },
+      },
+    },
+    { lang }
+  )
+  const categoryData = await getAllCategories(lang)
 
   const dict = await getDictionary(lang)
 
@@ -57,7 +77,7 @@ export default async function SingleCategoryPage({ id, lang }: PageProps) {
                     <Link
                       className="flex items-center justify-between"
                       lang={lang}
-                      href={`/product/categories/${item.id}/${item.translation.slug}`}
+                      href={`/product/categories/${item.translation.slug}`}
                     >
                       <div>
                         <Typography className="capitalize">

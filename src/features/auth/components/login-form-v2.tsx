@@ -128,7 +128,7 @@ export default function LoginForm({ lang }: PropsWithLang) {
                     </Link>
                   </Typography>
                   <Link
-                    href="/auth/sifre-sifirla"
+                    href="/"
                     className="text-blue-500 text-md"
                     lang={lang}
                   >

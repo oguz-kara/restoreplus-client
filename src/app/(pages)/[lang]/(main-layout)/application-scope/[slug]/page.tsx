@@ -4,9 +4,7 @@ import { ParamsWithLang } from '@/i18n/types'
 import React from 'react'
 import Typography from '@/components/ui/typography'
 import serverConfig from '@/config/server-config.json'
-import { getApplicationScopeById } from '@/features/application-scope/data/get-application-scope-by-id'
 import MdxRenderer from '@/components/common/mdx-renderer'
-import { getProductsByApplicationScopeId } from '@/features/product/data/get-products-by-application-scope-id'
 import ListProductCards from '@/features/product/components/list-product-cards'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { Metadata } from 'next'
@@ -25,17 +23,25 @@ type PageProps = ParamsWithId &
   }
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
-  const applicationId = params.id
+  const slug = params.slug
   const lang = params.lang
 
-  const applicationScope = await sdk.applicationScopes.getById(
-    Number(applicationId),
+  const applicationScope = await sdk.applicationScopes.getSingleByQuery(
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+          },
+        },
+      },
+    },
     {
       lang,
     }
   )
 
-  const canonicalUrl = `${serverUrl}/${lang}/application-scope/${applicationId}/${applicationScope?.translation?.slug}`
+  const canonicalUrl = `${serverUrl}/${lang}/application-scope/${applicationScope?.translation?.slug}`
 
   return {
     title: applicationScope?.translation?.metaTitle,
@@ -47,18 +53,41 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   }
 }
 
-export default async function Page({ params: { lang, id } }: PageProps) {
+export default async function Page({ params: { lang, slug } }: PageProps) {
   const { data: products } = (await sdk.products.getAllByQuery(
-    {},
+    {
+      where: {
+        applicationScopes: {
+          some: {
+            translations: {
+              some: {
+                slug,
+              },
+            },
+          },
+        },
+      },
+    },
     { lang }
   )) as {
     data: Product[]
     pagination: Pagination
   }
 
-  const applicationScope = await sdk.applicationScopes.getById(Number(id), {
-    lang,
-  })
+  const applicationScope = await sdk.applicationScopes.getSingleByQuery(
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+          },
+        },
+      },
+    },
+    {
+      lang,
+    }
+  )
 
   const dict = await getDictionary(lang)
 

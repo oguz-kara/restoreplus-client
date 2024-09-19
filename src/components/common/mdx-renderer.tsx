@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
-import 'github-markdown-css'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import '@/styles/github-markdown.css'
 
 interface MdxRendererAsyncProps extends PropsWithClassName {
   mdxText: string | undefined

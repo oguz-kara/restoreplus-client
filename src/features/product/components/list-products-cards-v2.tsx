@@ -42,7 +42,7 @@ function ProductCard({ product, lang }: { product: Product; lang: Locale }) {
       }}
     >
       <Link
-        href={`/product/${product.id}/${product.translation.slug}`}
+        href={`/product/${product.translation.slug}`}
         lang={lang}
         onClick={(e) => e.stopPropagation()}
       >

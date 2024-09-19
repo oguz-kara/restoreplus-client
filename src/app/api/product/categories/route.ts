@@ -22,8 +22,10 @@ export const POST = async (req: NextRequest) => {
   const id = req.nextUrl.searchParams.get('id')
 
   const data = await sdk.productCategories.getSingleByQuery(
-    Number(id),
     {
+      where: {
+        id: Number(id),
+      },
       select: {
         subCategories: {
           select: {

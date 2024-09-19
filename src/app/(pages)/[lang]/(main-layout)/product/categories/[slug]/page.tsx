@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 
   const category = await sdk.productCategories.getById(id, { lang })
 
-  const canonicalUrl = `${serverUrl}/${lang}/product/categories/${id}/${category?.translation?.slug}`
+  const canonicalUrl = `${serverUrl}/${lang}/product/categories/${category?.translation?.slug}`
 
   return {
     title: category?.translation?.metaTitle,
@@ -23,9 +23,9 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default function Page({
-  params: { id, slug, lang },
+  params: {  slug, lang },
 }: {
-  params: { id: string; slug: string; lang: Locale }
+  params: {  slug: string; lang: Locale }
 }) {
-  return <SingleCategoryPage lang={lang} id={id} slug={slug} />
+  return <SingleCategoryPage lang={lang}  slug={slug} />
 }

@@ -1,11 +1,26 @@
-export const getProductForNavbarQuery = (id: number) => {
+export const getProductForNavbarQuery = ({
+  categoryId,
+  applicationScopeId,
+}: {
+  categoryId?: number
+  applicationScopeId?: number
+}) => {
   return {
     where: {
-      categories: {
-        some: {
-          id,
+      ...(categoryId && {
+        categories: {
+          some: {
+            id: categoryId,
+          },
         },
-      },
+      }),
+      ...(applicationScopeId && {
+        applicationScopes: {
+          some: {
+            id: applicationScopeId,
+          },
+        },
+      }),
     },
     select: {
       id: true,

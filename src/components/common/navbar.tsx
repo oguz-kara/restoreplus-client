@@ -1,5 +1,4 @@
 'use client'
-import { motion } from 'framer-motion'
 import serverConfig from '@/config/server-config.json'
 import * as React from 'react'
 import { cn } from '@/lib/utils'
@@ -16,7 +15,6 @@ import Link from '../ui/link'
 import { Locale } from '@/i18n/types'
 import { Button } from '../ui/button'
 import {
-  ArrowRight,
   ChevronDown,
   ChevronRight,
   Globe,
@@ -346,7 +344,7 @@ function ProductCategoryData({
                 <Link
                   lang={lang}
                   key={i}
-                  href={`/product/categories/${category.id}/${category?.translation?.slug}`}
+                  href={`/product/categories/${category?.translation?.slug}`}
                 >
                   <li
                     className={cn(
@@ -373,7 +371,7 @@ function ProductCategoryData({
               <Link
                 lang={lang}
                 key={i}
-                href={`/product/${product.id}/${product.translation.slug}`}
+                href={`/product/${product.translation.slug}`}
               >
                 <li className="flex flex-col items-center gap-2 justify-center p-3 cursor-pointer hover:bg-gray-200 capitalize">
                   <div>
@@ -409,9 +407,6 @@ function ApplicationScopeData({
   const [isSetInitialValue, setInitialValue] = React.useState<boolean>(false)
   const [selectedApplicationScope, setSelectedApplicationScope] =
     React.useState<ApplicationScope | null>(null)
-  const [applicationScopes, setApplicationScopes] = React.useState<
-    ApplicationScope[]
-  >([])
   const { data, mutate, isPending } = useMutation()
 
   const handleSelectedParentApplicationScope = (applicationScope: any) => {
@@ -437,15 +432,14 @@ function ApplicationScopeData({
   }
 
   React.useEffect(() => {
-    if (applicationScopes && applicationScopes.length > 0) {
-      handleSelectedParentApplicationScope(applicationScopes[0])
+    if (applicationScopeData && applicationScopeData.length > 0) {
+      handleSelectedParentApplicationScope(applicationScopeData[0])
     }
-  }, [applicationScopes])
+  }, [applicationScopeData])
 
   React.useEffect(() => {
     if (applicationScopeData && !isSetInitialValue) {
       setInitialValue(true)
-      setApplicationScopes(applicationScopeData)
     }
   }, [applicationScopeData, isSetInitialValue])
 
@@ -453,7 +447,7 @@ function ApplicationScopeData({
     if (selectedApplicationScope) {
       mutate({
         method: 'GET',
-        path: `/product?categoryId=${selectedApplicationScope?.id}&lang=${lang}`,
+        path: `/product?applicationScopeId=${selectedApplicationScope?.id}&lang=${lang}`,
       })
     }
   }, [selectedApplicationScope])
@@ -463,25 +457,27 @@ function ApplicationScopeData({
       <div className="flex p-5 min-h-[50vh]">
         <ScrollArea className="flex-1 max-h-[50vh]">
           <ul>
-            {applicationScopes.map((category: ApplicationScope, i) => (
-              <Link
-                lang={lang}
-                key={i}
-                href={`/product/categories/${category.id}/${category?.translation?.slug}`}
-              >
-                <li
-                  className={cn(
-                    'p-3 cursor-pointer hover:bg-gray-100 capitalize',
-                    getActiveClass(category, 'top')
-                  )}
-                  onMouseOver={() =>
-                    handleSelectedParentApplicationScope(category)
-                  }
+            {applicationScopeData.map(
+              (applicationScope: ApplicationScope, i) => (
+                <Link
+                  lang={lang}
+                  key={i}
+                  href={`/application-scope/${applicationScope?.translation?.slug}`}
                 >
-                  {category?.translation?.name}
-                </li>
-              </Link>
-            ))}
+                  <li
+                    className={cn(
+                      'p-3 cursor-pointer hover:bg-gray-100 capitalize',
+                      getActiveClass(applicationScope, 'top')
+                    )}
+                    onMouseOver={() =>
+                      handleSelectedParentApplicationScope(applicationScope)
+                    }
+                  >
+                    {applicationScope?.translation?.name}
+                  </li>
+                </Link>
+              )
+            )}
           </ul>
         </ScrollArea>
         <ScrollArea className="flex-[2] max-h-[50vh]">
@@ -496,7 +492,7 @@ function ApplicationScopeData({
               <Link
                 lang={lang}
                 key={i}
-                href={`/product/${product.id}/${product.translation.slug}`}
+                href={`/product/${product.translation.slug}`}
               >
                 <li className="flex flex-col items-center gap-2 justify-center p-3 cursor-pointer hover:bg-gray-200 capitalize">
                   <div>
@@ -516,132 +512,6 @@ function ApplicationScopeData({
             ))}
           </ul>
         </ScrollArea>
-      </div>
-    </Container>
-  )
-}
-
-function SectorData({
-  sectorData,
-  lang,
-}: {
-  sectorData: Sector[] | undefined
-  lang: Locale
-}) {
-  const { dictionary: dict } = useDictionary()
-  const [selectedSector, setSelectedSector] = React.useState<
-    Sector | undefined
-  >(undefined)
-  const [hoveredApplicationScope, setHoveredApplicationScope] = React.useState<
-    ApplicationScope | undefined
-  >(undefined)
-
-  React.useEffect(() => {
-    if (!selectedSector && sectorData && sectorData.length > 0)
-      setSelectedSector(sectorData[0])
-  }, [])
-
-  return (
-    <Container>
-      <div className="flex gap-10 p-5 min-h-[50vh]">
-        <div className="flex-1 h-[max-content]">
-          <div className="p-3 rounded-sm mb-3">
-            <Typography as="h6" className="uppercase">
-              {dict.navbar.products_by_sector_text}
-            </Typography>
-          </div>
-          <ul>
-            {sectorData?.map((sector, i) => (
-              <div key={i}>
-                <Link
-                  href={`/sectors/${sector.id}/${sector.translation.slug}`}
-                  lang={lang}
-                >
-                  <li
-                    className={cn(
-                      'hover:bg-gray-100 uppercase flex gap-5 justify-between text-lg p-3 border-b border-gray-300',
-                      sector.id === selectedSector?.id ? 'bg-gray-100' : ''
-                    )}
-                    key={sector.id}
-                    onMouseOver={() => setSelectedSector(sector)}
-                  >
-                    <Typography as="p">{sector.translation.name}</Typography>
-                    <motion.div
-                      key={sector.id}
-                      variants={{
-                        open: { rotateX: '-10px', x: 0 },
-                        closed: { rotateX: 90, x: 0 },
-                      }}
-                      animate={
-                        selectedSector?.id === sector.id ? 'open' : 'closed'
-                      }
-                      initial={'closed'}
-                    >
-                      <ArrowRight />
-                    </motion.div>
-                  </li>
-                </Link>
-              </div>
-            ))}
-          </ul>
-        </div>
-        {selectedSector?.applicationScopes &&
-        selectedSector?.applicationScopes?.length > 0 ? (
-          <div className="flex-1">
-            <div className="p-3 rounded-sm mb-3">
-              <Typography as="h6" className="uppercase">
-                {dict.navbar.application_scopes_text}
-              </Typography>
-            </div>
-            <motion.div
-              key={selectedSector?.id}
-              variants={{
-                open: { opacity: 1, x: 0 },
-                closed: { opacity: 0, x: '20px' },
-              }}
-              animate={'open'}
-              initial={'closed'}
-            >
-              <div>
-                {selectedSector?.applicationScopes?.map((scope, i) => (
-                  <Link
-                    key={scope.id}
-                    lang={lang}
-                    href={`/application-scope/${scope.id}/${scope.translation.slug}`}
-                  >
-                    <div
-                      className="hover:bg-gray-100 uppercase flex gap-5 justify-between text-lg p-3 border-b border-gray-300 px-3"
-                      key={i}
-                      onMouseOver={() => setHoveredApplicationScope(scope)}
-                      onMouseLeave={() => setHoveredApplicationScope(undefined)}
-                    >
-                      <Typography as="p">{scope.translation.name}</Typography>
-                      <motion.div
-                        key={scope.id}
-                        variants={{
-                          open: { rotateX: 0, x: 0 },
-                          closed: { rotateX: 90, x: 0 },
-                        }}
-                        animate={
-                          hoveredApplicationScope?.id === scope.id
-                            ? 'open'
-                            : 'closed'
-                        }
-                        initial={'closed'}
-                      >
-                        <ArrowRight />
-                      </motion.div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        ) : (
-          <div className="flex-1">
-            <Typography as="h6">No data</Typography>
-          </div>
-        )}
       </div>
     </Container>
   )

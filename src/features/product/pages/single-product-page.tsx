@@ -21,19 +21,30 @@ import '@/styles/github-markdown.css'
 interface SingleProductPageProps extends PropsWithLang {
   id: string
   redirectBackSearchParam?: string
+  slug: string
 }
 
 export default async function SingleProductPage({
-  id,
   lang,
   redirectBackSearchParam,
+  slug,
 }: SingleProductPageProps) {
   const dict = await getDictionary(lang)
   const result = await sdk.products.getSingleByQuery(
-    Number(id),
-    getSingleProductQueryByLang(lang),
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+          },
+        },
+      },
+      ...getSingleProductQueryByLang(lang),
+    },
     { lang }
   )
+
+  console.log({ result })
 
   const ids = result.categories.map((category: any) => category.id)
   const data = await sdk.products.getAllByQuery(

@@ -10,7 +10,7 @@ export default function SimpleProductCard({
 }: { product: Product } & PropsWithLang & PropsWithClassName) {
   return (
     <Link
-      href={`/product/${product.id}/${product.translation.slug}`}
+      href={`/product/${product.translation.slug}`}
       lang={lang}
       {...rest}
     >

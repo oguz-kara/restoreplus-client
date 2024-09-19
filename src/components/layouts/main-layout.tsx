@@ -5,7 +5,6 @@ import Footer from './footer'
 import CartDrawer from '@/features/active-order/components/cart-drawer'
 import { sdk } from '@/restoreplus-sdk'
 import { categoryTreeQuery } from '@/features/product-categories/queries/category-tree-query'
-import { getWithApplicationScopesQuery } from '@/features/sectors/queries/get-with-application-scopes.query'
 import { getServerSideActiveUser } from '@/utils/get-server-side-active-user'
 
 export default async function MainLayout({
@@ -20,11 +19,6 @@ export default async function MainLayout({
   const applicationScopeData = await sdk.applicationScopes.getAllByQuery(
     {},
     { lang, isAdmin: true, take: 'all' }
-  )
-
-  const sectorData = await sdk.sectors.getAllByQuery(
-    getWithApplicationScopesQuery,
-    { lang, isAdmin: true }
   )
 
   const localesData = await sdk.supportedLocales.getAllByQuery(

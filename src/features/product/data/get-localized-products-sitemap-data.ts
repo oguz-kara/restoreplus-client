@@ -11,10 +11,10 @@ export const getLocalizedProductsSitemapData = async (
   return data.map((product: Product) => {
     const getUrl = (lang?: string) => {
       if (lang) {
-        return `${serverUrl}/${lang}/product/${product.id}/${product.translation.slug}`
+        return `${serverUrl}/${lang}/product/${product.translation.slug}`
       }
 
-      return `${serverUrl}/product/${product.id}/${product.translation.slug}`
+      return `${serverUrl}/product/${product.translation.slug}`
     }
 
     const generatedLangUrls = locales.map((locale) => getUrl(locale))

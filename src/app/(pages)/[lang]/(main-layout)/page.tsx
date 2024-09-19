@@ -55,7 +55,6 @@ export default async function Page({
 }: {
   params: { lang: Locale }
 }) {
-  const sitemap = await sdk.sitemap.getSitemap()
   const dict = await getDictionary(lang)
 
   const { data } = await sdk.productCategories.getAllByQuery(

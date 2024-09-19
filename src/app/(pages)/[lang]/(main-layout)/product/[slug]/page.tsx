@@ -23,10 +23,10 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default function Page({
-  params: { id, lang },
+  params: { id, lang, slug },
   searchParams: { redirectBack },
 }: {
-  params: { id: string; lang: Locale }
+  params: { id: string; lang: Locale; slug: string }
   searchParams: { redirectBack?: string }
 }) {
   return (
@@ -34,6 +34,7 @@ export default function Page({
       lang={lang}
       id={id}
       redirectBackSearchParam={redirectBack}
+      slug={slug}
     />
   )
 }

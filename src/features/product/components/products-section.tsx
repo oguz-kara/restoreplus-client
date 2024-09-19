@@ -36,7 +36,7 @@ export default async function ProductsSection({ lang }: PropsWithLang) {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 auto-rows-fr">
             {productData.data.map((product: Product, i: number) => (
               <Link
-                href={`/product/${product.id}/${product.translation.slug}`}
+                href={`/product/${product.translation.slug}`}
                 lang={lang}
                 key={i}
               >

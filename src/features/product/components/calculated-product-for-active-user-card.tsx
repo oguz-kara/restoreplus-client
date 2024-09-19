@@ -151,7 +151,7 @@ export default function CalculatedProductForActiveUserCard({
           <div className="flex flex-row lg:flex-col gap-3 lg:gap-0">
             <div>
               <Link
-                href={`/product/${product.id}/${product.translation.slug}?redirectBack=create-order`}
+                href={`/product/${product.translation.slug}?redirectBack=create-order`}
                 lang={lang}
               >
                 <Button className="mb-1" variant="secondary">

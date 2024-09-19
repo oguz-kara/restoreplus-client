@@ -27,9 +27,14 @@ export const GET = async (req: NextRequest) => {
   try {
     const lang = req.nextUrl.searchParams.get('lang')
     const categoryId = req.nextUrl.searchParams.get('categoryId')
+    const applicationScopeId =
+      req.nextUrl.searchParams.get('applicationScopeId')
 
     const data = await sdk.products.getAllByQuery(
-      getProductForNavbarQuery(Number(categoryId)),
+      getProductForNavbarQuery({
+        categoryId: Number(categoryId),
+        applicationScopeId: Number(applicationScopeId),
+      }),
       {
         lang,
       }

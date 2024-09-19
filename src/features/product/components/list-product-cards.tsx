@@ -15,7 +15,7 @@ export default function ListProductCards({
     <div className="grid md:grid-cols-2 gap-5 lg:gap-10">
       {products.map((product) => (
         <Link
-          href={`/product/${product.id}/${product.translation.slug}`}
+          href={`/product/${product.translation.slug}`}
           lang={lang}
           key={product.id}
         >

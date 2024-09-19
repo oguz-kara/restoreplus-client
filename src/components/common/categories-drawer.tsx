@@ -51,7 +51,7 @@ export default function CategoriesDrawer({
             {categories && categories?.length > 0 ? (
               categories.map((item) => (
                 <Link
-                  href={`/product/categories/${item.id}/${item.translation.slug}`}
+                  href={`/product/categories/${item.translation.slug}`}
                   key={item.id}
                   lang={lang}
                 >

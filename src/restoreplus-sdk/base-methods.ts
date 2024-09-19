@@ -132,7 +132,6 @@ export const getBaseMethods = (entityUrl: string) => ({
     return data
   },
   getSingleByQuery: async (
-    id: number,
     query: any,
     metadata: {
       lang?: string | undefined | null
@@ -143,7 +142,7 @@ export const getBaseMethods = (entityUrl: string) => ({
   ) => {
     const properLang = getProperLanguage(metadata?.lang as Locale)
     const { data } = await serverFetcher(
-      `/v2/${entityUrl}/single/${id}?lang=${properLang}`,
+      `/v2/${entityUrl}/single?lang=${properLang}`,
       {
         method: 'POST',
         body: JSON.stringify(query),
