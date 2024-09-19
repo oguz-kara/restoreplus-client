@@ -16,6 +16,7 @@ export function ListersHeroSection({
         width={500}
         height={500}
         alt="product category image"
+        priority={true}
       />
       <Container>
         <Section>
