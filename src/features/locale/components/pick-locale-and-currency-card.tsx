@@ -69,7 +69,7 @@ export default function PickLocaleAndCurrencyCard({
         domain:
           process.env.NEXT_PUBLIC_NODE_ENV === 'development'
             ? 'localhost'
-            : 'restoreplus.store',
+            : '.restoreplus.store',
       })
     } else {
       setCookie('lang', currentLang?.value, {
