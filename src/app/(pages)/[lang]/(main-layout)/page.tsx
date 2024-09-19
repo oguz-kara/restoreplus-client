@@ -91,25 +91,26 @@ export default async function Page({
 
   return (
     <div>
-      <div className="relative flex items-center justify-center w-screen h-screen p-5">
-        <div className="z-20">
+      <div
+        className="flex flex-col relative bg-[#212121]"
+        style={{
+          height: 'calc(100vh - 75px)',
+        }}
+      >
+        <div className="flex justify-center items-center flex-1 z-20 p-5">
           <Typography className="text-white text-6xl leading-[80px]" as="h1">
             {dict.index.hero_title} <br />
-            <span className="float-right">{dict.index.hero_subtitle}</span>
+            <span>{dict.index.hero_subtitle}</span>
           </Typography>
         </div>
-        <div className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.8)] z-10"></div>
-        <div className="absolute top-0 left-0 bottom-0 right-0">
-          <video
-            className="w-screen h-screen object-cover"
-            loop={true}
-            muted={true}
-            data-wf-ignore={true}
-            data-object-fit="cover"
-            autoPlay={true}
-          >
-            <source src="/videos/hero-video.mp4" type="video/mp4" />
-          </video>
+        <div className="flex-1 flex items-end">
+          <Image
+            className="w-full rounded-lg object-contain"
+            src={'/images/restoreplus-products.png'}
+            width={1920}
+            height={1080}
+            alt="restoreplus products image"
+          />
         </div>
       </div>
       <div>
@@ -261,7 +262,10 @@ export default async function Page({
                   className="text-white text-4xl lg:text-6xl lg:leading-[80px] font-bold"
                   as="h2"
                 ></Typography>
-                <Typography className="text-white text-2xl lg:text-3xl lg:leading-10" as="h3">
+                <Typography
+                  className="text-white text-2xl lg:text-3xl lg:leading-10"
+                  as="h3"
+                >
                   {sections[i].subtitle}
                 </Typography>
               </div>
