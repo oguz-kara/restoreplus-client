@@ -30,12 +30,6 @@ export function ListersHeroSection({
                 {data.translation.name}
               </Typography>
             </div>
-            <Typography
-              className="lg:text-xl md:text-lg relative font-normal text-sm lg:max-w-[764px]"
-              as="p"
-            >
-              {data.translation.metaDescription}
-            </Typography>
           </div>
         </Section>
       </Container>

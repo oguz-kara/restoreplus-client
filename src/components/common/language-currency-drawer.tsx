@@ -61,6 +61,7 @@ export default function LanguageCurrencyDrawer({
     }
 
     url.pathname = '/' + pathSegments.join('/')
+    console.log({ href: url.href })
 
     return url.href
   }
@@ -79,10 +80,8 @@ export default function LanguageCurrencyDrawer({
       pathname.startsWith(`/${locale}`)
     )
 
-    if (hasLocale) {
-      const href = getUrlWithNewLocale(currentLang as string)
-      location.href = href
-    }
+    const href = getUrlWithNewLocale(currentLang as string)
+    location.href = href
   }
 
   useEffect(() => {
