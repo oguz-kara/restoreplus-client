@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     ])
   )
 
-  const canonicalUrl = `${serverUrl}/${lang}/application-scope/${applicationScope?.translation?.slug}`
+  const canonicalUrl = `${serverUrl}/application-scope/${applicationScope?.translation?.slug}`
 
   return {
     title: applicationScope?.translation?.metaTitle,

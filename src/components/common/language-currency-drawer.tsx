@@ -7,7 +7,6 @@ import {
   DrawerFooter,
   DrawerHeader,
 } from '@/components/ui/drawer'
-import Link from '@/components/ui/link'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Typography from '@/components/ui/typography'
 import { useDictionary } from '@/context/use-dictionary-v2'
@@ -18,7 +17,6 @@ import { flags } from '@/constants/flags'
 import Image from '../ui/image'
 import { useCookies } from 'react-cookie'
 import { Locale } from '@/i18n/types'
-import i18n from '@/i18n'
 import { cn } from '@/lib/utils'
 
 export default function LanguageCurrencyDrawer({
@@ -33,7 +31,7 @@ export default function LanguageCurrencyDrawer({
   open: boolean
 }) {
   const pathname = usePathname()
-  const [cookies, setCookie, removeCookie] = useCookies(['currency', 'lang'])
+  const [cookies, setCookie] = useCookies(['currency', 'lang'])
   const { dictionary, lang } = useDictionary()
   const [currentLang, setCurrentLang] = useState<string | null>(null)
   const [currentCurrency, setCurrentCurrency] = useState<string | null>(null)
@@ -51,44 +49,27 @@ export default function LanguageCurrencyDrawer({
   const getUrlWithNewLocale = (newLocale: string) => {
     const url = new URL(location.href)
     const pathSegments = url.pathname.split('/').filter(Boolean)
-    console.log({ pathSegments })
 
     const isLocalePresent = /^[a-z]{2}$/.test(pathSegments[0])
 
-    console.log({ isLocalePresent })
-
-    console.log({ newLocale })
-
-    if (newLocale === i18n.defaultLocale) {
-      pathSegments[0] = ''
-    } else if (isLocalePresent) {
+    if (isLocalePresent) {
       pathSegments[0] = newLocale
     } else {
       pathSegments.unshift(newLocale)
     }
 
     url.pathname = '/' + pathSegments.join('/')
+    console.log({ href: url.href })
 
     return url.href
   }
 
   const handleSaveButton = (e: any) => {
     e.preventDefault()
-    if (currentLang === i18n.defaultLocale) {
-      removeCookie('lang', {
-        path: '/',
-        domain:
-          process.env.NEXT_PUBLIC_NODE_ENV === 'development'
-            ? 'localhost'
-            : 'restoreplus.store',
-      })
-    } else {
-      setCookie('lang', currentLang, {
-        expires: new Date('2030'),
-        path: '/',
-      })
-    }
-
+    setCookie('lang', currentLang, {
+      expires: new Date('2030'),
+      path: '/',
+    })
     setCookie('currency', currentCurrency, {
       expires: new Date('2030'),
       path: '/',
