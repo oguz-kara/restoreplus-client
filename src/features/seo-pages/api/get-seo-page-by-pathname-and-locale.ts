@@ -1,5 +1,6 @@
 import { serverUrl } from '@/config/get-env-fields'
-import { SupportedLocale } from '@/i18n'
+import i18n, { SupportedLocale } from '@/i18n'
+import { getProperLanguage } from '@/i18n/utils'
 import { sdk } from '@/restoreplus-sdk'
 import { Metadata } from 'next'
 
@@ -9,6 +10,7 @@ export const getSeoPageByPathnameAndLocale: SeoPageType = async (
   pathname: string,
   locale: string
 ) => {
+  const properLang = getProperLanguage(locale as SupportedLocale)
   const { data } = await sdk.seoPages.getAllByQuery(
     {
       where: {
@@ -47,6 +49,11 @@ export const getSeoPageByPathnameAndLocale: SeoPageType = async (
     {}
   ) as any
 
+  const theCanonical =
+    properLang === i18n.defaultLocale
+      ? `${serverUrl}${pathname}`
+      : `${serverUrl}/${properLang}${pathname}`
+
   if (data && Array.isArray(data) && data?.length > 0) {
     const pageData = data[0]
 
@@ -55,7 +62,7 @@ export const getSeoPageByPathnameAndLocale: SeoPageType = async (
       description: pageData.translation.description,
       keywords: pageData.translation.keywords,
       alternates: {
-        canonical: `${serverUrl}${pathname}`,
+        canonical: theCanonical,
         languages: alternateLanguages,
       },
     }
