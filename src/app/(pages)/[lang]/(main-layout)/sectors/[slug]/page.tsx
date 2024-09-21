@@ -8,10 +8,13 @@ import { serverUrl } from '@/config/get-env-fields'
 import { ListersHeroSection } from '@/components/common/listers-hero-section'
 import DocumentContentSection from '@/components/common/document-content-section'
 import { consoleLog } from '@/utils/log-to-console'
+import { getProperLanguage } from '@/i18n/utils'
+import i18n from '@/i18n'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const slug = params.slug
   const lang = params.lang
+  const properLang = getProperLanguage(lang)
 
   const sector = await sdk.sectors.getSingleByQuery(
     {
@@ -35,7 +38,10 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     ])
   )
 
-  const canonicalUrl = `${serverUrl}/sectors/${sector?.translation?.slug}`
+  const canonicalUrl =
+    properLang === i18n.defaultLocale
+      ? `${serverUrl}/sectors/${sector?.translation?.slug}`
+      : `${serverUrl}/${lang}/sectors/${sector?.translation?.slug}`
 
   return {
     title: sector?.translation?.metaTitle,

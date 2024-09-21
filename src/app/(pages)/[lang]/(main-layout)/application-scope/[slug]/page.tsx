@@ -7,6 +7,9 @@ import { sdk } from '@/restoreplus-sdk'
 import { serverUrl } from '@/config/get-env-fields'
 import DocumentContentSection from '@/components/common/document-content-section'
 import { ListersHeroSection } from '@/components/common/listers-hero-section'
+import { serverFetcher } from '@/lib/server-fetcher'
+import { getProperLanguage } from '@/i18n/utils'
+import i18n from '@/i18n'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &
@@ -20,6 +23,7 @@ type PageProps = ParamsWithId &
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const slug = params.slug
   const lang = params.lang
+  const properLang = getProperLanguage(lang)
 
   const applicationScope = await sdk.applicationScopes.getSingleByQuery(
     {
@@ -36,16 +40,41 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     }
   )
 
+  const { data } = await serverFetcher(
+    `/application-scopes/single/${applicationScope?.id}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        include: {
+          translations: {
+            include: {
+              locale: true,
+            },
+          },
+        },
+      }),
+    }
+  )
+
   const localesData = await sdk.supportedLocales.getAll()
   const languages = localesData.data.map((locale: any) => locale.locale)
   const alternateLangs = Object.fromEntries(
     languages.map((lang: SupportedLocale) => [
       lang,
-      `${serverUrl}/${lang}/application-scope/${applicationScope?.translation?.slug}`,
+      `${serverUrl}/${lang}/application-scope/${
+        data?.translations.find((item: any) => item.locale.locale === lang)
+          ?.slug
+      }`,
     ])
   )
 
-  const canonicalUrl = `${serverUrl}/application-scope/${applicationScope?.translation?.slug}`
+  const canonicalUrl =
+    properLang === i18n.defaultLocale
+      ? `${serverUrl}/application-scope/${applicationScope?.translation?.slug}`
+      : `${serverUrl}/${lang}/application-scope/${applicationScope?.translation?.slug}`
 
   return {
     title: applicationScope?.translation?.metaTitle,
