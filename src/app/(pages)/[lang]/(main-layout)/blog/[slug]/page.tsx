@@ -53,6 +53,8 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     ])
   )
 
+  // just to commit
+
   const canonicalUrl =
     properLang === i18n.defaultLocale
       ? `${serverUrl}/blog/${blog?.translation?.slug}`
