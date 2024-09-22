@@ -1,7 +1,6 @@
 import React from 'react'
 import { PropsWithLang } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
-import { initialQuery } from '../queries/initial-query'
 import { getSingleProductQueryByLang } from '../queries/get-single-product-query'
 import { getDictionary } from '@/i18n/get-dictionary'
 import serverConfig from '@/config/server-config.json'
@@ -17,6 +16,7 @@ import Link from '@/components/ui/link'
 import AddProductToOfferButton from '../components/add-product-to-offer-button'
 import { ArrowLeft } from 'lucide-react'
 import '@/styles/github-markdown.css'
+import { getSimilarProductsByCategoryIds } from '../data/get-similar-products'
 
 interface SingleProductPageProps extends PropsWithLang {
   id: string
@@ -45,18 +45,10 @@ export default async function SingleProductPage({
     { lang }
   )
 
-  console.log({ result })
-
   const ids = result.categories?.map((category: any) => category.id)
 
   const data = ids
-    ? await sdk.products.getAllByQuery(
-        {
-          where: { categories: { some: { id: { in: ids } } } },
-          ...initialQuery,
-        },
-        { lang }
-      )
+    ? await getSimilarProductsByCategoryIds(ids, result.id, lang)
     : null
 
   const getRedirectPath = (searchParam?: string) => {
