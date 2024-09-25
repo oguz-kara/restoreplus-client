@@ -81,7 +81,7 @@ export default async function Page({
     },
     {
       title: dict.index.section_category_two_title,
-      subtitle: dict.index.section_category_two_subtitle,
+      subtitle: dict.index.section_category_two_title,
     },
     {
       title: dict.index.section_category_three_title,
