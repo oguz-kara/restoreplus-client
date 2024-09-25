@@ -16,7 +16,7 @@ export default function Typography({
         dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
-          'scroll-m-20 text-4xl font-extrabold tracking-tight',
+          'scroll-m-20 text-4xl font-extrabold tracking-tight font-barlowCondensed',
           className
         )}
       >
@@ -30,7 +30,7 @@ export default function Typography({
         dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
-          'scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0',
+          'scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0 font-barlowCondensed leading',
           className
         )}
       >
@@ -44,7 +44,7 @@ export default function Typography({
         dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
-          'scroll-m-20 text-2xl font-semibold tracking-tight',
+          'scroll-m-20 text-2xl font-semibold tracking-tight font-barlowCondensed',
           className
         )}
       >
@@ -58,7 +58,7 @@ export default function Typography({
         dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
-          'scroll-m-20 text-xl font-semibold tracking-tight',
+          'scroll-m-20 text-xl font-semibold tracking-tight font-barlowCondensed',
           className
         )}
       >
@@ -72,7 +72,7 @@ export default function Typography({
         dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
-          'scroll-m-20 text-lg font-extrabold tracking-tight',
+          'scroll-m-20 text-lg font-extrabold tracking-tight font-barlowCondensed',
           className
         )}
       >
@@ -86,7 +86,7 @@ export default function Typography({
         dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
         className={cn(
-          'scroll-m-20 text-md font-extrabold tracking-tight ',
+          'scroll-m-20 text-md font-extrabold tracking-tight  font-barlowCondensed',
           className
         )}
       >
@@ -159,7 +159,7 @@ export default function Typography({
     </p>
 
   return (
-    <p style={style} className={cn('leading-7', className)}>
+    <p style={style} className={cn('leading-7 font-barlow', className)}>
       {children}
     </p>
   )

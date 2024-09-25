@@ -1,5 +1,6 @@
 'use client'
 import Typography from '@/components/ui/typography'
+import { remoteUrl } from '@/config/get-env-fields'
 import { useAuthenticatedUser } from '@/context/auth/auth-context'
 import { Locale } from '@/i18n/types'
 import { Download, Lock } from 'lucide-react'
@@ -19,9 +20,7 @@ export default function ListDocuments({
   const handleDownload = async (fileName: string) => {
     try {
       if (!loading && user) {
-        const res = await fetch(
-          `http://localhost:5000/api/download/${fileName}`
-        ) // Adjust the URL as per your server route
+        const res = await fetch(`${remoteUrl}/${fileName}`) 
         if (!res.ok) {
           throw new Error('Failed to download file')
         }
@@ -48,9 +47,7 @@ export default function ListDocuments({
       <div className="flex gap-5 flex-wrap lg:w-full">
         {documents.map((document, i) => (
           <div
-            onClick={async () =>
-              await handleDownload(document?.file.name)
-            }
+            onClick={async () => await handleDownload(document?.file.name)}
             className="cursor-pointer flex-1 flex items-start justify-start gap-2 bg-primary p-3"
             key={i}
           >

@@ -5,7 +5,6 @@ import { Locale } from '@/i18n/types'
 import { getProperLanguage } from '@/i18n/utils'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { sdk } from '@/restoreplus-sdk'
-import { consoleLog } from '@/utils/log-to-console'
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
@@ -19,6 +18,9 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
         translations: {
           some: {
             slug,
+            locale: {
+              locale: properLang,
+            },
           },
         },
       },

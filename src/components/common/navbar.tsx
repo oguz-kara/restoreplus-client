@@ -108,13 +108,22 @@ export function NavigationBar({
       <Container className={cn('px-5 py-0')}>
         <div>
           <div className={cn('hidden lg:flex justify-between')}>
-            <div className={cn('flex flex-1 gap-4')}>
+            <div className={cn('flex flex-[2] gap-4 font-semibold uppercase text-sm')}>
+              <div className="flex py-5 pr-5">
+                <Link lang={lang} href="/">
+                  <Logo
+                    color={whiteState ? 'black' : 'white'}
+                    width={120}
+                    height={120}
+                  />
+                </Link>
+              </div>
               <div className="flex items-center">
                 <Link href="/product/finder" lang={lang}>
                   <Typography
                     className={cn(
                       whiteState ? 'text-black' : 'text-white',
-                      'text-sm'
+                      'text-inherit font-inherit'
                     )}
                   >
                     {dict.navbar.find_product_text}
@@ -136,7 +145,7 @@ export function NavigationBar({
                       <Typography
                         className={cn(
                           whiteState ? 'text-black' : 'text-white',
-                          'text-sm',
+                          'text-sm font-inherit',
                           'leading-0 mr-1'
                         )}
                       >
@@ -180,7 +189,7 @@ export function NavigationBar({
                       <Typography
                         className={cn(
                           whiteState ? 'text-black' : 'text-white',
-                          'text-sm',
+                          'text-sm font-inherit',
                           'leading-0 mr-1'
                         )}
                       >
@@ -209,15 +218,6 @@ export function NavigationBar({
                   top={navbarHeight}
                 />
               </div>
-            </div>
-            <div className="flex-1 flex justify-center py-5">
-              <Link lang={lang} href="/">
-                <Logo
-                  color={whiteState ? 'black' : 'white'}
-                  width={120}
-                  height={120}
-                />
-              </Link>
             </div>
             <div className="flex justify-end flex-1 py-5">
               <RightNavigation user={activeUser} />
@@ -544,7 +544,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent capitalize mr-1">
+            <NavigationMenuTrigger className="bg-transparent mr-1 text-sm uppercase font-semibold">
               {dict.navbar.about_us_text}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -574,12 +574,12 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-primary text-black">
                     <User className="mr-2" />
-                    <span className="text-sm pr-3 font-semibold">
+                    <span className="text-sm pr-3 font-semibold uppercase">
                       {user?.name ? user?.name : user?.email}
                     </span>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="p-4 min-w-[180px]">
+                    <ul className="p-4 min-w-[180px] uppercase">
                       <ListItem>
                         <Link href="/profile" lang={lang}>
                           {dict.common.profile_text}
@@ -604,7 +604,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
               <NavigationMenuItem>
                 <Button variant="ghost">
                   <Link href="/login" lang={lang}>
-                    <span className="text-sm">{dict.common.login_text}</span>
+                    <span className="text-sm uppercase">{dict.common.login_text}</span>
                   </Link>
                 </Button>
               </NavigationMenuItem>
@@ -616,7 +616,7 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
                     lang={lang}
                     className="hover:text-white font-semibold"
                   >
-                    <span className="text-sm pr-3">
+                    <span className="text-sm pr-3 uppercase">
                       {dict.common.partner_with_us_text}
                     </span>
                   </Link>

@@ -9,6 +9,7 @@ export interface ListCategoryDataType {
   name: string
   description?: string | null
   shortDescription?: string | null
+  metaDescription: string | null
   productCount: number
   icon?: { id: number; path: string; alt: string }
 }

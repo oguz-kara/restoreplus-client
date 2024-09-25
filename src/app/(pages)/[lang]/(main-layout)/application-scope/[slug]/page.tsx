@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import Container from '@/components/common/container'
 import { ParamsWithLang } from '@/i18n/types'
 import React from 'react'
@@ -10,6 +11,7 @@ import { ListersHeroSection } from '@/components/common/listers-hero-section'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { getProperLanguage } from '@/i18n/utils'
 import i18n from '@/i18n'
+import { consoleLog } from '@/utils/log-to-console'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &
@@ -31,6 +33,9 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
         translations: {
           some: {
             slug,
+            locale: {
+              locale: properLang,
+            },
           },
         },
       },
@@ -88,16 +93,33 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 }
 
 export default async function Page({ params: { lang, slug } }: PageProps) {
+  const properLang = getProperLanguage(lang)
+  const applicationScope = await sdk.applicationScopes.getSingleByQuery(
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+            locale: {
+              locale: properLang,
+            },
+          },
+        },
+      },
+    },
+    {
+      lang,
+    }
+  )
+
+  if (!applicationScope || applicationScope.message) return notFound()
+
   const { data: products } = (await sdk.products.getAllByQuery(
     {
       where: {
         applicationScopes: {
           some: {
-            translations: {
-              some: {
-                slug,
-              },
-            },
+            id: applicationScope.id,
           },
         },
       },
@@ -107,21 +129,6 @@ export default async function Page({ params: { lang, slug } }: PageProps) {
     data: Product[]
     pagination: Pagination
   }
-
-  const applicationScope = await sdk.applicationScopes.getSingleByQuery(
-    {
-      where: {
-        translations: {
-          some: {
-            slug,
-          },
-        },
-      },
-    },
-    {
-      lang,
-    }
-  )
 
   const { data: otherApplicationScopes } =
     await sdk.applicationScopes.getAllByQuery(
@@ -143,6 +150,8 @@ export default async function Page({ params: { lang, slug } }: PageProps) {
     discoverProductsText:
       dict.product.product_category_discover_restoreplus_products_for_text,
   }
+
+  if (applicationScope.lang !== lang) return notFound()
 
   return (
     <div>

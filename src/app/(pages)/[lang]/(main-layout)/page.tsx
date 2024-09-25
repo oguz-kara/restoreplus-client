@@ -92,9 +92,8 @@ export default async function Page({
   return (
     <div>
       <div
-        className="flex flex-col relative bg-[#212121]"
+        className="flex flex-col relative bg-[#212121] h-[50vh] lg:h-[calc(100vh-88px)]"
         style={{
-          height: 'calc(100vh - 88px)',
           background:
             'linear-gradient(90deg, rgba(33,33,33,1) 0%, rgba(33,33,33,0.95) 50%, rgba(33,33,33,0.9) 100%)',
         }}
@@ -120,6 +119,134 @@ export default async function Page({
         </div>
       </div>
       <div>
+        <div className="flex relative overflow-hidden max-w-[100vw] flex-col md:flex-row ">
+          <div className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.5)] z-20"></div>
+          <div className="relative flex w-screen flex-1 py-20">
+            <div className="z-30 flex flex-col py-5 px-5 lg:px-20">
+              <div className="py-10">
+                <Typography
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_self_title,
+                  }}
+                  className="text-white text-2xl lg:text-6xl lg:leading-[80px] font-bold"
+                  as="h2"
+                ></Typography>
+                <Typography
+                  className="text-white text-xl lg:2xl leading-8"
+                  as="h3"
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_self_description,
+                  }}
+                />
+              </div>
+            </div>
+            <div className="absolute top-0 left-0 bottom-0 right-0 w-screen lg:h-[600px] flex items-center justify-center">
+              <Image
+                className="w-full object-cover h-full lg:h-[1000px]"
+                src={bgImages[0].path}
+                width={1500}
+                height={1080}
+                alt={bgImages[0].alt}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex relative overflow-hidden max-w-[100vw] flex-col md:flex-row ">
+          <div className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.5)] z-20"></div>
+          <div className="relative flex w-screen flex-1 py-20">
+            <div className="z-30 flex flex-col py-5 px-5 lg:px-20">
+              <div className="py-10">
+                <Typography
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_one_title,
+                  }}
+                  className="text-white text-2xl lg:text-6xl lg:leading-[80px] font-bold"
+                  as="h2"
+                ></Typography>
+                <Typography
+                  className="text-white text-xl lg:2xl leading-8"
+                  as="h3"
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_one_description,
+                  }}
+                />
+              </div>
+            </div>
+            <div className="absolute top-0 left-0 bottom-0 right-0 w-screen lg:h-[600px] flex items-center justify-center">
+              <Image
+                className="w-full object-cover h-full lg:h-[1000px]"
+                src={bgImages[0].path}
+                width={1500}
+                height={1080}
+                alt={bgImages[0].alt}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex relative overflow-hidden max-w-[100vw]  flex-col md:flex-row bg-red-500">
+          <div className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.5)] z-20"></div>
+          <div className="flex w-screen flex-1 py-20">
+            <div className="z-30 flex flex-col py-5 px-5 lg:px-20">
+              <div className="py-10">
+                <Typography
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_two_title,
+                  }}
+                  className="text-white text-2xl lg:text-6xl lg:leading-[80px] font-bold"
+                  as="h2"
+                ></Typography>
+                <Typography
+                  className="text-white text-xl lg:text-2xl lg:leading-10"
+                  as="h3"
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_two_description,
+                  }}
+                />
+              </div>
+            </div>
+            <div className="absolute top-0 left-0 bottom-0 right-0 w-screen lg:h-[600px] flex items-center justify-center">
+              <Image
+                className="w-full h-full object-cover lg:h-[1000px]"
+                src={bgImages[1].path}
+                width={1500}
+                height={1080}
+                alt={bgImages[1].alt}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col lg:flex-row relative overflow-hidden max-w-[100vw]">
+          <div className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.5)] z-20"></div>
+          <div className="relative flex w-screen flex-1 py-10">
+            <div className="z-30 flex flex-col p-5 lg:p-20">
+              <div className="pb-5">
+                <Typography
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_three_title,
+                  }}
+                  className="text-white text-2xl lg:text-6xl lg:leading-[80px] font-bold"
+                  as="h2"
+                ></Typography>
+                <Typography
+                  className="text-white text-xl lg:text-2xl lg:leading-10"
+                  as="h3"
+                  dangerouslySetInnerHTML={{
+                    __html: dict.index.section_three_description,
+                  }}
+                />
+              </div>
+            </div>
+            <div className="absolute top-0 left-0 bottom-0 right-0 w-screen lg:h-[600px] flex items-center justify-center">
+              <Image
+                className="w-full h-full object-cover lg:h-[1000px]"
+                src={bgImages[2].path}
+                width={1500}
+                height={1080}
+                alt={bgImages[2].alt}
+              />
+            </div>
+          </div>
+        </div>
         <div className="flex relative overflow-hidden max-w-[100vw] flex-col md:flex-row ">
           <div className="absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.5)] z-20"></div>
           <div className="relative flex w-screen flex-1 py-20">

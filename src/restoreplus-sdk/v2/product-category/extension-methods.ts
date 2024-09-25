@@ -63,6 +63,8 @@ export const productCategoryExtensionMethods = {
       }
     )
 
+    console.log({ data })
+
     return data as {
       id: number
       name: string

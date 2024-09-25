@@ -1,5 +1,4 @@
 import { AuthContextProvider } from '@/context/auth/auth-context'
-import { getDictionary } from '@/i18n/get-dictionary'
 import { PropsWithLang } from '@/i18n/types'
 import React, { PropsWithChildren } from 'react'
 import { TooltipProvider } from '../ui/tooltip'

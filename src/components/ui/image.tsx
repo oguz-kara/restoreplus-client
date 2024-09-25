@@ -1,3 +1,4 @@
+import { remoteUrl } from '@/config/get-env-fields'
 import serverConfig from '@/config/server-config.json'
 import NextImage from 'next/image'
 import { ImageProps } from 'next/image'
@@ -11,7 +12,7 @@ export function ServerImage({ ...props }: ImageProps) {
     <NextImage
       blurDataURL="/images/product-placeholder.png"
       {...props}
-      src={`${serverConfig.remoteUrl}${props.src}`}
+      src={`${remoteUrl}${props.src}`}
     />
   )
 }

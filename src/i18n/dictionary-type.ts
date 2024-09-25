@@ -150,6 +150,8 @@ export type DictionaryType = {
   }
   index: {
     hero_title: string
+    section_self_title: string
+    section_self_description: string
     hero_subtitle: string
     section_one_title: string
     section_one_description: string
@@ -165,7 +167,14 @@ export type DictionaryType = {
     section_category_two_title: string
     section_category_three_title: string
     section_category_three_subtitle: string
-    section_category_two_subtitle: string
+    hero_2_title_1: string
+    hero_2_title_2: string
+    hero_2_title_3: string
+    hero_3_title_1: string
+    hero_3_title_2: string
+    hero_3_title_3: string
+    hero_2_button_text: string
+    hero_3_button_text: string
   }
   privacy: {
     content: string

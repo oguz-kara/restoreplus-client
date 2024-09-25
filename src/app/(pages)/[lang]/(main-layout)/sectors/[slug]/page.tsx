@@ -7,9 +7,9 @@ import { getWithApplicationScopesQuery } from '@/features/sectors/queries/get-wi
 import { serverUrl } from '@/config/get-env-fields'
 import { ListersHeroSection } from '@/components/common/listers-hero-section'
 import DocumentContentSection from '@/components/common/document-content-section'
-import { consoleLog } from '@/utils/log-to-console'
 import { getProperLanguage } from '@/i18n/utils'
 import i18n from '@/i18n'
+import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const slug = params.slug
@@ -22,6 +22,9 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
         translations: {
           some: {
             slug,
+            locale: {
+              locale: properLang,
+            },
           },
         },
       },
@@ -59,12 +62,16 @@ export default async function Page({
 }: {
   params: { slug: string; id: string; lang: Locale }
 }) {
+  const properLang = getProperLanguage(lang)
   const sector = await sdk.sectors.getSingleByQuery(
     {
       where: {
         translations: {
           some: {
             slug,
+            locale: {
+              locale: properLang,
+            },
           },
         },
       },
@@ -73,7 +80,7 @@ export default async function Page({
     { lang }
   )
 
-  consoleLog({ sector })
+  if (!sector || sector.message) return notFound()
 
   const { data: applicationScopes } = await sdk.applicationScopes.getAllByQuery(
     {

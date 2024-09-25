@@ -40,6 +40,9 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+    --white: 45, 29%, 97%;
+    --bright-accent: 14, 100%, 58%;
+    --bright-accent-foreground: 0, 0%, 100%;
   }
 
   .dark {
@@ -83,9 +86,9 @@
 }
 
 ::-moz-selection {
-  background: hsl(51, 100%, 50%);
+  background: hsl(44, 100%, 49%);
 }
 
 ::selection {
-  background: hsl(51, 100%, 50%);
+  background: hsl(44, 100%, 49%);
 }

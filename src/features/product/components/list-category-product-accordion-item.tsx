@@ -118,7 +118,7 @@ export default function ListCategoryProductAccordionItem({
       </AccordionTrigger>
       <AccordionContent className="px-7 bg-white">
         <Typography className="text-md text-md text-gray-500">
-          {category.description}
+          {category.metaDescription}
         </Typography>
         <div className="py-5">
           {isPending
@@ -156,12 +156,21 @@ export default function ListCategoryProductAccordionItem({
                           {product.categories.map((category, i) => (
                             <div key={i} className="flex items-center gap-1">
                               <div>
-                                <ServerImage
-                                  src={category?.icon?.path || '/'}
-                                  width={20}
-                                  height={20}
-                                  alt={category?.icon?.alt || 'icon'}
-                                />
+                                {category.icon?.path ? (
+                                  <ServerImage
+                                    src={category?.icon?.path || '/'}
+                                    width={20}
+                                    height={20}
+                                    alt={category?.icon?.alt || 'icon'}
+                                  />
+                                ) : (
+                                  <Image
+                                    src="/images/category-icon-placeholder.svg"
+                                    width={20}
+                                    height={20}
+                                    alt={"category icon"}
+                                  />
+                                )}
                               </div>
                               <Typography className="text-md text-gray-500 font-semibold">
                                 {category.translation.name}

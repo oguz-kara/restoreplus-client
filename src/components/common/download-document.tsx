@@ -4,6 +4,7 @@ import { PropsWithLang } from '@/i18n/types'
 import { PropsWithChildren, useState } from 'react'
 import ShouldLoginModal from './should-login-modal'
 import { useActiveOrder } from '@/features/active-order/context/use-active-order'
+import { remoteUrl } from '@/config/get-env-fields'
 
 export default function DownloadDocument({
   children,
@@ -16,9 +17,7 @@ export default function DownloadDocument({
   const handleDownload = async (fileName: string) => {
     try {
       if (!loading && user) {
-        const res = await fetch(
-          `http://localhost:5000/api/download/${fileName}`
-        ) // Adjust the URL as per your server route
+        const res = await fetch(`${remoteUrl}/api/download/${fileName}`) // Adjust the URL as per your server route
         if (!res.ok) {
           throw new Error('Failed to download file')
         }

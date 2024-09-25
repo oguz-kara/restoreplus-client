@@ -1,19 +1,12 @@
-import { headers } from 'next/headers'
 import Container from '@/components/common/container'
-import Section from '@/components/common/section'
 import { Locale } from '@/i18n/types'
 import React from 'react'
-import Typography from '@/components/ui/typography'
-import MdxRenderer from '@/components/common/mdx-renderer'
-import ListProductCards from '@/features/product/components/list-product-cards'
 import { getDictionary } from '@/i18n/get-dictionary'
-import { getAllCategories } from '../data/get-all-categories'
-import Link from '@/components/ui/link'
-import { cn } from '@/lib/utils'
 import { sdk } from '@/restoreplus-sdk'
-import { ServerImage } from '@/components/ui/image'
 import { ListersHeroSection } from '@/components/common/listers-hero-section'
 import DocumentContentSection from '@/components/common/document-content-section'
+import { getProperLanguage } from '@/i18n/utils'
+import { notFound } from 'next/navigation'
 
 type PageProps = {
   lang: Locale
@@ -21,19 +14,24 @@ type PageProps = {
 }
 
 export default async function SingleCategoryPage({ slug, lang }: PageProps) {
-  const heads = headers()
+  const properLang = getProperLanguage(lang)
   const category = await sdk.productCategories.getSingleByQuery(
     {
       where: {
         translations: {
           some: {
             slug,
+            locale: {
+              locale: properLang,
+            },
           },
         },
       },
     },
     { lang }
   )
+
+  if (!category || category.message) return notFound()
 
   const { data: products } = await sdk.products.getAllByQuery(
     {

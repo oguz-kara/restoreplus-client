@@ -1,6 +1,6 @@
 import { Toaster } from '@/components/ui/toaster'
 import NextTopLoader from 'nextjs-toploader'
-import { Inter } from 'next/font/google'
+import { Barlow, Barlow_Condensed } from 'next/font/google'
 import { AuthContextProvider } from '@/context/auth/auth-context'
 import ReactQueryProvider from '@/providers/react-query-provider'
 import { CartContextProvider } from '@/features/active-order/context/use-cart-view'
@@ -9,7 +9,17 @@ import { Metadata } from 'next'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const barlow = Barlow({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-barlow',
+})
+
+const barlowConsended = Barlow_Condensed({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-barlow-condensed',
+})
 
 export const metadata: Metadata = {
   title: 'Restoreplus High Tech Lubricants',
@@ -22,12 +32,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${barlow.variable} ${barlowConsended.variable}`}
+    >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="robots" content="index, follow" />
       </head>
-      <body className={inter.className}>
+      <body className="font-barlow">
         <NextTopLoader
           color="#FFD500"
           initialPosition={0.08}
