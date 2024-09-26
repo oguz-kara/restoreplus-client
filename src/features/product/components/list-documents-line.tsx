@@ -7,7 +7,7 @@ import { Download, Lock } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-export default function ListDocuments({
+export default function ListDocumentsLine({
   documents,
   lang,
 }: {
@@ -44,11 +44,11 @@ export default function ListDocuments({
 
   return (
     <div>
-      <div className="flex flex-col gap-5 lg:w-full">
+      <div className="flex flex-col md:flex-row md:flex-wrap gap-5 lg:w-full">
         {documents.map((document, i) => (
           <div
             onClick={async () => await handleDownload(document?.file.name)}
-            className="cursor-pointer flex-1 flex items-start justify-start gap-2 bg-gray-100 p-3"
+            className="cursor-pointer flex items-start justify-start gap-2 bg-gray-100 p-3"
             key={i}
           >
             <div className="flex items-center justify-center">

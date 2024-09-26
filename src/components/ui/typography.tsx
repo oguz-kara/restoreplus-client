@@ -99,7 +99,7 @@ export default function Typography({
       <p
         dangerouslySetInnerHTML={dangerouslySetInnerHTML}
         style={style}
-        className={cn('leading-7', className)}
+        className={cn('leading-5', className)}
       >
         {children}
       </p>

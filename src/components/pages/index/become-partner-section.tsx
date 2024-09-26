@@ -46,7 +46,7 @@ export default async function BecomePartnerSection({
                       </span>
                     </Typography>
                   </div>
-                  <Link href="/product/finder" lang={lang}>
+                  <Link href="/partner-register" lang={lang}>
                     <Button
                       variant="bright-accent"
                       className="rounded-none lg:px-10 lg:py-7"
