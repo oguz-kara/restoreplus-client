@@ -11,7 +11,6 @@ import { ListersHeroSection } from '@/components/common/listers-hero-section'
 import { serverFetcher } from '@/lib/server-fetcher'
 import { getProperLanguage } from '@/i18n/utils'
 import i18n from '@/i18n'
-import { consoleLog } from '@/utils/log-to-console'
 
 type PageProps = ParamsWithId &
   ParamsWithSlug &
@@ -26,6 +25,8 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   const slug = params.slug
   const lang = params.lang
   const properLang = getProperLanguage(lang)
+
+  console.log({ slug })
 
   const applicationScope = await sdk.applicationScopes.getSingleByQuery(
     {
@@ -44,6 +45,8 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
       lang,
     }
   )
+
+  console.log({ applicationScope })
 
   const { data } = await serverFetcher(
     `/application-scopes/single/${applicationScope?.id}`,

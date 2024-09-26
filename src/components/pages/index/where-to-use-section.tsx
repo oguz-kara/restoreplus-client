@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button'
+import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { remoteUrl } from '@/config/get-env-fields'
 import { SupportedLocale } from '@/i18n'
 import { getDictionary } from '@/i18n/get-dictionary'
 import React from 'react'
-
 
 export default async function WhereToUseSection({
   lang,
@@ -38,29 +38,38 @@ export default async function WhereToUseSection({
               backgroundSize: 'cover',
             }}
           >
-            <div
-              className="h-full p-5 flex flex-col justify-between rounded-lg"
-              style={{
-                backgroundColor: 'rgba(0,0,0,0.4)',
-              }}
+            <Link
+              href={`/application-scope/${item.translation.slug}`}
+              lang={lang}
             >
-              <Typography
-                as="h3"
-                className="text-white text-3xl uppercase font-semibold"
+              <div
+                className="h-full p-5 flex flex-col justify-between rounded-lg"
+                style={{
+                  backgroundColor: 'rgba(0,0,0,0.4)',
+                }}
               >
-                {item.translation.name}
-              </Typography>
-              <div className="text-center">
-                <Button size="lg">{dict.index.section_one_button_text}</Button>
+                <Typography
+                  as="h3"
+                  className="text-white text-3xl uppercase font-semibold"
+                >
+                  {item.translation.name}
+                </Typography>
+                <div className="text-center">
+                  <Button size="lg">
+                    {dict.index.section_one_button_text}
+                  </Button>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         ))}
       </div>
       <div className="text-center">
-        <Button variant="bright-accent" size="xl" className="">
-          See more use cases
-        </Button>
+        <Link href={`/collections/application-scope`} lang={lang}>
+          <Button variant="bright-accent" size="xl" className="">
+            See more use cases
+          </Button>
+        </Link>
       </div>
     </section>
   )

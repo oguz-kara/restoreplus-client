@@ -8,7 +8,7 @@ import { ParamsWithLang } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
 
 export default async function page({ params: { lang } }: ParamsWithLang) {
-  const { data: productCategories } = await sdk.productCategories.getAllByQuery(
+  const { data: applicationScopes } = await sdk.applicationScopes.getAllByQuery(
     { take: '8' },
     { lang }
   )
@@ -23,7 +23,7 @@ export default async function page({ params: { lang } }: ParamsWithLang) {
       <HeroSection lang={lang} />
       <Container>
         <ProductSeriesSection productSeries={productSeries} lang={lang} />
-        <WhereToUseSection lang={lang} applicationScopes={productCategories} />
+        <WhereToUseSection lang={lang} applicationScopes={applicationScopes} />
         <RecommendedForYouSection lang={lang} />
       </Container>
       <BecomePartnerSection lang={lang} />

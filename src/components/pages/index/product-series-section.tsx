@@ -1,7 +1,8 @@
+import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
-import { remoteUrl } from '@/config/get-env-fields'
 import CollectionCard from '@/features/collections/components/collection-card'
 import { SupportedLocale } from '@/i18n'
+import { getDictionary } from '@/i18n/get-dictionary'
 
 export default async function ProductSeriesSection({
   productSeries,
@@ -10,6 +11,7 @@ export default async function ProductSeriesSection({
   productSeries: ProductSerie[] | undefined | null | { message: string }
   lang: SupportedLocale
 }) {
+  const dict = await getDictionary(lang)
   if ((productSeries as WithMessageType)?.message || !productSeries) return null
 
   return (
@@ -33,20 +35,22 @@ export default async function ProductSeriesSection({
             backgroundSize: 'cover',
           }}
         >
-          <div className="product-series-item-content h-full">
-            <div
-              className="h-full p-5 flex items-center"
-              style={{
-                backgroundColor: 'rgba(0,0,0,0.2)',
-              }}
-            >
-              <Typography
-                as="h3"
-                className="product-series-item-title text-white text-5xl uppercase font-semibold"
+          <div className="product-series-item-content h-full cursor-pointer">
+            <Link href="/data-sheets" lang={lang}>
+              <div
+                className="h-full p-5 flex items-center"
+                style={{
+                  backgroundColor: 'rgba(0,0,0,0.2)',
+                }}
               >
-                DATA SHEETS
-              </Typography>
-            </div>
+                <Typography
+                  as="h3"
+                  className="product-series-item-title text-white text-5xl uppercase font-semibold"
+                >
+                  {dict.common.data_sheets_text}
+                </Typography>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
