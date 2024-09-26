@@ -29,7 +29,7 @@ export default function Logo({
       </div>
       <div className={color === 'black' ? renderButHide : ''}>
         <Image
-          src="/images/restoreplus-logo.png"
+          src="/images/restoreplus-logo-white.png"
           alt="restoreplus logo"
           width={width}
           height={height}

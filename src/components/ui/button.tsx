@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { Loader } from 'lucide-react'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-bold',
+  'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 font-bold uppercase',
   {
     variants: {
       variant: {
@@ -27,6 +27,8 @@ const buttonVariants = cva(
         default: 'h-10 px-4 py-2',
         sm: 'h-9 px-3',
         lg: 'h-11 px-8',
+        xl: 'h-14 px-16 text-xl',
+        '2xl': 'h-20 px-16',
         icon: 'h-10 w-10',
       },
     },
@@ -69,7 +71,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 <Loader />
               </div>
             </div>
-            <div>{children}</div>
+            <div className="w-">{children}</div>
           </>
         ) : (
           children

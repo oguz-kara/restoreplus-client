@@ -175,6 +175,9 @@ export type DictionaryType = {
     hero_3_title_3: string
     hero_2_button_text: string
     hero_3_button_text: string
+    section_partner_title_1: string
+    section_partner_button_text: string
+    section_partner_title_2: string
   }
   privacy: {
     content: string
@@ -231,9 +234,11 @@ export type DictionaryType = {
     sector_for_scopes_text: string
     product_category_discover_restoreplus_products_for_text: string
     should_login_to_dowload_login_text: string
+    product_page_technical_data_sheets_title:string
   }
   common: {
     address_text: string
+    data_sheets_text: string
     title_text: string
     message_text: string
     close_text: string
@@ -310,6 +315,7 @@ export type DictionaryType = {
     application_scopes_text: string
     no_data_found_text: string
     any_text: string
+    list_text: string
   }
   profile: {
     manage_your_account_description: string
@@ -350,5 +356,21 @@ export type DictionaryType = {
     account_text: string
     account_description: string
     account_update_account_button_text: string
+  }
+  collections: {
+    product_series_hero_title_1: string
+    product_series_hero_title_2: string
+    collections_text: string
+    product_series_header_text: string
+    product_categories_collection_title: string
+    product_categories_hero_1: string
+    product_categories_hero_2: string
+    product_categories_search_placeholder: string
+    product_application_scopes_collection_title: string
+    product_application_scopes_hero_1: string
+    product_application_scopes_hero_2: string
+    product_application_scopes_search_placeholder: string
+    product_collections_text: string
+    search_for_product_text: string
   }
 }

@@ -105,10 +105,14 @@ export function NavigationBar({
         zIndex: 50,
       }}
     >
-      <Container className={cn('px-5 py-0')}>
+      <Container className={cn('px-2 py-0')}>
         <div>
           <div className={cn('hidden lg:flex justify-between')}>
-            <div className={cn('flex flex-[2] gap-4 font-semibold uppercase text-sm')}>
+            <div
+              className={cn(
+                'flex flex-[2] gap-4 font-semibold uppercase text-sm'
+              )}
+            >
               <div className="flex py-5 pr-5">
                 <Link lang={lang} href="/">
                   <Logo
@@ -152,11 +156,7 @@ export function NavigationBar({
                         {dict.navbar.products_by_category_text}
                       </Typography>
                       <ChevronDown
-                        color={
-                          openCategories || openSectors || scrollPosition > 0
-                            ? 'black'
-                            : 'white'
-                        }
+                        color={whiteState ? 'black' : 'white'}
                         className={cn(
                           openCategories ? 'rotate-180' : '',
                           'transition-all ease-in-out'
@@ -196,11 +196,7 @@ export function NavigationBar({
                         {dict.navbar.products_by_sector_text}
                       </Typography>
                       <ChevronDown
-                        color={
-                          openSectors || openCategories || scrollPosition > 0
-                            ? 'black'
-                            : 'white'
-                        }
+                        color={whiteState ? 'black' : 'white'}
                         className={cn(
                           openSectors ? 'rotate-180' : '',
                           'transition-all ease-in-out'
@@ -604,7 +600,9 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
               <NavigationMenuItem>
                 <Button variant="ghost">
                   <Link href="/login" lang={lang}>
-                    <span className="text-sm uppercase">{dict.common.login_text}</span>
+                    <span className="text-sm uppercase">
+                      {dict.common.login_text}
+                    </span>
                   </Link>
                 </Button>
               </NavigationMenuItem>

@@ -5,9 +5,6 @@ import { SupportedLocale } from '@/i18n'
 import { getDictionary } from '@/i18n/get-dictionary'
 import React from 'react'
 
-interface WithMessageType {
-  message: string
-}
 
 export default async function WhereToUseSection({
   lang,
@@ -22,14 +19,14 @@ export default async function WhereToUseSection({
     return null
 
   return (
-    <section>
+    <section className="mb-20">
       <Typography
         className="text-4xl md:text-5xl lg:text-6xl font-semibold py-5 px-2"
         as="h2"
       >
         {dict.index.section_one_title}
       </Typography>
-      <div className="flex gap-x-2 gap-y-5 flex-col md:flex-row flex-wrap px-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-5 flex-col md:flex-row flex-wrap px-2 mb-10">
         {(applicationScopes as ApplicationScope[]).map((item) => (
           <div
             key={item.id}
@@ -59,6 +56,11 @@ export default async function WhereToUseSection({
             </div>
           </div>
         ))}
+      </div>
+      <div className="text-center">
+        <Button variant="bright-accent" size="xl" className="">
+          See more use cases
+        </Button>
       </div>
     </section>
   )

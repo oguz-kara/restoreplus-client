@@ -14,6 +14,7 @@ import { sitemapMethods } from './v2/sitemap/methods'
 export const restorePlusSdk = {
   applicationScopes: getBaseMethods('application-scopes'),
   sectors: getBaseMethods('sectors'),
+  productSeries: getBaseMethods('product-series'),
   products: productMethods,
   calculatedProducts: getCalculatedProductsMethods('calculated-products'),
   productCategories: getBaseMethods('products/categories'),

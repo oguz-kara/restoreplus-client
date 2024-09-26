@@ -210,27 +210,30 @@ export default function ProductFinderFiltersV2({
       <div>
         <div className="flex items-center justify-between mb-5">
           <Typography
-            className="capitalize text-2xl font-semibold text-gray-700"
+            className="capitalize text-2xl font-semibold text-gray-700 uppercase"
             as="h5"
           >
             {dict.common.filter_text}
           </Typography>
           <Button
             variant="ghost"
-            className="text-black gap-1 p-0"
+            className="text-black gap-1 p-0 hover:bg-transparent"
             onClick={() => resetData()}
           >
             <span>
               <Undo />
             </span>
-            <span className="text-gray-700 capitalize text-lg font-[600]">
+            <span className="text-gray-700 text-lg font-[600] font-barlowCondensed uppercase">
               {dict.product_finder.reset_text}
             </span>
           </Button>
         </div>
         <div className="mb-10">
           <div>
-            <Typography className="font-semibold text-sm mb-1">
+            <Typography
+              as="h6"
+              className="font-semibold text-sm mb-1 uppercase"
+            >
               {dict.common.category_text}
             </Typography>
             {listCategoryData?.map((item: any, i: number) => (
@@ -264,7 +267,10 @@ export default function ProductFinderFiltersV2({
                       )}
                       <SelectValue
                         placeholder={
-                          <Typography className="px-5 text-[16px] text-gray-400 capitalize">
+                          <Typography
+                            as="h5"
+                            className="px-5 text-xl text-gray-400 uppercase font-semibold"
+                          >
                             {i === 0
                               ? dict.product_finder.all_categories_text
                               : dict.product_finder.sub_categories_text}
@@ -277,7 +283,10 @@ export default function ProductFinderFiltersV2({
                     <SelectGroup>
                       {item?.categoryList?.map((item: any, i: number) => (
                         <SelectItem key={i} value={item.id}>
-                          <Typography className="text-[16px] text-gray-600 py-2 px-5 capitalize">
+                          <Typography
+                            as="h6"
+                            className="px-5 text-xl text-gray-400 uppercase font-semibold"
+                          >
                             {item?.translation?.name}
                           </Typography>
                         </SelectItem>
@@ -301,7 +310,10 @@ export default function ProductFinderFiltersV2({
                     <SwatchBook color="rgba(200,200,200,1)" />
                     <SelectValue
                       placeholder={
-                        <Typography className="px-5 text-[16px] text-gray-600 capitalize">
+                        <Typography
+                          as="h5"
+                          className="px-5 text-xl text-gray-400 uppercase font-semibold"
+                        >
                           {dict.product_finder.sub_categories_text}
                         </Typography>
                       }
@@ -316,7 +328,7 @@ export default function ProductFinderFiltersV2({
           )}
         </div>
         <div className="mb-10">
-          <Typography className="font-semibold text-sm mb-1">
+          <Typography as="h5" className="font-semibold text-sm mb-1 uppercase">
             {dict.common.sectors_text}
           </Typography>
           <div>
@@ -341,7 +353,10 @@ export default function ProductFinderFiltersV2({
                     )}
                     <SelectValue
                       placeholder={
-                        <Typography className="px-5 text-[16px] text-gray-400 capitalize">
+                        <Typography
+                          as="h5"
+                          className="px-5 text-xl text-gray-400 uppercase font-semibold"
+                        >
                           {dict.product_finder.all_sectors_text}
                         </Typography>
                       }
@@ -352,7 +367,10 @@ export default function ProductFinderFiltersV2({
                   <SelectGroup>
                     {sectorData?.map((item: any, i: number) => (
                       <SelectItem key={i} value={item.id}>
-                        <Typography className="text-[16px] text-gray-600 py-2 px-5 capitalize">
+                        <Typography
+                          as="h6"
+                          className="px-5 text-xl text-gray-400 uppercase font-semibold"
+                        >
                           {item?.translation?.name}
                         </Typography>
                       </SelectItem>
@@ -380,7 +398,10 @@ export default function ProductFinderFiltersV2({
                     <Bolt color="rgba(200,200,200,1)" />
                     <SelectValue
                       placeholder={
-                        <Typography className="px-5 text-[16px] text-gray-600 capitalize">
+                        <Typography
+                          as="h5"
+                          className="px-5 text-xl text-gray-400 uppercase font-semibold"
+                        >
                           {dict.common.application_scopes_text}
                         </Typography>
                       }
@@ -392,7 +413,10 @@ export default function ProductFinderFiltersV2({
                     {selectedSector?.applicationScopes?.map(
                       (item: any, i: number) => (
                         <SelectItem key={i} value={item.id}>
-                          <Typography className="text-[16px] text-gray-600 py-2 px-5 capitalize">
+                          <Typography
+                            as="h6"
+                            className="px-5 text-xl text-gray-400 uppercase font-semibold"
+                          >
                             {item?.translation?.name}
                           </Typography>
                         </SelectItem>

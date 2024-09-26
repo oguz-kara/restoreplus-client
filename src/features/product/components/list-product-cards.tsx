@@ -12,7 +12,7 @@ export default function ListProductCards({
   if (!products) return null
 
   return (
-    <div className="grid md:grid-cols-2 gap-5 lg:gap-10">
+    <div className="grid md:grid-cols-2 gap-5 lg:gap-10 bg-gray-100 rounded-lg">
       {products.map((product) => (
         <Link
           href={`/product/${product.translation.slug}`}
@@ -29,7 +29,7 @@ export default function ListProductCards({
                 height={200}
               />
             </div>
-            <div className="lg:flex-initial">
+            <div className="lg:flex-initial p-5">
               <div className="mb-2">
                 <Typography className="font-bold uppercase">
                   {product.name}

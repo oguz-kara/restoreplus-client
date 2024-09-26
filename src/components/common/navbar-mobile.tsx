@@ -124,7 +124,7 @@ export default function NavbarMobile({
                     <Home size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700 py-2 font-semibold"
+                      className="text-gray-700 py-2 font-semibold font-barlowCondensed"
                     >
                       {dict.common.home_text}
                     </Typography>
@@ -139,7 +139,7 @@ export default function NavbarMobile({
                     <SearchCheck size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700  py-2 font-semibold"
+                      className="text-gray-700  py-2 font-semibold font-barlowCondensed"
                     >
                       {dict.navbar.find_product_text}
                     </Typography>
@@ -152,7 +152,7 @@ export default function NavbarMobile({
                   <List size="24px" color="#606060" />
                   <Typography
                     as="p"
-                    className="text-gray-700  py-2 font-semibold"
+                    className="text-gray-700  py-2 font-semibold font-barlowCondensed"
                   >
                     {dict.common.categories_text}
                   </Typography>
@@ -164,7 +164,7 @@ export default function NavbarMobile({
                   <Wrench size="24px" color="#606060" />
                   <Typography
                     as="p"
-                    className="text-gray-700  py-2 font-semibold"
+                    className="text-gray-700  py-2 font-semibold font-barlowCondensed"
                   >
                     {dict.common.application_scopes_text}
                   </Typography>
@@ -178,7 +178,7 @@ export default function NavbarMobile({
                     <Building2 size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700  py-2 font-semibold"
+                      className="text-gray-700  py-2 font-semibold font-barlowCondensed"
                     >
                       {dict.about.hero_title}
                     </Typography>
@@ -193,7 +193,10 @@ export default function NavbarMobile({
                         className="flex items-center py-3 gap-5"
                       >
                         <LogIn size="24px" color="#606060" />
-                        <Typography as="p" className="text-gray-700 font-bold">
+                        <Typography
+                          as="p"
+                          className="text-gray-700 font-bold font-barlowCondensed"
+                        >
                           {dict.common.login_text}
                         </Typography>
                       </Link>
@@ -205,7 +208,10 @@ export default function NavbarMobile({
                         className="flex items-center py-3 gap-5"
                       >
                         <User size="24px" color="#606060" />
-                        <Typography as="p" className="text-gray-700 font-bold">
+                        <Typography
+                          as="p"
+                          className="text-gray-700 font-bold font-barlowCondensed"
+                        >
                           {dict.register.title}
                         </Typography>
                       </Link>
@@ -222,7 +228,7 @@ export default function NavbarMobile({
                         <User size="24px" color="#606060" />
                         <Typography
                           as="p"
-                          className="text-gray-700 font-bold px-2"
+                          className="text-gray-700 font-bold px-2 font-barlowCondensed"
                         >
                           {dict.common.profile_text}
                         </Typography>
@@ -236,7 +242,7 @@ export default function NavbarMobile({
                         <LogOut color="#606060" size="24px" />
                         <Typography
                           as="p"
-                          className="text-gray-700 font-bold px-2"
+                          className="text-gray-700 font-bold px-2 font-barlowCondensed"
                         >
                           {dict.navbar.logout_text}
                         </Typography>
@@ -251,7 +257,10 @@ export default function NavbarMobile({
                     className="flex items-center py-3 gap-5"
                   >
                     <Handshake size="24px" color="#606060" />
-                    <Typography as="p" className="text-gray-700 font-bold">
+                    <Typography
+                      as="p"
+                      className="text-gray-700 font-bold font-barlowCondensed"
+                    >
                       {dict.common.partner_with_us_text}
                     </Typography>
                   </Link>
@@ -263,7 +272,7 @@ export default function NavbarMobile({
                   <Languages size="24px" color="#606060" />
                   <Typography
                     as="p"
-                    className="text-gray-700  py-2 font-semibold"
+                    className="text-gray-700  py-2 font-semibold font-barlowCondensed"
                   >
                     {dict.navbar.languages_and_currencies_text}
                   </Typography>

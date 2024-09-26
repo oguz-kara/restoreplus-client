@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useMutation } from '@/hooks/use-mutation'
 import Typography from '@/components/ui/typography'
-import { ServerImage } from '@/components/ui/image'
+import Image, { ServerImage } from '@/components/ui/image'
 import Link from '@/components/ui/link'
 import { Locale } from '@/i18n/types'
 import { Button } from '@/components/ui/button'
@@ -48,10 +48,10 @@ function ProductCard({ product, lang }: { product: Product; lang: Locale }) {
       >
         <div className="flex flex-col gap-5 h-full">
           <div className="flex-1">
-            <Typography as="h4" className="font-semibold text-xl mb-2">
+            <Typography as="h4" className="font-semibold text-2xl mb-2 uppercase">
               {product.name}
             </Typography>
-            <Typography as="h6" className="font-semibold text-gray-500 text-sm">
+            <Typography as="h6" className="font-semibold text-gray-500 text-lg uppercase">
               {product.translation.productType}
             </Typography>
           </div>
@@ -67,14 +67,23 @@ function ProductCard({ product, lang }: { product: Product; lang: Locale }) {
           <div className="flex flex-wrap gap-3">
             {product.categories.map((category: ProductCategory, i: number) => (
               <div key={i} className="flex items-center gap-1">
-                <div>
+                {category.icon ? (
                   <ServerImage
+                    className="w-[30px] h-[30px] mr-5"
                     src={category?.icon?.path || '/'}
-                    width={16}
-                    height={16}
-                    alt={category?.icon?.alt || 'icon'}
+                    width={30}
+                    height={30}
+                    alt={category?.icon?.path || 'image'}
                   />
-                </div>
+                ) : (
+                  <Image
+                    className="w-[30px] h-[30px] mr-5"
+                    src={'/images/category-icon-placeholder.svg'}
+                    width={30}
+                    height={30}
+                    alt={'category image placeholder'}
+                  />
+                )}
                 <Typography className="text-sm text-gray-500">
                   {category.translation.name}
                 </Typography>

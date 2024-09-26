@@ -456,6 +456,12 @@ interface SearchParamsWithPagination {
   searchParams: PropsWithPagination
 }
 
+interface ParamsWithSlug {
+  params: {
+    slug: string
+  }
+}
+
 interface ParamsWithQuery {
   params: {
     q?: string
@@ -695,4 +701,38 @@ interface SeoPagesTranslation {
   activateAutoTranslate: boolean
   createdAt: Date
   updatedAt: Date
+}
+
+interface ProductSerie {
+  id: number
+  order?: number | null
+  name: string
+  featuredImageId?: number
+  featuredImage?: Image
+  products: Product[]
+  translation: ProductSerieTranslation
+  discount?: Discount
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface ProductSerieTranslation {
+  id?: number
+  slug: string
+  type?: string
+  metaTitle: string
+  metaDescription: string
+  description?: string | null
+  keywords?: string | null
+  activateAutoTranslate: boolean
+}
+
+interface WithMessageType {
+  message: string
+}
+
+interface SearchParamsWithTerm {
+  searchParams: {
+    q?: string
+  }
 }

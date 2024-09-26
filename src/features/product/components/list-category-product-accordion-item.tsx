@@ -101,10 +101,13 @@ export default function ListCategoryProductAccordionItem({
               />
             )}
             <div>
-              <Typography className="text-left text-xl font-bold w-full">
+              <Typography
+                as="h3"
+                className="text-left text-2xl font-bold w-full"
+              >
                 <span>{category.name}</span>
               </Typography>
-              <Typography className="text-left text-gray-400">
+              <Typography className="text-left text-gray-400 uppercase">
                 {category.shortDescription}
               </Typography>
             </div>
@@ -145,11 +148,11 @@ export default function ListCategoryProductAccordionItem({
                       <div>
                         <Typography
                           as="h3"
-                          className="text-[18px] leading-5 text-[#ccae00] font-bold mb-2"
+                          className="leading-5 text-[#e1a500] font-bold mb-2 uppercase text-xl"
                         >
                           {product.name}
                         </Typography>
-                        <Typography className="text-md font-semibold text-gray-700 mb-2">
+                        <Typography className="text-md font-semibold text-gray-700 mb-2 uppercase">
                           {product.translation.productType}
                         </Typography>
                         <div>
@@ -168,7 +171,7 @@ export default function ListCategoryProductAccordionItem({
                                     src="/images/category-icon-placeholder.svg"
                                     width={20}
                                     height={20}
-                                    alt={"category icon"}
+                                    alt={'category icon'}
                                   />
                                 )}
                               </div>

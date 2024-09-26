@@ -20,7 +20,7 @@ export default function ListDocuments({
   const handleDownload = async (fileName: string) => {
     try {
       if (!loading && user) {
-        const res = await fetch(`${remoteUrl}/${fileName}`) 
+        const res = await fetch(`${remoteUrl}/${fileName}`)
         if (!res.ok) {
           throw new Error('Failed to download file')
         }
@@ -43,15 +43,17 @@ export default function ListDocuments({
   if (loading) return <div>Loading...</div>
 
   return (
-    <div className="flex items-center bg-gray-100 p-10">
-      <div className="flex gap-5 flex-wrap lg:w-full">
+    <div>
+      <div className="flex flex-col gap-5 lg:w-full">
         {documents.map((document, i) => (
           <div
             onClick={async () => await handleDownload(document?.file.name)}
-            className="cursor-pointer flex-1 flex items-start justify-start gap-2 bg-primary p-3"
+            className="cursor-pointer flex-1 flex items-start justify-start gap-2 bg-gray-100 p-3"
             key={i}
           >
-            <div>{user ? <Download /> : <Lock />}</div>
+            <div className="flex items-center justify-center">
+              {user ? <Download /> : <Lock />}
+            </div>
             <div>
               {user ? (
                 <Typography

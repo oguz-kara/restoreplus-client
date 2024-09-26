@@ -17,6 +17,8 @@ import AddProductToOfferButton from '../components/add-product-to-offer-button'
 import { ArrowLeft } from 'lucide-react'
 import '@/styles/github-markdown.css'
 import { getSimilarProductsByCategoryIds } from '../data/get-similar-products'
+import BackButton from '@/components/common/back-button'
+import Breadcumbs from '@/components/common/breadcumbs'
 
 interface SingleProductPageProps extends PropsWithLang {
   id: string
@@ -26,10 +28,8 @@ interface SingleProductPageProps extends PropsWithLang {
 
 export default async function SingleProductPage({
   lang,
-  redirectBackSearchParam,
   slug,
 }: SingleProductPageProps) {
-  console.log({ slug })
   const dict = await getDictionary(lang)
   const result = await sdk.products.getSingleByQuery(
     {
@@ -51,39 +51,41 @@ export default async function SingleProductPage({
     ? await getSimilarProductsByCategoryIds(ids, result.id, lang)
     : null
 
-  const getRedirectPath = (searchParam?: string) => {
-    if (searchParam) {
-      return `/${searchParam.split('.').join('/')}`
-    }
-
-    return `/product/finder`
-  }
+  const breadcumbsData = [
+    {
+      title: dict.common.home_text,
+      href: '/',
+    },
+    {
+      title: dict.common.products_text,
+      href: '/product/finder',
+    },
+    {
+      title: result.name,
+    },
+  ]
 
   return (
     <Container className="pb-10 px-5">
-      <div className="py-10">
-        <Link
-          lang={lang as any}
-          href={`${getRedirectPath(redirectBackSearchParam)}`}
-        >
-          <Button
-            variant="ghost"
-            className="p-0 hover:bg-transparent hover:text-gray-500"
-          >
-            <ArrowLeft className="mr-1" />
-            {dict.product.single_product_back_button_text}
-          </Button>
-        </Link>
+      <div className="flex justify-between flex-wrap items-center py-10">
+        <BackButton className="p-0" />
+        <Breadcumbs
+          className="border-none px-2 py-2"
+          lang={lang}
+          data={breadcumbsData}
+        />
       </div>
       <div className="flex flex-col lg:flex-row">
         <div className="flex-1 mb-10 lg:mb-0">
-          <Image
-            className="object-cover w-full rounded-md"
-            src={`${serverConfig.remoteUrl}/${result?.featuredImage?.path}`}
-            width={300}
-            height={300}
-            alt={result?.featuredImage?.alt || ''}
-          />
+          <div className="bg-gray-100 rounded-lg">
+            <Image
+              className="object-cover w-full rounded-md"
+              src={`${serverConfig.remoteUrl}/${result?.featuredImage?.path}`}
+              width={300}
+              height={300}
+              alt={result?.featuredImage?.alt || ''}
+            />
+          </div>
         </div>
         <div className="flex-[2] lg:px-10">
           <div>
@@ -96,14 +98,14 @@ export default async function SingleProductPage({
               </Typography>
               <Typography
                 as="h3"
-                className="pb-5 text-md text-gray-700 font-normal "
+                className="pb-5 text-lg text-gray-700 font-normal "
               >
                 {result?.translation?.productType}
               </Typography>
             </div>
             <Typography
               as="h3"
-              className="pb-5 text-md text-gray-700 font-normal leading-7"
+              className="pb-5 text-lg text-gray-700 font-normal leading-7"
             >
               {result.translation.metaDescription}
             </Typography>
@@ -111,10 +113,13 @@ export default async function SingleProductPage({
           </div>
           <div>
             <Section className="p-0">
-              <MdxRenderer mdxText={result.translation.description} />
+              <MdxRenderer className="font-barlow" mdxText={result.translation.description} />
             </Section>
             {result?.documents?.length > 0 && (
-              <Section>
+              <Section className="p-0 py-3">
+                <Typography as="h3" className="py-3">
+                  {dict.product.product_page_technical_data_sheets_title}
+                </Typography>
                 <ListDocuments
                   documents={result.documents}
                   lang={lang as any}
@@ -122,8 +127,8 @@ export default async function SingleProductPage({
               </Section>
             )}
             {data?.length && data?.length > 0 && (
-              <Section>
-                <Typography className="py-5 pb-10" as="h3">
+              <Section className="p-0 py-3">
+                <Typography className="py-3" as="h3">
                   {dict.product.similar_products_text}
                 </Typography>
                 <ListProductCards lang={lang as any} products={data} />

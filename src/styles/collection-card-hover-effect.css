@@ -1,0 +1,20 @@
+.product-series {
+}
+
+.product-series-item:hover .product-series-item-content {
+  background: linear-gradient(
+    to top,
+    rgba(31, 31, 31, 1) 0%,
+    rgba(31, 31, 31, 0.3) 70%
+  ) !important;
+}
+
+.product-series-item:hover {
+  outline: 4px solid rgba(250, 183, 0, 0.5) !important;
+}
+
+.product-series-item:hover
+  .product-series-item-content
+  .product-series-item-title {
+  color: rgba(250, 183, 0) !important;
+}
