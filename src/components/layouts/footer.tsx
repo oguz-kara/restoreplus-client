@@ -34,7 +34,7 @@ export default async function Footer({ lang }: PropsWithLang) {
   const dict = await getDictionary(lang)
 
   return (
-    <footer className="relative z-50 px-5 bg-foreground text-white bg-gradient-to-r from-[#1e1e27] to-[#313140]">
+    <footer className="relative z-50 rounded-lg px-5 bg-foreground text-white bg-gradient-to-r from-[#1e1e27] to-[#313140]">
       <Container>
         <div className="grid lg:grid-cols-2">
           <div className="py-10">

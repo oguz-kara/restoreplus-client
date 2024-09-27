@@ -42,8 +42,8 @@ const controlStyles = {
   nonFocus: 'border-border',
 }
 const placeholderStyles = 'text-muted-foreground text-sm ml-1 px-2'
-const selectInputStyles = 'text-foreground text-sm ml-1 px-2 '
-const valueContainerStyles = 'text-foreground text-sm px-2 py-2'
+const selectInputStyles = 'text-foreground text-sm ml-1 px-2 uppercase'
+const valueContainerStyles = 'text-foreground text-sm px-2 py-2 uppercase'
 const singleValueStyles = 'ml-1'
 const multiValueStyles =
   'ml-1 bg-background border border-border rounded-0 items-center py-0.5 pl-2 pr-1 gap-1.5'
@@ -57,7 +57,7 @@ const dropdownIndicatorStyles = 'p-1 hover:text-foreground text-gray-500'
 const menuStyles =
   'mt-2 p-2 border border-border bg-background text-sm rounded-0'
 const optionsStyle =
-  'bg-background p-2 border-0 text-base hover:bg-gray-100 hover:cursor-pointer'
+  'bg-background p-2 border-0 text-base hover:bg-gray-100 hover:cursor-pointer uppercase'
 const groupHeadingStyles = 'ml-3 mt-2 mb-1 text-gray-500 text-sm bg-background'
 const noOptionsMessageStyles = 'text-muted-foreground bg-background'
 

@@ -65,6 +65,7 @@ export default function CategoriesDrawer({
                         width={50}
                         height={50}
                         alt="test"
+                        priority={true}
                       />
                     </div>
                     <div>

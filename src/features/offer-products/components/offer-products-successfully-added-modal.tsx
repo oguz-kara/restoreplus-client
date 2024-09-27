@@ -37,7 +37,7 @@ export default function OfferProductsSuccessfullyAddedModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[410px] p-5">
         <DialogHeader className="p-4 text-left">
-          <DialogTitle>{dict.product.offer_products_success_title}</DialogTitle>
+          <DialogTitle className="uppercase">{dict.product.offer_products_success_title}</DialogTitle>
           <DialogDescription>
             {dict.product.offer_product_success_description}
           </DialogDescription>
@@ -54,7 +54,7 @@ export default function OfferProductsSuccessfullyAddedModal({
                   />
                 </div>
                 <div>
-                  <Typography>{product.product?.name}</Typography>
+                  <Typography as="h5" className="font-semibold uppercase">{product.product?.name}</Typography>
                   <Typography className="text-xs">
                     {product.product?.translation.productType}
                   </Typography>

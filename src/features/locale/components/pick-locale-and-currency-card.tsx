@@ -123,7 +123,7 @@ export default function PickLocaleAndCurrencyCard({
   return (
     <Card className={cn('lg:w-[300px]', className)}>
       <CardHeader>
-        <Typography as="h6" className="font-[500] text-gray-700">
+        <Typography as="h6" className="font-[500] text-gray-700 uppercase">
           {dictionary.navbar.set_language_and_currency_title}
         </Typography>
         <Typography className="text-xs text-gray-700">
@@ -132,7 +132,7 @@ export default function PickLocaleAndCurrencyCard({
       </CardHeader>
       <CardContent>
         <div className="mb-2">
-          <Typography className="text-sm mb-1 text-gray-700">
+          <Typography className="text-sm mb-1 text-gray-700 uppercase">
             {dictionary.common.language_text}
           </Typography>
           {!isLocalesPending ? (

@@ -58,7 +58,7 @@ export default function OfferProductsDrawer() {
                         />
                       </div>
                       <div>
-                        <Typography>{item.product.name}</Typography>
+                        <Typography as="h4" className="uppercase font-semibold">{item.product.name}</Typography>
                         <Typography className="text-xs">
                           {item.product.translation.productType}
                         </Typography>

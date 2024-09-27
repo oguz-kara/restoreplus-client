@@ -22,7 +22,7 @@ export default async function TermConditionsPrivacy({
           </Link>
         </span>
         {` `}
-        <span>{'or (not translated)'}</span>
+        <span>{dict.common.or_text}</span>
         {` `}
         <span className="underline text-blue-500">
           <Link href="/privacy" lang={lang}>

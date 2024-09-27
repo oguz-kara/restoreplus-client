@@ -182,6 +182,8 @@ export type DictionaryType = {
     see_more_use_cases_text: string
     explore_products_text: string
     see_details_text: string
+    see_more_categories_text: string
+    choose_a_category_text: string
   }
   privacy: {
     content: string
@@ -241,6 +243,7 @@ export type DictionaryType = {
     product_page_technical_data_sheets_title:string
   }
   common: {
+    or_text: string
     address_text: string
     data_sheets_text: string
     title_text: string
