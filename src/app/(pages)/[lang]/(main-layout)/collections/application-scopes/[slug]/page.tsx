@@ -1,11 +1,8 @@
 import Breadcumbs from '@/components/common/breadcumbs'
 import Container from '@/components/common/container'
-import MainBanner from '@/components/common/main-banner'
 import SearchInput from '@/components/common/search-input'
 import { Alert } from '@/components/ui/alert'
-import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
-import CollectionCard from '@/features/collections/components/collection-card'
 import CollectionProductCard from '@/features/collections/components/collection-product-card'
 import { searchProductsByApplicationSlug } from '@/features/collections/data/search-products-by-application-slug'
 import { getDictionary } from '@/i18n/get-dictionary'
@@ -39,7 +36,7 @@ export default async function Page({
 
   if (!applicationScope || applicationScope.message) return notFound()
 
-  const { data: products } = await searchProductsByApplicationSlug({
+  const { data: products, pagination } = await searchProductsByApplicationSlug({
     slug,
     term: q || '',
     lang,
@@ -99,7 +96,7 @@ export default async function Page({
             </Alert>
           </div>
         ) : (
-          <div className="product-series grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-5 flex-col md:flex-row flex-wrap px-2 py-5">
+          <div className="product-series grid auto-rows-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-5 flex-col md:flex-row flex-wrap px-2 py-5">
             {(products as Product[]).map((item) => (
               <CollectionProductCard key={item.id} product={item} lang={lang} />
             ))}

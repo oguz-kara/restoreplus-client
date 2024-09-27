@@ -9,18 +9,19 @@ export const searchProductsByApplicationSlug = async ({
   lang: string
   term: string
 }) => {
+  console.log({ slug, lang, term })
   return await sdk.products.getAllByQuery(
     {
       where: {
         AND: [
           {
             name: {
-              contains: term || '',
+              contains: term || undefined,
               mode: 'insensitive',
             },
           },
           {
-            categories: {
+            applicationScopes: {
               some: {
                 translations: { some: { slug, locale: { locale: lang } } },
               },

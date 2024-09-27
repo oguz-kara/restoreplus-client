@@ -179,6 +179,9 @@ export type DictionaryType = {
     section_partner_button_text: string
     section_partner_title_2: string
     recommended_for_you_text: string
+    see_more_use_cases_text: string
+    explore_products_text: string
+    see_details_text: string
   }
   privacy: {
     content: string

@@ -41,7 +41,8 @@ export default function PickLocaleAndCurrencyCard({
   }
 
   const getUrlWithNewLocale = (newLocale: string) => {
-    const url = new URL(location.href)
+    const origin = window.location.origin
+    const url = new URL(origin)
     const pathSegments = url.pathname.split('/').filter(Boolean)
 
     const isLocalePresent = /^[a-z]{2}$/.test(pathSegments[0])

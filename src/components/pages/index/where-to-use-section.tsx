@@ -1,19 +1,29 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import Link from '@/components/ui/link'
 import Typography from '@/components/ui/typography'
 import { remoteUrl } from '@/config/get-env-fields'
+import { useDictionary } from '@/context/use-dictionary-v2'
 import { SupportedLocale } from '@/i18n'
-import { getDictionary } from '@/i18n/get-dictionary'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
-export default async function WhereToUseSection({
+export default function WhereToUseSection({
   lang,
   applicationScopes,
 }: {
   lang: SupportedLocale
   applicationScopes: ApplicationScope[] | null | undefined | WithMessageType
 }) {
-  const dict = await getDictionary(lang)
+  const router = useRouter()
+  const { dictionary: dict } = useDictionary()
+
+  const handleSeeDetailsButtonClick = (slug: string) => {
+    router.push(`/application-scope/${slug}`)
+  }
+  const handleSeeProductsButtonClick = (slug: string) => {
+    router.push(`/collections/application-scopes/${slug}`)
+  }
 
   if ((applicationScopes as WithMessageType)?.message || !applicationScopes)
     return null
@@ -54,9 +64,30 @@ export default async function WhereToUseSection({
                 >
                   {item.translation.name}
                 </Typography>
-                <div className="text-center">
-                  <Button size="lg">
-                    {dict.index.section_one_button_text}
+                <div className="flex gap-2">
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleSeeDetailsButtonClick(item.translation.slug)
+                    }}
+                    className="flex-1"
+                    size="sm"
+                    role="link"
+                    aria-label={dict.index.see_details_text}
+                  >
+                    {dict.index.see_details_text}
+                  </Button>
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleSeeProductsButtonClick(item.translation.slug)
+                    }}
+                    className="flex-1"
+                    size="sm"
+                    role="link"
+                    aria-label={dict.index.explore_products_text}
+                  >
+                    {dict.index.explore_products_text}
                   </Button>
                 </div>
               </div>
@@ -65,9 +96,9 @@ export default async function WhereToUseSection({
         ))}
       </div>
       <div className="text-center">
-        <Link href={`/collections/application-scope`} lang={lang}>
+        <Link href={`/collections/application-scopes`} lang={lang}>
           <Button variant="bright-accent" size="xl" className="">
-            See more use cases
+            {dict.index.see_more_use_cases_text}
           </Button>
         </Link>
       </div>

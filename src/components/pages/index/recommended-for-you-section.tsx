@@ -37,8 +37,12 @@ export default async function RecommendedForYouSection({
             <div className="flex-1 ">
               <Typography
                 as="h4"
-                className="text-2xl font-semibold mb-2 text-primary"
-              >{`${product.name} ${product.translation.productType}`}</Typography>
+                className="text-2xl font-semibold text-primary uppercase"
+              >{`${product.name}`}</Typography>
+              <Typography
+                as="h5"
+                className="text-md font-semibold mb-2 uppercase"
+              >{`${product.translation.productType}`}</Typography>
               <Typography as="p" className="mb-7">
                 {product.translation.metaDescription}
               </Typography>
