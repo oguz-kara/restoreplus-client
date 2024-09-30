@@ -29,7 +29,8 @@ export default function HeroSection({
       <MainBanner
         backgroundUrl="url(/images/index-slides/slide-1.jpg) no-repeat center center/cover"
         buttonText={dict.common.data_sheets_text}
-        decorationImageUrl="/data-sheets"
+        linkHref="/data-sheets"
+        decorationImageUrl="/images/index-slides/slider-decoration-foreground.png"
         lang={lang}
         productImageUrl="/images/index-slides/slide-2-product-image.png"
       >
