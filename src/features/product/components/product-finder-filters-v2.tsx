@@ -389,7 +389,7 @@ export default function ProductFinderFiltersV2({
                   disabled={
                     selectedSector.applicationScopes &&
                     selectedSector.applicationScopes.length > 0 &&
-                    selectedSector.sectorId
+                    selectedSector.sectorId 
                       ? false
                       : true
                   }
