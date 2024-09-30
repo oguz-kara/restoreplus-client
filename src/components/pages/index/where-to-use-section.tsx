@@ -48,50 +48,45 @@ export default function WhereToUseSection({
               backgroundSize: 'cover',
             }}
           >
-            <Link
-              href={`/application-scope/${item.translation.slug}`}
-              lang={lang}
+            <div
+              className="h-full p-5 flex flex-col justify-between rounded-lg"
+              style={{
+                backgroundColor: 'rgba(0,0,0,0.4)',
+              }}
             >
-              <div
-                className="h-full p-5 flex flex-col justify-between rounded-lg"
-                style={{
-                  backgroundColor: 'rgba(0,0,0,0.4)',
-                }}
+              <Typography
+                as="h3"
+                className="text-white text-3xl uppercase font-semibold"
               >
-                <Typography
-                  as="h3"
-                  className="text-white text-3xl uppercase font-semibold"
+                {item.translation.name}
+              </Typography>
+              <div className="flex gap-2">
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleSeeDetailsButtonClick(item.translation.slug)
+                  }}
+                  className="flex-1"
+                  size="sm"
+                  role="link"
+                  aria-label={dict.index.see_details_text}
                 >
-                  {item.translation.name}
-                </Typography>
-                <div className="flex gap-2">
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleSeeDetailsButtonClick(item.translation.slug)
-                    }}
-                    className="flex-1"
-                    size="sm"
-                    role="link"
-                    aria-label={dict.index.see_details_text}
-                  >
-                    {dict.index.see_details_text}
-                  </Button>
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleSeeProductsButtonClick(item.translation.slug)
-                    }}
-                    className="flex-1"
-                    size="sm"
-                    role="link"
-                    aria-label={dict.index.explore_products_text}
-                  >
-                    {dict.index.explore_products_text}
-                  </Button>
-                </div>
+                  {dict.index.see_details_text}
+                </Button>
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleSeeProductsButtonClick(item.translation.slug)
+                  }}
+                  className="flex-1"
+                  size="sm"
+                  role="link"
+                  aria-label={dict.index.explore_products_text}
+                >
+                  {dict.index.explore_products_text}
+                </Button>
               </div>
-            </Link>
+            </div>
           </div>
         ))}
       </div>

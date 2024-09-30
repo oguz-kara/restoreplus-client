@@ -119,6 +119,7 @@ export default async function Page({ params: { lang, slug } }: PageProps) {
 
   const { data: products } = (await sdk.products.getAllByQuery(
     {
+      take: '4',
       where: {
         applicationScopes: {
           some: {
@@ -166,6 +167,7 @@ export default async function Page({ params: { lang, slug } }: PageProps) {
           listOfOtherContent={otherApplicationScopes || []}
           mainContent={applicationScope}
           products={products || []}
+          path={`/collections/application-scopes/${slug}`}
         />
       </Container>
     </div>

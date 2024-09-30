@@ -124,7 +124,7 @@ export default function NavbarMobile({
                     <Home size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700 py-2 font-semibold font-barlowCondensed"
+                      className="text-gray-700 py-2 font-semibold font-barlowCondensed uppercase"
                     >
                       {dict.common.home_text}
                     </Typography>
@@ -139,7 +139,7 @@ export default function NavbarMobile({
                     <SearchCheck size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700  py-2 font-semibold font-barlowCondensed"
+                      className="text-gray-700  py-2 font-semibold font-barlowCondensed uppercase"
                     >
                       {dict.navbar.find_product_text}
                     </Typography>
@@ -152,7 +152,7 @@ export default function NavbarMobile({
                   <List size="24px" color="#606060" />
                   <Typography
                     as="p"
-                    className="text-gray-700  py-2 font-semibold font-barlowCondensed"
+                    className="text-gray-700  py-2 font-semibold font-barlowCondensed uppercase"
                   >
                     {dict.common.categories_text}
                   </Typography>
@@ -164,7 +164,7 @@ export default function NavbarMobile({
                   <Wrench size="24px" color="#606060" />
                   <Typography
                     as="p"
-                    className="text-gray-700  py-2 font-semibold font-barlowCondensed"
+                    className="text-gray-700  py-2 font-semibold font-barlowCondensed uppercase"
                   >
                     {dict.common.application_scopes_text}
                   </Typography>
@@ -178,11 +178,23 @@ export default function NavbarMobile({
                     <Building2 size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700  py-2 font-semibold font-barlowCondensed"
+                      className="text-gray-700  py-2 font-semibold font-barlowCondensed uppercase"
                     >
                       {dict.about.hero_title}
                     </Typography>
                   </Link>
+                </li>
+                <li
+                  className="border-b border-gray-200 py-3 flex items-center gap-5 cursor-pointer"
+                  onClick={() => setLocalesAndCurrenciesOpen(true)}
+                >
+                  <Languages size="24px" color="#606060" />
+                  <Typography
+                    as="p"
+                    className="text-gray-700  py-2 font-semibold font-barlowCondensed uppercase"
+                  >
+                    {dict.navbar.languages_and_currencies_text}
+                  </Typography>
                 </li>
                 {!user ? (
                   <>
@@ -195,7 +207,7 @@ export default function NavbarMobile({
                         <LogIn size="24px" color="#606060" />
                         <Typography
                           as="p"
-                          className="text-gray-700 font-bold font-barlowCondensed"
+                          className="text-gray-700 font-bold font-barlowCondensed uppercase"
                         >
                           {dict.common.login_text}
                         </Typography>
@@ -210,7 +222,7 @@ export default function NavbarMobile({
                         <User size="24px" color="#606060" />
                         <Typography
                           as="p"
-                          className="text-gray-700 font-bold font-barlowCondensed"
+                          className="text-gray-700 font-bold font-barlowCondensed uppercase"
                         >
                           {dict.register.title}
                         </Typography>
@@ -228,7 +240,7 @@ export default function NavbarMobile({
                         <User size="24px" color="#606060" />
                         <Typography
                           as="p"
-                          className="text-gray-700 font-bold px-2 font-barlowCondensed"
+                          className="text-gray-700 font-bold px-2 font-barlowCondensed uppercase"
                         >
                           {dict.common.profile_text}
                         </Typography>
@@ -242,7 +254,7 @@ export default function NavbarMobile({
                         <LogOut color="#606060" size="24px" />
                         <Typography
                           as="p"
-                          className="text-gray-700 font-bold px-2 font-barlowCondensed"
+                          className="text-gray-700 font-bold px-2 font-barlowCondensed uppercase"
                         >
                           {dict.navbar.logout_text}
                         </Typography>
@@ -259,23 +271,11 @@ export default function NavbarMobile({
                     <Handshake size="24px" color="#606060" />
                     <Typography
                       as="p"
-                      className="text-gray-700 font-bold font-barlowCondensed"
+                      className="text-gray-700 font-bold font-barlowCondensed uppercase"
                     >
                       {dict.common.partner_with_us_text}
                     </Typography>
                   </Link>
-                </li>
-                <li
-                  className="border-b border-gray-200 py-3 flex items-center gap-5 cursor-pointer"
-                  onClick={() => setLocalesAndCurrenciesOpen(true)}
-                >
-                  <Languages size="24px" color="#606060" />
-                  <Typography
-                    as="p"
-                    className="text-gray-700  py-2 font-semibold font-barlowCondensed"
-                  >
-                    {dict.navbar.languages_and_currencies_text}
-                  </Typography>
                 </li>
               </ul>
             </div>

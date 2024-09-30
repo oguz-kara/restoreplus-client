@@ -25,7 +25,7 @@ export function ListersHeroSection({
             <div className="relative flex flex-col gap-5 items-center pb-5">
               <Typography
                 as="h1"
-                className="lg:text-5xl md:text-3xl font-bold text-white capitalize"
+                className="lg:text-5xl md:text-3xl font-bold text-white uppercase"
               >
                 {data.translation.name}
               </Typography>

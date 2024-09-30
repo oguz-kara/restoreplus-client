@@ -16,12 +16,14 @@ interface DocumentContentSectionProps {
     sidebarTitle: string
     discoverProductsText: string
   }
+  path?: string
 }
 
 export default function DocumentContentSection({
   mainContent,
   listOfOtherContent,
   products,
+  path,
   lang,
   content,
 }: DocumentContentSectionProps) {
@@ -32,7 +34,7 @@ export default function DocumentContentSection({
           {listOfOtherContent && listOfOtherContent.length > 0 && (
             <div className="bg-gray-50 md:p-5">
               <div>
-                <Typography className="p-2 text-2xl mb-5">
+                <Typography className="p-2 text-2xl mb-5 uppercase">
                   {content.sidebarTitle}
                 </Typography>
               </div>
@@ -84,7 +86,7 @@ export default function DocumentContentSection({
                   )}
                 </Typography>
               </div>
-              <ListProductCards lang={lang} products={products} />
+              <ListProductCards lang={lang} products={products} path={path} />
             </div>
           ) : null}
         </div>

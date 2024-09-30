@@ -243,6 +243,7 @@ export type DictionaryType = {
     product_page_technical_data_sheets_title:string
   }
   common: {
+    see_all_text: string
     or_text: string
     address_text: string
     data_sheets_text: string

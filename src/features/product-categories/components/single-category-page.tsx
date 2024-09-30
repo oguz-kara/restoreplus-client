@@ -67,6 +67,7 @@ export default async function SingleCategoryPage({ slug, lang }: PageProps) {
           listOfOtherContent={otherCategories || []}
           mainContent={category}
           products={products || []}
+          path={`/collections/product-categories/${slug}`}
         />
       </Container>
     </div>
