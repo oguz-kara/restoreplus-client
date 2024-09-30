@@ -1,20 +1,37 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import Autoplay from 'embla-carousel-autoplay'
+
 import { cn } from '@/lib/utils'
 
 interface CarouselProps {
   navigation?: boolean
+  loop?: boolean
 }
 
 export function Carousel({
   children,
   className,
+  loop = true,
   navigation = false,
 }: PropsWithChildren & PropsWithClassName & CarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel()
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop,
+      duration: 20,
+      align: 'start',
+      direction: 'ltr',
+      axis: 'x',
+      containScroll: 'trimSnaps',
+      dragFree: false,
+    },
+    [Autoplay({ delay: 7000 })]
+  )
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
 
+/*************  ✨ Codeium Command ⭐  *************/
+/******  077fedaa-0794-4ec8-9b24-584b37b65821  *******/
   const onSelect = () => {
     if (emblaApi) {
       setSelectedIndex(emblaApi.selectedScrollSnap())
@@ -36,7 +53,7 @@ export function Carousel({
   }, [emblaApi])
 
   return (
-    <div className="carousel-container relative max-w-[100vw] overflow-hidden">
+    <div className="carousel-container relative max-w-[100vw] overflow-hidden ease-in-out">
       <div className={cn('overflow-hidden', className)} ref={emblaRef}>
         <div className="flex">
           {React.Children.map(children, (child) => (

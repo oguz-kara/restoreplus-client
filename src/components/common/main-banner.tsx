@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 interface MainBannerProps {
   backgroundUrl: string
   buttonText?: string
+  linkHref?: string
   productImageUrl?: string
   decorationImageUrl?: string
 }
@@ -19,6 +20,7 @@ export default function MainBanner({
   children,
   lang,
   buttonText,
+  linkHref,
   decorationImageUrl,
   productImageUrl,
   className,
@@ -48,7 +50,7 @@ export default function MainBanner({
             </Typography>
           </div>
           {buttonText && (
-            <Link href="/product/finder" lang={lang}>
+            <Link href={linkHref || '/'} lang={lang}>
               <Button
                 variant="bright-accent"
                 className="rounded-none lg:px-10 lg:py-7"

@@ -24,9 +24,21 @@ export default async function page({ params: { lang } }: ParamsWithLang) {
     { lang }
   )
 
+  const foodGradeProductCategory = await sdk.productCategories.getById(
+    process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? 24 : 44,
+    { lang, isAdmin: true }
+  )
+
+  console.log({ foodGradeProductCategory })
+
+  const foodGradeCategorySlug =
+    foodGradeProductCategory && !foodGradeProductCategory.message
+      ? foodGradeProductCategory?.translation.slug
+      : undefined
+
   return (
     <div>
-      <HeroSection lang={lang} />
+      <HeroSection lang={lang} categorySlug={foodGradeCategorySlug} />
       <Container>
         <ProductSeriesSection productSeries={productSeries} lang={lang} />
         <WhereToUseSection lang={lang} applicationScopes={applicationScopes} />
