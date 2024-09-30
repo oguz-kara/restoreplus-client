@@ -24,14 +24,8 @@ export default function PickLocaleAndCurrencyCard({
   const { data: localeData, isPending: isLocalesPending } = useQuery([
     '/supported-locales',
   ])
-  const [currentLang, setCurrentLang] = useState<{
-    label: string
-    value: string | number
-  } | null>(null)
-  const [currentCurrency, setCurrentCurrency] = useState<{
-    label: string
-    value: string | number
-  } | null>(null)
+  const [currentLang, setCurrentLang] = useState<string | null>(null)
+  const [currentCurrency, setCurrentCurrency] = useState<string | null>(null)
 
   const getCurrencyByLang = (lang: Locale) => {
     if (lang === 'tr') return 'TRY'
@@ -58,16 +52,16 @@ export default function PickLocaleAndCurrencyCard({
 
   const handleSaveButton = (e: any) => {
     e.preventDefault()
-    setCookie('lang', currentLang?.value, {
+    setCookie('lang', currentLang, {
       expires: new Date('2030'),
       path: '/',
     })
-    setCookie('currency', currentCurrency?.value, {
+    setCookie('currency', currentCurrency, {
       expires: new Date('2030'),
       path: '/',
     })
 
-    const href = getUrlWithNewLocale(currentLang?.value as string)
+    const href = getUrlWithNewLocale(currentLang as string)
     location.href = href
   }
 
@@ -82,11 +76,7 @@ export default function PickLocaleAndCurrencyCard({
           (item: Currency) => item.currencyCode === cookies.currency
         )
 
-        if (currency)
-          setCurrentCurrency({
-            label: currency.currencyName,
-            value: currency.currencyCode,
-          })
+        if (currency) setCurrentCurrency(currency.currencyCode)
       } else {
         const currencyByLang = getCurrencyByLang(lang)
         const currency = (currencyData as any)?.data.find(
@@ -99,7 +89,7 @@ export default function PickLocaleAndCurrencyCard({
         setCurrentCurrency(currency)
       }
 
-      setCurrentLang({ label: defaultLang?.name, value: defaultLang?.locale })
+      setCurrentLang(defaultLang.locale)
 
       setIsInitialValue(true)
     }
@@ -133,11 +123,45 @@ export default function PickLocaleAndCurrencyCard({
           <Typography className="text-sm mb-1 text-gray-700 uppercase">
             {dictionary.common.language_text}
           </Typography>
+          {!isLocalesPending ? (
+            <select className="w-full p-2" name="currentLang" id="currentLang">
+              {(localeData as any)?.data?.map((item: SupportedLocale) => (
+                <option
+                  key={item.locale}
+                  value={item.locale}
+                  selected={item.locale === currentLang}
+                >
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <Skeleton className="h-[40px] w-full" />
+          )}
         </div>
         <div>
           <Typography className="text-sm mb-1 text-gray-700">
             {dictionary.common.currency_text}
           </Typography>
+          {!isCurrenciesPending ? (
+            <select
+              className="w-full p-2"
+              name="currencyCurrency"
+              id="currentCurrency"
+            >
+              {(currencyData as any)?.data?.map((item: Currency) => (
+                <option
+                  key={item.currencyCode}
+                  value={item.currencyCode}
+                  selected={item.currencyCode === currentCurrency}
+                >
+                  {item.currencyCode}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <Skeleton className="h-[40px] w-full" />
+          )}
         </div>
       </CardContent>
       <CardFooter>

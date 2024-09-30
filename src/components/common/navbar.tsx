@@ -38,6 +38,7 @@ import { useDictionary } from '@/context/use-dictionary-v2'
 import { ScrollArea } from '../ui/scroll-area'
 import { useMutation } from '@/hooks/use-mutation'
 import PickLocaleAndCurrencyCard from '@/features/locale/components/pick-locale-and-currency-card'
+import LanguageCurrencyPicker from '@/features/locale/components/language-currency-picker'
 
 export function NavigationBar({
   categoryData,
@@ -535,8 +536,8 @@ function RightNavigation({ user }: { user: ActiveUser | null }) {
             <NavigationMenuTrigger className="bg-transparent">
               <Globe />
             </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <PickLocaleAndCurrencyCard />
+            <NavigationMenuContent className="min-w-[300px]">
+              <LanguageCurrencyPicker  />
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>

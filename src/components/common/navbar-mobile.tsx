@@ -34,7 +34,7 @@ import { ScrollArea } from '../ui/scroll-area'
 import { useDictionary } from '@/context/use-dictionary-v2'
 import CategoriesDrawer from './categories-drawer'
 import ApplicationScopesDrawer from './application-scopes-drawer'
-import LanguageCurrencyDrawer from './language-currency-drawer'
+import LanguageCurrencyDrawer from '../../features/locale/components/language-currency-drawer'
 
 export default function NavbarMobile({
   lang,
