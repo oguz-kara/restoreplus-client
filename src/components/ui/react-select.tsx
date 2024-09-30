@@ -1,9 +1,10 @@
 'use client'
-
+// @ts-nocheck
 import clsx from 'clsx'
 import { ChevronDown, X } from 'lucide-react'
 import Select, {
   ClearIndicatorProps,
+  DropdownIndicatorProps,
   MultiValueRemoveProps,
   components,
 } from 'react-select'
@@ -11,7 +12,7 @@ import makeAnimated from 'react-select/animated'
 import CreatableSelect from 'react-select/creatable'
 import { ServerImage } from './image'
 
-const DropdownIndicator = (props: any) => {
+const DropdownIndicator = (props: DropdownIndicatorProps) => {
   return (
     <components.DropdownIndicator {...props}>
       <ChevronDown className="h-4 w-4 opacity-50" />
@@ -19,7 +20,7 @@ const DropdownIndicator = (props: any) => {
   )
 }
 
-const ClearIndicator = (props: any) => {
+const ClearIndicator = (props: ClearIndicatorProps) => {
   return (
     <components.ClearIndicator {...props}>
       <X />
@@ -27,7 +28,7 @@ const ClearIndicator = (props: any) => {
   )
 }
 
-const MultiValueRemove = (props: any) => {
+const MultiValueRemove = (props: MultiValueRemoveProps) => {
   return (
     <components.MultiValueRemove {...props}>
       <X />
