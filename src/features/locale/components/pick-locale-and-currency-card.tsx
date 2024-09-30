@@ -6,11 +6,9 @@ import Typography from '@/components/ui/typography'
 import { Locale } from '@/i18n/types'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import i18n from '@/i18n'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useQuery } from '@/hooks/use-query'
 import { useDictionary } from '@/context/use-dictionary-v2'
-import { ReactSelect } from '@/components/ui/react-select'
 import { cn } from '@/lib/utils'
 
 export default function PickLocaleAndCurrencyCard({
@@ -135,41 +133,11 @@ export default function PickLocaleAndCurrencyCard({
           <Typography className="text-sm mb-1 text-gray-700 uppercase">
             {dictionary.common.language_text}
           </Typography>
-          {!isLocalesPending ? (
-            <ReactSelect
-              isMulti={false}
-              createAble={false}
-              value={currentLang}
-              onChange={(val) => setCurrentLang(val)}
-              options={(localeData as any)?.data?.map(
-                (item: SupportedLocale) => ({
-                  label: item.name,
-                  value: item.locale,
-                })
-              )}
-            />
-          ) : (
-            <Skeleton className="h-[40px] w-full" />
-          )}
         </div>
         <div>
           <Typography className="text-sm mb-1 text-gray-700">
             {dictionary.common.currency_text}
           </Typography>
-          {!isCurrenciesPending ? (
-            <ReactSelect
-              isMulti={false}
-              createAble={false}
-              value={currentCurrency}
-              onChange={(val) => setCurrentCurrency(val)}
-              options={(currencyData as any)?.data?.map((item: Currency) => ({
-                label: item.currencyName,
-                value: item.currencyCode,
-              }))}
-            />
-          ) : (
-            <Skeleton className="h-[40px] w-full" />
-          )}
         </div>
       </CardContent>
       <CardFooter>
