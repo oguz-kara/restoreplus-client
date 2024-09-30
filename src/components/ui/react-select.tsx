@@ -4,7 +4,6 @@ import clsx from 'clsx'
 import { ChevronDown, X } from 'lucide-react'
 import Select, {
   ClearIndicatorProps,
-  DropdownIndicatorProps,
   MultiValueRemoveProps,
   components,
 } from 'react-select'
@@ -12,7 +11,7 @@ import makeAnimated from 'react-select/animated'
 import CreatableSelect from 'react-select/creatable'
 import { ServerImage } from './image'
 
-const DropdownIndicator = (props: DropdownIndicatorProps) => {
+const DropdownIndicator = (props: any) => {
   return (
     <components.DropdownIndicator {...props}>
       <ChevronDown className="h-4 w-4 opacity-50" />
