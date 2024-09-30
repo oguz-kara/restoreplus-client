@@ -25,6 +25,6 @@ jobs:
           script: |
             cd /var/www/restoreplus-client
             git pull origin main
-            pnpm install
-            pnpm build
+            npm install
+            npm run build
             pm2 restart restoreplus-client
