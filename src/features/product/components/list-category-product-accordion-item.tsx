@@ -103,11 +103,11 @@ export default function ListCategoryProductAccordionItem({
             <div>
               <Typography
                 as="h3"
-                className="text-left text-2xl font-bold w-full"
+                className="text-left text-xl md:text-2xl font-bold w-full"
               >
                 <span>{category.name}</span>
               </Typography>
-              <Typography className="text-left text-gray-400 uppercase">
+              <Typography className="text-left text-xs text-gray-400 uppercase">
                 {category.shortDescription}
               </Typography>
             </div>
@@ -132,10 +132,10 @@ export default function ListCategoryProductAccordionItem({
                 (product, i) => (
                   <div
                     key={i}
-                    className="flex justify-between mb-3 bg-gray-100 p-3 rounded-sm"
+                    className="flex flex-col md:flex-row justify-between mb-3 bg-gray-100 p-3 rounded-sm"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col md:flex-row md:items-center gap-3">
                       <div>
                         <ServerImage
                           className="w-[75px] h-[75px] object-contain"
@@ -184,7 +184,7 @@ export default function ListCategoryProductAccordionItem({
                       </div>
                     </div>
                     <div>
-                      <div>
+                      <div className="flex gap-2 py-2 md:block md:py-0 md:gap-0">
                         <ToolTipStyled
                           text={dict.product_finder.add_to_offer_list_tooltip}
                         >

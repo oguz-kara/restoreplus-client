@@ -29,9 +29,9 @@ export default async function RecommendedForYouSection({
         {products.map((product: Product, i: number) => (
           <div
             key={product.id}
-            className="px-8 py-4 bg-white flex flex-col-reverse lg:flex-row min-h-[300px]"
+            className="px-8 py-4 bg-white flex flex-col-reverse lg:flex-row min-h-[250px] rounded-sm"
             style={{
-              boxShadow: '3px 3px 7px 4px rgba(0,0,0,.12)',
+              boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
             }}
           >
             <div className="flex-1 ">

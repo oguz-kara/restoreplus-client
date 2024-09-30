@@ -96,7 +96,7 @@ export default async function ProductFinderPageV2({
             <div>
               <Typography
                 as="h5"
-                className="text-4xl font-bold mb-5 text-gray-700"
+                className="text-xl lg:text-4xl font-bold  text-gray-700"
               >
                 {listCategoryData.reduce(
                   (prev, val) => prev + val.productCount,

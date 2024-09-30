@@ -48,7 +48,7 @@ export default function ListProductTabs({
       <OfferProductsDrawer />
       <div className="flex items-center justify-between py-5">
         {children}
-        <div>
+        <div className="flex">
           <Button
             className={cn('mr-1', showList ? 'bg-primary' : '')}
             variant="outline"
