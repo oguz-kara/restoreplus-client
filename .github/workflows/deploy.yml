@@ -16,15 +16,16 @@ jobs:
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@master
         with:
-          node-version: '22'
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           script: |
+            source ~/.nvm/nvm.sh
+            nvm use 18
             cd /var/www/restoreplus-client
             git pull origin main
-            npm install
-            npm run build
+            pnpm install
+            pnpm build
             pm2 restart restoreplus-client
