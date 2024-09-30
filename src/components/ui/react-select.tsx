@@ -19,7 +19,7 @@ const DropdownIndicator = (props: any) => {
   )
 }
 
-const ClearIndicator = (props: ClearIndicatorProps) => {
+const ClearIndicator = (props: any) => {
   return (
     <components.ClearIndicator {...props}>
       <X />
@@ -27,7 +27,7 @@ const ClearIndicator = (props: ClearIndicatorProps) => {
   )
 }
 
-const MultiValueRemove = (props: MultiValueRemoveProps) => {
+const MultiValueRemove = (props: any) => {
   return (
     <components.MultiValueRemove {...props}>
       <X />
