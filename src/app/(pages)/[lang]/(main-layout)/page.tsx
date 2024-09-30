@@ -36,6 +36,8 @@ export default async function page({ params: { lang } }: ParamsWithLang) {
       ? foodGradeProductCategory?.translation.slug
       : undefined
 
+  // TODO: remove
+
   return (
     <div>
       <HeroSection lang={lang} categorySlug={foodGradeCategorySlug} />
