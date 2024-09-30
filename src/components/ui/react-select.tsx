@@ -1,5 +1,6 @@
 'use client'
 // @ts-nocheck
+/* eslint-disable */
 import clsx from 'clsx'
 import { ChevronDown, X } from 'lucide-react'
 import Select, {
