@@ -3,14 +3,70 @@ import Container from '@/components/common/container'
 import SearchInput from '@/components/common/search-input'
 import { Alert } from '@/components/ui/alert'
 import Typography from '@/components/ui/typography'
+import { serverUrl } from '@/config/get-env-fields'
 import CollectionProductCard from '@/features/collections/components/collection-product-card'
 import { searchProductsByApplicationSlug } from '@/features/collections/data/search-products-by-application-slug'
+import i18n from '@/i18n'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
+import { getProperLanguage } from '@/i18n/utils'
 import { sdk } from '@/restoreplus-sdk'
 import { AlertCircle } from 'lucide-react'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import React from 'react'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const slug = params.slug
+  const lang = params.lang
+  const properLang = getProperLanguage(lang)
+  const dict = await getDictionary(lang)
+
+  const applicationScope = await sdk.applicationScopes.getSingleByQuery(
+    {
+      where: {
+        translations: {
+          some: {
+            slug,
+            locale: {
+              locale: properLang,
+            },
+          },
+        },
+      },
+    },
+    { lang }
+  )
+
+  const localesData = await sdk.supportedLocales.getAllByQuery({ take: 'all' })
+  const languages = localesData.data.map((locale: any) => locale.locale)
+  const alternateLangs = Object.fromEntries(
+    languages.map((lang: SupportedLocale) => [
+      lang,
+      `${serverUrl}/${lang}/collections/application-scopes/${applicationScope?.translation?.slug}`,
+    ])
+  )
+
+  const canonicalUrl =
+    properLang === i18n.defaultLocale
+      ? `${serverUrl}/collections/application-scopes/${applicationScope?.translation?.slug}`
+      : `${serverUrl}/${lang}/collections/application-scopes/${applicationScope?.translation?.slug}`
+
+  return {
+    title: `${
+      dict.collections.high_performance_products_for_the_text
+    } ${applicationScope?.translation?.name.toUpperCase()}`,
+    description:
+      dict.collections.application_scope_meta_description_content.replace(
+        '{{industry}}',
+        applicationScope?.translation?.name.toUpperCase()
+      ),
+    alternates: {
+      canonical: canonicalUrl,
+      languages: alternateLangs,
+    },
+  }
+}
 
 export default async function Page({
   params: { lang, slug },
@@ -36,7 +92,7 @@ export default async function Page({
 
   if (!applicationScope || applicationScope.message) return notFound()
 
-  const { data: products, pagination } = await searchProductsByApplicationSlug({
+  const { data: products } = await searchProductsByApplicationSlug({
     slug,
     term: q || '',
     lang,

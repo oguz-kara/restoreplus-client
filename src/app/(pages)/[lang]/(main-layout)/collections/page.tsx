@@ -13,10 +13,7 @@ import React from 'react'
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const lang = params.lang
 
-  const seoData = await getSeoPageByPathnameAndLocale(
-    '/collections/product-series',
-    lang
-  )
+  const seoData = await getSeoPageByPathnameAndLocale('/collections', lang)
 
   return seoData
 }
@@ -36,10 +33,6 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
     },
     {
       title: dict.collections.collections_text,
-      href: '/collections',
-    },
-    {
-      title: dict.collections.product_series_header_text,
     },
   ]
 
@@ -69,15 +62,23 @@ export default async function Page({ params: { lang } }: ParamsWithLang) {
       </MainBanner>
       <Container>
         <div className="product-series grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-2 gap-y-5 flex-col md:flex-row flex-wrap p-2 py-10">
-          {(productSeries as ProductSerie[]).map((item) => (
-            <CollectionCard
-              key={item.id}
-              imagePath={item.featuredImage?.path || '/'}
-              title={item.name}
-              href={`/collections/product-series/${item.translation.slug}`}
-              lang={lang}
-            />
-          ))}
+          <CollectionCard
+            title={dict.common.application_scopes_text}
+            href={`/collections/application-scopes`}
+            lang={lang}
+          />
+
+          <CollectionCard
+            title={dict.common.product_categories_text}
+            href={`/collections/product-categories`}
+            lang={lang}
+          />
+
+          <CollectionCard
+            title={dict.common.product_series_text}
+            href={`/collections/product-series`}
+            lang={lang}
+          />
         </div>
       </Container>
     </div>

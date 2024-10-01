@@ -4,9 +4,10 @@ import Typography from '../../../components/ui/typography'
 import Link from '../../../components/ui/link'
 import { PropsWithLang } from '@/i18n/types'
 import '../../../styles/collection-card-hover-effect.css'
+import { cn } from '@/lib/utils'
 
 interface CollectionCardProps extends PropsWithLang {
-  imagePath: string
+  imagePath?: string
   title: string
   href?: string
 }
@@ -19,12 +20,17 @@ export default function CollectionCard({
 }: CollectionCardProps) {
   return (
     <div
-      className="product-series-item h-[300px]"
+      className={cn(
+        'product-series-item h-[300px]',
+        !imagePath ? 'bg-[rgba(0,0,0,0.2)]' : null
+      )}
       style={{
-        backgroundImage: `url(${remoteUrl}${imagePath})`,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
+        ...(imagePath && {
+          backgroundImage: `url(${remoteUrl}${imagePath})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }),
       }}
     >
       <Link href={href || '/'} lang={lang}>

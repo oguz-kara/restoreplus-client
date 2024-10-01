@@ -5,11 +5,24 @@ import SearchInput from '@/components/common/search-input'
 import { Alert } from '@/components/ui/alert'
 import Typography from '@/components/ui/typography'
 import CollectionCard from '@/features/collections/components/collection-card'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { ParamsWithLang } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
 import { AlertCircle } from 'lucide-react'
+import { Metadata } from 'next'
 import React from 'react'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale(
+    '/collections/product-categories',
+    lang
+  )
+
+  return seoData
+}
 
 export default async function Page({
   params: { lang },

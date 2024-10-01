@@ -11,6 +11,7 @@ import { useCookies } from 'react-cookie'
 import { Locale } from '@/i18n/types'
 import { cn } from '@/lib/utils'
 import { useQuery } from '@/hooks/use-query'
+import { Loader } from 'lucide-react'
 
 export default function LanguageCurrencyPicker() {
   const { isPending: isCurrenciesPending, data: currencyData } = useQuery([
@@ -136,7 +137,7 @@ export default function LanguageCurrencyPicker() {
                 </div>
               ))
             ) : (
-              <Typography className="p-5">Nothing to show!</Typography>
+              <Loader className="animate-spin text-primary" />
             )}
           </div>
         </div>

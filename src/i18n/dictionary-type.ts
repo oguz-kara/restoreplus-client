@@ -240,10 +240,14 @@ export type DictionaryType = {
     sector_for_scopes_text: string
     product_category_discover_restoreplus_products_for_text: string
     should_login_to_dowload_login_text: string
-    product_page_technical_data_sheets_title:string
+    product_page_technical_data_sheets_title: string
   }
   common: {
+    for_text: string
+    high_performance_solutions_text: string
     see_all_text: string
+    product_categories_text: string
+    product_series_text: string
     or_text: string
     address_text: string
     data_sheets_text: string
@@ -380,5 +384,10 @@ export type DictionaryType = {
     product_application_scopes_search_placeholder: string
     product_collections_text: string
     search_for_product_text: string
+    high_performance_products_for_the_text: string
+    application_scope_meta_description_content: string
+    product_categories_meta_description_content: string
+    product_series_collection_meta_title_text: string
+    product_series_collection_meta_description_text: string
   }
 }
