@@ -26,6 +26,6 @@ jobs:
             nvm use 18
             cd /var/www/restoreplus-client
             git pull origin main
-            pnpm install
+            pnpm install --frozen-lockfile
             pnpm build
             pm2 restart restoreplus-client
