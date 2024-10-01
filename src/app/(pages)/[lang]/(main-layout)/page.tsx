@@ -5,8 +5,18 @@ import HeroSection from '@/components/pages/index/hero-section'
 import ProductSeriesSection from '@/components/pages/index/product-series-section'
 import RecommendedForYouSection from '@/components/pages/index/recommended-for-you-section'
 import WhereToUseSection from '@/components/pages/index/where-to-use-section'
+import { getSeoPageByPathnameAndLocale } from '@/features/seo-pages/api/get-seo-page-by-pathname-and-locale'
 import { ParamsWithLang } from '@/i18n/types'
 import { sdk } from '@/restoreplus-sdk'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const lang = params.lang
+
+  const seoData = await getSeoPageByPathnameAndLocale('/', lang)
+
+  return seoData
+}
 
 export default async function page({ params: { lang } }: ParamsWithLang) {
   const { data: applicationScopes } = await sdk.applicationScopes.getAllByQuery(
@@ -28,8 +38,6 @@ export default async function page({ params: { lang } }: ParamsWithLang) {
     process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? 24 : 44,
     { lang, isAdmin: true }
   )
-
-  console.log({ foodGradeProductCategory })
 
   const foodGradeCategorySlug =
     foodGradeProductCategory && !foodGradeProductCategory.message
