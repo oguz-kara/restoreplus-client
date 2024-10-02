@@ -2,6 +2,7 @@ import { serverUrl } from '@/config/get-env-fields'
 import i18n, { SupportedLocale } from '@/i18n'
 import { getProperLanguage } from '@/i18n/utils'
 import { sdk } from '@/restoreplus-sdk'
+import { consoleLog } from '@/utils/log-to-console'
 import { Metadata } from 'next'
 
 type SeoPageType = (pathname: string, locale: string) => Promise<Metadata>
@@ -20,7 +21,11 @@ export const getSeoPageByPathnameAndLocale: SeoPageType = async (
     { lang: locale }
   )
 
-  const localesData = await sdk.supportedLocales.getAll({ take: 'all' })
+  const localesData = await sdk.supportedLocales.getAllByQuery({
+    take: 'all',
+    where: { locale: { not: i18n.defaultLocale } },
+  })
+  consoleLog({ localesData })
   const languages = localesData.data.map(
     (locale: any) => locale.locale
   ) as SupportedLocale[]

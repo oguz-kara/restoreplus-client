@@ -38,7 +38,10 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     { lang }
   )
 
-  const localesData = await sdk.supportedLocales.getAllByQuery({ take: 'all' })
+  const localesData = await sdk.supportedLocales.getAllByQuery({
+    take: 'all',
+    where: { locale: { not: i18n.defaultLocale } },
+  })
   const languages = localesData.data.map((locale: any) => locale.locale)
   const alternateLangs = Object.fromEntries(
     languages.map((lang: SupportedLocale) => [
