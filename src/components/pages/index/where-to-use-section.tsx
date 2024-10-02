@@ -18,13 +18,6 @@ export default function WhereToUseSection({
   const router = useRouter()
   const { dictionary: dict } = useDictionary()
 
-  const handleSeeDetailsButtonClick = (slug: string) => {
-    router.push(`/application-scope/${slug}`)
-  }
-  const handleSeeProductsButtonClick = (slug: string) => {
-    router.push(`/collections/application-scopes/${slug}`)
-  }
-
   if ((applicationScopes as WithMessageType)?.message || !applicationScopes)
     return null
 
@@ -61,30 +54,32 @@ export default function WhereToUseSection({
                 {item.translation.name}
               </Typography>
               <div className="flex gap-2">
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleSeeDetailsButtonClick(item.translation.slug)
-                  }}
-                  className="flex-1"
-                  size="sm"
-                  role="link"
-                  aria-label={dict.index.see_details_text}
+                <Link
+                  href={`/application-scope/${item.translation.slug}`}
+                  lang={lang}
                 >
-                  {dict.index.see_details_text}
-                </Button>
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleSeeProductsButtonClick(item.translation.slug)
-                  }}
-                  className="flex-1"
-                  size="sm"
-                  role="link"
-                  aria-label={dict.index.explore_products_text}
+                  <Button
+                    className="flex-1"
+                    size="sm"
+                    role="link"
+                    aria-label={dict.index.see_details_text}
+                  >
+                    {dict.index.see_details_text}
+                  </Button>
+                </Link>
+                <Link
+                  href={`/collections/application-scopes/${item.translation.slug}`}
+                  lang={lang}
                 >
-                  {dict.index.explore_products_text}
-                </Button>
+                  <Button
+                    className="flex-1"
+                    size="sm"
+                    role="link"
+                    aria-label={dict.index.explore_products_text}
+                  >
+                    {dict.index.explore_products_text}
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

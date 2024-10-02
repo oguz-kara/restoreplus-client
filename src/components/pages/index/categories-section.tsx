@@ -60,30 +60,32 @@ export default function CategoriesSection({
                 {item.translation.name}
               </Typography>
               <div className="flex gap-2">
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleSeeDetailsButtonClick(item.translation.slug)
-                  }}
-                  className="flex-1"
-                  size="sm"
-                  role="link"
-                  aria-label={dict.index.see_details_text}
+                <Link
+                  href={`/product/categories/${item.translation.slug}`}
+                  lang={lang}
                 >
-                  {dict.index.see_details_text}
-                </Button>
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleSeeProductsButtonClick(item.translation.slug)
-                  }}
-                  className="flex-1"
-                  size="sm"
-                  role="link"
-                  aria-label={dict.index.explore_products_text}
+                  <Button
+                    className="flex-1"
+                    size="sm"
+                    role="link"
+                    aria-label={dict.index.see_details_text}
+                  >
+                    {dict.index.see_details_text}
+                  </Button>
+                </Link>
+                <Link
+                  href={`/collections/product-categories/${item.translation.slug}`}
+                  lang={lang}
                 >
-                  {dict.index.explore_products_text}
-                </Button>
+                  <Button
+                    className="flex-1"
+                    size="sm"
+                    role="link"
+                    aria-label={dict.index.explore_products_text}
+                  >
+                    {dict.index.explore_products_text}
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
