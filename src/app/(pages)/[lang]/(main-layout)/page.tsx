@@ -45,7 +45,7 @@ export default async function page({ params: { lang } }: ParamsWithLang) {
       : undefined
 
   return (
-    <div>
+    <div className="bg-gray-100">
       <HeroSection lang={lang} categorySlug={foodGradeCategorySlug} />
       <Container>
         <ProductSeriesSection productSeries={productSeries} lang={lang} />

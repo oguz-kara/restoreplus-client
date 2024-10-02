@@ -60,71 +60,73 @@ export default async function ProductFinderPageV2({
   const { data: facetData } = await sdk.facets.getAll({ lang })
 
   return (
-    <Container>
-      <div className="lg:flex lg:min-h-screen">
-        <div className="block lg:hidden mt-3">
-          <Accordion type="multiple">
-            <AccordionItem value="1">
-              <AccordionTrigger
-                className="text-[#ccae00] text-lg p-5"
-                showChevronIcon={false}
-              >
-                <div className="flex items-center gap-1">
-                  <Filter size="20px" />
-                  {dict.common.filter_text}
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <ProductFinderFiltersV2
-                  categoryData={categoryData}
-                  sectorData={sectorData}
-                  facetData={facetData}
-                />
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+    <div className="bg-gray-100">
+      <Container>
+        <div className="lg:flex lg:min-h-screen">
+          <div className="block lg:hidden mt-3">
+            <Accordion type="multiple">
+              <AccordionItem value="1">
+                <AccordionTrigger
+                  className="text-[#ccae00] text-lg p-5"
+                  showChevronIcon={false}
+                >
+                  <div className="flex items-center gap-1">
+                    <Filter size="20px" />
+                    {dict.common.filter_text}
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ProductFinderFiltersV2
+                    categoryData={categoryData}
+                    sectorData={sectorData}
+                    facetData={facetData}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+          <div className="hidden lg:block">
+            <ProductFinderFiltersV2
+              categoryData={categoryData}
+              sectorData={sectorData}
+              facetData={facetData}
+            />
+          </div>
+          <div className="flex-[3] px-5 py-10 pt-5 bg-gray-100">
+            <ListProductTabs listCategoryData={listCategoryData}>
+              <div>
+                <Typography
+                  as="h5"
+                  className="text-xl lg:text-4xl font-bold  text-gray-700"
+                >
+                  {listCategoryData.reduce(
+                    (prev, val) => prev + val.productCount,
+                    0
+                  )}{' '}
+                  {` `}
+                  {dict.common.product_found_text}
+                </Typography>
+              </div>
+            </ListProductTabs>
+            {listCategoryData.length < 1 ? (
+              <Alert>
+                <AlertTitle>
+                  <div className="flex items-center gap-2">
+                    <Search size="20px" />
+                    {dict.common.no_data_found_text}
+                  </div>
+                </AlertTitle>
+                <AlertDescription>
+                  {dict.product.no_products_text}{' '}
+                  <Link href="/offer" lang={lang} className="text-blue-500">
+                    {dict.common.contact_us_text}
+                  </Link>
+                </AlertDescription>
+              </Alert>
+            ) : null}
+          </div>
         </div>
-        <div className="hidden lg:block">
-          <ProductFinderFiltersV2
-            categoryData={categoryData}
-            sectorData={sectorData}
-            facetData={facetData}
-          />
-        </div>
-        <div className="flex-[3] px-5 py-10 pt-5 bg-gray-100">
-          <ListProductTabs listCategoryData={listCategoryData}>
-            <div>
-              <Typography
-                as="h5"
-                className="text-xl lg:text-4xl font-bold  text-gray-700"
-              >
-                {listCategoryData.reduce(
-                  (prev, val) => prev + val.productCount,
-                  0
-                )}{' '}
-                {` `}
-                {dict.common.product_found_text}
-              </Typography>
-            </div>
-          </ListProductTabs>
-          {listCategoryData.length < 1 ? (
-            <Alert>
-              <AlertTitle>
-                <div className="flex items-center gap-2">
-                  <Search size="20px" />
-                  {dict.common.no_data_found_text}
-                </div>
-              </AlertTitle>
-              <AlertDescription>
-                {dict.product.no_products_text}{' '}
-                <Link href="/offer" lang={lang} className="text-blue-500">
-                  {dict.common.contact_us_text}
-                </Link>
-              </AlertDescription>
-            </Alert>
-          ) : null}
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   )
 }

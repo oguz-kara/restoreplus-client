@@ -201,7 +201,11 @@ export default function B2BApplicationForm({
                     {dict.common.phone_number_text}
                   </FormLabel>
                   <FormControl className="w-full">
-                    <PhoneInput className="rounded-sm" {...field} />
+                    <PhoneInput
+                      disabled={false}
+                      className="rounded-sm"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
